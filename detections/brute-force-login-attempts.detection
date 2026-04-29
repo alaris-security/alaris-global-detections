@@ -1,0 +1,29 @@
+{
+  "slug": "brute-force-login-attempts",
+  "title": "Brute Force Login Attempts",
+  "description": "Detects a high volume of failed authentication attempts from a single source within a short time window, indicative of credential brute-force or password spraying.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["authentication", "brute-force", "credential-access", "password-spray"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1110", "tacticId": "TA0006" },
+    { "techniqueId": "T1110.003", "tacticId": "TA0006" }
+  ],
+  "rules": ["rules/siem/brute-force-login-attempts.sigma"],
+  "intent": {
+    "conditions": [
+      "More than 20 failed authentications from the same source within 5 minutes",
+      "Authentications target two or more distinct accounts"
+    ],
+    "dataSourceRequirements": [
+      "Windows Security event log (4625) or equivalent identity provider failure events"
+    ],
+    "tuningParameters": {
+      "failureThreshold": 20,
+      "timeWindowMinutes": 5,
+      "distinctAccountThreshold": 2
+    },
+    "sourceContext": "Identify brute force and password spray campaigns by clustering failed logon events per source over a short window."
+  }
+}

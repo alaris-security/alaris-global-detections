@@ -1,0 +1,28 @@
+{
+  "slug": "lateral-movement-psexec",
+  "title": "Lateral Movement via PsExec",
+  "description": "Detects installation of the PSEXESVC service or related variants (PAExec, RemCom, CSExec), indicative of SMB-based remote command execution for lateral movement.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "psexec", "smb", "service-install"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1021.002", "tacticId": "TA0008" },
+    { "techniqueId": "T1543.003", "tacticId": "TA0003" }
+  ],
+  "rules": ["rules/siem/lateral-movement-psexec.sigma"],
+  "intent": {
+    "conditions": [
+      "Service Control Manager event 7045 names a PsExec-family service",
+      "Or PSEXESVC.exe / PAExec.exe / RemCom.exe is observed running"
+    ],
+    "dataSourceRequirements": [
+      "Windows System log (Service Control Manager event 7045)",
+      "Process creation telemetry with image path"
+    ],
+    "tuningParameters": {
+      "allowedAdminHosts": []
+    },
+    "sourceContext": "PsExec-class tools are among the most common Windows lateral-movement primitives; the service install event is high fidelity."
+  }
+}

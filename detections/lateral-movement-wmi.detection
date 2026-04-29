@@ -1,0 +1,27 @@
+{
+  "slug": "lateral-movement-wmi",
+  "title": "Lateral Movement via WMI Process Execution",
+  "description": "Detects shell or scripting interpreters spawned by WmiPrvSE.exe, the canonical pattern for remote command execution via Win32_Process.Create or wmic /node.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "wmi", "execution", "living-off-the-land"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1047", "tacticId": "TA0008" },
+    { "techniqueId": "T1047", "tacticId": "TA0002" }
+  ],
+  "rules": ["rules/siem/lateral-movement-wmi.sigma"],
+  "intent": {
+    "conditions": [
+      "Process creation where ParentImage is WmiPrvSE.exe",
+      "Image is a shell, scripting interpreter, or LOLBin"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events (Sysmon EID 1 or Security 4688) including ParentImage"
+    ],
+    "tuningParameters": {
+      "allowedChildImages": []
+    },
+    "sourceContext": "Remote WMI execution is widely used by APT and ransomware operators; child of WmiPrvSE.exe is a high-fidelity tell."
+  }
+}

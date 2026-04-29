@@ -1,0 +1,32 @@
+title: C2 Beaconing Pattern
+id: 35395b65-10c0-4f25-9031-7fe19b740cdb
+status: experimental
+description: Detects high-frequency repeated outbound connections from one source to one destination, indicative of beaconing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    Initiated: 'true'
+    DestinationPort:
+      - 80
+      - 443
+      - 8080
+      - 8443
+  timeframe: 1h
+  condition: selection | count() by SourceIp,DestinationIp,DestinationPort > 30
+fields:
+  - SourceIp
+  - DestinationIp
+  - DestinationPort
+  - Image
+falsepositives:
+  - Browser sync or telemetry traffic to a single SaaS endpoint
+  - Software update agents polling on a fixed cadence
+level: low
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

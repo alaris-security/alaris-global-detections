@@ -1,0 +1,29 @@
+{
+  "slug": "impossible-travel-login",
+  "title": "Impossible Travel Login",
+  "description": "Detects successful authentications for the same identity from geographically distant source IPs within a window that is shorter than physically plausible travel time.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["identity", "impossible-travel", "credential-access", "cloud-auth"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1078.004", "tacticId": "TA0001" },
+    { "techniqueId": "T1078", "tacticId": "TA0003" }
+  ],
+  "rules": ["rules/siem/impossible-travel-login.sigma"],
+  "intent": {
+    "conditions": [
+      "Two successful logins for the same user from source IPs in different countries",
+      "Time delta between logins is shorter than the minimum plausible travel time"
+    ],
+    "dataSourceRequirements": [
+      "Identity provider sign-in logs with source IP and geo-resolution",
+      "GeoIP lookup capability in the SIEM pipeline"
+    ],
+    "tuningParameters": {
+      "minTravelMinutesPerCountryPair": 240,
+      "trustedNetworkPrefixes": []
+    },
+    "sourceContext": "Surface account compromise where a stolen credential is used from a different country than the legitimate user."
+  }
+}

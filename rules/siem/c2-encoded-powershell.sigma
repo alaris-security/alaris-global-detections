@@ -1,0 +1,36 @@
+title: Encoded PowerShell Command Execution
+id: 62d250b4-ba9f-4294-a453-3ca8a068037c
+status: experimental
+description: Detects PowerShell launched with EncodedCommand-style obfuscation flags.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1027/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - ' -EncodedCommand'
+      - ' -encodedcommand'
+      - ' -enc '
+      - ' -ec '
+      - ' -e '
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Software deployment tools that wrap commands with EncodedCommand for parameter passing
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.execution
+  - attack.defense_evasion
+  - attack.t1059.001
+  - attack.t1027

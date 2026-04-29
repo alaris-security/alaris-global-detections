@@ -1,0 +1,29 @@
+{
+  "slug": "discovery-ad-enumeration",
+  "title": "Active Directory Enumeration",
+  "description": "Detects Active Directory enumeration via net.exe, dsquery, ldap-related tooling, or BloodHound collection cmdlets.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "active-directory", "bloodhound", "ldap"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1087.002", "tacticId": "TA0007" },
+    { "techniqueId": "T1069.002", "tacticId": "TA0007" },
+    { "techniqueId": "T1018", "tacticId": "TA0007" }
+  ],
+  "rules": ["rules/siem/discovery-ad-enumeration.sigma"],
+  "intent": {
+    "conditions": [
+      "net.exe / net1.exe with /domain enumeration arguments",
+      "Or dsquery / Get-ADComputer / Get-ADUser invocations",
+      "Or PowerShell SharpHound / Invoke-BloodHound execution"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events with full command line"
+    ],
+    "tuningParameters": {
+      "allowedAdmins": []
+    },
+    "sourceContext": "AD recon precedes lateral movement; clusters of these commands within minutes of one another are especially high-fidelity."
+  }
+}

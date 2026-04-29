@@ -1,0 +1,28 @@
+{
+  "slug": "c2-encoded-powershell",
+  "title": "Encoded PowerShell Command Execution",
+  "description": "Detects PowerShell launched with -EncodedCommand or equivalent obfuscation switches, commonly used by C2 stagers and post-exploitation frameworks to hide command intent.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "powershell", "encoded-command", "obfuscation"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1059.001", "tacticId": "TA0002" },
+    { "techniqueId": "T1027", "tacticId": "TA0005" }
+  ],
+  "rules": ["rules/siem/c2-encoded-powershell.sigma"],
+  "intent": {
+    "conditions": [
+      "powershell.exe / pwsh.exe invoked with -EncodedCommand, -enc, or -ec flag",
+      "Process is not invoked by an allowlisted parent (ConfigMgr, RMM, etc.)"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events with full command line"
+    ],
+    "tuningParameters": {
+      "allowedParentImages": [],
+      "allowedDecodedCommands": []
+    },
+    "sourceContext": "Encoded PowerShell is heavily abused by C2 framework stagers (Empire, Covenant, Cobalt Strike) and rare in well-engineered legitimate workflows."
+  }
+}

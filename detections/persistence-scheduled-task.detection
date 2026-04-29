@@ -1,0 +1,28 @@
+{
+  "slug": "persistence-scheduled-task",
+  "title": "Scheduled Task Persistence",
+  "description": "Detects creation of scheduled tasks via schtasks.exe with attacker-typical arguments such as SYSTEM run-as, remote host targeting, or short-interval triggers.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "scheduled-task", "schtasks", "execution"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1053.005", "tacticId": "TA0003" },
+    { "techniqueId": "T1053.005", "tacticId": "TA0002" }
+  ],
+  "rules": ["rules/siem/persistence-scheduled-task.sigma"],
+  "intent": {
+    "conditions": [
+      "schtasks.exe invoked with /create",
+      "Combined with /ru SYSTEM, /s remoteHost, /xml import, or short interval triggers"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events with full command line"
+    ],
+    "tuningParameters": {
+      "allowedTaskNames": [],
+      "allowedExecutors": []
+    },
+    "sourceContext": "Scheduled tasks are a long-standing persistence mechanism and a vehicle for SYSTEM-level execution and remote command execution."
+  }
+}

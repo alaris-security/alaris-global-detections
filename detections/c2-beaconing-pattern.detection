@@ -1,0 +1,28 @@
+{
+  "slug": "c2-beaconing-pattern",
+  "title": "C2 Beaconing Pattern",
+  "description": "Detects periodic outbound HTTP/HTTPS connections from a single host to a single destination, characteristic of implant beaconing to a command and control server.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["command-and-control", "beacon", "periodicity", "implant"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1071.001", "tacticId": "TA0011" }
+  ],
+  "rules": ["rules/siem/c2-beaconing-pattern.sigma"],
+  "intent": {
+    "conditions": [
+      "More than 30 outbound connections from one source to one destination/port within an hour",
+      "Inter-arrival times have low standard deviation (jitter < 30%)"
+    ],
+    "dataSourceRequirements": [
+      "Network connection telemetry with timestamps (Sysmon EID 3, firewall, NetFlow, or proxy)"
+    ],
+    "tuningParameters": {
+      "minConnectionsPerHour": 30,
+      "maxJitterPercent": 30,
+      "allowedDestinations": []
+    },
+    "sourceContext": "Most C2 frameworks beacon at a configured interval with optional jitter; periodicity is a behavioral, infrastructure-agnostic signal."
+  }
+}

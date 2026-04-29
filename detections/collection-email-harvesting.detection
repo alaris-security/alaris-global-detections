@@ -1,0 +1,31 @@
+{
+  "slug": "collection-email-harvesting",
+  "title": "Email Harvesting from Local Mail Store",
+  "description": "Detects access to local Outlook PST/OST stores or Exchange mailbox export operations from non-standard processes, indicative of email collection prior to exfiltration.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["collection", "email", "pst", "ost", "mailbox-export"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1114.001", "tacticId": "TA0009" },
+    { "techniqueId": "T1114.002", "tacticId": "TA0009" }
+  ],
+  "rules": ["rules/siem/collection-email-harvesting.sigma"],
+  "intent": {
+    "conditions": [
+      "Process opening a .pst or .ost file outside of OUTLOOK.EXE",
+      "Or Exchange Management Shell New-MailboxExportRequest invocation"
+    ],
+    "dataSourceRequirements": [
+      "Sysmon FileCreate / file_event telemetry",
+      "Process creation events with full command line"
+    ],
+    "tuningParameters": {
+      "allowedReaders": [
+        "OUTLOOK.EXE",
+        "scanpst.exe"
+      ]
+    },
+    "sourceContext": "Mail stores are dense with sensitive content; bulk reads or exports are an early-stage exfiltration signal."
+  }
+}

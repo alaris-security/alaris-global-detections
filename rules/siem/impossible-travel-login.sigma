@@ -1,0 +1,29 @@
+title: Impossible Travel Login
+id: 5b2accb0-27ec-441f-ab5b-2d03d98aebb3
+status: experimental
+description: Detects successful logins for the same user from geographically distant locations within an implausible window.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    ResultType: 0
+  timeframe: 4h
+  condition: selection | count_distinct(LocationCountryOrRegion) by UserPrincipalName > 1
+fields:
+  - UserPrincipalName
+  - IPAddress
+  - LocationCountryOrRegion
+  - AppDisplayName
+falsepositives:
+  - Legitimate use of VPNs or cloud workspaces that egress from multiple regions
+  - Frequent travelers within tight time windows
+level: medium
+tags:
+  - attack.initial_access
+  - attack.persistence
+  - attack.t1078
+  - attack.t1078.004

@@ -1,0 +1,36 @@
+title: Token Manipulation for Privilege Escalation
+id: 36b55899-1401-4d3b-b945-ecd2d28a03e9
+status: experimental
+description: Detects assignment of impersonation privileges to non-service accounts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1134/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4672
+    PrivilegeList|contains:
+      - 'SeImpersonatePrivilege'
+      - 'SeAssignPrimaryTokenPrivilege'
+      - 'SeTcbPrivilege'
+  filter_legit:
+    SubjectUserName:
+      - 'SYSTEM'
+      - 'LOCAL SERVICE'
+      - 'NETWORK SERVICE'
+  condition: selection and not filter_legit
+fields:
+  - SubjectUserName
+  - SubjectDomainName
+  - PrivilegeList
+falsepositives:
+  - Service accounts not in the allowlist; tune to environment
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1134
+  - attack.t1134.001
+  - attack.t1134.002

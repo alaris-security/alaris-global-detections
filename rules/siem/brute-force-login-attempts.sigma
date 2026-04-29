@@ -1,0 +1,28 @@
+title: Brute Force Login Attempts
+id: 1f23105b-5ef5-497d-bcd7-51a197b3ffc9
+status: experimental
+description: Detects repeated failed Windows logon attempts (event 4625) from the same source.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1110/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4625
+  timeframe: 5m
+  condition: selection | count(TargetUserName) by IpAddress > 20
+fields:
+  - IpAddress
+  - TargetUserName
+  - WorkstationName
+  - LogonType
+falsepositives:
+  - Misconfigured services repeatedly attempting authentication with stale credentials
+  - Vulnerability scanners performing authenticated checks
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110
+  - attack.t1110.003
