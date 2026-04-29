@@ -1,0 +1,44 @@
+title: Email Harvesting from Local Mail Store
+id: fc2a7ebc-011b-46eb-a19c-7f4fa83c8148
+status: experimental
+description: Detects access to local PST/OST mailbox files by non-Outlook processes or use of mailbox export cmdlets.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/001/
+  - https://attack.mitre.org/techniques/T1114/002/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_pst:
+    CommandLine|contains:
+      - '.pst'
+      - '.ost'
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\cmd.exe'
+      - '\7z.exe'
+      - '\rar.exe'
+      - '\copy.exe'
+      - '\xcopy.exe'
+      - '\robocopy.exe'
+  selection_export:
+    CommandLine|contains:
+      - 'New-MailboxExportRequest'
+      - 'Search-Mailbox'
+      - 'Export-Mailbox'
+  condition: selection_pst or selection_export
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Backup software collecting mail stores
+  - IT scripts archiving departing-user mailboxes
+level: low
+tags:
+  - attack.collection
+  - attack.t1114.001
+  - attack.t1114.002

@@ -1,0 +1,35 @@
+title: Exfiltration via DNS Tunneling
+id: e37c84ad-c7bc-48a0-addf-ad0bf0e8af0c
+status: experimental
+description: Detects DNS queries with abnormally long names indicative of tunneling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1048/003/
+  - https://attack.mitre.org/techniques/T1071/004/
+logsource:
+  product: windows
+  category: dns_query
+detection:
+  selection:
+    QueryName|re: '^[a-zA-Z0-9-]{100,}\..*'
+  filter_known:
+    QueryName|contains:
+      - '.akamaiedge.net'
+      - '.cloudfront.net'
+      - '.azureedge.net'
+      - '.googleusercontent.com'
+      - '.s3.amazonaws.com'
+  condition: selection and not filter_known
+fields:
+  - QueryName
+  - Image
+  - User
+falsepositives:
+  - Anti-spam DNSBL lookups
+  - CDN or analytics services using long encoded subdomains not in allowlist
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.command_and_control
+  - attack.t1048.003
+  - attack.t1071.004

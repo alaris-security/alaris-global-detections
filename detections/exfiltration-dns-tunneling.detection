@@ -1,0 +1,34 @@
+{
+  "slug": "exfiltration-dns-tunneling",
+  "title": "Exfiltration via DNS Tunneling",
+  "description": "Detects DNS queries with abnormally long subdomain components, a strong indicator of DNS tunneling for command and control or data exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "dns", "tunneling", "command-and-control"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1048.003", "tacticId": "TA0010" },
+    { "techniqueId": "T1071.004", "tacticId": "TA0011" }
+  ],
+  "rules": ["rules/siem/exfiltration-dns-tunneling.sigma"],
+  "intent": {
+    "conditions": [
+      "DNS query name length exceeds 100 characters",
+      "Domain is not on the CDN / analytics allowlist"
+    ],
+    "dataSourceRequirements": [
+      "Sysmon DNS query events (event 22) or DNS server query logs"
+    ],
+    "tuningParameters": {
+      "minQueryNameLength": 100,
+      "allowedSuffixes": [
+        ".akamaiedge.net",
+        ".cloudfront.net",
+        ".azureedge.net",
+        ".googleusercontent.com",
+        ".s3.amazonaws.com"
+      ]
+    },
+    "sourceContext": "DNS tunneling tools (dnscat2, iodine, Cobalt Strike DNS beacon) encode payloads in subdomain labels, producing query names far longer than legitimate traffic."
+  }
+}

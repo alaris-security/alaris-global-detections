@@ -1,0 +1,44 @@
+title: Exfiltration via Large Upload to Public File Sharing
+id: 725b8c36-385a-42ed-9b5f-7b4e0b12e9cf
+status: experimental
+description: Detects upload command lines targeting public file-sharing services.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_image:
+    Image|endswith:
+      - '\curl.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\rclone.exe'
+      - '\WinSCP.com'
+      - '\WinSCP.exe'
+  selection_target:
+    CommandLine|contains:
+      - 'mega.nz'
+      - 'mega.io'
+      - 'anonfiles.com'
+      - 'transfer.sh'
+      - 'file.io'
+      - 'gofile.io'
+      - 'send.bitwarden.com'
+      - 'temp.sh'
+      - 'pixeldrain.com'
+      - 'catbox.moe'
+      - 'ufile.io'
+  condition: selection_image and selection_target
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Users legitimately sharing large files via approved transfer services
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567.002
+  - attack.t1048

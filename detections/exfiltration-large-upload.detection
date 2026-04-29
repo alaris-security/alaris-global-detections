@@ -1,0 +1,29 @@
+{
+  "slug": "exfiltration-large-upload",
+  "title": "Exfiltration via Large Upload to Public File Sharing",
+  "description": "Detects command-line uploads to public file-sharing or cloud storage services commonly abused for exfiltration, such as mega.nz, anonfiles, transfer.sh, and rclone-staged transfers.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "cloud-storage", "web-service", "upload"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1567.002", "tacticId": "TA0010" },
+    { "techniqueId": "T1048", "tacticId": "TA0010" }
+  ],
+  "rules": ["rules/siem/exfiltration-large-upload.sigma"],
+  "intent": {
+    "conditions": [
+      "curl, PowerShell, rclone, or WinSCP invoked with a target URL or remote path",
+      "Target is a known public file-sharing service"
+    ],
+    "dataSourceRequirements": [
+      "Process creation events with full command line"
+    ],
+    "tuningParameters": {
+      "allowedDestinations": [
+        "wetransfer.com"
+      ]
+    },
+    "sourceContext": "Operators favor public file-sharing services because they blend with normal HTTPS and rarely require authentication."
+  }
+}

@@ -1,0 +1,40 @@
+title: Lateral Movement via PsExec
+id: 9c3e64c1-4257-446b-876b-22a63a5fb028
+status: experimental
+description: Detects PsExec / PAExec / RemCom service installation and process execution patterns.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  product: windows
+  service: system
+detection:
+  selection_install:
+    Provider_Name: 'Service Control Manager'
+    EventID: 7045
+    ServiceName|contains:
+      - 'PSEXESVC'
+      - 'PAEXEC'
+      - 'REMCOM'
+      - 'CSEXEC'
+  selection_image:
+    ImagePath|contains:
+      - '\PSEXESVC'
+      - '\PAExec'
+      - '\RemCom'
+      - '\CSExec'
+  condition: selection_install or selection_image
+fields:
+  - ServiceName
+  - ImagePath
+  - AccountName
+  - Computer
+falsepositives:
+  - IT administrators using Sysinternals PsExec for legitimate remote administration
+level: critical
+tags:
+  - attack.lateral_movement
+  - attack.persistence
+  - attack.t1021.002
+  - attack.t1543.003

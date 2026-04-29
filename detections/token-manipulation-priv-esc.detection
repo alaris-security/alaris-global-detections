@@ -1,0 +1,32 @@
+{
+  "slug": "token-manipulation-priv-esc",
+  "title": "Token Manipulation for Privilege Escalation",
+  "description": "Detects abnormal use of access token APIs and SeImpersonatePrivilege/SeAssignPrimaryTokenPrivilege grants by non-system processes, indicative of token theft or impersonation.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "token-manipulation", "impersonation", "potato"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1134", "tacticId": "TA0004" },
+    { "techniqueId": "T1134.001", "tacticId": "TA0005" },
+    { "techniqueId": "T1134.002", "tacticId": "TA0004" }
+  ],
+  "rules": ["rules/siem/token-manipulation-priv-esc.sigma"],
+  "intent": {
+    "conditions": [
+      "Special logon (event 4672) granting SeImpersonatePrivilege or SeAssignPrimaryTokenPrivilege",
+      "Subject account is a non-service, non-administrator account"
+    ],
+    "dataSourceRequirements": [
+      "Windows Security log events 4672 (special privileges assigned) and 4624 (logon)"
+    ],
+    "tuningParameters": {
+      "allowedSubjects": [
+        "NETWORK SERVICE",
+        "LOCAL SERVICE",
+        "SYSTEM"
+      ]
+    },
+    "sourceContext": "Catch token-impersonation primitives used by Potato-family exploits and similar privilege-escalation tooling."
+  }
+}

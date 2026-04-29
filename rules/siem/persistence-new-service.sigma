@@ -1,0 +1,39 @@
+title: New Service Installation Persistence
+id: 3282ecdd-8d0b-4960-b006-c76d8270f892
+status: experimental
+description: Detects new Windows service installations with suspicious image paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  product: windows
+  service: system
+detection:
+  selection:
+    Provider_Name: 'Service Control Manager'
+    EventID: 7045
+  selection_path:
+    ImagePath|contains:
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+      - 'powershell'
+      - 'cmd.exe'
+      - 'rundll32'
+      - 'regsvr32'
+      - 'mshta'
+      - 'wscript'
+      - 'cscript'
+  condition: selection and selection_path
+fields:
+  - ServiceName
+  - ImagePath
+  - AccountName
+  - Computer
+falsepositives:
+  - Legitimate vendor agents installing update services from ProgramData
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.003

@@ -1,0 +1,46 @@
+title: Suspicious PowerShell Execution
+id: ad878402-fdb1-4927-ab3c-f01ae6b90a84
+status: experimental
+description: Detects PowerShell processes with attacker-typical flags and download cradles.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_image:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  selection_indicator:
+    CommandLine|contains:
+      - 'Net.WebClient'
+      - 'DownloadString'
+      - 'DownloadFile'
+      - 'Invoke-WebRequest'
+      - 'Invoke-RestMethod'
+      - 'Start-BitsTransfer'
+      - 'IEX('
+      - 'iex ('
+      - '-EncodedCommand'
+      - '-enc '
+      - '-WindowStyle Hidden'
+      - '-w hidden'
+      - '-NoProfile'
+      - '-nop '
+  condition: selection_image and selection_indicator
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Endpoint management agents wrapping legitimate PowerShell modules
+  - Internal automation scripts using EncodedCommand for parameter passing
+level: high
+tags:
+  - attack.execution
+  - attack.command_and_control
+  - attack.t1059.001
+  - attack.t1105

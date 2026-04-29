@@ -1,0 +1,28 @@
+{
+  "slug": "defense-evasion-log-clearing",
+  "title": "Windows Event Log Cleared",
+  "description": "Detects clearing of Windows event logs via Security audit event 1102 or wevtutil cl, indicative of attempts to remove forensic evidence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "log-clearing", "wevtutil", "anti-forensics"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1070.001", "tacticId": "TA0005" }
+  ],
+  "rules": ["rules/siem/defense-evasion-log-clearing.sigma"],
+  "intent": {
+    "conditions": [
+      "Windows Security event 1102 (audit log cleared)",
+      "Or wevtutil.exe with the cl / clear-log argument",
+      "Or PowerShell Clear-EventLog / Remove-EventLog invocation"
+    ],
+    "dataSourceRequirements": [
+      "Windows Security event log",
+      "Process creation telemetry with command line"
+    ],
+    "tuningParameters": {
+      "allowedClearingAccounts": []
+    },
+    "sourceContext": "Log clearing is anti-forensic, not normal admin activity; high signal under any context."
+  }
+}

@@ -1,0 +1,35 @@
+title: Registry Run Key Persistence
+id: 26b6728d-d317-47ce-aaac-266f6ee0b5ae
+status: experimental
+description: Detects creation or modification of Run / RunOnce registry values.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains:
+      - '\Software\Microsoft\Windows\CurrentVersion\Run\'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunOnce\'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunServices\'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\'
+      - '\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Run\'
+  filter_legit:
+    Image|endswith:
+      - '\msiexec.exe'
+      - '\TrustedInstaller.exe'
+      - '\OneDriveSetup.exe'
+  condition: selection and not filter_legit
+fields:
+  - TargetObject
+  - Details
+  - Image
+  - User
+falsepositives:
+  - Legitimate software installers writing autorun entries on first launch
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.001

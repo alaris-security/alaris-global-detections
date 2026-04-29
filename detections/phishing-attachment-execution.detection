@@ -1,0 +1,27 @@
+{
+  "slug": "phishing-attachment-execution",
+  "title": "Phishing Attachment Execution",
+  "description": "Detects Microsoft Office applications spawning shell or scripting interpreters, the canonical pattern for weaponized macro or HTA delivery via phishing.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "macro", "office", "execution"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1566.001", "tacticId": "TA0001" },
+    { "techniqueId": "T1059", "tacticId": "TA0002" }
+  ],
+  "rules": ["rules/siem/phishing-attachment-execution.sigma"],
+  "intent": {
+    "conditions": [
+      "Process creation where ParentImage is winword/excel/powerpnt/outlook",
+      "Image is a shell, scripting interpreter, or LOLBin"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events with ParentImage"
+    ],
+    "tuningParameters": {
+      "allowedTemplateLaunchers": []
+    },
+    "sourceContext": "Office documents have no business launching shells; this child relationship is one of the strongest signals of weaponized attachments."
+  }
+}

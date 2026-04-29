@@ -1,0 +1,28 @@
+{
+  "slug": "suspicious-powershell-execution",
+  "title": "Suspicious PowerShell Execution",
+  "description": "Detects PowerShell processes invoked with command-line arguments and download cradles characteristic of attacker tradecraft, including hidden windows, encoded commands, and remote payload retrieval.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["powershell", "execution", "download-cradle", "command-and-control"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1059.001", "tacticId": "TA0002" },
+    { "techniqueId": "T1105", "tacticId": "TA0011" }
+  ],
+  "rules": ["rules/siem/suspicious-powershell-execution.sigma"],
+  "intent": {
+    "conditions": [
+      "PowerShell launched with hidden window or non-interactive flags",
+      "Command line includes a download cradle or in-memory invocation"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events (Sysmon EID 1 or Security 4688) with full command line"
+    ],
+    "tuningParameters": {
+      "allowedSigners": [],
+      "allowedScriptPaths": []
+    },
+    "sourceContext": "Catch the moment a PowerShell-based loader fetches and executes a remote payload."
+  }
+}

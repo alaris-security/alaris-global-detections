@@ -1,0 +1,28 @@
+{
+  "slug": "defense-evasion-disable-av",
+  "title": "Defense Evasion: Disabling Antivirus or EDR",
+  "description": "Detects attempts to disable Microsoft Defender or tamper with security tooling via PowerShell cmdlets, registry edits, or service stop/disable commands.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "disable-av", "defender-tamper", "edr-bypass"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1562.001", "tacticId": "TA0005" }
+  ],
+  "rules": ["rules/siem/defense-evasion-disable-av.sigma"],
+  "intent": {
+    "conditions": [
+      "Set-MpPreference invocation disabling realtime monitoring or scanning",
+      "Or registry write to DisableAntiSpyware / DisableRealtimeMonitoring",
+      "Or sc / net commands stopping the WinDefend service"
+    ],
+    "dataSourceRequirements": [
+      "Process creation events with full command line",
+      "Sysmon registry events"
+    ],
+    "tuningParameters": {
+      "allowedAdmins": []
+    },
+    "sourceContext": "Defender tampering is a near-universal precursor to ransomware detonation and a frequent step in hands-on-keyboard intrusions."
+  }
+}

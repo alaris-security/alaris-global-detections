@@ -1,0 +1,36 @@
+title: Scheduled Task Persistence
+id: eb1df491-16ab-445d-a592-3d20d9f4f1b4
+status: experimental
+description: Detects schtasks.exe creating tasks with attacker-typical arguments.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_image:
+    Image|endswith: '\schtasks.exe'
+  selection_create:
+    CommandLine|contains: '/create'
+  selection_suspicious:
+    CommandLine|contains:
+      - '/ru SYSTEM'
+      - '/ru "NT AUTHORITY\SYSTEM"'
+      - '/s '
+      - '/sc minute'
+      - '/sc onlogon'
+      - '/sc onstart'
+      - '/xml '
+  condition: selection_image and selection_create and selection_suspicious
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Patch management or RMM tools that legitimately create scheduled tasks
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.005

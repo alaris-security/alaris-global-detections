@@ -1,0 +1,28 @@
+{
+  "slug": "discovery-network-scanning",
+  "title": "Network Service Scanning",
+  "description": "Detects internal port-scanning behavior characterized by a single source connecting to many destination hosts on the same port within a short window.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "network-scanning", "port-scan", "lateral-movement-prep"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1046", "tacticId": "TA0007" }
+  ],
+  "rules": ["rules/siem/discovery-network-scanning.sigma"],
+  "intent": {
+    "conditions": [
+      "A single source IP connects to more than 25 distinct destination IPs on the same port",
+      "Within a 5-minute window"
+    ],
+    "dataSourceRequirements": [
+      "Network connection telemetry (Sysmon EID 3, firewall logs, or NetFlow)"
+    ],
+    "tuningParameters": {
+      "distinctDestinationThreshold": 25,
+      "timeWindowMinutes": 5,
+      "allowedScanners": []
+    },
+    "sourceContext": "Internal scanning is a strong post-foothold tell, useful for distinguishing reconnaissance from normal client traffic."
+  }
+}

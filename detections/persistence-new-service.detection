@@ -1,0 +1,30 @@
+{
+  "slug": "persistence-new-service",
+  "title": "New Service Installation Persistence",
+  "description": "Detects installation of new Windows services with image paths in user-writable directories or that reference scripting LOLBins, indicative of service-based persistence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "service-install", "system-event-7045"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1543.003", "tacticId": "TA0003" }
+  ],
+  "rules": ["rules/siem/persistence-new-service.sigma"],
+  "intent": {
+    "conditions": [
+      "Service Control Manager event 7045",
+      "ImagePath rooted in Temp/AppData/Public/ProgramData or referencing a scripting interpreter"
+    ],
+    "dataSourceRequirements": [
+      "Windows System log (Service Control Manager event 7045)"
+    ],
+    "tuningParameters": {
+      "allowedImagePathPrefixes": [
+        "C:\\Windows\\system32\\",
+        "C:\\Program Files\\",
+        "C:\\Program Files (x86)\\"
+      ]
+    },
+    "sourceContext": "Services run with high privilege and survive reboot; suspicious paths separate attacker installs from legitimate vendor services."
+  }
+}
