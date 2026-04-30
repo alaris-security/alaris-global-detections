@@ -1,16 +1,33 @@
 {
+  "uuid": "691c0956-2ce1-4a95-9049-8e23f87b941e",
   "slug": "phishing-attachment-execution",
   "title": "Phishing Attachment Execution",
   "description": "Detects Microsoft Office applications spawning shell or scripting interpreters, the canonical pattern for weaponized macro or HTA delivery via phishing.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["initial-access", "phishing", "macro", "office", "execution"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "initial-access",
+    "phishing",
+    "macro",
+    "office",
+    "execution"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1566.001", "tacticId": "TA0001" },
-    { "techniqueId": "T1059", "tacticId": "TA0002" }
+    {
+      "techniqueId": "T1566.001",
+      "tacticId": "TA0001"
+    },
+    {
+      "techniqueId": "T1059",
+      "tacticId": "TA0002"
+    }
   ],
-  "rules": ["rules/siem/phishing-attachment-execution.sigma"],
+  "rules": [
+    "rules/siem/phishing-attachment-execution.sigma"
+  ],
   "intent": {
     "conditions": [
       "Process creation where ParentImage is winword/excel/powerpnt/outlook",

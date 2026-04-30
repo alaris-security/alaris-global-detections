@@ -40,13 +40,13 @@ STATUSES = {"active", "experimental", "deprecated"}
 FAMILIES = {"siem", "endpoint", "network"}
 
 REQUIRED_DETECTION_FIELDS = (
-    "slug", "title", "description", "severity", "families",
+    "uuid", "slug", "title", "description", "severity", "families",
     "tags", "status", "mitre", "rules", "intent",
 )
 REQUIRED_INTENT_FIELDS = (
     "conditions", "dataSourceRequirements", "tuningParameters", "sourceContext",
 )
-FORBIDDEN_DETECTION_FIELDS = ("uuid", "compiledFrom", "targets", "pinnedRules")
+FORBIDDEN_DETECTION_FIELDS = ("compiledFrom", "targets", "pinnedRules")
 
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 TAG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -87,6 +87,9 @@ def validate_detection(path: Path) -> tuple[list[str], set[str]]:
 
     if errors:
         return errors, referenced
+
+    if not is_uuid_v4(str(data["uuid"])):
+        errors.append(f"{path.name}: uuid '{data['uuid']}' is not a valid UUIDv4")
 
     if data["slug"] != slug_from_name:
         errors.append(f"{path.name}: slug field '{data['slug']}' does not match filename")
@@ -218,6 +221,7 @@ def main() -> int:
 
     all_errors: list[str] = []
     referenced_total: set[str] = set()
+    uuid_owners: dict[str, str] = {}
 
     for p in det_paths:
         if not p.exists():
@@ -226,6 +230,18 @@ def main() -> int:
         errs, refs = validate_detection(p)
         all_errors.extend(errs)
         referenced_total |= refs
+        try:
+            data = json.loads(p.read_text())
+        except json.JSONDecodeError:
+            continue
+        u = data.get("uuid")
+        if isinstance(u, str) and u:
+            if u in uuid_owners:
+                all_errors.append(
+                    f"{p.name}: duplicate uuid {u} also used by {uuid_owners[u]}"
+                )
+            else:
+                uuid_owners[u] = p.name
 
     for p in sigma_paths:
         if not p.exists():

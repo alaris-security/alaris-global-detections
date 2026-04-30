@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "PreCommit": [
+      {
+        "matcher": "detections/*.detection",
+        "command": "bash .hooks/validate-detections.sh"
+      }
+    ]
+  }
+}

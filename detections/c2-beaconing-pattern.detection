@@ -1,15 +1,28 @@
 {
+  "uuid": "39aad55b-c0e8-4afc-9818-199ec141f2db",
   "slug": "c2-beaconing-pattern",
   "title": "C2 Beaconing Pattern",
   "description": "Detects periodic outbound HTTP/HTTPS connections from a single host to a single destination, characteristic of implant beaconing to a command and control server.",
   "severity": "low",
-  "families": ["siem"],
-  "tags": ["command-and-control", "beacon", "periodicity", "implant"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "command-and-control",
+    "beacon",
+    "periodicity",
+    "implant"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1071.001", "tacticId": "TA0011" }
+    {
+      "techniqueId": "T1071.001",
+      "tacticId": "TA0011"
+    }
   ],
-  "rules": ["rules/siem/c2-beaconing-pattern.sigma"],
+  "rules": [
+    "rules/siem/c2-beaconing-pattern.sigma"
+  ],
   "intent": {
     "conditions": [
       "More than 30 outbound connections from one source to one destination/port within an hour",

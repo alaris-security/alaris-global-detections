@@ -1,16 +1,32 @@
 {
+  "uuid": "06834855-a5b1-444d-a724-e96c0e89287b",
   "slug": "persistence-scheduled-task",
   "title": "Scheduled Task Persistence",
   "description": "Detects creation of scheduled tasks via schtasks.exe with attacker-typical arguments such as SYSTEM run-as, remote host targeting, or short-interval triggers.",
   "severity": "high",
-  "families": ["siem"],
-  "tags": ["persistence", "scheduled-task", "schtasks", "execution"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "persistence",
+    "scheduled-task",
+    "schtasks",
+    "execution"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1053.005", "tacticId": "TA0003" },
-    { "techniqueId": "T1053.005", "tacticId": "TA0002" }
+    {
+      "techniqueId": "T1053.005",
+      "tacticId": "TA0003"
+    },
+    {
+      "techniqueId": "T1053.005",
+      "tacticId": "TA0002"
+    }
   ],
-  "rules": ["rules/siem/persistence-scheduled-task.sigma"],
+  "rules": [
+    "rules/siem/persistence-scheduled-task.sigma"
+  ],
   "intent": {
     "conditions": [
       "schtasks.exe invoked with /create",

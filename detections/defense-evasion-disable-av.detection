@@ -1,15 +1,28 @@
 {
+  "uuid": "939b3439-85e0-4193-8cc2-693f2f75d0b0",
   "slug": "defense-evasion-disable-av",
   "title": "Defense Evasion: Disabling Antivirus or EDR",
   "description": "Detects attempts to disable Microsoft Defender or tamper with security tooling via PowerShell cmdlets, registry edits, or service stop/disable commands.",
   "severity": "high",
-  "families": ["siem"],
-  "tags": ["defense-evasion", "disable-av", "defender-tamper", "edr-bypass"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "defense-evasion",
+    "disable-av",
+    "defender-tamper",
+    "edr-bypass"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1562.001", "tacticId": "TA0005" }
+    {
+      "techniqueId": "T1562.001",
+      "tacticId": "TA0005"
+    }
   ],
-  "rules": ["rules/siem/defense-evasion-disable-av.sigma"],
+  "rules": [
+    "rules/siem/defense-evasion-disable-av.sigma"
+  ],
   "intent": {
     "conditions": [
       "Set-MpPreference invocation disabling realtime monitoring or scanning",

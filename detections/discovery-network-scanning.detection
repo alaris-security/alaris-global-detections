@@ -1,15 +1,28 @@
 {
+  "uuid": "a0c7d2f6-591e-4052-a599-2291e2e714ad",
   "slug": "discovery-network-scanning",
   "title": "Network Service Scanning",
   "description": "Detects internal port-scanning behavior characterized by a single source connecting to many destination hosts on the same port within a short window.",
   "severity": "low",
-  "families": ["siem"],
-  "tags": ["discovery", "network-scanning", "port-scan", "lateral-movement-prep"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "discovery",
+    "network-scanning",
+    "port-scan",
+    "lateral-movement-prep"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1046", "tacticId": "TA0007" }
+    {
+      "techniqueId": "T1046",
+      "tacticId": "TA0007"
+    }
   ],
-  "rules": ["rules/siem/discovery-network-scanning.sigma"],
+  "rules": [
+    "rules/siem/discovery-network-scanning.sigma"
+  ],
   "intent": {
     "conditions": [
       "A single source IP connects to more than 25 distinct destination IPs on the same port",
