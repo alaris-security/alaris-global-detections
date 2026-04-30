@@ -1,0 +1,50 @@
+title: Shadow Copy Deletion
+id: 6eaa4d11-5bdf-455f-9a39-1d48f61f1a03
+status: experimental
+description: Detects deletion of Volume Shadow Copies via vssadmin, wmic, wbadmin, diskshadow, or PowerShell.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1490/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_vssadmin:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains:
+      - 'delete shadows'
+      - 'resize shadowstorage'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains: 'shadowcopy delete'
+  selection_wbadmin:
+    Image|endswith: '\wbadmin.exe'
+    CommandLine|contains:
+      - 'delete catalog'
+      - 'delete systemstatebackup'
+      - 'delete backup'
+  selection_diskshadow:
+    Image|endswith: '\diskshadow.exe'
+    CommandLine|contains:
+      - ' /s '
+      - 'delete shadows'
+  selection_ps:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - 'Win32_Shadowcopy'
+      - 'Get-WmiObject Win32_Shadowcopy'
+      - 'Get-CimInstance Win32_Shadowcopy'
+  condition: selection_vssadmin or selection_wmic or selection_wbadmin or selection_diskshadow or selection_ps
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Backup software pruning shadow storage on a documented schedule
+  - Administrators reclaiming disk space on a known cadence
+level: critical
+tags:
+  - attack.impact
+  - attack.t1490
