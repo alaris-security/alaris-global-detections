@@ -12,10 +12,20 @@
 - Do NOT include `compiledFrom`, `targets`, or `pinnedRules` (local-only platform fields)
 
 ## Validation
-A pre-commit hook runs `.hooks/validate-detections.sh` on every commit. It checks:
+A git pre-commit hook (`.hooks/pre-commit` → `.hooks/validate-detections.sh`) blocks commits that fail validation. It checks:
 - Valid v4 UUID on every .detection file
 - No duplicate UUIDs
 - Slug in filename matches slug in JSON
 - Every .detection has a matching .sigma rule file
 
-The hook blocks commits that fail validation.
+Activate the hook once per clone:
+
+```bash
+git config core.hooksPath .hooks
+```
+
+You can also run the validator manually at any time:
+
+```bash
+bash .hooks/validate-detections.sh
+```

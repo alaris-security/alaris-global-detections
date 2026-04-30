@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Git pre-commit hook. Activate per clone with:
+#   git config core.hooksPath .hooks
+exec bash "$(dirname "$0")/validate-detections.sh"
