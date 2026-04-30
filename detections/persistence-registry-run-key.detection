@@ -1,15 +1,28 @@
 {
+  "uuid": "c553fab0-42d2-427b-ac62-568290c57ff4",
   "slug": "persistence-registry-run-key",
   "title": "Registry Run Key Persistence",
   "description": "Detects creation or modification of registry Run / RunOnce values used to persist a program across user logon.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["persistence", "registry", "run-key", "autorun"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "persistence",
+    "registry",
+    "run-key",
+    "autorun"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1547.001", "tacticId": "TA0003" }
+    {
+      "techniqueId": "T1547.001",
+      "tacticId": "TA0003"
+    }
   ],
-  "rules": ["rules/siem/persistence-registry-run-key.sigma"],
+  "rules": [
+    "rules/siem/persistence-registry-run-key.sigma"
+  ],
   "intent": {
     "conditions": [
       "Sysmon registry_set event targeting a Run / RunOnce key",

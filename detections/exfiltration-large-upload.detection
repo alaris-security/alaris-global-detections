@@ -1,16 +1,32 @@
 {
+  "uuid": "7d2f0318-8307-4870-9987-89cce557dbf6",
   "slug": "exfiltration-large-upload",
   "title": "Exfiltration via Large Upload to Public File Sharing",
   "description": "Detects command-line uploads to public file-sharing or cloud storage services commonly abused for exfiltration, such as mega.nz, anonfiles, transfer.sh, and rclone-staged transfers.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["exfiltration", "cloud-storage", "web-service", "upload"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "exfiltration",
+    "cloud-storage",
+    "web-service",
+    "upload"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1567.002", "tacticId": "TA0010" },
-    { "techniqueId": "T1048", "tacticId": "TA0010" }
+    {
+      "techniqueId": "T1567.002",
+      "tacticId": "TA0010"
+    },
+    {
+      "techniqueId": "T1048",
+      "tacticId": "TA0010"
+    }
   ],
-  "rules": ["rules/siem/exfiltration-large-upload.sigma"],
+  "rules": [
+    "rules/siem/exfiltration-large-upload.sigma"
+  ],
   "intent": {
     "conditions": [
       "curl, PowerShell, rclone, or WinSCP invoked with a target URL or remote path",

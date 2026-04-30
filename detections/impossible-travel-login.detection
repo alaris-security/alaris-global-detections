@@ -1,16 +1,32 @@
 {
+  "uuid": "397d4f71-e04f-48ee-b50f-36a0c7e97745",
   "slug": "impossible-travel-login",
   "title": "Impossible Travel Login",
   "description": "Detects successful authentications for the same identity from geographically distant source IPs within a window that is shorter than physically plausible travel time.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["identity", "impossible-travel", "credential-access", "cloud-auth"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "identity",
+    "impossible-travel",
+    "credential-access",
+    "cloud-auth"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1078.004", "tacticId": "TA0001" },
-    { "techniqueId": "T1078", "tacticId": "TA0003" }
+    {
+      "techniqueId": "T1078.004",
+      "tacticId": "TA0001"
+    },
+    {
+      "techniqueId": "T1078",
+      "tacticId": "TA0003"
+    }
   ],
-  "rules": ["rules/siem/impossible-travel-login.sigma"],
+  "rules": [
+    "rules/siem/impossible-travel-login.sigma"
+  ],
   "intent": {
     "conditions": [
       "Two successful logins for the same user from source IPs in different countries",

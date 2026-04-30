@@ -1,17 +1,36 @@
 {
+  "uuid": "a8bc2ba3-aee7-42d4-90ed-ee3a21dab5bb",
   "slug": "discovery-ad-enumeration",
   "title": "Active Directory Enumeration",
   "description": "Detects Active Directory enumeration via net.exe, dsquery, ldap-related tooling, or BloodHound collection cmdlets.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["discovery", "active-directory", "bloodhound", "ldap"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "discovery",
+    "active-directory",
+    "bloodhound",
+    "ldap"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1087.002", "tacticId": "TA0007" },
-    { "techniqueId": "T1069.002", "tacticId": "TA0007" },
-    { "techniqueId": "T1018", "tacticId": "TA0007" }
+    {
+      "techniqueId": "T1087.002",
+      "tacticId": "TA0007"
+    },
+    {
+      "techniqueId": "T1069.002",
+      "tacticId": "TA0007"
+    },
+    {
+      "techniqueId": "T1018",
+      "tacticId": "TA0007"
+    }
   ],
-  "rules": ["rules/siem/discovery-ad-enumeration.sigma"],
+  "rules": [
+    "rules/siem/discovery-ad-enumeration.sigma"
+  ],
   "intent": {
     "conditions": [
       "net.exe / net1.exe with /domain enumeration arguments",

@@ -1,17 +1,36 @@
 {
+  "uuid": "c50dab5f-9a8f-45b7-bffa-dbea988106e3",
   "slug": "token-manipulation-priv-esc",
   "title": "Token Manipulation for Privilege Escalation",
   "description": "Detects abnormal use of access token APIs and SeImpersonatePrivilege/SeAssignPrimaryTokenPrivilege grants by non-system processes, indicative of token theft or impersonation.",
   "severity": "high",
-  "families": ["siem"],
-  "tags": ["privilege-escalation", "token-manipulation", "impersonation", "potato"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "privilege-escalation",
+    "token-manipulation",
+    "impersonation",
+    "potato"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1134", "tacticId": "TA0004" },
-    { "techniqueId": "T1134.001", "tacticId": "TA0005" },
-    { "techniqueId": "T1134.002", "tacticId": "TA0004" }
+    {
+      "techniqueId": "T1134",
+      "tacticId": "TA0004"
+    },
+    {
+      "techniqueId": "T1134.001",
+      "tacticId": "TA0005"
+    },
+    {
+      "techniqueId": "T1134.002",
+      "tacticId": "TA0004"
+    }
   ],
-  "rules": ["rules/siem/token-manipulation-priv-esc.sigma"],
+  "rules": [
+    "rules/siem/token-manipulation-priv-esc.sigma"
+  ],
   "intent": {
     "conditions": [
       "Special logon (event 4672) granting SeImpersonatePrivilege or SeAssignPrimaryTokenPrivilege",

@@ -1,16 +1,32 @@
 {
+  "uuid": "31885bd8-7b21-49a7-963a-1c4272d3a974",
   "slug": "c2-encoded-powershell",
   "title": "Encoded PowerShell Command Execution",
   "description": "Detects PowerShell launched with -EncodedCommand or equivalent obfuscation switches, commonly used by C2 stagers and post-exploitation frameworks to hide command intent.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["command-and-control", "powershell", "encoded-command", "obfuscation"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "command-and-control",
+    "powershell",
+    "encoded-command",
+    "obfuscation"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1059.001", "tacticId": "TA0002" },
-    { "techniqueId": "T1027", "tacticId": "TA0005" }
+    {
+      "techniqueId": "T1059.001",
+      "tacticId": "TA0002"
+    },
+    {
+      "techniqueId": "T1027",
+      "tacticId": "TA0005"
+    }
   ],
-  "rules": ["rules/siem/c2-encoded-powershell.sigma"],
+  "rules": [
+    "rules/siem/c2-encoded-powershell.sigma"
+  ],
   "intent": {
     "conditions": [
       "powershell.exe / pwsh.exe invoked with -EncodedCommand, -enc, or -ec flag",

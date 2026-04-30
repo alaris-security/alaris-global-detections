@@ -1,15 +1,27 @@
 {
+  "uuid": "e5d2e35d-07dd-4461-9058-ed73d6ccd9a9",
   "slug": "persistence-new-service",
   "title": "New Service Installation Persistence",
   "description": "Detects installation of new Windows services with image paths in user-writable directories or that reference scripting LOLBins, indicative of service-based persistence.",
   "severity": "high",
-  "families": ["siem"],
-  "tags": ["persistence", "service-install", "system-event-7045"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "persistence",
+    "service-install",
+    "system-event-7045"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1543.003", "tacticId": "TA0003" }
+    {
+      "techniqueId": "T1543.003",
+      "tacticId": "TA0003"
+    }
   ],
-  "rules": ["rules/siem/persistence-new-service.sigma"],
+  "rules": [
+    "rules/siem/persistence-new-service.sigma"
+  ],
   "intent": {
     "conditions": [
       "Service Control Manager event 7045",

@@ -1,16 +1,32 @@
 {
+  "uuid": "49254294-7e7e-4e3e-b2ab-a1f54d920cf0",
   "slug": "brute-force-login-attempts",
   "title": "Brute Force Login Attempts",
   "description": "Detects a high volume of failed authentication attempts from a single source within a short time window, indicative of credential brute-force or password spraying.",
   "severity": "high",
-  "families": ["siem"],
-  "tags": ["authentication", "brute-force", "credential-access", "password-spray"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "authentication",
+    "brute-force",
+    "credential-access",
+    "password-spray"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1110", "tacticId": "TA0006" },
-    { "techniqueId": "T1110.003", "tacticId": "TA0006" }
+    {
+      "techniqueId": "T1110",
+      "tacticId": "TA0006"
+    },
+    {
+      "techniqueId": "T1110.003",
+      "tacticId": "TA0006"
+    }
   ],
-  "rules": ["rules/siem/brute-force-login-attempts.sigma"],
+  "rules": [
+    "rules/siem/brute-force-login-attempts.sigma"
+  ],
   "intent": {
     "conditions": [
       "More than 20 failed authentications from the same source within 5 minutes",

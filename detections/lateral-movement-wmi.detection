@@ -1,16 +1,32 @@
 {
+  "uuid": "b4570ba8-56da-489f-9e3b-6d09bfc172d4",
   "slug": "lateral-movement-wmi",
   "title": "Lateral Movement via WMI Process Execution",
   "description": "Detects shell or scripting interpreters spawned by WmiPrvSE.exe, the canonical pattern for remote command execution via Win32_Process.Create or wmic /node.",
   "severity": "critical",
-  "families": ["siem"],
-  "tags": ["lateral-movement", "wmi", "execution", "living-off-the-land"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "lateral-movement",
+    "wmi",
+    "execution",
+    "living-off-the-land"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1047", "tacticId": "TA0008" },
-    { "techniqueId": "T1047", "tacticId": "TA0002" }
+    {
+      "techniqueId": "T1047",
+      "tacticId": "TA0008"
+    },
+    {
+      "techniqueId": "T1047",
+      "tacticId": "TA0002"
+    }
   ],
-  "rules": ["rules/siem/lateral-movement-wmi.sigma"],
+  "rules": [
+    "rules/siem/lateral-movement-wmi.sigma"
+  ],
   "intent": {
     "conditions": [
       "Process creation where ParentImage is WmiPrvSE.exe",

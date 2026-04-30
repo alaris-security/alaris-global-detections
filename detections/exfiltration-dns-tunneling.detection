@@ -1,16 +1,32 @@
 {
+  "uuid": "a6b2c02d-a164-4d2b-896f-fe3ffee4a96f",
   "slug": "exfiltration-dns-tunneling",
   "title": "Exfiltration via DNS Tunneling",
   "description": "Detects DNS queries with abnormally long subdomain components, a strong indicator of DNS tunneling for command and control or data exfiltration.",
   "severity": "medium",
-  "families": ["siem"],
-  "tags": ["exfiltration", "dns", "tunneling", "command-and-control"],
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "exfiltration",
+    "dns",
+    "tunneling",
+    "command-and-control"
+  ],
   "status": "active",
   "mitre": [
-    { "techniqueId": "T1048.003", "tacticId": "TA0010" },
-    { "techniqueId": "T1071.004", "tacticId": "TA0011" }
+    {
+      "techniqueId": "T1048.003",
+      "tacticId": "TA0010"
+    },
+    {
+      "techniqueId": "T1071.004",
+      "tacticId": "TA0011"
+    }
   ],
-  "rules": ["rules/siem/exfiltration-dns-tunneling.sigma"],
+  "rules": [
+    "rules/siem/exfiltration-dns-tunneling.sigma"
+  ],
   "intent": {
     "conditions": [
       "DNS query name length exceeds 100 characters",
