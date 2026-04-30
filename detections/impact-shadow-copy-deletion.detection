@@ -1,0 +1,31 @@
+{
+  "uuid": "6eaa4d11-5bdf-455f-9a39-1d48f61f1a03",
+  "slug": "impact-shadow-copy-deletion",
+  "title": "Shadow Copy Deletion",
+  "description": "Detects deletion of Volume Shadow Copies via vssadmin, wmic shadowcopy, wbadmin, or diskshadow — a near-universal precursor to ransomware detonation, used to prevent rollback of encrypted files.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "ransomware-precursor", "shadow-copy", "anti-recovery"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1490", "tacticId": "TA0040" }
+  ],
+  "rules": ["rules/siem/impact-shadow-copy-deletion.sigma"],
+  "intent": {
+    "conditions": [
+      "vssadmin.exe delete shadows / resize shadowstorage with a shrink size",
+      "Or wmic shadowcopy delete",
+      "Or wbadmin delete catalog/systemstatebackup",
+      "Or diskshadow.exe with delete shadows scripts",
+      "Or PowerShell Get-WmiObject Win32_Shadowcopy ... .Delete()"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events (Sysmon EID 1 or Security 4688) with full command line"
+    ],
+    "tuningParameters": {
+      "allowedAdminContexts": [],
+      "allowedBackupTools": []
+    },
+    "sourceContext": "Shadow copy deletion is observed in nearly every modern ransomware playbook (Conti, LockBit, Ryuk, BlackCat) and is rare in normal admin workflow; high-priority signal."
+  }
+}
