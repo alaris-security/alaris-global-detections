@@ -1,0 +1,26 @@
+{
+  "uuid": "17fb118d-abc4-42b2-bea7-f7f6adbc4d9b",
+  "slug": "self-deleting-executable",
+  "title": "Self-Deleting Executable",
+  "description": "Detects a running process that deletes its own on-disk image — an anti-forensic self-cleanup step used by droppers, loaders, and fileless-staging malware to remove evidence immediately after execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "anti-forensics", "self-delete", "indicator-removal"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1070.004", "tacticId": "TA0005" }
+  ],
+  "rules": ["rules/siem/self-deleting-executable.sigma"],
+  "intent": {
+    "conditions": [
+      "A file-delete event where the deleted file path (TargetFilename) is identical to the deleting process's own image path (Image)"
+    ],
+    "dataSourceRequirements": [
+      "Windows file-deletion telemetry that records both the acting process image and the deleted file path (Sysmon EID 23/26 FileDelete, or EDR file events)"
+    ],
+    "tuningParameters": {
+      "allowedSelfDeletingPaths": []
+    },
+    "sourceContext": "Self-deletion is a reliable post-execution cleanup signal for droppers and loaders. NOTE: this rule compares one field against another (TargetFilename == Image). Field-to-field comparison is expressible in Splunk SPL, CrowdStrike, QRadar, and Sigma's generic backends, but the Elastic EQL compiler in the pySigma elasticsearch backend rejects field references (SigmaFeatureNotSupportedByBackendError), so this detection will not compile to Elastic Security EQL and must be delivered to Elastic via a different mechanism."
+  }
+}

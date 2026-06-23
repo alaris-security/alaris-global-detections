@@ -1,0 +1,38 @@
+title: Ingress Tool Transfer via Living-Off-the-Land Binaries
+id: 86e97263-71a7-4b40-afd3-b567bf5b86ba
+status: experimental
+description: Detects use of trusted Windows binaries (certutil, bitsadmin, curl) to download remote payloads over HTTP/HTTPS.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_certutil:
+    Image|endswith: '\certutil.exe'
+    CommandLine|contains:
+      - 'urlcache'
+      - 'verifyctl'
+      - 'split'
+  selection_bitsadmin:
+    Image|endswith: '\bitsadmin.exe'
+    CommandLine|contains: '/transfer'
+  selection_curl:
+    Image|endswith:
+      - '\curl.exe'
+      - '\wget.exe'
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+  condition: selection_certutil or selection_bitsadmin or selection_curl
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrative scripts that legitimately fetch files with certutil or curl
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1105

@@ -1,0 +1,29 @@
+{
+  "uuid": "86e97263-71a7-4b40-afd3-b567bf5b86ba",
+  "slug": "ingress-tool-transfer-lolbin",
+  "title": "Ingress Tool Transfer via Living-Off-the-Land Binaries",
+  "description": "Detects trusted Windows binaries (certutil, bitsadmin, curl, wget) being used to pull remote payloads over HTTP/HTTPS — a common ingress-tool-transfer technique that blends malware staging into signed, allow-listed tooling.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "lolbin", "payload-download"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1105", "tacticId": "TA0011" }
+  ],
+  "rules": ["rules/siem/ingress-tool-transfer-lolbin.sigma"],
+  "intent": {
+    "conditions": [
+      "certutil.exe invoked with urlcache / verifyctl / split",
+      "Or bitsadmin.exe invoked with /transfer",
+      "Or curl.exe / wget.exe invoked with an http:// or https:// URL"
+    ],
+    "dataSourceRequirements": [
+      "Windows process creation events (Sysmon EID 1 or Security 4688) with full command line"
+    ],
+    "tuningParameters": {
+      "allowedDownloadParents": [],
+      "trustedDestinationDomains": []
+    },
+    "sourceContext": "LOLBin downloaders are heavily used for staging second-stage tooling because the binaries are signed and frequently allow-listed. NOTE: this rule uses only plain field matches (endswith / contains) with no field-to-field comparison or correlation, so it compiles cleanly to Elastic Security EQL as well as Splunk, CrowdStrike, and the other supported backends."
+  }
+}
