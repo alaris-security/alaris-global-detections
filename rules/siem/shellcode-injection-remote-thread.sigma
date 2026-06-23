@@ -1,0 +1,25 @@
+title: Shellcode Injection via CreateRemoteThread
+id: da8954bb-2b08-4044-a7b7-56105ba535ce
+status: experimental
+description: Detects a remote thread created in another process whose start address has no backing module, indicating manually mapped or injected shellcode rather than a legitimate DLL export.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/
+logsource:
+  category: create_remote_thread
+  product: windows
+detection:
+  selection:
+    StartModule|exists: false
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+  - StartAddress
+falsepositives:
+  - Some legitimate debuggers, profilers, and security agents create remote threads with inferred-empty modules
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.privilege_escalation
+  - attack.t1055

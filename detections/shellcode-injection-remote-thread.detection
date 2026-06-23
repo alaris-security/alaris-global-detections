@@ -1,0 +1,28 @@
+{
+  "uuid": "da8954bb-2b08-4044-a7b7-56105ba535ce",
+  "slug": "shellcode-injection-remote-thread",
+  "title": "Shellcode Injection via CreateRemoteThread",
+  "description": "Detects a cross-process remote thread whose start address resolves to no backing module — the signature of manually mapped or injected shellcode (as opposed to a thread starting at a legitimate, named DLL export).",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection", "shellcode", "create-remote-thread"],
+  "status": "active",
+  "mitre": [
+    { "techniqueId": "T1055", "tacticId": "TA0005" },
+    { "techniqueId": "T1055", "tacticId": "TA0004" }
+  ],
+  "rules": ["rules/siem/shellcode-injection-remote-thread.sigma"],
+  "intent": {
+    "conditions": [
+      "A CreateRemoteThread event where the StartModule field is absent (the thread start address falls outside any loaded module)"
+    ],
+    "dataSourceRequirements": [
+      "Windows remote-thread telemetry that resolves the thread start module (Sysmon EID 8 CreateRemoteThread, or equivalent EDR injection events)"
+    ],
+    "tuningParameters": {
+      "allowedSourceImages": [],
+      "allowedTargetImages": []
+    },
+    "sourceContext": "A remote thread with no backing module is a high-fidelity process-injection signal. NOTE: this rule keys on field ABSENCE via the Sigma `|exists` modifier. The Elastic EQL compiler in the pySigma elasticsearch backend rejects field-exists expressions (SigmaFeatureNotSupportedByBackendError: 'Field exists expressions are not supported by the backend'), so this detection will not compile to Elastic Security EQL. It does compile to Splunk, Elastic Lucene, CrowdStrike, and the other generic backends. (A field-presence variant such as `StartModule: null` would compile to EQL, but is not equivalent for all data sources.)"
+  }
+}
