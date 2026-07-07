@@ -1,0 +1,18 @@
+{
+  "uuid": "62372d8d-e362-4759-a416-a00db9e98fdd",
+  "slug": "ad-sid-history-injection",
+  "title": "SID History Injection",
+  "description": "Detects modification of the sIDHistory attribute (event 5136), which attackers use to add a privileged group SID to an account so it inherits elevated access invisibly, a stealthy escalation and persistence technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "active-directory", "sid-history"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1134.005", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/ad-sid-history-injection.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects modification of the sIDHistory attribute (event 5136), which attackers use to add a privileged group SID to an account so it inherits elevated access invisibly, a stealthy escalation and persistence technique."
+  }
+}

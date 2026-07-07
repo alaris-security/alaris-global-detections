@@ -1,0 +1,18 @@
+{
+  "uuid": "02e620a4-3cd9-4a75-8cb4-1e622666ddb9",
+  "slug": "ad-constrained-delegation-s4u",
+  "title": "Constrained Delegation S4U Abuse",
+  "description": "Detects abuse of constrained delegation via S4U2Self/S4U2Proxy, indicated by service ticket requests (4769) impersonating a privileged user to a service the account is trusted to delegate to.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "active-directory", "kerberos", "delegation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/ad-constrained-delegation-s4u.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects abuse of constrained delegation via S4U2Self/S4U2Proxy, indicated by service ticket requests (4769) impersonating a privileged user to a service the account is trusted to delegate to."
+  }
+}

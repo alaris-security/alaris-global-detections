@@ -1,0 +1,18 @@
+{
+  "uuid": "0dd04828-def4-499d-9fe2-729f5c2868b4",
+  "slug": "ad-rbcd-configured",
+  "title": "Resource-Based Constrained Delegation Configured",
+  "description": "Detects modification of the msDS-AllowedToActOnBehalfOfOtherIdentity attribute (event 5136), the resource-based constrained delegation primitive attackers abuse to take over a computer object.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "active-directory", "rbcd"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/ad-rbcd-configured.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects modification of the msDS-AllowedToActOnBehalfOfOtherIdentity attribute (event 5136), the resource-based constrained delegation primitive attackers abuse to take over a computer object."
+  }
+}

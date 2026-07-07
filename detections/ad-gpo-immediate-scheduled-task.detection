@@ -1,0 +1,18 @@
+{
+  "uuid": "edf7cc16-338a-4464-8670-39212c57a5e6",
+  "slug": "ad-gpo-immediate-scheduled-task",
+  "title": "GPO Immediate Scheduled Task Deployed",
+  "description": "Detects creation of a Group Policy immediate scheduled task (ScheduledTasks.xml with an immediate task in SYSVOL), a technique to execute commands across all computers or users targeted by the GPO.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "gpo"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1484.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-gpo-immediate-scheduled-task.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of a Group Policy immediate scheduled task (ScheduledTasks.xml with an immediate task in SYSVOL), a technique to execute commands across all computers or users targeted by the GPO."
+  }
+}

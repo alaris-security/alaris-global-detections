@@ -1,0 +1,28 @@
+title: ADCS ESC1 Certificate Request with SAN
+id: e9c29e61-210b-4ea7-9cc6-a404bde616e6
+status: experimental
+description: Detects certificate requests (event 4886/4887) on a template that allows requester-supplied Subject Alternative Names, where the SAN specifies a different (often privileged) user, the ADCS ESC1 privilege-escalation technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1649/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID:
+      - 4886
+      - 4887
+    SubjectAltName|exists: true
+  condition: selection
+  condition: selection
+fields:
+  - Requester
+  - SubjectAltName
+  - CertificateTemplate
+falsepositives:
+  - Legitimate SAN-based enrollment
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1649

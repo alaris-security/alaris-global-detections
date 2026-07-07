@@ -1,0 +1,25 @@
+title: Kerberos Pre-Authentication Disabled
+id: b5b59610-23c6-4cf9-9ab8-2d4b3de47f65
+status: experimental
+description: Detects setting the DONT_REQ_PREAUTH userAccountControl flag on an account (event 4738), which disables Kerberos pre-authentication and deliberately exposes the account to AS-REP roasting.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1558/004/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4738
+    AttributeValue|contains: 'DONT_REQ_PREAUTH'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - ObjectName
+falsepositives:
+  - Legacy accounts intentionally without pre-auth
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1558.004

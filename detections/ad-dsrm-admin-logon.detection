@@ -1,0 +1,18 @@
+{
+  "uuid": "ab51d006-fa06-4312-8fce-75bcba350e6d",
+  "slug": "ad-dsrm-admin-logon",
+  "title": "DSRM Account Logon",
+  "description": "Detects logon using the Directory Services Restore Mode (DSRM) local administrator account on a domain controller, an account attackers repurpose for stealthy DC persistence after enabling DsrmAdminLogonBehavior.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "dsrm"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-dsrm-admin-logon.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects logon using the Directory Services Restore Mode (DSRM) local administrator account on a domain controller, an account attackers repurpose for stealthy DC persistence after enabling DsrmAdminLogonBehavior."
+  }
+}

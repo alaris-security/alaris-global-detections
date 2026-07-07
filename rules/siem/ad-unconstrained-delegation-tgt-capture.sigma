@@ -1,0 +1,27 @@
+title: Unconstrained Delegation TGT Capture
+id: 544b740b-6854-445c-899e-d9a6a64c1b6e
+status: experimental
+description: Detects setting the TRUSTED_FOR_DELEGATION flag on an account (event 4738/5136 with userAccountControl change), which enables unconstrained delegation and lets the host capture forwarded TGTs of any connecting user.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1558/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID:
+      - 4738
+      - 5136
+    AttributeValue|contains: 'TRUSTED_FOR_DELEGATION'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - ObjectName
+falsepositives:
+  - Legitimate delegation configuration
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1558

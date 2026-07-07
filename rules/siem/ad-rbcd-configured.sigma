@@ -1,0 +1,25 @@
+title: Resource-Based Constrained Delegation Configured
+id: da33b430-a9d0-4f81-81cc-81e4b2c2ad1d
+status: experimental
+description: Detects modification of the msDS-AllowedToActOnBehalfOfOtherIdentity attribute (event 5136), the resource-based constrained delegation primitive attackers abuse to take over a computer object.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5136
+    AttributeLDAPDisplayName: 'msDS-AllowedToActOnBehalfOfOtherIdentity'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - ObjectName
+falsepositives:
+  - Legitimate RBCD configuration
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

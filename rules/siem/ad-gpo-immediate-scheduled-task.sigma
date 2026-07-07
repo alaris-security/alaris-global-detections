@@ -1,0 +1,23 @@
+title: GPO Immediate Scheduled Task Deployed
+id: a93bf7cf-f01c-4704-bd15-1cd4edfd373b
+status: experimental
+description: Detects creation of a Group Policy immediate scheduled task (ScheduledTasks.xml with an immediate task in SYSVOL), a technique to execute commands across all computers or users targeted by the GPO.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1484/001/
+logsource:
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains: '\\SYSVOL\\'
+    TargetFilename|endswith: 'ScheduledTasks.xml'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Legitimate GPO-deployed scheduled tasks
+level: high
+tags:
+  - attack.persistence
+  - attack.t1484.001

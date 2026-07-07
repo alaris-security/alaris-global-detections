@@ -1,0 +1,25 @@
+title: SID History Injection
+id: a1cdb71a-cfc8-4a17-82ff-0f0fdd125ad6
+status: experimental
+description: Detects modification of the sIDHistory attribute (event 5136), which attackers use to add a privileged group SID to an account so it inherits elevated access invisibly, a stealthy escalation and persistence technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1134/005/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5136
+    AttributeLDAPDisplayName: 'sIDHistory'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - ObjectName
+falsepositives:
+  - Legitimate domain migration tooling
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1134.005

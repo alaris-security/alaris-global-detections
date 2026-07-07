@@ -1,0 +1,18 @@
+{
+  "uuid": "f484b38c-2a0a-41d0-b9e8-6b3b5fd8865d",
+  "slug": "ad-machine-account-quota-abuse",
+  "title": "Machine Account Creation by Standard User",
+  "description": "Detects a standard (non-admin) user creating computer accounts (event 4741), abusing the default MachineAccountQuota, a primitive used in noPac, RBCD, and sAMAccountName-spoofing attack chains.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "machine-account"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-machine-account-quota-abuse.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a standard (non-admin) user creating computer accounts (event 4741), abusing the default MachineAccountQuota, a primitive used in noPac, RBCD, and sAMAccountName-spoofing attack chains."
+  }
+}

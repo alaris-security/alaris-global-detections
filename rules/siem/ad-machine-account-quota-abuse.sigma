@@ -1,0 +1,26 @@
+title: Machine Account Creation by Standard User
+id: 9897db0b-5064-41ca-9251-cf0488c3c3ec
+status: experimental
+description: Detects a standard (non-admin) user creating computer accounts (event 4741), abusing the default MachineAccountQuota, a primitive used in noPac, RBCD, and sAMAccountName-spoofing attack chains.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1136/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4741
+  filter:
+    SubjectUserName|endswith: '$'
+  condition: selection and not filter
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+falsepositives:
+  - IT staff joining machines to the domain
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136

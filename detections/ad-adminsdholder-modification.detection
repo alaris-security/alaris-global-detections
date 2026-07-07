@@ -1,0 +1,18 @@
+{
+  "uuid": "5542475d-b585-4844-afd8-ea3e468ad4eb",
+  "slug": "ad-adminsdholder-modification",
+  "title": "AdminSDHolder ACL Modification",
+  "description": "Detects modification of the AdminSDHolder object's ACL (event 5136 on CN=AdminSDHolder), a persistence technique that propagates attacker-granted rights to all protected privileged accounts via SDProp.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "adminsdholder"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-adminsdholder-modification.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects modification of the AdminSDHolder object's ACL (event 5136 on CN=AdminSDHolder), a persistence technique that propagates attacker-granted rights to all protected privileged accounts via SDProp."
+  }
+}

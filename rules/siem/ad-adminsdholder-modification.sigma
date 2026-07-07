@@ -1,0 +1,25 @@
+title: AdminSDHolder ACL Modification
+id: ac068446-0630-46e5-9c7f-36e65f3571b9
+status: experimental
+description: Detects modification of the AdminSDHolder object's ACL (event 5136 on CN=AdminSDHolder), a persistence technique that propagates attacker-granted rights to all protected privileged accounts via SDProp.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5136
+    ObjectDN|contains: 'CN=AdminSDHolder'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - ObjectName
+falsepositives:
+  - Rare legitimate delegation changes
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

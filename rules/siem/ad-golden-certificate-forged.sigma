@@ -1,0 +1,28 @@
+title: Golden Certificate Authentication
+id: 52d96d8f-79f2-4651-a986-ed2de49acb51
+status: experimental
+description: Detects certificate-based authentication (PKINIT, event 4768 with certificate info) for a privileged account with no corresponding CA-issued certificate request, indicating a forged Golden Certificate signed with a stolen CA private key.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1649/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4768
+    CertIssuerName|exists: true
+  filter:
+    CorrelatedEnrollment: true
+  condition: selection and not filter
+  condition: selection
+fields:
+  - TargetUserName
+  - CertIssuerName
+  - IpAddress
+falsepositives:
+  - Correlation gaps in enrollment logging
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1649

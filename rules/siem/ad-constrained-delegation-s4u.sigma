@@ -1,0 +1,26 @@
+title: Constrained Delegation S4U Abuse
+id: f7ba7f01-b764-4c8e-8fa3-679e029c8765
+status: experimental
+description: Detects abuse of constrained delegation via S4U2Self/S4U2Proxy, indicated by service ticket requests (4769) impersonating a privileged user to a service the account is trusted to delegate to.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1558/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TransmittedServices|exists: true
+  condition: selection
+  condition: selection
+fields:
+  - TargetUserName
+  - ServiceName
+  - TransmittedServices
+falsepositives:
+  - Legitimate delegation flows
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1558

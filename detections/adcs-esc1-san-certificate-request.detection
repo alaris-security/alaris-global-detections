@@ -1,0 +1,18 @@
+{
+  "uuid": "afe4fd50-b1c7-41e6-849f-c6e7830725b9",
+  "slug": "adcs-esc1-san-certificate-request",
+  "title": "ADCS ESC1 Certificate Request with SAN",
+  "description": "Detects certificate requests (event 4886/4887) on a template that allows requester-supplied Subject Alternative Names, where the SAN specifies a different (often privileged) user, the ADCS ESC1 privilege-escalation technique.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "adcs", "certificate"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1649", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/adcs-esc1-san-certificate-request.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects certificate requests (event 4886/4887) on a template that allows requester-supplied Subject Alternative Names, where the SAN specifies a different (often privileged) user, the ADCS ESC1 privilege-escalation technique."
+  }
+}

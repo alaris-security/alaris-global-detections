@@ -1,0 +1,25 @@
+title: DCSync Replication Rights Granted
+id: 2f21689a-8b57-495b-a51b-0d011e977421
+status: experimental
+description: Detects granting of directory replication rights (DS-Replication-Get-Changes-All) to a non-DC principal via a domain object ACL change (event 5136), a persistence setup that enables later DCSync credential theft.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5136
+    AttributeValue|contains: '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - ObjectName
+falsepositives:
+  - Azure AD Connect and legitimate sync accounts
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

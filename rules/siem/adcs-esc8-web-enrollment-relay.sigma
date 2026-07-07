@@ -1,0 +1,25 @@
+title: ADCS ESC8 Web Enrollment NTLM Relay
+id: 8c231c48-e319-4bcc-9e30-b99a29d2ea4c
+status: experimental
+description: Detects certificate enrollment via the ADCS web enrollment endpoint (certsrv) authenticated with a machine account over NTLM, the ESC8 technique that relays coerced authentication to mint certificates for a victim.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1649/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-stem|contains: '/certsrv/'
+    cs-username|endswith: '$'
+    cs-auth-method: 'NTLM'
+  condition: selection
+fields:
+  - cs-username
+  - c-ip
+  - cs-uri-stem
+falsepositives:
+  - Legitimate machine enrollment
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1649

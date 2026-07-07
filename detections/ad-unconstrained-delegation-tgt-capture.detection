@@ -1,0 +1,18 @@
+{
+  "uuid": "0c46a50d-7ab3-4b88-bceb-d744882760b9",
+  "slug": "ad-unconstrained-delegation-tgt-capture",
+  "title": "Unconstrained Delegation TGT Capture",
+  "description": "Detects setting the TRUSTED_FOR_DELEGATION flag on an account (event 4738/5136 with userAccountControl change), which enables unconstrained delegation and lets the host capture forwarded TGTs of any connecting user.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "active-directory", "kerberos", "delegation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/ad-unconstrained-delegation-tgt-capture.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects setting the TRUSTED_FOR_DELEGATION flag on an account (event 4738/5136 with userAccountControl change), which enables unconstrained delegation and lets the host capture forwarded TGTs of any connecting user."
+  }
+}

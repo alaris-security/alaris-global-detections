@@ -1,0 +1,29 @@
+title: DSRM Account Logon
+id: 0936d124-d7fb-400d-b298-938c9cb403ac
+status: experimental
+description: Detects logon using the Directory Services Restore Mode (DSRM) local administrator account on a domain controller, an account attackers repurpose for stealthy DC persistence after enabling DsrmAdminLogonBehavior.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    TargetUserName: 'Administrator'
+    LogonType:
+      - 2
+      - 10
+    Computer|contains: 'DC'
+  condition: selection
+fields:
+  - TargetUserName
+  - Computer
+  - LogonType
+falsepositives:
+  - Legitimate DSRM maintenance
+level: high
+tags:
+  - attack.persistence
+  - attack.t1078

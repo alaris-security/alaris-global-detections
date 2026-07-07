@@ -1,0 +1,18 @@
+{
+  "uuid": "37f703c4-f8a2-46e4-a992-9b3189da6f0c",
+  "slug": "ad-dcsync-rights-granted",
+  "title": "DCSync Replication Rights Granted",
+  "description": "Detects granting of directory replication rights (DS-Replication-Get-Changes-All) to a non-DC principal via a domain object ACL change (event 5136), a persistence setup that enables later DCSync credential theft.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "dcsync"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-dcsync-rights-granted.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects granting of directory replication rights (DS-Replication-Get-Changes-All) to a non-DC principal via a domain object ACL change (event 5136), a persistence setup that enables later DCSync credential theft."
+  }
+}

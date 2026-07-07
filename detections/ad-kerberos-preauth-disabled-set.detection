@@ -1,0 +1,18 @@
+{
+  "uuid": "329cce60-6da8-42de-8988-ba262732724c",
+  "slug": "ad-kerberos-preauth-disabled-set",
+  "title": "Kerberos Pre-Authentication Disabled",
+  "description": "Detects setting the DONT_REQ_PREAUTH userAccountControl flag on an account (event 4738), which disables Kerberos pre-authentication and deliberately exposes the account to AS-REP roasting.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "active-directory", "asrep-roasting"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558.004", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/ad-kerberos-preauth-disabled-set.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects setting the DONT_REQ_PREAUTH userAccountControl flag on an account (event 4738), which disables Kerberos pre-authentication and deliberately exposes the account to AS-REP roasting."
+  }
+}

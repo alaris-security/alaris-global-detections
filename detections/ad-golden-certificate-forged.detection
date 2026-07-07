@@ -1,0 +1,18 @@
+{
+  "uuid": "0cdff016-2544-4352-8d28-2d5684ae1c30",
+  "slug": "ad-golden-certificate-forged",
+  "title": "Golden Certificate Authentication",
+  "description": "Detects certificate-based authentication (PKINIT, event 4768 with certificate info) for a privileged account with no corresponding CA-issued certificate request, indicating a forged Golden Certificate signed with a stolen CA private key.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "adcs", "golden-certificate"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1649", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/ad-golden-certificate-forged.sigma"],
+  "intent": {
+    "conditions": ["Directory/security event matching the described technique"],
+    "dataSourceRequirements": ["Active Directory Security logs / ADCS logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects certificate-based authentication (PKINIT, event 4768 with certificate info) for a privileged account with no corresponding CA-issued certificate request, indicating a forged Golden Certificate signed with a stolen CA private key."
+  }
+}
