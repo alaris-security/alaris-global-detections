@@ -1,0 +1,32 @@
+title: Payload Hidden in NTFS Alternate Data Stream
+id: 61176002-010d-4c77-a8d1-6744c71c5c58
+status: experimental
+description: Detects use of NTFS alternate data streams for payloads.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1564/004/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|re: ':[A-Za-z0-9_]+\.(exe|dll|ps1|bat|vbs|js)'
+  selection_tool:
+    CommandLine|contains:
+      - 'type '
+      - 'makecab'
+      - 'expand '
+      - 'wmic process call create'
+      - 'rundll32'
+      - 'Set-Content'
+      - '-Stream'
+  condition: selection and selection_tool
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Rare legitimate ADS usage by backup software
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1564.004

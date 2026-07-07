@@ -1,0 +1,18 @@
+{
+  "uuid": "6366f756-db89-4cb7-b9bc-07066da43fef",
+  "slug": "evasion-amsi-bypass",
+  "title": "AMSI Bypass via Reflection or amsiInitFailed",
+  "description": "Detects PowerShell command lines that patch or disable the Antimalware Scan Interface, including amsiInitFailed reflection, AmsiUtils manipulation, and known memory-patch one-liners used to run malicious scripts unscanned.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "amsi", "powershell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-amsi-bypass.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command references amsiInitFailed, AmsiUtils, or AmsiScanBuffer patching"],
+    "dataSourceRequirements": ["PowerShell script block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling AMSI removes in-memory script scanning, a precursor to running malicious payloads."
+  }
+}

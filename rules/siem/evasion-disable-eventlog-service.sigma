@@ -1,0 +1,32 @@
+title: Windows Event Log Service Tampering
+id: 44447eef-b065-4e6d-89c4-a2e2256689f0
+status: experimental
+description: Detects disabling of Windows event logging.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_wevtutil:
+    Image|endswith: '\wevtutil.exe'
+    CommandLine|contains:
+      - 'sl'
+      - '/e:false'
+      - 'set-log'
+  selection_sc:
+    CommandLine|contains:
+      - 'stop eventlog'
+      - 'config eventlog'
+      - 'Stop-Service eventlog'
+  condition: selection_wevtutil or selection_sc
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Administrators reconfiguring channel sizes
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.002

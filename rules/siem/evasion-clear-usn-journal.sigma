@@ -1,0 +1,26 @@
+title: USN Change Journal Deletion via fsutil
+id: ce6a8ff4-52b6-4e98-9ccd-d25ea6d5ab95
+status: experimental
+description: Detects USN journal deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\fsutil.exe'
+    CommandLine|contains|all:
+      - 'usn'
+      - 'deletejournal'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Rare disk maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070

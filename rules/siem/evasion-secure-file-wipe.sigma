@@ -1,0 +1,32 @@
+title: Secure File Wiping with SDelete or shred
+id: 38649515-76cc-4f44-938c-6fae34c0c72b
+status: experimental
+description: Detects secure file wiping tools.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/004/
+logsource:
+  category: process_creation
+detection:
+  selection_win:
+    Image|endswith:
+      - '\sdelete.exe'
+      - '\sdelete64.exe'
+      - '\cipher.exe'
+    CommandLine|contains:
+      - '-p'
+      - '/w'
+      - '-nobanner'
+  selection_nix:
+    Image|endswith: '/shred'
+    CommandLine|contains: '-u'
+  condition: selection_win or selection_nix
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized secure disposal of sensitive data
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.004

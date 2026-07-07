@@ -1,0 +1,18 @@
+{
+  "uuid": "83e4e5b9-76e6-4214-a32d-62f863fba2b0",
+  "slug": "evasion-clear-powershell-history",
+  "title": "PowerShell Console History Removal",
+  "description": "Detects deletion of the PSReadline ConsoleHost_history.txt file or use of Clear-History, an anti-forensics action to erase the record of interactive PowerShell commands.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "indicator-removal", "powershell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.003", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-clear-powershell-history.sigma"],
+  "intent": {
+    "conditions": ["Remove-Item/del of ConsoleHost_history.txt, or Clear-History"],
+    "dataSourceRequirements": ["Process creation telemetry or PowerShell logging"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting PSReadline history removes evidence of attacker command activity."
+  }
+}

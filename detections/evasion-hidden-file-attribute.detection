@@ -1,0 +1,18 @@
+{
+  "uuid": "aeaecc19-0b22-4f47-97d6-be29a56bf415",
+  "slug": "evasion-hidden-file-attribute",
+  "title": "Files Hidden via attrib +h +s",
+  "description": "Detects use of attrib.exe to set the hidden and system attributes on files or directories in user-writable locations, a simple technique to conceal dropped tooling from users and defenders.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "hidden-files", "attrib"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1564.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-hidden-file-attribute.sigma"],
+  "intent": {
+    "conditions": ["attrib.exe with +h and +s applied to files in user paths"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Marking dropped files hidden+system keeps them out of casual view."
+  }
+}

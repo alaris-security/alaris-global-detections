@@ -1,0 +1,32 @@
+title: Timestomping of File MACE Timestamps
+id: 3510d260-835a-48d5-a451-c9d45172efe3
+status: experimental
+description: Detects file timestamp manipulation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/006/
+logsource:
+  category: process_creation
+detection:
+  selection_ps:
+    CommandLine|contains:
+      - '.CreationTime ='
+      - '.LastWriteTime ='
+      - '.LastAccessTime ='
+      - 'SetLastWriteTime'
+  selection_touch:
+    Image|endswith: '/touch'
+    CommandLine|contains:
+      - '-r '
+      - '-t '
+      - '-d '
+  condition: selection_ps or selection_touch
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Build systems normalizing timestamps
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.006

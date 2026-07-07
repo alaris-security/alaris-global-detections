@@ -1,0 +1,18 @@
+{
+  "uuid": "ecfa2a0d-5eda-4688-bde6-1afdddd09942",
+  "slug": "evasion-timestomp",
+  "title": "Timestomping of File MACE Timestamps",
+  "description": "Detects modification of file creation and modification timestamps via PowerShell CreationTime/LastWriteTime assignment or touch -r, an anti-forensics technique to blend malicious files with legitimate ones.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "timestomp", "anti-forensics"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.006", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-timestomp.sigma"],
+  "intent": {
+    "conditions": ["PowerShell setting CreationTime/LastWriteTime, or touch -r/-t referencing a payload"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Backdating a file's timestamps hides it from timeline-based investigation."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "97fcf9fb-731a-4266-896c-dbdc17859a69",
+  "slug": "evasion-disable-uac-registry",
+  "title": "User Account Control Disabled via Registry",
+  "description": "Detects setting EnableLUA to 0 or lowering ConsentPromptBehaviorAdmin under the System policy key, which disables UAC prompts and weakens privilege boundaries.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "privilege-escalation", "uac", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-disable-uac-registry.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting EnableLUA=0 or ConsentPromptBehaviorAdmin=0 under Policies\\System"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling UAC removes elevation prompts, easing privileged execution."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "1186c7fd-bd45-4c58-972c-ee12273945e5",
+  "slug": "evasion-sysmon-driver-unload",
+  "title": "Sysmon Driver Unload or Service Stop",
+  "description": "Detects unloading of the Sysmon minifilter driver via fltmc unload or stopping/deleting the Sysmon service, which blinds a primary endpoint telemetry source.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "sysmon", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-sysmon-driver-unload.sigma"],
+  "intent": {
+    "conditions": ["fltmc unload of a Sysmon driver, or sc stop/delete of the Sysmon service"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {"sysmonDriverNames": ["SysmonDrv", "sysmon64"]},
+    "sourceContext": "Unloading Sysmon removes the events many detections depend on."
+  }
+}

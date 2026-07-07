@@ -1,0 +1,18 @@
+{
+  "uuid": "cbebc36e-ffa7-463f-8493-910a8f8a9ed4",
+  "slug": "evasion-etw-patching",
+  "title": "ETW Provider Tampering and Patching",
+  "description": "Detects attempts to blind Event Tracing for Windows, including EtwEventWrite patching, disabling the Microsoft-Windows-PowerShell provider, and logman/wevtutil disabling of ETW sessions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "etw", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.006", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-etw-patching.sigma"],
+  "intent": {
+    "conditions": ["Command references EtwEventWrite, EtwProvider GUID disabling, or logman stop of security traces"],
+    "dataSourceRequirements": ["PowerShell logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Patching ETW cuts the telemetry feeding EDR and PowerShell logging."
+  }
+}

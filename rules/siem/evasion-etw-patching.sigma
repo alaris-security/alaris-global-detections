@@ -1,0 +1,29 @@
+title: ETW Provider Tampering and Patching
+id: 5d23ad92-2c1f-44cf-981f-b5275fdaed9d
+status: experimental
+description: Detects ETW tampering techniques.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/006/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'EtwEventWrite'
+      - 'ntdll!EtwEventWrite'
+      - 'EnableTraceEx'
+      - 'Autologger\EventLog-'
+      - 'logman stop'
+      - 'EtwProvider'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Performance profiling and tracing tools
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.006

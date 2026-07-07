@@ -1,0 +1,31 @@
+title: Microsoft Defender Exclusion Added
+id: 4d72fb3e-6d28-47e9-b04e-8bee18605169
+status: experimental
+description: Detects creation of Defender exclusions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_ps:
+    CommandLine|contains:
+      - 'Add-MpPreference'
+      - 'Set-MpPreference'
+    CommandLine|contains:
+      - 'ExclusionPath'
+      - 'ExclusionExtension'
+      - 'ExclusionProcess'
+      - 'DisableRealtimeMonitoring'
+  condition: selection_ps
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - IT configuring approved exclusions
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

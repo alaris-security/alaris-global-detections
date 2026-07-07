@@ -1,0 +1,27 @@
+title: Mark-of-the-Web Zone.Identifier Removal
+id: 183b218a-4954-454c-aba0-a29fb26a60e1
+status: experimental
+description: Detects removal of the mark-of-the-web.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1553/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Unblock-File'
+      - 'Zone.Identifier'
+      - 'streams -d'
+      - '-Stream Zone.Identifier'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Users intentionally unblocking trusted downloads
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1553.005

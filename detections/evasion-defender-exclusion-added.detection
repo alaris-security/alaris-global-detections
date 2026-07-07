@@ -1,0 +1,18 @@
+{
+  "uuid": "ad0ae1da-7be3-4c9e-a072-caa32b6f03c3",
+  "slug": "evasion-defender-exclusion-added",
+  "title": "Microsoft Defender Exclusion Added",
+  "description": "Detects addition of a Microsoft Defender exclusion path, extension, or process via Add-MpPreference or the Exclusions registry key, which creates a blind spot where malware can run unscanned.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "defender", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-defender-exclusion-added.sigma"],
+  "intent": {
+    "conditions": ["Add-MpPreference -Exclusion*, or registry write under Windows Defender\\Exclusions"],
+    "dataSourceRequirements": ["Process command line and Sysmon event 13"],
+    "tuningParameters": {},
+    "sourceContext": "Exclusions let attackers stage tooling in a folder Defender ignores."
+  }
+}

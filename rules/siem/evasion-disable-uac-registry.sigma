@@ -1,0 +1,28 @@
+title: User Account Control Disabled via Registry
+id: 2557664b-7393-49a5-8cb1-1850c73bc07a
+status: experimental
+description: Detects disabling of UAC via registry.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection_enablelua:
+    TargetObject|endswith: '\Policies\System\EnableLUA'
+    Details: 'DWORD (0x00000000)'
+  selection_consent:
+    TargetObject|endswith: '\Policies\System\ConsentPromptBehaviorAdmin'
+    Details: 'DWORD (0x00000000)'
+  condition: selection_enablelua or selection_consent
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare hardened build configurations
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1548.002

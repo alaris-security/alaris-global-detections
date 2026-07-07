@@ -1,0 +1,18 @@
+{
+  "uuid": "980f95c8-9094-4b88-b666-9aea4318d520",
+  "slug": "evasion-disable-eventlog-service",
+  "title": "Windows Event Log Service Tampering",
+  "description": "Detects stopping the EventLog service, disabling ETW autologgers, or using wevtutil sl to disable individual channels, all of which suppress Windows security logging.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "event-logging", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-disable-eventlog-service.sigma"],
+  "intent": {
+    "conditions": ["sc stop/config EventLog disabled, or wevtutil sl /e:false, or Set-Service eventlog stopped"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling event logging stops generation of the very events used to detect intrusions."
+  }
+}

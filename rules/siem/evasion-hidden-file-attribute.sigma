@@ -1,0 +1,25 @@
+title: Files Hidden via attrib +h +s
+id: dd0bcd68-cfc8-444f-9da8-374e9e0c88a8
+status: experimental
+description: Detects hiding of files via attrib.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1564/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\attrib.exe'
+    CommandLine|contains: '+h'
+    CommandLine|contains: '+s'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Installers hiding configuration files
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1564.001

@@ -1,0 +1,18 @@
+{
+  "uuid": "2c3e7a2a-a3a0-4df7-9e5a-7817fb3d8365",
+  "slug": "evasion-clear-usn-journal",
+  "title": "USN Change Journal Deletion via fsutil",
+  "description": "Detects fsutil usn deletejournal, which wipes the NTFS change journal that records file create/delete/modify events, an anti-forensics action commonly performed by ransomware and intrusions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "indicator-removal", "usn-journal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-clear-usn-journal.sigma"],
+  "intent": {
+    "conditions": ["fsutil usn deletejournal command"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting the USN journal removes a rich forensic record of file activity."
+  }
+}

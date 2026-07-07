@@ -1,0 +1,18 @@
+{
+  "uuid": "e0da0359-275c-480d-bac2-34c1f8b7059e",
+  "slug": "evasion-disable-firewall",
+  "title": "Windows Firewall Disabled via netsh or PowerShell",
+  "description": "Detects disabling of the Windows Defender Firewall through netsh advfirewall set allprofiles state off or Set-NetFirewallProfile -Enabled False, weakening host network controls before lateral movement or C2.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "firewall", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.004", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-disable-firewall.sigma"],
+  "intent": {
+    "conditions": ["netsh advfirewall set ... state off, or Set-NetFirewallProfile -Enabled False"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Turning off the host firewall clears the way for inbound tools and C2."
+  }
+}

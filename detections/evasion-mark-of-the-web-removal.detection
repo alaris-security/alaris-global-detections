@@ -1,0 +1,18 @@
+{
+  "uuid": "f8d4efc5-d7be-4792-859a-eb96cb15dd4d",
+  "slug": "evasion-mark-of-the-web-removal",
+  "title": "Mark-of-the-Web Zone.Identifier Removal",
+  "description": "Detects stripping of the Zone.Identifier alternate data stream (Unblock-File, streams -d, del :Zone.Identifier), which removes the mark-of-the-web that would otherwise trigger SmartScreen and Office protected view.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "mark-of-the-web", "ntfs"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1553.005", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-mark-of-the-web-removal.sigma"],
+  "intent": {
+    "conditions": ["Unblock-File, streams -d, or deletion of a :Zone.Identifier stream"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Removing MOTW lets downloaded payloads run without protective warnings."
+  }
+}
