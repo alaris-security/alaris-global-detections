@@ -1,0 +1,18 @@
+{
+  "uuid": "5036f52a-a22c-4cd9-a95d-1eae55e5f252",
+  "slug": "exec-macos-osascript",
+  "title": "macOS osascript AppleScript Execution",
+  "description": "Detects osascript executing inline AppleScript or JXA that shells out (do shell script), prompts for credentials, or performs downloads, a common macOS malware execution and phishing technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "macos", "applescript"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.002", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-macos-osascript.sigma"],
+  "intent": {
+    "conditions": ["osascript with -e and do shell script, display dialog password, or curl"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "osascript shelling out or prompting for passwords is used by macOS stealers."
+  }
+}

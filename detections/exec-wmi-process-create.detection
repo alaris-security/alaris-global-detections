@@ -1,0 +1,18 @@
+{
+  "uuid": "7fe7a944-079d-417a-8e4d-676fd9f8b102",
+  "slug": "exec-wmi-process-create",
+  "title": "Local Process Creation via WMI",
+  "description": "Detects local code execution through WMI, identified by wmic process call create or WmiPrvSE.exe spawning command interpreters, used to launch payloads while breaking normal process lineage.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "wmi"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1047", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-wmi-process-create.sigma"],
+  "intent": {
+    "conditions": ["wmic process call create, or WmiPrvSE.exe spawning a shell"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "WMI process creation hides the launcher and is common in fileless attacks."
+  }
+}

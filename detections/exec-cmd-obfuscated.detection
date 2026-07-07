@@ -1,0 +1,18 @@
+{
+  "uuid": "b47400d7-809d-4aa7-93d0-b85a5bdc8116",
+  "slug": "exec-cmd-obfuscated",
+  "title": "Obfuscated Windows Command Line",
+  "description": "Detects cmd.exe command lines using caret escaping, excessive quotes, or environment-variable substring tricks to obfuscate the real command, a technique to evade command-line string detections.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "obfuscation", "cmd"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.003", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-cmd-obfuscated.sigma"],
+  "intent": {
+    "conditions": ["cmd.exe command line with caret escaping or FOR/variable substring obfuscation"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Caret and variable-substring obfuscation is used to hide commands from naive matching."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "34a9d36e-5284-44f8-b13b-dfbace1149e5",
+  "slug": "exec-scheduled-task-anomalous-parent",
+  "title": "Scheduled Task Launching Suspicious Child",
+  "description": "Detects the Task Scheduler engine (taskeng.exe or svchost hosting Schedule) launching command interpreters or binaries from user-writable paths, indicating a scheduled task used for execution.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "scheduled-task"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-scheduled-task-anomalous-parent.sigma"],
+  "intent": {
+    "conditions": ["taskeng.exe or svchost -k netsvcs -p -s Schedule spawning a shell or user-path binary"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "Scheduled tasks running shells or temp binaries reveal task-based execution."
+  }
+}

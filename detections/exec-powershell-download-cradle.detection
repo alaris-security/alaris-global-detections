@@ -1,0 +1,18 @@
+{
+  "uuid": "2048076e-7732-439d-b1f8-8211ad604c42",
+  "slug": "exec-powershell-download-cradle",
+  "title": "PowerShell Download Cradle Execution",
+  "description": "Detects PowerShell download cradles that fetch and execute remote code in memory using Net.WebClient DownloadString, Invoke-WebRequest, or IEX combined with a URL, a primary ingress and execution method.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "powershell", "ingress-tool-transfer"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.001", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-powershell-download-cradle.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command combining a download primitive with IEX or an http URL"],
+    "dataSourceRequirements": ["PowerShell logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Download cradles pull payloads straight into memory, leaving little on disk."
+  }
+}

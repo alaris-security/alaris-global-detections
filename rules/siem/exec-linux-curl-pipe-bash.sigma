@@ -1,0 +1,32 @@
+title: Curl or Wget Piped to Shell on Linux
+id: 6d07b2ba-8df6-43a8-9e99-b27a5ca44ff8
+status: experimental
+description: Detects curl/wget piped directly into a shell.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'curl'
+      - 'wget'
+    CommandLine|contains:
+      - '| bash'
+      - '| sh'
+      - '|bash'
+      - '|sh'
+      - '| dash'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+falsepositives:
+  - Install scripts documented by vendors
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.004

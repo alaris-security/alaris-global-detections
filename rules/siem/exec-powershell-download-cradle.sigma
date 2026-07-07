@@ -1,0 +1,32 @@
+title: PowerShell Download Cradle Execution
+id: cd4322e3-8cc0-4d43-ad58-c876899fcfba
+status: experimental
+description: Detects PowerShell in-memory download cradles.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'DownloadString'
+      - 'DownloadData'
+      - 'DownloadFile'
+      - 'Invoke-WebRequest'
+      - 'Net.WebClient'
+    CommandLine|contains:
+      - 'IEX'
+      - 'Invoke-Expression'
+      - 'http'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrative install scripts fetching packages
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001

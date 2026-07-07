@@ -1,0 +1,34 @@
+title: Payload Execution via Windows Service
+id: dcec494c-371a-4f7f-bb87-c3e823440b4a
+status: experimental
+description: Detects suspicious service-based execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1569/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\services.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+  selection_path:
+    ParentImage|endswith: '\services.exe'
+    Image|contains:
+      - '\Temp\'
+      - '\AppData\'
+      - '\ProgramData\'
+      - '\Users\Public\'
+  condition: selection or selection_path
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - Some third-party services launching helpers
+level: high
+tags:
+  - attack.execution
+  - attack.t1569.002

@@ -1,0 +1,35 @@
+title: Malicious LNK Shortcut Execution
+id: 2243d013-e338-48fc-a53b-650c44b84c02
+status: experimental
+description: Detects suspicious LNK-driven command execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1204/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\explorer.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\mshta.exe'
+      - '\wscript.exe'
+    CommandLine|contains:
+      - 'http'
+      - 'IEX'
+      - '-enc'
+      - '.hta'
+      - 'DownloadString'
+  condition: selection
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - User-created shortcuts to scripts
+level: high
+tags:
+  - attack.execution
+  - attack.t1204.001

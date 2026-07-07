@@ -1,0 +1,38 @@
+title: Office Application Spawning Command Interpreter
+id: 0cb6a250-534b-44fe-a48d-afcf19de063a
+status: experimental
+description: Detects Office apps spawning shells or script hosts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1204/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\winword.exe'
+      - '\excel.exe'
+      - '\powerpnt.exe'
+      - '\outlook.exe'
+      - '\onenote.exe'
+      - '\mspub.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+      - '\mshta.exe'
+      - '\rundll32.exe'
+      - '\regsvr32.exe'
+  condition: selection
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - Rare legitimate Office automation
+level: high
+tags:
+  - attack.execution
+  - attack.t1204.002

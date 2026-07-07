@@ -1,0 +1,18 @@
+{
+  "uuid": "f9849ac9-fb8b-4f19-a7db-2ecb5c2ba9ce",
+  "slug": "exec-python-inline-command",
+  "title": "Suspicious Inline Python Execution",
+  "description": "Detects python invoked with -c containing networking or shell primitives (socket, subprocess, os.system, base64 decode), commonly used for reverse shells and cross-platform payloads.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "python"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.006", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-python-inline-command.sigma"],
+  "intent": {
+    "conditions": ["python -c with socket/subprocess/os.system/base64 primitives"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Inline Python one-liners are a portable way to spawn reverse shells."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "2494baa7-32f8-4f92-8d09-17c1abaa18b4",
+  "slug": "exec-linux-curl-pipe-bash",
+  "title": "Curl or Wget Piped to Shell on Linux",
+  "description": "Detects downloading and directly executing a script by piping curl/wget output into bash or sh, a one-line ingress-and-execute pattern common to Linux malware and cryptominers.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "linux", "ingress-tool-transfer"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.004", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-linux-curl-pipe-bash.sigma"],
+  "intent": {
+    "conditions": ["curl/wget output piped to bash/sh"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "curl | bash fetches and runs remote code in a single step, bypassing file controls."
+  }
+}

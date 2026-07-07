@@ -1,0 +1,18 @@
+{
+  "uuid": "16fdea7d-49c3-42b2-95cf-eb2f10b130e9",
+  "slug": "exec-linux-base64-decode-exec",
+  "title": "Base64 Decode and Execute on Linux",
+  "description": "Detects base64-decoded content piped directly into a shell interpreter on Linux (echo ... | base64 -d | bash), an obfuscated execution technique used to hide payloads from command-line inspection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "linux", "obfuscation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.004", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-linux-base64-decode-exec.sigma"],
+  "intent": {
+    "conditions": ["base64 -d/--decode piped into bash/sh/python"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Decoding base64 straight into an interpreter conceals the real command."
+  }
+}

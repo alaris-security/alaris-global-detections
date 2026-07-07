@@ -1,0 +1,18 @@
+{
+  "uuid": "2c29aec9-8dd3-4a0c-819e-46c52341a20b",
+  "slug": "exec-jscript-execution",
+  "title": "JavaScript Execution via Script Host",
+  "description": "Detects execution of JScript via cscript //E:jscript or .js files, a scripting engine abused by droppers (e.g. GootLoader, SocGholish) to run code with WSH outside the browser sandbox.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "javascript", "jscript"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.007", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-jscript-execution.sigma"],
+  "intent": {
+    "conditions": ["cscript/wscript with //E:jscript or .js payloads"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "WSH JScript is a favored initial execution vector for JavaScript-based loaders."
+  }
+}

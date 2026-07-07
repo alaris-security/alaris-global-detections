@@ -1,0 +1,35 @@
+title: Scheduled Task Launching Suspicious Child
+id: 596f9fd9-eaf0-48ea-a2d3-a31c0fd3948d
+status: experimental
+description: Detects scheduled task engine spawning suspicious children.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\taskeng.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\mshta.exe'
+      - '\rundll32.exe'
+  selection_path:
+    ParentImage|endswith: '\taskeng.exe'
+    Image|contains:
+      - '\Temp\'
+      - '\AppData\'
+      - '\Users\Public\'
+  condition: selection or selection_path
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - Legitimate scheduled maintenance tasks
+level: medium
+tags:
+  - attack.execution
+  - attack.t1053.005

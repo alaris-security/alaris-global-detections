@@ -1,0 +1,18 @@
+{
+  "uuid": "1c8af9da-ed9f-41c8-9c21-858fc4efc17c",
+  "slug": "exec-lnk-file-execution",
+  "title": "Malicious LNK Shortcut Execution",
+  "description": "Detects shortcut (.lnk) files launching command interpreters with embedded arguments from explorer.exe, a common user-execution delivery method in archives and ISO/IMG containers.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "lnk", "user-execution"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1204.001", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-lnk-file-execution.sigma"],
+  "intent": {
+    "conditions": ["explorer.exe spawning a shell whose command line contains a script or download primitive"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "Weaponized LNKs run hidden commands when a user double-clicks a disguised shortcut."
+  }
+}

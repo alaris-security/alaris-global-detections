@@ -1,0 +1,18 @@
+{
+  "uuid": "8a200678-a978-43c5-b50c-a7178bcbf503",
+  "slug": "exec-wscript-suspicious-script",
+  "title": "WScript/CScript Executing Script from Temp",
+  "description": "Detects wscript.exe or cscript.exe running .vbs, .js, or .wsf files from user-writable directories such as Temp, AppData, and Downloads, a common malware delivery execution pattern.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "wscript", "vbscript"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.005", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-wscript-suspicious-script.sigma"],
+  "intent": {
+    "conditions": ["wscript/cscript with a script path in Temp/AppData/Downloads/Public"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Script hosts running files from user temp paths are a hallmark of phishing payloads."
+  }
+}

@@ -1,0 +1,32 @@
+title: Base64 Decode and Execute on Linux
+id: b277676c-080d-47c4-b028-5a2690e818d3
+status: experimental
+description: Detects base64 decode piped into a shell.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'base64 -d'
+      - 'base64 --decode'
+      - 'base64 -D'
+    CommandLine|contains:
+      - '| bash'
+      - '| sh'
+      - '| python'
+      - 'eval'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+falsepositives:
+  - Rare legitimate encoded configuration handling
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.004

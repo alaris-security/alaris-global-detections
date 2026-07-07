@@ -1,0 +1,18 @@
+{
+  "uuid": "4cddfd4f-4ab0-4bba-8ed5-0aa621438d3d",
+  "slug": "exec-powershell-hidden-encoded",
+  "title": "PowerShell Hidden Window with Execution Bypass",
+  "description": "Detects PowerShell launched with hidden window, ExecutionPolicy Bypass, NoProfile, and NonInteractive flags together, a stealth invocation profile characteristic of malware loaders and droppers.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "powershell", "obfuscation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.001", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/exec-powershell-hidden-encoded.sigma"],
+  "intent": {
+    "conditions": ["PowerShell with -w hidden and -ep bypass and -nop / -noni"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "The hidden + bypass + noprofile combination is far more common in malware than admin scripts."
+  }
+}
