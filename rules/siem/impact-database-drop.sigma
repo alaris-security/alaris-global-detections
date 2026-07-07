@@ -1,0 +1,27 @@
+title: Destructive Database Drop
+id: ddd1eb57-c7bb-4c1e-9556-a59ecb68c240
+status: experimental
+description: Detects destructive database statements (DROP DATABASE, DROP TABLE, TRUNCATE across many tables) executed in bulk, indicating deliberate destruction of database contents for impact.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1485/
+logsource:
+  category: application
+detection:
+  selection:
+    query_text|contains:
+      - 'DROP DATABASE'
+      - 'DROP TABLE'
+      - 'TRUNCATE TABLE'
+      - 'db.dropDatabase'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate schema management
+level: high
+tags:
+  - attack.impact
+  - attack.t1485

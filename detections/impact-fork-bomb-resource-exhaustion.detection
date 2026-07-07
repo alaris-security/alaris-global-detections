@@ -1,0 +1,34 @@
+{
+  "uuid": "857ce7f7-4c34-4213-a82e-67e2cc25d97f",
+  "slug": "impact-fork-bomb-resource-exhaustion",
+  "title": "Fork Bomb / Resource Exhaustion",
+  "description": "Detects fork-bomb and resource-exhaustion patterns such as the classic recursive self-referencing shell function or rapid uncontrolled process spawning, an endpoint denial-of-service technique.",
+  "severity": "medium",
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "impact",
+    "endpoint-dos"
+  ],
+  "status": "active",
+  "mitre": [
+    {
+      "techniqueId": "T1499",
+      "tacticId": "TA0040"
+    }
+  ],
+  "rules": [
+    "rules/siem/impact-fork-bomb-resource-exhaustion.sigma"
+  ],
+  "intent": {
+    "conditions": [
+      "Telemetry matching the described impact technique"
+    ],
+    "dataSourceRequirements": [
+      "Process, file, or network telemetry"
+    ],
+    "tuningParameters": {},
+    "sourceContext": "Detects fork-bomb and resource-exhaustion patterns such as the classic recursive self-referencing shell function or rapid uncontrolled process spawning, an endpoint denial-of-service technique."
+  }
+}

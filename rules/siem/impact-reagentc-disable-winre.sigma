@@ -1,0 +1,25 @@
+title: Windows Recovery Environment Disabled
+id: 640af294-cc6e-4c09-b178-905f0e22ec71
+status: experimental
+description: Detects reagentc /disable, which turns off the Windows Recovery Environment, an inhibit-recovery step used by ransomware to prevent system repair and rollback.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1490/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\reagentc.exe'
+    CommandLine|contains: '/disable'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Administrators servicing WinRE
+level: high
+tags:
+  - attack.impact
+  - attack.t1490

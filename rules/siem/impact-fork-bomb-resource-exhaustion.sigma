@@ -1,0 +1,29 @@
+title: Fork Bomb / Resource Exhaustion
+id: 55fd17ff-b86e-41f5-9e44-8c4aa66f823e
+status: experimental
+description: Detects fork-bomb and resource-exhaustion patterns such as the classic recursive self-referencing shell function or rapid uncontrolled process spawning, an endpoint denial-of-service technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1499/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - ':(){ :|:& };:'
+      - ':|:&'
+      - 'while true; do'
+    CommandLine|contains:
+      - 'fork'
+      - '&'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Rare legitimate stress testing
+level: medium
+tags:
+  - attack.impact
+  - attack.t1499

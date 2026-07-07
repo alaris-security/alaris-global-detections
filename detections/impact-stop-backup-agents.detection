@@ -1,0 +1,18 @@
+{
+  "uuid": "858c4076-e3f0-4953-b8fa-ed8b27ca381e",
+  "slug": "impact-stop-backup-agents",
+  "title": "Backup and Recovery Agents Stopped",
+  "description": "Detects stopping or disabling of backup and recovery agent services (Veeam, Acronis, Backup Exec, Commvault, Rubrik) via net stop, sc, or Stop-Service, a pre-encryption step to prevent restoration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "service-stop", "backup"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1489", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-stop-backup-agents.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects stopping or disabling of backup and recovery agent services (Veeam, Acronis, Backup Exec, Commvault, Rubrik) via net stop, sc, or Stop-Service, a pre-encryption step to prevent restoration."
+  }
+}

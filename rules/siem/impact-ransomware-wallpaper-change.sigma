@@ -1,0 +1,31 @@
+title: Desktop Wallpaper Changed to Ransom Note
+id: 5cd637c0-9467-4133-bdb9-410e884117df
+status: experimental
+description: Detects programmatic replacement of the desktop wallpaper via the Wallpaper registry value or reg add to Control Panel Desktop, a defacement step ransomware uses to display its ransom message.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1491/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\\Control Panel\\Desktop\\Wallpaper'
+  selection_susp:
+    Details|contains:
+      - '\\Temp\\'
+      - '\\ProgramData\\'
+      - '.bmp'
+      - '.jpg'
+  condition: selection and selection_susp
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Users or GPO changing wallpaper
+level: medium
+tags:
+  - attack.impact
+  - attack.t1491.001

@@ -1,0 +1,18 @@
+{
+  "uuid": "be36c4a3-9a58-4f42-9e3e-1a482aee15c5",
+  "slug": "impact-ransomware-wallpaper-change",
+  "title": "Desktop Wallpaper Changed to Ransom Note",
+  "description": "Detects programmatic replacement of the desktop wallpaper via the Wallpaper registry value or reg add to Control Panel Desktop, a defacement step ransomware uses to display its ransom message.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["impact", "defacement", "ransomware"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1491.001", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-ransomware-wallpaper-change.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects programmatic replacement of the desktop wallpaper via the Wallpaper registry value or reg add to Control Panel Desktop, a defacement step ransomware uses to display its ransom message."
+  }
+}

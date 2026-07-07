@@ -1,0 +1,18 @@
+{
+  "uuid": "a4e64a55-3128-4434-9250-3a37532aa4d5",
+  "slug": "impact-git-repo-mass-deletion",
+  "title": "Mass Repository Deletion",
+  "description": "Detects mass deletion of source repositories via version-control APIs (repo.destroy / repository deletion in a short window), a destructive impact action against an organization's code assets.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "git", "data-destruction"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1485", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-git-repo-mass-deletion.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects mass deletion of source repositories via version-control APIs (repo.destroy / repository deletion in a short window), a destructive impact action against an organization's code assets."
+  }
+}

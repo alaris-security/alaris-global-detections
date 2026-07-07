@@ -1,0 +1,18 @@
+{
+  "uuid": "ac494626-22d1-4fc3-9226-95602b16c193",
+  "slug": "impact-vssadmin-resize-shadowstorage",
+  "title": "Shadow Storage Resized to Delete Copies",
+  "description": "Detects vssadmin resize shadowstorage to a tiny size, which forces deletion of existing volume shadow copies, an alternative recovery-inhibition technique to outright deletion used by ransomware.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "inhibit-recovery", "shadow-copy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1490", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-vssadmin-resize-shadowstorage.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects vssadmin resize shadowstorage to a tiny size, which forces deletion of existing volume shadow copies, an alternative recovery-inhibition technique to outright deletion used by ransomware."
+  }
+}

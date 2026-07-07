@@ -1,0 +1,35 @@
+title: Backup and Recovery Agents Stopped
+id: 1b87fae2-085e-4388-ade3-774aa7767fed
+status: experimental
+description: Detects stopping or disabling of backup and recovery agent services (Veeam, Acronis, Backup Exec, Commvault, Rubrik) via net stop, sc, or Stop-Service, a pre-encryption step to prevent restoration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1489/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'net stop'
+      - 'sc stop'
+      - 'Stop-Service'
+      - 'sc config'
+    CommandLine|contains:
+      - 'Veeam'
+      - 'Acronis'
+      - 'Backup Exec'
+      - 'BackupExec'
+      - 'Commvault'
+      - 'Rubrik'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Maintenance of backup infrastructure
+level: high
+tags:
+  - attack.impact
+  - attack.t1489

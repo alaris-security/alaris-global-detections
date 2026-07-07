@@ -1,0 +1,18 @@
+{
+  "uuid": "0a8e9a14-1578-49c1-9708-f0b5047d0f75",
+  "slug": "impact-bitlocker-abuse-lockout",
+  "title": "BitLocker Abused to Lock Out Data",
+  "description": "Detects attacker use of manage-bde or Enable-BitLocker to encrypt volumes with an attacker-held key, a technique that abuses the built-in disk encryption to lock victims out of their data without ransomware binaries.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "bitlocker", "encryption"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1486", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-bitlocker-abuse-lockout.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects attacker use of manage-bde or Enable-BitLocker to encrypt volumes with an attacker-held key, a technique that abuses the built-in disk encryption to lock victims out of their data without ransomware binaries."
+  }
+}

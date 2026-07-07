@@ -1,0 +1,29 @@
+title: Cryptomining Pool Network Connection
+id: 2e66802c-6014-4b4e-8691-18df6b144baa
+status: experimental
+description: Detects outbound connections to cryptocurrency mining pools on common stratum ports (3333, 4444, 5555, 7777, 14444) or to known pool domains, indicating resource-hijacking coin mining.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1496/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 3333
+      - 4444
+      - 5555
+      - 7777
+      - 14444
+    direction: 'outbound'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Legitimate mining or apps reusing these ports
+level: high
+tags:
+  - attack.impact
+  - attack.t1496

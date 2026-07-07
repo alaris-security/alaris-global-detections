@@ -1,0 +1,31 @@
+title: BitLocker Abused to Lock Out Data
+id: 114af2c0-cd44-4c03-a947-73e0596a1ade
+status: experimental
+description: Detects attacker use of manage-bde or Enable-BitLocker to encrypt volumes with an attacker-held key, a technique that abuses the built-in disk encryption to lock victims out of their data without ransomware binaries.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1486/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'manage-bde'
+      - 'Enable-BitLocker'
+    CommandLine|contains:
+      - '-on'
+      - '-EncryptionMethod'
+      - '-RecoveryPassword'
+      - '-Password'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate BitLocker deployment
+level: high
+tags:
+  - attack.impact
+  - attack.t1486

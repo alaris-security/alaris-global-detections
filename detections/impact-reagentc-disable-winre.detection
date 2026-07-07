@@ -1,0 +1,18 @@
+{
+  "uuid": "5d5621e4-4b30-47ee-9a34-dfa5d25a1578",
+  "slug": "impact-reagentc-disable-winre",
+  "title": "Windows Recovery Environment Disabled",
+  "description": "Detects reagentc /disable, which turns off the Windows Recovery Environment, an inhibit-recovery step used by ransomware to prevent system repair and rollback.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "inhibit-recovery", "winre"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1490", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-reagentc-disable-winre.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects reagentc /disable, which turns off the Windows Recovery Environment, an inhibit-recovery step used by ransomware to prevent system repair and rollback."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "fe8ff486-7f94-49f5-a37c-82d76f40fa70",
+  "slug": "impact-esxi-datastore-wipe",
+  "title": "ESXi Datastore File Destruction",
+  "description": "Detects destructive operations against ESXi datastore files (rm of vmdk/vmx in /vmfs/volumes, or esxcli storage filesystem operations), a data-destruction technique targeting virtual machine disks on the hypervisor.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "esxi", "data-destruction"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1485", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-esxi-datastore-wipe.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects destructive operations against ESXi datastore files (rm of vmdk/vmx in /vmfs/volumes, or esxcli storage filesystem operations), a data-destruction technique targeting virtual machine disks on the hypervisor."
+  }
+}

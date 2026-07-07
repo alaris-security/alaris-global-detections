@@ -1,0 +1,24 @@
+title: High-Rate File Modification (Ransomware)
+id: 21382ae2-a9a1-4102-9591-c8cc0d81ae00
+status: experimental
+description: Detects a single process modifying or creating an abnormally high number of files across many directories in a short window, the file-activity signature of active ransomware encryption.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1486/
+logsource:
+  category: file_event
+detection:
+  selection:
+    EventType: 'modify'
+  timeframe: 1m
+  condition: selection | count() by Image > 500
+  condition: selection
+fields:
+  - Image
+  - TargetFilename
+falsepositives:
+  - Backup, indexing, or sync software
+level: critical
+tags:
+  - attack.impact
+  - attack.t1486

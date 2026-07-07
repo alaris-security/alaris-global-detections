@@ -1,0 +1,18 @@
+{
+  "uuid": "9534fb34-611f-4be0-afa6-ee602eeb43a8",
+  "slug": "impact-firmware-corruption",
+  "title": "Firmware/UEFI Tampering",
+  "description": "Detects tools writing to system firmware or UEFI (flashrom, chipsec write, efivar/efibootmgr manipulation, direct SPI flash access), a destructive technique to corrupt firmware and brick systems.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "firmware"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1495", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-firmware-corruption.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects tools writing to system firmware or UEFI (flashrom, chipsec write, efivar/efibootmgr manipulation, direct SPI flash access), a destructive technique to corrupt firmware and brick systems."
+  }
+}

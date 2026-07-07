@@ -1,0 +1,18 @@
+{
+  "uuid": "5dbc303d-15c5-4024-b0d8-3a97b154eeef",
+  "slug": "impact-mining-pool-connection",
+  "title": "Cryptomining Pool Network Connection",
+  "description": "Detects outbound connections to cryptocurrency mining pools on common stratum ports (3333, 4444, 5555, 7777, 14444) or to known pool domains, indicating resource-hijacking coin mining.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "resource-hijacking", "cryptomining"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1496", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-mining-pool-connection.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects outbound connections to cryptocurrency mining pools on common stratum ports (3333, 4444, 5555, 7777, 14444) or to known pool domains, indicating resource-hijacking coin mining."
+  }
+}

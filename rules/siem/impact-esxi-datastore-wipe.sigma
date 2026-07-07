@@ -1,0 +1,27 @@
+title: ESXi Datastore File Destruction
+id: bf969258-1995-4369-bc87-ac35b270b09d
+status: experimental
+description: Detects destructive operations against ESXi datastore files (rm of vmdk/vmx in /vmfs/volumes, or esxcli storage filesystem operations), a data-destruction technique targeting virtual machine disks on the hypervisor.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1485/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: '/vmfs/volumes/'
+    CommandLine|contains:
+      - 'rm '
+      - '.vmdk'
+      - '.vmx'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Administrators decommissioning VMs
+level: critical
+tags:
+  - attack.impact
+  - attack.t1485

@@ -1,0 +1,25 @@
+title: Forced Safe Mode Boot Configuration
+id: 84b3791e-f136-497c-9266-90942c4f7bea
+status: experimental
+description: Detects bcdedit configuring the system to boot into Safe Mode (safeboot), a technique ransomware uses to run encryption with most security tools disabled, often paired with a service registered to start in Safe Mode.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/009/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\bcdedit.exe'
+    CommandLine|contains: 'safeboot'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Administrators troubleshooting in Safe Mode
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.009

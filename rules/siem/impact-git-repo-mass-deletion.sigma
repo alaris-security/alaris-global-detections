@@ -1,0 +1,27 @@
+title: Mass Repository Deletion
+id: 3744c799-f8cd-4e7d-bcc3-88dde871cd9c
+status: experimental
+description: Detects mass deletion of source repositories via version-control APIs (repo.destroy / repository deletion in a short window), a destructive impact action against an organization's code assets.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1485/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action:
+      - 'repo.destroy'
+      - 'repo.remove'
+  timeframe: 10m
+  condition: selection | count() by actor > 3
+  condition: selection
+fields:
+  - actor
+  - repo
+falsepositives:
+  - Planned repository cleanup
+level: high
+tags:
+  - attack.impact
+  - attack.t1485

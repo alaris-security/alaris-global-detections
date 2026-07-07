@@ -1,0 +1,27 @@
+title: Ransomware Encryption of Network Shares
+id: 65eaa6a6-ee85-4e22-8e74-8ffdd6707ae0
+status: experimental
+description: Detects a single process writing ransomware-extension files to remote UNC network shares, indicating ransomware spreading its encryption to file servers and mapped drives.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1486/
+logsource:
+  category: file_event
+detection:
+  selection:
+    TargetFilename|startswith: '\\\\'
+    TargetFilename|endswith:
+      - '.locked'
+      - '.encrypted'
+      - '.crypt'
+      - '.enc'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Backup software writing encrypted archives to shares
+level: critical
+tags:
+  - attack.impact
+  - attack.t1486

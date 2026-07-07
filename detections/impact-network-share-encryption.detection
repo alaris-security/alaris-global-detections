@@ -1,0 +1,18 @@
+{
+  "uuid": "bea60253-8218-4445-b4ed-5489e4c62d39",
+  "slug": "impact-network-share-encryption",
+  "title": "Ransomware Encryption of Network Shares",
+  "description": "Detects a single process writing ransomware-extension files to remote UNC network shares, indicating ransomware spreading its encryption to file servers and mapped drives.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "ransomware", "network-share"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1486", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-network-share-encryption.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a single process writing ransomware-extension files to remote UNC network shares, indicating ransomware spreading its encryption to file servers and mapped drives."
+  }
+}

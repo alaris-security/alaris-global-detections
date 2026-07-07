@@ -1,0 +1,18 @@
+{
+  "uuid": "2c162fa6-1e52-4111-9fa4-6b12384b9bc3",
+  "slug": "impact-safe-mode-boot-ransomware",
+  "title": "Forced Safe Mode Boot Configuration",
+  "description": "Detects bcdedit configuring the system to boot into Safe Mode (safeboot), a technique ransomware uses to run encryption with most security tools disabled, often paired with a service registered to start in Safe Mode.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "safe-mode", "bcdedit"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.009", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/impact-safe-mode-boot-ransomware.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described impact technique"],
+    "dataSourceRequirements": ["Process, file, or network telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects bcdedit configuring the system to boot into Safe Mode (safeboot), a technique ransomware uses to run encryption with most security tools disabled, often paired with a service registered to start in Safe Mode."
+  }
+}

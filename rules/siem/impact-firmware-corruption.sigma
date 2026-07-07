@@ -1,0 +1,30 @@
+title: Firmware/UEFI Tampering
+id: 83ecc9f5-fcb7-4879-bf5d-87228fcbe569
+status: experimental
+description: Detects tools writing to system firmware or UEFI (flashrom, chipsec write, efivar/efibootmgr manipulation, direct SPI flash access), a destructive technique to corrupt firmware and brick systems.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1495/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/flashrom'
+      - '/chipsec_util'
+      - '/efibootmgr'
+    CommandLine|contains:
+      - 'write'
+      - '-w'
+      - 'spi'
+      - 'delete'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Legitimate firmware updates
+level: critical
+tags:
+  - attack.impact
+  - attack.t1495
