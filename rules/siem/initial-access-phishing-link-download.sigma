@@ -1,0 +1,36 @@
+title: Phishing Link Leading to Executable Download
+id: 3346b5aa-ec8e-454c-b74c-4008a1cce0d6
+status: experimental
+description: Detects browser/mail client spawning payloads.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\outlook.exe'
+      - '\chrome.exe'
+      - '\msedge.exe'
+      - '\firefox.exe'
+    Image|contains:
+      - '\Downloads\'
+      - '\Temp\'
+    Image|endswith:
+      - '.exe'
+      - '.scr'
+      - '.js'
+      - '.hta'
+  condition: selection
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - Users downloading and running legitimate installers
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1566.002

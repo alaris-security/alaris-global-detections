@@ -1,0 +1,18 @@
+{
+  "uuid": "18651799-5e74-46df-b5d7-d8313151116b",
+  "slug": "initial-access-vpn-auth-bruteforce",
+  "title": "VPN Authentication Brute Force",
+  "description": "Detects a high rate of failed VPN authentications from a single source IP across multiple accounts, followed by a success, indicating credential brute forcing against an external remote service.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "brute-force", "vpn"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1133", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-vpn-auth-bruteforce.sigma"],
+  "intent": {
+    "conditions": ["Many VPN auth failures from one source IP over a short window"],
+    "dataSourceRequirements": ["VPN authentication logs"],
+    "tuningParameters": {"failureThreshold": 20},
+    "sourceContext": "Brute forcing the VPN is a direct route to valid-account initial access."
+  }
+}

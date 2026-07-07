@@ -1,0 +1,29 @@
+title: Path Traversal and Local File Inclusion Attempt
+id: 991ffd0b-7d52-4e0d-b1ac-95489eae02c9
+status: experimental
+description: Detects path traversal and LFI patterns.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '../../'
+      - '..%2f'
+      - '..%5c'
+      - '/etc/passwd'
+      - 'php://filter'
+      - 'c:\windows\win.ini'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Security scanners
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

@@ -1,0 +1,30 @@
+title: Log4Shell JNDI Injection Attempt
+id: ea8c8067-2af7-4c94-8769-9d9fd8653113
+status: experimental
+description: Detects Log4Shell JNDI injection strings.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '${jndi:ldap'
+      - '${jndi:rmi'
+      - '${jndi:dns'
+      - 'jndi:ldap://'
+      - '${lower:jndi'
+  selection_ua:
+    cs-user-agent|contains: '${jndi:'
+  condition: selection or selection_ua
+fields:
+  - cs-uri-query
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Vulnerability scanners performing authorized testing
+level: critical
+tags:
+  - attack.initial_access
+  - attack.t1190

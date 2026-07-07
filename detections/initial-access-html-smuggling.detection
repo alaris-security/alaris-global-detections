@@ -1,0 +1,18 @@
+{
+  "uuid": "7e9984df-2b53-4f8a-9c12-d8d9216d94a4",
+  "slug": "initial-access-html-smuggling",
+  "title": "HTML Smuggling Payload Delivery",
+  "description": "Detects HTML smuggling where a browser writes an archive or executable to disk from an in-page blob (data: URI / Blob download), a technique to slip payloads past network content filters.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "html-smuggling", "defense-evasion"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1027.006", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-html-smuggling.sigma"],
+  "intent": {
+    "conditions": ["Browser writing an .iso/.img/.zip/.exe to Downloads with no corresponding network fetch of that file"],
+    "dataSourceRequirements": ["File create telemetry with process context"],
+    "tuningParameters": {},
+    "sourceContext": "HTML smuggling reconstructs payloads client-side, bypassing gateway inspection."
+  }
+}

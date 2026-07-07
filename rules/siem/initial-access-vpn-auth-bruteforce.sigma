@@ -1,0 +1,25 @@
+title: VPN Authentication Brute Force
+id: 08b680dd-de11-4260-8931-16a77cd93afb
+status: experimental
+description: Detects VPN authentication brute forcing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1133/
+logsource:
+  category: authentication
+detection:
+  selection:
+    service: 'vpn'
+    action: 'failure'
+  timeframe: 5m
+  condition: selection | count() by src_ip > 20
+fields:
+  - src_ip
+  - user
+  - service
+falsepositives:
+  - Misconfigured VPN clients retrying
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1133

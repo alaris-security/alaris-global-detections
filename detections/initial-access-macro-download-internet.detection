@@ -1,0 +1,18 @@
+{
+  "uuid": "fda835ad-38c0-46c5-87ea-01bd04aae18e",
+  "slug": "initial-access-macro-download-internet",
+  "title": "Macro-Enabled Document Retrieving Remote Content",
+  "description": "Detects Office applications making outbound HTTP requests (via urlmon/WinHTTP or spawning a downloader) shortly after opening, indicating a macro-enabled document fetching a second-stage payload.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "office-macro", "phishing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566.001", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-macro-download-internet.sigma"],
+  "intent": {
+    "conditions": ["Office app spawning a downloader (certutil/bitsadmin/powershell with URL)"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "A document reaching out to the internet on open is classic macro downloader behavior."
+  }
+}

@@ -1,0 +1,29 @@
+title: External Remote Service Logon Anomaly
+id: 884693c4-9f5c-4474-8a09-04b28caf2d52
+status: experimental
+description: Detects anomalous external remote service logons.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1133/
+logsource:
+  category: authentication
+detection:
+  selection:
+    service:
+      - 'vpn'
+      - 'citrix'
+      - 'gateway'
+    action: 'success'
+    src_geo_anomaly: true
+  condition: selection
+fields:
+  - user
+  - src_ip
+  - src_country
+  - service
+falsepositives:
+  - Employees traveling to new locations
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1133

@@ -1,0 +1,30 @@
+title: SQL Injection Attempt in Web Request
+id: cc2b79f1-06ee-4993-b1db-b7eb02b2f7e7
+status: experimental
+description: Detects SQL injection patterns in web requests.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - 'UNION SELECT'
+      - 'union%20select'
+      - "OR 1=1"
+      - "' OR '1'='1"
+      - 'xp_cmdshell'
+      - 'WAITFOR DELAY'
+      - 'sleep('
+  condition: selection
+fields:
+  - cs-uri-query
+  - c-ip
+  - cs-uri-stem
+falsepositives:
+  - Security scanners and WAF testing
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

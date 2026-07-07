@@ -1,0 +1,18 @@
+{
+  "uuid": "14342cbc-3da9-454d-afcd-377c7bf72f8f",
+  "slug": "initial-access-drive-by-download",
+  "title": "Browser Drive-By Compromise",
+  "description": "Detects a browser or its renderer/plugin process spawning a shell, script host, or executable from Temp, indicating a drive-by exploit or malicious download executing without explicit user action.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "drive-by"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1189", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-drive-by-download.sigma"],
+  "intent": {
+    "conditions": ["Browser process spawning cmd/powershell/wscript or a temp-path binary"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "Browsers spawning interpreters point to exploitation or malicious downloads."
+  }
+}

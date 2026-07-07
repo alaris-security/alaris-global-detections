@@ -1,0 +1,18 @@
+{
+  "uuid": "4aa3d356-04a3-4868-8769-d71abe04f35d",
+  "slug": "initial-access-path-traversal-lfi",
+  "title": "Path Traversal and Local File Inclusion Attempt",
+  "description": "Detects directory traversal and local file inclusion patterns in HTTP requests (../../, ..%2f, /etc/passwd, php://filter), used to read sensitive files or exploit file-inclusion flaws in web applications.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "path-traversal", "exploit-public-facing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-path-traversal-lfi.sigma"],
+  "intent": {
+    "conditions": ["HTTP request containing traversal sequences or sensitive file targets"],
+    "dataSourceRequirements": ["Web/proxy logs with URI"],
+    "tuningParameters": {},
+    "sourceContext": "Traversal and LFI expose configuration files, secrets, and code execution."
+  }
+}

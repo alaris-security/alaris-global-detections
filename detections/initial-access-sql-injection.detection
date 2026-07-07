@@ -1,0 +1,18 @@
+{
+  "uuid": "bccf6b68-ec94-4896-8bb4-a1b0fa5b629f",
+  "slug": "initial-access-sql-injection",
+  "title": "SQL Injection Attempt in Web Request",
+  "description": "Detects SQL injection patterns in HTTP query strings and bodies (UNION SELECT, OR 1=1, sleep(), xp_cmdshell), used to exploit public-facing web applications for data theft or code execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "sql-injection", "exploit-public-facing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-sql-injection.sigma"],
+  "intent": {
+    "conditions": ["HTTP request containing SQLi tokens such as UNION SELECT, OR 1=1, xp_cmdshell"],
+    "dataSourceRequirements": ["Web/proxy logs with URI query"],
+    "tuningParameters": {},
+    "sourceContext": "SQL injection is a leading path to compromise of internet-facing apps."
+  }
+}

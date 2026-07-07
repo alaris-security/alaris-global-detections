@@ -1,0 +1,25 @@
+title: Downloaded ISO/IMG Container Mount and Execute
+id: 6e26117c-edc5-4304-ad16-2606b85bafab
+status: experimental
+description: Detects execution from mounted ISO/IMG containers.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1553/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\explorer.exe'
+    Image|re: '^[D-Z]:\\[^\\]+\.(exe|scr|js|vbs|lnk|bat|cmd)$'
+  condition: selection
+fields:
+  - Image
+  - ParentImage
+  - CommandLine
+falsepositives:
+  - Software distributed on physical or virtual media
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1553.005

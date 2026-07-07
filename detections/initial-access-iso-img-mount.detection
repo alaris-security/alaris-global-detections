@@ -1,0 +1,18 @@
+{
+  "uuid": "ff4b6552-0eac-41c1-b153-b2e365424061",
+  "slug": "initial-access-iso-img-mount",
+  "title": "Downloaded ISO/IMG Container Mount and Execute",
+  "description": "Detects execution of a process from a mounted optical/virtual disk (drive letter path outside fixed disks) after a downloaded ISO/IMG, a technique used to bypass mark-of-the-web on contained payloads.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "iso", "mark-of-the-web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1553.005", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-iso-img-mount.sigma"],
+  "intent": {
+    "conditions": ["Execution of exe/lnk/script from a mounted volume path (e.g. D:\\ optical) with explorer parent"],
+    "dataSourceRequirements": ["Process creation telemetry with image path"],
+    "tuningParameters": {},
+    "sourceContext": "Files inside ISO/IMG containers do not inherit MOTW, evading protective warnings."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "f7be06c1-e981-4137-b1e9-6c637a030215",
+  "slug": "initial-access-log4shell-jndi",
+  "title": "Log4Shell JNDI Injection Attempt",
+  "description": "Detects Log4Shell (CVE-2021-44228) exploitation attempts where a JNDI lookup string (jndi:ldap/rmi/dns) appears in HTTP headers, URIs, or user agents, targeting vulnerable Log4j deployments.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["initial-access", "log4shell", "exploit-public-facing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-log4shell-jndi.sigma"],
+  "intent": {
+    "conditions": ["HTTP request field containing a jndi: lookup with ldap/rmi/dns"],
+    "dataSourceRequirements": ["Web/proxy logs with URI, headers, and user-agent"],
+    "tuningParameters": {},
+    "sourceContext": "The jndi: lookup pattern is the defining artifact of Log4Shell exploitation."
+  }
+}

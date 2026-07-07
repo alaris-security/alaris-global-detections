@@ -1,0 +1,18 @@
+{
+  "uuid": "a9442ffe-77d7-449f-9918-1876f0e0cadd",
+  "slug": "initial-access-external-remote-service",
+  "title": "External Remote Service Logon Anomaly",
+  "description": "Detects successful VPN, Citrix, or gateway authentication from a country or ASN never previously seen for the user, indicating initial access through valid credentials on an external remote service.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "external-remote-service", "vpn"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1133", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-external-remote-service.sigma"],
+  "intent": {
+    "conditions": ["VPN/gateway auth success from an anomalous geo/ASN for the account"],
+    "dataSourceRequirements": ["VPN/gateway authentication logs with source IP geo"],
+    "tuningParameters": {},
+    "sourceContext": "Valid-account logons from new locations on remote services are common initial access."
+  }
+}

@@ -1,0 +1,33 @@
+title: HTML Smuggling Payload Delivery
+id: 7e2b9902-fcae-4d4b-bd70-c53fa9ae25ef
+status: experimental
+description: Detects HTML smuggling file drops.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1027/006/
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    Image|endswith:
+      - '\chrome.exe'
+      - '\msedge.exe'
+      - '\firefox.exe'
+    TargetFilename|contains: '\Downloads\'
+    TargetFilename|endswith:
+      - '.iso'
+      - '.img'
+      - '.zip'
+      - '.rar'
+      - '.exe'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Legitimate downloads of archives and installers
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1027.006

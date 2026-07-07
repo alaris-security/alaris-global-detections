@@ -1,0 +1,18 @@
+{
+  "uuid": "4ba6e8e8-3014-4ebd-bd93-c652fd637fea",
+  "slug": "initial-access-supply-chain-package",
+  "title": "Suspicious Package Install with Post-Install Execution",
+  "description": "Detects package managers (npm, pip, gem) installing packages that immediately spawn network or shell activity via post-install/setup scripts, a supply-chain compromise vector for malicious dependencies.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "supply-chain", "package-manager"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1195.002", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/initial-access-supply-chain-package.sigma"],
+  "intent": {
+    "conditions": ["npm/pip/gem process parenting curl/wget/powershell/bash during install"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "Malicious packages run code in post-install hooks the moment they are installed."
+  }
+}
