@@ -1,0 +1,18 @@
+{
+  "uuid": "ee4b2075-18c0-4d45-8c10-41eb88f92651",
+  "slug": "k8s-daemonset-created",
+  "title": "Kubernetes DaemonSet Created",
+  "description": "Detects creation of a DaemonSet, which schedules a pod on every node; attackers abuse this to deploy a container (miner, backdoor) cluster-wide in a single action.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "kubernetes", "daemonset"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/k8s-daemonset-created.sigma"],
+  "intent": {
+    "conditions": ["create on daemonsets"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "A DaemonSet gives attacker code presence on every node at once."
+  }
+}

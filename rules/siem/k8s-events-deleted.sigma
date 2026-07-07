@@ -1,0 +1,26 @@
+title: Kubernetes Events Deleted
+id: f33c6a03-08e7-4c63-b9d8-7d79fc537977
+status: experimental
+description: Detects deletion of Kubernetes events.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb:
+      - 'delete'
+      - 'deletecollection'
+    objectRef.resource: 'events'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+falsepositives:
+  - Event TTL cleanup jobs
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562

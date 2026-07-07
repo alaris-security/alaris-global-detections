@@ -1,0 +1,25 @@
+title: Kubernetes DaemonSet Created
+id: b9253a0c-3da2-4f45-a75a-6881901540a1
+status: experimental
+description: Detects DaemonSet creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'daemonsets'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+  - objectRef.name
+falsepositives:
+  - Platform teams deploying node agents
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1610

@@ -1,0 +1,18 @@
+{
+  "uuid": "3c036c6c-154f-4455-a985-15094f734d5a",
+  "slug": "k8s-exec-into-pod",
+  "title": "Kubernetes Exec Into Running Pod",
+  "description": "Detects pods/exec and pods/attach subresource requests, which open an interactive shell inside a running container, a hands-on-keyboard execution technique in Kubernetes.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "kubernetes", "container"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1609", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/k8s-exec-into-pod.sigma"],
+  "intent": {
+    "conditions": ["Audit event verb create on pods/exec or pods/attach"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "kubectl exec grants interactive access inside containers, useful to attackers."
+  }
+}

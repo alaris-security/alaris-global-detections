@@ -1,0 +1,27 @@
+title: Kubernetes cluster-admin Role Binding Created
+id: 70b0b684-752c-4fce-a70a-3d61cba3e0b3
+status: experimental
+description: Detects cluster-admin role binding creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource:
+      - 'clusterrolebindings'
+      - 'rolebindings'
+    requestObject.roleRef.name: 'cluster-admin'
+  condition: selection
+fields:
+  - user.username
+  - requestObject.subjects
+falsepositives:
+  - Cluster bootstrap and administration
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1078

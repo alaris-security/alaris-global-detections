@@ -1,0 +1,31 @@
+title: Kubernetes Pod with Sensitive hostPath Mount
+id: e5b272b2-f78c-46b2-8cf4-03e26bf65b3a
+status: experimental
+description: Detects pods mounting sensitive host paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1611/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'pods'
+    requestObject.spec.volumes.hostPath.path:
+      - '/'
+      - '/etc'
+      - '/var/run/docker.sock'
+      - '/var/lib/kubelet'
+      - '/root'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+  - requestObject.spec.volumes.hostPath.path
+falsepositives:
+  - Node monitoring agents mounting host paths
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1611

@@ -1,0 +1,18 @@
+{
+  "uuid": "77d0c01c-d974-442a-b046-271bca528e76",
+  "slug": "k8s-anonymous-api-access",
+  "title": "Kubernetes Anonymous API Access",
+  "description": "Detects API server requests authenticated as system:anonymous or system:unauthenticated performing non-trivial actions, indicating an exposed cluster or auth misconfiguration abused for access.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "kubernetes", "anonymous"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/k8s-anonymous-api-access.sigma"],
+  "intent": {
+    "conditions": ["Audit event with user.username system:anonymous performing list/get/create"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Anonymous access to the API server signals a dangerously exposed cluster."
+  }
+}

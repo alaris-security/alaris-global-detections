@@ -1,0 +1,18 @@
+{
+  "uuid": "8b9f4249-625b-4f7a-81f6-80e790306c8b",
+  "slug": "k8s-pod-port-forward",
+  "title": "Kubernetes Pod Port-Forward",
+  "description": "Detects pods/portforward requests, which tunnel local traffic to a pod through the API server, a technique to reach internal cluster services or establish a covert channel.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "kubernetes", "port-forward"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1572", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/k8s-pod-port-forward.sigma"],
+  "intent": {
+    "conditions": ["verb create on pods/portforward"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Port-forward tunnels into the cluster network, useful for pivoting."
+  }
+}

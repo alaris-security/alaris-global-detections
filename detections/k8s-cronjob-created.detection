@@ -1,0 +1,18 @@
+{
+  "uuid": "be3fbcb9-875c-45c6-8bf7-036485586772",
+  "slug": "k8s-cronjob-created",
+  "title": "Kubernetes CronJob Created",
+  "description": "Detects creation of a CronJob, which attackers use to schedule recurring container execution for persistence, cryptomining, or periodic exfiltration within a cluster.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "kubernetes", "cronjob"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/k8s-cronjob-created.sigma"],
+  "intent": {
+    "conditions": ["verb create on cronjobs"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "CronJobs provide scheduled, recurring execution for persistence."
+  }
+}

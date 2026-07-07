@@ -1,0 +1,32 @@
+title: Kubernetes RBAC Escalation via escalate/bind
+id: e1206ba9-cace-4779-8db4-e50027cbbba4
+status: experimental
+description: Detects RBAC escalation verbs.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb:
+      - 'escalate'
+      - 'bind'
+      - 'impersonate'
+    objectRef.resource:
+      - 'roles'
+      - 'clusterroles'
+      - 'rolebindings'
+      - 'clusterrolebindings'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.resource
+  - verb
+falsepositives:
+  - Cluster administration
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

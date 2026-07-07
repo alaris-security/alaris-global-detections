@@ -1,0 +1,29 @@
+title: Kubernetes Pod Using Host Namespaces
+id: 1672aaa7-8558-4585-a5b4-fb8d90ca1fce
+status: experimental
+description: Detects pods using host namespaces.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1611/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'pods'
+  selection_ns:
+    requestObject.spec.hostNetwork: true
+    requestObject.spec.hostPID: true
+    requestObject.spec.hostIPC: true
+  condition: selection and 1 of selection_ns*
+fields:
+  - user.username
+  - objectRef.namespace
+  - objectRef.name
+falsepositives:
+  - CNI and node-level system pods
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1611

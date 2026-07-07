@@ -1,0 +1,26 @@
+title: Kubernetes Pod Port-Forward
+id: dd3e0c16-950a-4fb1-856b-ae0dcca0e40a
+status: experimental
+description: Detects pod port-forward requests.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1572/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'pods'
+    objectRef.subresource: 'portforward'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+  - objectRef.name
+falsepositives:
+  - Developers accessing services locally
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1572

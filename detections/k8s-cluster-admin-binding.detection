@@ -1,0 +1,18 @@
+{
+  "uuid": "af59b718-c5ac-4126-8673-6396229c19e4",
+  "slug": "k8s-cluster-admin-binding",
+  "title": "Kubernetes cluster-admin Role Binding Created",
+  "description": "Detects creation of a ClusterRoleBinding or RoleBinding that grants the cluster-admin role to a user, group, or service account, a privilege escalation to full control of the cluster.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "kubernetes", "rbac"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/k8s-cluster-admin-binding.sigma"],
+  "intent": {
+    "conditions": ["Create clusterrolebindings/rolebindings referencing cluster-admin"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "cluster-admin bindings grant total control of the Kubernetes cluster."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "13fbd35e-a2f6-435b-aa80-6653d3061627",
+  "slug": "k8s-privileged-pod-created",
+  "title": "Kubernetes Privileged Pod Created",
+  "description": "Detects creation of a pod with a privileged securityContext or allowPrivilegeEscalation, which grants near-host capabilities and is commonly used for container escape and node compromise.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "kubernetes", "container"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/k8s-privileged-pod-created.sigma"],
+  "intent": {
+    "conditions": ["Pod create with securityContext.privileged true"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Privileged pods can access host devices and escape to the node."
+  }
+}

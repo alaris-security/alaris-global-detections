@@ -1,0 +1,18 @@
+{
+  "uuid": "1d4442e2-4346-499e-acea-4722a62e982a",
+  "slug": "k8s-rbac-escalation-verbs",
+  "title": "Kubernetes RBAC Escalation via escalate/bind",
+  "description": "Detects use of the escalate, bind, or impersonate RBAC verbs on roles and bindings, which allow a principal to grant itself higher privileges than it currently holds.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "kubernetes", "rbac"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/k8s-rbac-escalation-verbs.sigma"],
+  "intent": {
+    "conditions": ["Audit event verb escalate/bind/impersonate on RBAC resources"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "escalate/bind verbs are the RBAC primitives for self-privilege escalation."
+  }
+}

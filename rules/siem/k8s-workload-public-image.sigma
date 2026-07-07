@@ -1,0 +1,30 @@
+title: Kubernetes Workload from Untrusted Registry
+id: 5ba69279-9886-46d7-ad4e-bd84c6fe08e4
+status: experimental
+description: Detects workloads using untrusted container images.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'pods'
+    requestObject.spec.containers.image|contains:
+      - 'docker.io/'
+      - 'ghcr.io/'
+      - 'quay.io/'
+  filter:
+    requestObject.spec.containers.image|startswith: 'registry.internal.example.com'
+  condition: selection and not filter
+fields:
+  - user.username
+  - requestObject.spec.containers.image
+falsepositives:
+  - Approved use of public base images
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1610

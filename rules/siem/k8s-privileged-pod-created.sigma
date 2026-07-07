@@ -1,0 +1,26 @@
+title: Kubernetes Privileged Pod Created
+id: 468fde50-cb62-480a-baf3-1218ce983953
+status: experimental
+description: Detects creation of privileged pods.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'pods'
+    requestObject.spec.containers.securityContext.privileged: true
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+  - objectRef.name
+falsepositives:
+  - Legitimate privileged system workloads
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1610

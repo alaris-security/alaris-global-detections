@@ -1,0 +1,31 @@
+title: Kubernetes Anonymous API Access
+id: 3fe4115b-38f5-42c7-999e-cff8ff294712
+status: experimental
+description: Detects anonymous Kubernetes API access.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    user.username:
+      - 'system:anonymous'
+      - 'system:unauthenticated'
+    verb:
+      - 'get'
+      - 'list'
+      - 'create'
+      - 'watch'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.resource
+  - sourceIPs
+falsepositives:
+  - Health checks on unauthenticated endpoints
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078

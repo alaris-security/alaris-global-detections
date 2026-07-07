@@ -1,0 +1,28 @@
+title: Kubernetes Exec Into Running Pod
+id: de9dedce-0ee2-4e82-be51-4f03302250d7
+status: experimental
+description: Detects exec/attach into pods.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1609/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'pods'
+    objectRef.subresource:
+      - 'exec'
+      - 'attach'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+  - objectRef.name
+falsepositives:
+  - Operators debugging workloads
+level: medium
+tags:
+  - attack.execution
+  - attack.t1609

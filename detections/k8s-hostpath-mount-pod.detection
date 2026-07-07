@@ -1,0 +1,18 @@
+{
+  "uuid": "1fc4e40c-d455-465b-a624-ad5c1bfd0471",
+  "slug": "k8s-hostpath-mount-pod",
+  "title": "Kubernetes Pod with Sensitive hostPath Mount",
+  "description": "Detects pod creation mounting a sensitive host path (/, /etc, /var/run/docker.sock, /var/lib/kubelet) via hostPath volumes, a container-escape technique to access the underlying node.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "kubernetes", "container-escape"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1611", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/k8s-hostpath-mount-pod.sigma"],
+  "intent": {
+    "conditions": ["Pod create with a hostPath volume pointing at a sensitive node path"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Mounting host paths bridges the container boundary to the node filesystem."
+  }
+}

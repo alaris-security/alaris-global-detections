@@ -1,0 +1,18 @@
+{
+  "uuid": "02c8e3fb-b0af-4a19-bad7-062b03478f50",
+  "slug": "k8s-hostnetwork-hostpid-pod",
+  "title": "Kubernetes Pod Using Host Namespaces",
+  "description": "Detects pod creation with hostNetwork, hostPID, or hostIPC enabled, which shares the node's namespaces with the container and facilitates snooping, credential theft, and escape.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "kubernetes", "container-escape"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1611", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/k8s-hostnetwork-hostpid-pod.sigma"],
+  "intent": {
+    "conditions": ["Pod create with hostNetwork/hostPID/hostIPC true"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Host namespaces expose node processes and network to the container."
+  }
+}

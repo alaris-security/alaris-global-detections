@@ -1,0 +1,25 @@
+title: Kubernetes CronJob Created
+id: 752f3f59-6528-4675-b077-f70cdce2edae
+status: experimental
+description: Detects CronJob creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/
+logsource:
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'create'
+    objectRef.resource: 'cronjobs'
+  condition: selection
+fields:
+  - user.username
+  - objectRef.namespace
+  - objectRef.name
+falsepositives:
+  - Legitimate scheduled workloads
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1053

@@ -1,0 +1,18 @@
+{
+  "uuid": "76b43414-046d-4946-bf85-767e92c1a0ce",
+  "slug": "k8s-workload-public-image",
+  "title": "Kubernetes Workload from Untrusted Registry",
+  "description": "Detects pod or deployment creation using a container image pulled from a public or untrusted registry (docker.io, ghcr.io) outside the approved internal registry, a defense-evasion and supply-chain risk.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "kubernetes", "container-image"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/k8s-workload-public-image.sigma"],
+  "intent": {
+    "conditions": ["Pod/deployment create with image not from the approved registry prefix"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {"approvedRegistry": "registry.internal.example.com"},
+    "sourceContext": "Untrusted images can carry backdoors and bypass image scanning."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "e3434808-d5e9-417f-9f90-0df03dac422b",
+  "slug": "k8s-events-deleted",
+  "title": "Kubernetes Events Deleted",
+  "description": "Detects deletion of Kubernetes events (delete or deletecollection on events), an anti-forensics action to remove evidence of pod creation, scheduling, and other cluster activity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "kubernetes", "indicator-removal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/k8s-events-deleted.sigma"],
+  "intent": {
+    "conditions": ["verb delete/deletecollection on events resource"],
+    "dataSourceRequirements": ["Kubernetes API server audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting events removes traces of attacker activity in the cluster."
+  }
+}
