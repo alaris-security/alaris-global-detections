@@ -1,0 +1,28 @@
+title: Network Traffic Sniffing
+id: 1baae298-7ba6-4d0c-b4fb-6ee676b9d8e7
+status: experimental
+description: Detects packet capture tool execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1040/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/tcpdump'
+      - '/tshark'
+      - '\windump.exe'
+      - '\pktmon.exe'
+      - '\tshark.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Network troubleshooting by IT
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1040

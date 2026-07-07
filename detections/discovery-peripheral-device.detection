@@ -1,0 +1,18 @@
+{
+  "uuid": "296485dd-c9ae-4be2-979f-d7c9cef4edf9",
+  "slug": "discovery-peripheral-device",
+  "title": "Peripheral and Drive Enumeration",
+  "description": "Detects enumeration of attached drives and peripherals via fsutil fsinfo drives, wmic diskdrive/logicaldisk, or Get-PSDrive, used to locate removable media and additional volumes for collection.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "peripheral-device"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1120", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-peripheral-device.sigma"],
+  "intent": {
+    "conditions": ["fsutil fsinfo drives, wmic diskdrive/logicaldisk, or Get-PSDrive"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Drive enumeration finds removable media and extra volumes to collect from."
+  }
+}

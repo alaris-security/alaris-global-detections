@@ -1,0 +1,30 @@
+title: WMI Reconnaissance Queries
+id: a685195c-d435-47a5-b095-dcbcb3b99653
+status: experimental
+description: Detects WMI reconnaissance queries.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1047/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Get-WmiObject'
+      - 'Get-CimInstance'
+    CommandLine|contains:
+      - 'Win32_ComputerSystem'
+      - 'Win32_OperatingSystem'
+      - 'AntiVirusProduct'
+      - 'Win32_Product'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Inventory scripts
+level: low
+tags:
+  - attack.discovery
+  - attack.t1047

@@ -1,0 +1,30 @@
+title: Registry Query Reconnaissance
+id: e89a4d96-ac79-4c36-b6bf-7ffaaa20efa2
+status: experimental
+description: Detects registry recon via reg query.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1012/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\reg.exe'
+    CommandLine|contains: 'query'
+    CommandLine|contains:
+      - '\Uninstall'
+      - '\CurrentVersion\Run'
+      - 'VNC'
+      - 'PuTTY\Sessions'
+      - 'winlogon'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Inventory and troubleshooting scripts
+level: low
+tags:
+  - attack.discovery
+  - attack.t1012

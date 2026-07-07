@@ -1,0 +1,18 @@
+{
+  "uuid": "ef431d72-d179-46f4-8073-f6f299546092",
+  "slug": "discovery-service-enumeration",
+  "title": "Windows Service Enumeration",
+  "description": "Detects enumeration of Windows services via sc query, net start, or Get-Service, used to identify running services, security products, and potential privilege-escalation targets.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1007", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-service-enumeration.sigma"],
+  "intent": {
+    "conditions": ["sc query/queryex, net start, or Get-Service"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Service enumeration reveals defenses and escalation opportunities."
+  }
+}

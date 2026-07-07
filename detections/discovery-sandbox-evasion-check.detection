@@ -1,0 +1,18 @@
+{
+  "uuid": "2a4b4891-6bc7-4831-a396-19cd0b19deaf",
+  "slug": "discovery-sandbox-evasion-check",
+  "title": "Sandbox and Virtualization Evasion Checks",
+  "description": "Detects queries characteristic of sandbox/VM detection, such as checking for VMware/VirtualBox artifacts, low RAM/CPU counts, or specific MAC prefixes, used by malware to avoid detonating in analysis environments.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "sandbox-evasion", "virtualization"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1497.001", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-sandbox-evasion-check.sigma"],
+  "intent": {
+    "conditions": ["Queries for VM/sandbox artifacts (VBoxGuest, vmtoolsd, wmic bios for VMware)"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "VM-detection checks let malware evade automated analysis."
+  }
+}

@@ -1,0 +1,28 @@
+title: Internet Connectivity Check
+id: 9555d83a-65a0-4659-a0e1-260083d3ac07
+status: experimental
+description: Detects internet connectivity checks.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1016/001/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'ping 8.8.8.8'
+      - 'ping 1.1.1.1'
+      - 'ifconfig.me'
+      - 'api.ipify.org'
+      - 'icanhazip.com'
+      - 'checkip.amazonaws.com'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Network diagnostics
+level: low
+tags:
+  - attack.discovery
+  - attack.t1016.001

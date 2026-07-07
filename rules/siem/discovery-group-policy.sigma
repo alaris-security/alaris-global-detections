@@ -1,0 +1,28 @@
+title: Group Policy Discovery
+id: d5112364-c556-4e96-962a-9b7909732c35
+status: experimental
+description: Detects Group Policy discovery.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1615/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\gpresult.exe'
+  selection_ps:
+    CommandLine|contains:
+      - 'Get-GPO'
+      - 'Get-GPResultantSetOfPolicy'
+      - 'Get-DomainGPO'
+  condition: selection or selection_ps
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrators reviewing policy
+level: low
+tags:
+  - attack.discovery
+  - attack.t1615

@@ -1,0 +1,18 @@
+{
+  "uuid": "f90b69a9-dbf2-4c9d-b7fe-722207bc80f0",
+  "slug": "discovery-group-policy",
+  "title": "Group Policy Discovery",
+  "description": "Detects Group Policy enumeration via gpresult or Get-GPO/Get-GPResultantSetOfPolicy, used to understand enforced restrictions and find misconfigurations to abuse for escalation.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "group-policy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1615", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-group-policy.sigma"],
+  "intent": {
+    "conditions": ["gpresult, or Get-GPO / Get-GPResultantSetOfPolicy"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "GPO discovery reveals restrictions and abusable misconfigurations."
+  }
+}

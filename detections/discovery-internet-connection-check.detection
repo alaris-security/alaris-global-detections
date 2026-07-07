@@ -1,0 +1,18 @@
+{
+  "uuid": "4257b0f0-3f40-45c2-a443-0617a756952c",
+  "slug": "discovery-internet-connection-check",
+  "title": "Internet Connectivity Check",
+  "description": "Detects connectivity checks to public services (ping 8.8.8.8, nslookup to public resolvers, requests to ipify/ifconfig.me), used by malware to confirm internet access and discover the external IP.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "connectivity-check"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1016.001", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-internet-connection-check.sigma"],
+  "intent": {
+    "conditions": ["ping/nslookup to public IPs, or requests to external-IP services"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Connectivity checks confirm internet access before C2 and exfil."
+  }
+}

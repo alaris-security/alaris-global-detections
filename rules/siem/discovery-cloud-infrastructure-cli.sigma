@@ -1,0 +1,29 @@
+title: Cloud Infrastructure Discovery via CLI
+id: a388d7fc-d8d0-440b-a052-4d19f1a07fd7
+status: experimental
+description: Detects cloud infrastructure discovery via CLI.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1580/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'ec2 describe-instances'
+      - 'aws s3 ls'
+      - 'az vm list'
+      - 'az resource list'
+      - 'gcloud compute instances list'
+      - 'gcloud projects list'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Cloud administrators and automation
+level: low
+tags:
+  - attack.discovery
+  - attack.t1580

@@ -1,0 +1,18 @@
+{
+  "uuid": "93361f1d-b29b-4276-a485-aa29cac7c85d",
+  "slug": "discovery-system-time",
+  "title": "System Time Discovery",
+  "description": "Detects querying of system or domain time via net time, w32tm, or Get-Date against a remote host, used for time-based execution logic and to determine target time zones before acting.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "system-time"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1124", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-system-time.sigma"],
+  "intent": {
+    "conditions": ["net time \\\\host, or w32tm queries"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Time discovery supports scheduling and timezone-aware targeting."
+  }
+}

@@ -1,0 +1,28 @@
+title: Installed Software Discovery
+id: 9236a719-86e9-48cf-9040-bfd92b1c7451
+status: experimental
+description: Detects installed software enumeration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1518/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains: 'product get'
+  selection_ps:
+    CommandLine|contains:
+      - 'Get-Package'
+      - 'Get-WmiObject -Class Win32_Product'
+  condition: selection_wmic or selection_ps
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Software inventory tooling
+level: low
+tags:
+  - attack.discovery
+  - attack.t1518

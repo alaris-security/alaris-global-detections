@@ -1,0 +1,27 @@
+title: Peripheral and Drive Enumeration
+id: cc3970e9-056a-4554-80b6-1ee708216aff
+status: experimental
+description: Detects peripheral/drive enumeration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1120/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'fsutil fsinfo drives'
+      - 'wmic diskdrive'
+      - 'wmic logicaldisk'
+      - 'Get-PSDrive'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Storage management scripts
+level: low
+tags:
+  - attack.discovery
+  - attack.t1120

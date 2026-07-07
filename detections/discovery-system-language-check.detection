@@ -1,0 +1,18 @@
+{
+  "uuid": "a59f8b1e-73c9-40c0-9610-ebe538e4da06",
+  "slug": "discovery-system-language-check",
+  "title": "System Language and Locale Check",
+  "description": "Detects querying of the system language, keyboard layout, or locale (Get-Culture, GetKeyboardLayout, chcp), a technique some malware uses to avoid executing on systems in specific regions (e.g. CIS countries).",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "locale", "evasion"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1614.001", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-system-language-check.sigma"],
+  "intent": {
+    "conditions": ["Get-Culture, GetKeyboardLayout, or locale queries in scripts"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Locale checks implement region-based execution guards in malware."
+  }
+}

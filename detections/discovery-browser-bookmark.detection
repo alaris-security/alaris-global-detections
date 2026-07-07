@@ -1,0 +1,18 @@
+{
+  "uuid": "5fa1d86d-e452-4437-99ee-1e7f62bc73fc",
+  "slug": "discovery-browser-bookmark",
+  "title": "Browser Bookmark and History Discovery",
+  "description": "Detects access to browser bookmark and history databases (Bookmarks, History SQLite files) by non-browser processes, used to profile a user's internal sites, webmail, and admin portals.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "browser"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1217", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-browser-bookmark.sigma"],
+  "intent": {
+    "conditions": ["Access to browser Bookmarks/History files by shells/scripts"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Bookmarks and history reveal internal apps and portals worth targeting."
+  }
+}

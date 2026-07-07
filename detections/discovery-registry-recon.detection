@@ -1,0 +1,18 @@
+{
+  "uuid": "fb7e9589-cc7e-4c47-8583-010ba6dcc00d",
+  "slug": "discovery-registry-recon",
+  "title": "Registry Query Reconnaissance",
+  "description": "Detects reg.exe query of interesting registry paths (installed software, autoruns, credentials in registry), used to enumerate host configuration and find persistence and credential targets.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1012", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-registry-recon.sigma"],
+  "intent": {
+    "conditions": ["reg query of Uninstall, Run, or credential-bearing keys"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Registry queries map installed software and autostart entries."
+  }
+}

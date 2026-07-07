@@ -1,0 +1,18 @@
+{
+  "uuid": "e6b78d59-ff08-4bfa-a2d3-008d972c07c6",
+  "slug": "discovery-wmi-recon-queries",
+  "title": "WMI Reconnaissance Queries",
+  "description": "Detects reconnaissance via WMI classes (Get-WmiObject/Get-CimInstance for Win32_ComputerSystem, Win32_OperatingSystem, AntiVirusProduct), used to profile the host and enumerate defenses without external tools.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "wmi"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1047", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-wmi-recon-queries.sigma"],
+  "intent": {
+    "conditions": ["Get-WmiObject/Get-CimInstance for host or AV WMI classes"],
+    "dataSourceRequirements": ["PowerShell logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "WMI recon profiles the host and defenses using built-in interfaces."
+  }
+}

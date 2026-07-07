@@ -1,0 +1,18 @@
+{
+  "uuid": "f6d7e88e-68d2-4e19-b9ce-d5e128bf893e",
+  "slug": "discovery-installed-software",
+  "title": "Installed Software Discovery",
+  "description": "Detects enumeration of installed applications via wmic product get, Get-Package, or querying the Uninstall registry, used to fingerprint software for targeting exploitable or valuable applications.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "software"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1518", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-installed-software.sigma"],
+  "intent": {
+    "conditions": ["wmic product get, Get-Package, or Uninstall key enumeration"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Software inventory guides attackers toward exploitable or valuable apps."
+  }
+}
