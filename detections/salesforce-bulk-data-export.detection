@@ -1,0 +1,13 @@
+{
+  "uuid": "13bcaa06-7676-4052-8644-f2dbc2850d51",
+  "slug": "salesforce-bulk-data-export",
+  "title": "Salesforce Bulk Data Export",
+  "description": "Detects large report exports or Bulk API extractions in Salesforce (event type ReportExport, BulkApiResult with high row counts), indicating mass collection of CRM records for exfiltration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "salesforce", "crm"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/salesforce-bulk-data-export.sigma"],
+  "intent": {"conditions": ["Salesforce ReportExport or Bulk API extraction of many rows"], "dataSourceRequirements": ["Salesforce event monitoring logs"], "tuningParameters": {}, "sourceContext": "Bulk CRM exports collect sensitive customer data for exfiltration."}
+}

@@ -1,0 +1,13 @@
+{
+  "uuid": "a1b4c539-6ba0-44d9-adae-3a6f4bf9163e",
+  "slug": "github-org-owner-added",
+  "title": "GitHub Organization Owner Added",
+  "description": "Detects promotion of a member to organization owner (org.update_member with role admin), a privilege escalation granting full control of the GitHub organization and all its repositories.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "github", "org-owner"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/github-org-owner-added.sigma"],
+  "intent": {"conditions": ["GitHub org.update_member to admin/owner"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "Org owner controls the entire GitHub organization."}
+}

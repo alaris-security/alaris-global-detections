@@ -1,0 +1,13 @@
+{
+  "uuid": "f773bcc7-4c84-4037-89d0-a875114e010f",
+  "slug": "slack-app-installed-broad-scope",
+  "title": "Slack App Installed with Broad Scopes",
+  "description": "Detects installation of a Slack app requesting broad scopes (channels:history, files:read, admin) via the app_installed audit event, which can be abused to read messages and files across the workspace.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "slack", "oauth"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1528", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/slack-app-installed-broad-scope.sigma"],
+  "intent": {"conditions": ["Slack app_installed with broad scopes"], "dataSourceRequirements": ["Slack audit logs"], "tuningParameters": {}, "sourceContext": "Over-scoped Slack apps can read workspace messages and files."}
+}

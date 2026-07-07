@@ -1,0 +1,13 @@
+{
+  "uuid": "e480ff1f-4338-406c-abbf-0949ed29cad4",
+  "slug": "github-deploy-key-added",
+  "title": "GitHub Deploy Key Added",
+  "description": "Detects addition of a deploy key to a repository (deploy_key.create), which grants persistent SSH access to that repo's code, a stealthy persistence technique that survives password and token changes.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "github", "deploy-key"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/github-deploy-key-added.sigma"],
+  "intent": {"conditions": ["GitHub deploy_key.create"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "Deploy keys grant durable repo access independent of user credentials."}
+}

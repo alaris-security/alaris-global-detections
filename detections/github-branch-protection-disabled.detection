@@ -1,0 +1,13 @@
+{
+  "uuid": "acd47150-e57f-4dfb-8c47-f4556adc92d4",
+  "slug": "github-branch-protection-disabled",
+  "title": "GitHub Branch Protection Disabled",
+  "description": "Detects removal or weakening of branch protection rules (protected_branch.destroy / .policy_override), a defense-evasion action that lets an attacker push unreviewed malicious code to a protected branch.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "github", "branch-protection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/github-branch-protection-disabled.sigma"],
+  "intent": {"conditions": ["GitHub protected_branch.destroy or policy_override"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "Disabling branch protection enables unreviewed malicious commits."}
+}

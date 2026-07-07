@@ -1,0 +1,25 @@
+title: GitHub Personal Access Token Created
+id: ba615fc0-7590-444c-8318-ce6e2f72d2da
+status: experimental
+description: Detects GitHub PAT creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/001/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action:
+      - 'personal_access_token.create'
+      - 'personal_access_token.access_granted'
+  condition: selection
+fields:
+  - actor
+  - action
+falsepositives:
+  - Developers creating tokens
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1098.001

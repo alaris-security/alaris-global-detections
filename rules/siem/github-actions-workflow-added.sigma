@@ -1,0 +1,26 @@
+title: GitHub Actions Workflow Added or Modified
+id: 70e441d9-2981-4feb-bced-f89b478aa22c
+status: experimental
+description: Detects GitHub Actions workflow changes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1195/002/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action:
+      - 'workflows.created_workflow_run'
+      - 'workflows.rerun_workflow_run'
+    file|contains: '.github/workflows/'
+  condition: selection
+fields:
+  - actor
+  - repo
+falsepositives:
+  - Legitimate CI development
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1195.002

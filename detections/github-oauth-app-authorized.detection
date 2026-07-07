@@ -1,0 +1,13 @@
+{
+  "uuid": "5a8e1c58-163b-47ec-9861-fd00f3d986c2",
+  "slug": "github-oauth-app-authorized",
+  "title": "GitHub OAuth App Authorized",
+  "description": "Detects authorization of a new OAuth or GitHub App against an organization (oauth_authorization.create / integration_installation.create), which grants a third party access to repositories and can be abused for source-code theft.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["credential-access", "github", "oauth"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1528", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/github-oauth-app-authorized.sigma"],
+  "intent": {"conditions": ["GitHub oauth_authorization.create or integration_installation.create"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "OAuth/App grants give third parties repo access, abusable for code theft."}
+}

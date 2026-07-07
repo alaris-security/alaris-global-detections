@@ -1,0 +1,25 @@
+title: GitHub OAuth App Authorized
+id: 72addb7a-5cfa-42be-8ee0-1199148dcd89
+status: experimental
+description: Detects GitHub OAuth/App authorization.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1528/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action:
+      - 'oauth_authorization.create'
+      - 'integration_installation.create'
+  condition: selection
+fields:
+  - actor
+  - action
+falsepositives:
+  - Approved integrations
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1528

@@ -1,0 +1,27 @@
+title: Snowflake Login Without MFA
+id: 0e215b31-49ed-4b16-af43-b6bd1dca285c
+status: experimental
+description: Detects Snowflake logins without MFA.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  product: snowflake
+  service: login_history
+detection:
+  selection:
+    is_success: 'YES'
+    first_authentication_factor: 'PASSWORD'
+  filter:
+    second_authentication_factor|exists: true
+  condition: selection and not filter
+fields:
+  - user_name
+  - client_ip
+  - reported_client_type
+falsepositives:
+  - Service accounts using key-pair auth
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078

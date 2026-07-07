@@ -1,0 +1,24 @@
+title: GitHub Organization Owner Added
+id: 25cde8d3-2494-4797-99c6-4b2c9b5f69d3
+status: experimental
+description: Detects promotion to org owner.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action: 'org.update_member'
+    permission: 'admin'
+  condition: selection
+fields:
+  - actor
+  - user
+falsepositives:
+  - Legitimate ownership changes
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098.003

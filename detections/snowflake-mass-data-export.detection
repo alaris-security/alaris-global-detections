@@ -1,0 +1,13 @@
+{
+  "uuid": "dcf15f5d-7887-4752-b6bd-fd48f81be887",
+  "slug": "snowflake-mass-data-export",
+  "title": "Snowflake Mass Data Export",
+  "description": "Detects large-scale data extraction in Snowflake, such as COPY INTO an external stage or a single session returning an anomalously high row count, indicating bulk exfiltration of warehouse data.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "snowflake", "data-warehouse"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/snowflake-mass-data-export.sigma"],
+  "intent": {"conditions": ["COPY INTO external stage, or query with very high rows_produced"], "dataSourceRequirements": ["Snowflake query history / access logs"], "tuningParameters": {"rowThreshold": 1000000}, "sourceContext": "Bulk exports from the warehouse indicate data exfiltration."}
+}

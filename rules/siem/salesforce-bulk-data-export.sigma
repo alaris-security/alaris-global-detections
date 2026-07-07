@@ -1,0 +1,26 @@
+title: Salesforce Bulk Data Export
+id: 2f39d41f-3e45-4cb3-931a-8f883a16da21
+status: experimental
+description: Detects bulk data export in Salesforce.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: salesforce
+  service: eventlog
+detection:
+  selection:
+    EVENT_TYPE:
+      - 'ReportExport'
+      - 'BulkApiResult'
+  condition: selection
+fields:
+  - USER_ID
+  - EVENT_TYPE
+  - ROW_COUNT
+falsepositives:
+  - Sanctioned reporting and integrations
+level: high
+tags:
+  - attack.collection
+  - attack.t1530

@@ -1,0 +1,13 @@
+{
+  "uuid": "2362f5bc-205c-4ff5-8be1-1891ca0e0aca",
+  "slug": "github-actions-workflow-added",
+  "title": "GitHub Actions Workflow Added or Modified",
+  "description": "Detects addition or modification of GitHub Actions workflow files, which attackers abuse to run code in CI, steal repository secrets, and poison build artifacts as a supply-chain technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "github", "ci-cd", "supply-chain"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1195.002", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/github-actions-workflow-added.sigma"],
+  "intent": {"conditions": ["Commit modifying .github/workflows, or workflow run of a new workflow"], "dataSourceRequirements": ["GitHub audit log / code scanning"], "tuningParameters": {}, "sourceContext": "Malicious workflows run in CI with access to repo secrets."}
+}

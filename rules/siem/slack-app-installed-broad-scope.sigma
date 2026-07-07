@@ -1,0 +1,27 @@
+title: Slack App Installed with Broad Scopes
+id: 8fccb413-f11b-4e1a-95af-0fd250237e28
+status: experimental
+description: Detects Slack app installs with broad scopes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1528/
+logsource:
+  product: slack
+  service: audit
+detection:
+  selection:
+    action: 'app_installed'
+    scopes|contains:
+      - 'channels:history'
+      - 'files:read'
+      - 'admin'
+  condition: selection
+fields:
+  - actor
+  - entity
+falsepositives:
+  - Approved workspace apps
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1528

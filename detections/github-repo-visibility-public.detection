@@ -1,0 +1,13 @@
+{
+  "uuid": "cdcca746-5b88-4b29-a4c4-7e8eae058bc5",
+  "slug": "github-repo-visibility-public",
+  "title": "GitHub Repository Made Public",
+  "description": "Detects a private repository being changed to public (repo.access), which exposes proprietary source code and secrets, a data-exposure and exfiltration technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "github", "repo-visibility"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/github-repo-visibility-public.sigma"],
+  "intent": {"conditions": ["GitHub repo.access changing visibility to public"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "Making a repo public exposes source code and embedded secrets."}
+}

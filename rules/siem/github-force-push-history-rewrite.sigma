@@ -1,0 +1,25 @@
+title: GitHub Force Push History Rewrite
+id: d28f9c79-fcaf-4563-8c3a-da627c40cac4
+status: experimental
+description: Detects force pushes rewriting history.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action: 'git.push'
+    forced: true
+  condition: selection
+fields:
+  - actor
+  - repo
+  - ref
+falsepositives:
+  - Developers rebasing feature branches
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070

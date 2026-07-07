@@ -1,0 +1,27 @@
+title: Snowflake Mass Data Export
+id: 7c03eb49-861c-4947-9b52-bc3786a6cee5
+status: experimental
+description: Detects bulk data export in Snowflake.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: snowflake
+  service: query_history
+detection:
+  selection_copy:
+    query_text|contains: 'COPY INTO'
+    query_text|contains: 's3://'
+  selection_rows:
+    rows_produced|gt: 1000000
+  condition: selection_copy or selection_rows
+fields:
+  - user_name
+  - query_text
+  - rows_produced
+falsepositives:
+  - Legitimate ETL and analytics exports
+level: high
+tags:
+  - attack.collection
+  - attack.t1530

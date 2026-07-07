@@ -1,0 +1,13 @@
+{
+  "uuid": "7241dad3-a6aa-42b7-abb5-7751ce11402b",
+  "slug": "github-pat-created",
+  "title": "GitHub Personal Access Token Created",
+  "description": "Detects creation of a personal access token (personal_access_token.create / .access_granted), a long-lived credential attackers mint for durable, MFA-less access to repositories and org resources.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "github", "access-token"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/github-pat-created.sigma"],
+  "intent": {"conditions": ["GitHub personal_access_token.create or access_granted"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "PATs grant persistent, MFA-less access to GitHub resources."}
+}

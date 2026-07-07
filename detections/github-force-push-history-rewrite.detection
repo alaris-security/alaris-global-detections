@@ -1,0 +1,13 @@
+{
+  "uuid": "646286b1-549e-4360-ba5f-bee38d533708",
+  "slug": "github-force-push-history-rewrite",
+  "title": "GitHub Force Push History Rewrite",
+  "description": "Detects force pushes to a repository (git.push with forced true), which rewrite commit history and can be used to remove evidence of malicious commits or hide backdoored code, an anti-forensics technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "github", "indicator-removal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/github-force-push-history-rewrite.sigma"],
+  "intent": {"conditions": ["GitHub git.push event with forced true to a protected branch"], "dataSourceRequirements": ["GitHub audit log"], "tuningParameters": {}, "sourceContext": "Force pushes rewrite history and can erase evidence of malicious commits."}
+}

@@ -1,0 +1,23 @@
+title: GitHub Deploy Key Added
+id: 090e66a4-cdd3-4603-af42-d39babd4cca0
+status: experimental
+description: Detects deploy key addition.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/004/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action: 'deploy_key.create'
+  condition: selection
+fields:
+  - actor
+  - repo
+falsepositives:
+  - CI/CD deploy key setup
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1098.004

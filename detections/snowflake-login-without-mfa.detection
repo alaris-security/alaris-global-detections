@@ -1,0 +1,13 @@
+{
+  "uuid": "3c7a716e-d708-4ef2-9411-1eccb554aaf3",
+  "slug": "snowflake-login-without-mfa",
+  "title": "Snowflake Login Without MFA",
+  "description": "Detects successful Snowflake logins using single-factor password authentication (no MFA), the weakness exploited in large-scale Snowflake account-takeover campaigns using stolen credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "snowflake", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/snowflake-login-without-mfa.sigma"],
+  "intent": {"conditions": ["Snowflake login success with first_authentication_factor PASSWORD and no second factor"], "dataSourceRequirements": ["Snowflake login history"], "tuningParameters": {}, "sourceContext": "Non-MFA Snowflake logins are the vector for credential-based takeover."}
+}

@@ -1,0 +1,27 @@
+title: GitHub Branch Protection Disabled
+id: f9afd2c2-078c-4aac-adb2-d818b9e2cdde
+status: experimental
+description: Detects disabling of branch protection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: github
+  service: audit
+detection:
+  selection:
+    action:
+      - 'protected_branch.destroy'
+      - 'protected_branch.policy_override'
+      - 'protected_branch.update_admin_enforced'
+  condition: selection
+fields:
+  - actor
+  - repo
+  - action
+falsepositives:
+  - Repo administrators adjusting policy
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562
