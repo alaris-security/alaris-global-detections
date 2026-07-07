@@ -1,0 +1,29 @@
+title: Linux SetUID/SetGID Bit Set on Binary
+id: 122227cf-628e-4d8f-81f9-d6ab3ec65b87
+status: experimental
+description: Detects setuid/setgid bit assignment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/001/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/chmod'
+    CommandLine|contains:
+      - 'u+s'
+      - 'g+s'
+      - ' 4755'
+      - ' 6755'
+      - ' 4777'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Package installers setting setuid on known binaries
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.001

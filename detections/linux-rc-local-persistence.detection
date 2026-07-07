@@ -1,0 +1,18 @@
+{
+  "uuid": "b99cd545-14ed-4fe1-a150-633f6c965ff1",
+  "slug": "linux-rc-local-persistence",
+  "title": "Linux rc.local Boot Persistence",
+  "description": "Detects modification of /etc/rc.local or init scripts under /etc/init.d, a boot-persistence technique that runs attacker commands at system startup.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "rc-local"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1037.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-rc-local-persistence.sigma"],
+  "intent": {
+    "conditions": ["Writes to /etc/rc.local or /etc/init.d scripts"],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {},
+    "sourceContext": "rc.local and init scripts execute at boot, providing persistence."
+  }
+}

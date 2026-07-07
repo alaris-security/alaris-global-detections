@@ -1,0 +1,26 @@
+title: Linux at Job Scheduling
+id: 7f047e98-152f-4da5-9e7b-97e19412a1e2
+status: experimental
+description: Detects at job scheduling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/001/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/at'
+  selection_spool:
+    CommandLine|contains: '/var/spool/at/'
+  condition: selection or selection_spool
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators scheduling one-off tasks
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1053.001

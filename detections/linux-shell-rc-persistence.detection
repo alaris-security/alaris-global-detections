@@ -1,0 +1,18 @@
+{
+  "uuid": "fe925f63-dbaa-47d3-8016-fc0a19f9bb0c",
+  "slug": "linux-shell-rc-persistence",
+  "title": "Linux Shell RC File Persistence",
+  "description": "Detects modification of shell startup files (.bashrc, .bash_profile, .profile, .zshrc, /etc/profile.d), a persistence technique that executes attacker commands whenever a user opens a shell.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "shell-rc"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-shell-rc-persistence.sigma"],
+  "intent": {
+    "conditions": ["Append/edit of shell rc files by echo/tee/editors"],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {},
+    "sourceContext": "RC files run on shell start, a low-privilege persistence spot."
+  }
+}

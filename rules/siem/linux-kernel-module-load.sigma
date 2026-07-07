@@ -1,0 +1,31 @@
+title: Linux Kernel Module Load
+id: f67f94b9-cb7a-42cb-a092-4da039bf7489
+status: experimental
+description: Detects loading of kernel modules.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/006/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_insmod:
+    Image|endswith: '/insmod'
+  selection_path:
+    CommandLine|contains:
+      - '/tmp/'
+      - '/dev/shm/'
+      - '/var/tmp/'
+      - '/home/'
+    CommandLine|endswith: '.ko'
+  condition: selection_insmod or selection_path
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Driver installation from packages
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.006

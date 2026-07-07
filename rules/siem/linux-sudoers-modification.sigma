@@ -1,0 +1,32 @@
+title: Linux Sudoers File Modification
+id: a175d846-8b9f-4b5f-859e-1acd9bf8c260
+status: experimental
+description: Detects sudoers modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/003/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/etc/sudoers'
+      - '/etc/sudoers.d/'
+  selection_write:
+    CommandLine|contains:
+      - 'echo '
+      - 'tee '
+      - '>>'
+      - 'NOPASSWD'
+  condition: selection and selection_write
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Configuration management updating sudoers
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.003

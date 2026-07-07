@@ -1,0 +1,18 @@
+{
+  "uuid": "b3058f15-e599-4a90-ad91-f8061fd9ccff",
+  "slug": "linux-ld-preload-hijack",
+  "title": "Linux LD_PRELOAD Library Hijack",
+  "description": "Detects modification of /etc/ld.so.preload or use of the LD_PRELOAD environment variable to inject a shared library, a technique for userland rootkits, hooking, and privilege escalation.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "ld-preload"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.006", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-ld-preload-hijack.sigma"],
+  "intent": {
+    "conditions": ["Writes to /etc/ld.so.preload, or command line setting LD_PRELOAD to a suspicious .so"],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {},
+    "sourceContext": "LD_PRELOAD injection hooks libc calls, a core rootkit and escalation primitive."
+  }
+}

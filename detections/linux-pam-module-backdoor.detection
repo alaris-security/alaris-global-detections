@@ -1,0 +1,18 @@
+{
+  "uuid": "298bb641-97e5-41d8-bf1f-8c5d20c2d07a",
+  "slug": "linux-pam-module-backdoor",
+  "title": "Linux PAM Configuration or Module Tampering",
+  "description": "Detects modification of PAM configuration under /etc/pam.d or replacement of PAM modules in security/pam directories, a technique to backdoor authentication and capture credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "linux", "pam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556.003", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/linux-pam-module-backdoor.sigma"],
+  "intent": {
+    "conditions": ["Writes to /etc/pam.d or /lib*/security pam_*.so modules"],
+    "dataSourceRequirements": ["Linux file integrity monitoring or process execution"],
+    "tuningParameters": {},
+    "sourceContext": "A tampered PAM module can accept a master password and log credentials."
+  }
+}

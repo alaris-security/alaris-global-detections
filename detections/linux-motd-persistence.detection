@@ -1,0 +1,18 @@
+{
+  "uuid": "8b359bcd-c126-44a6-aa6f-561a8086790f",
+  "slug": "linux-motd-persistence",
+  "title": "Linux update-motd Script Persistence",
+  "description": "Detects modification of executable scripts under /etc/update-motd.d, which run as root each time a user logs in over SSH, an under-monitored persistence and privilege-escalation location.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "motd"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1037", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-motd-persistence.sigma"],
+  "intent": {
+    "conditions": ["Writes to scripts under /etc/update-motd.d/"],
+    "dataSourceRequirements": ["Linux file integrity monitoring or process execution"],
+    "tuningParameters": {},
+    "sourceContext": "update-motd scripts execute as root on each SSH login, an ideal backdoor."
+  }
+}

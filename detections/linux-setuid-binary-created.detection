@@ -1,0 +1,18 @@
+{
+  "uuid": "6491d9db-11b6-4f89-89ba-592592bebcf2",
+  "slug": "linux-setuid-binary-created",
+  "title": "Linux SetUID/SetGID Bit Set on Binary",
+  "description": "Detects chmod setting the setuid or setgid bit (u+s / g+s / 4xxx) on a binary, a privilege escalation technique that lets a low-privilege user run the file with the owner's (often root) privileges.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "setuid"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.001", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-setuid-binary-created.sigma"],
+  "intent": {
+    "conditions": ["chmod with u+s / g+s or a mode starting with 4/2 on a binary"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "A setuid-root binary is a durable path to privilege escalation."
+  }
+}

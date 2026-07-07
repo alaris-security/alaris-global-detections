@@ -1,0 +1,35 @@
+title: Linux PAM Configuration or Module Tampering
+id: ddebf734-2b9d-4602-824d-efb026e5c87b
+status: experimental
+description: Detects PAM configuration/module tampering.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/003/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/etc/pam.d/'
+      - '/lib/security/pam_'
+      - '/lib64/security/pam_'
+      - '/lib/x86_64-linux-gnu/security/pam_'
+  selection_write:
+    CommandLine|contains:
+      - 'echo '
+      - 'tee '
+      - '>>'
+      - 'cp '
+      - 'mv '
+  condition: selection and selection_write
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Authentication configuration changes by admins
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1556.003

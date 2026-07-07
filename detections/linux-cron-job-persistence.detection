@@ -1,0 +1,18 @@
+{
+  "uuid": "c4eabec0-f36c-401a-a946-38b80c83698e",
+  "slug": "linux-cron-job-persistence",
+  "title": "Linux Cron Job Persistence",
+  "description": "Detects creation or editing of cron jobs via crontab -e or direct writes to /etc/cron.* and spool files, a common Linux persistence technique that schedules recurring attacker code.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "cron"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-cron-job-persistence.sigma"],
+  "intent": {
+    "conditions": ["crontab command, or writes to /etc/cron.d, /etc/crontab, /var/spool/cron"],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {},
+    "sourceContext": "Cron entries run attacker code on a schedule, surviving reboots."
+  }
+}

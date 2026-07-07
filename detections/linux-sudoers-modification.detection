@@ -1,0 +1,18 @@
+{
+  "uuid": "9e2837e6-2dfe-4f8e-ae9b-133c70441087",
+  "slug": "linux-sudoers-modification",
+  "title": "Linux Sudoers File Modification",
+  "description": "Detects edits to /etc/sudoers or files under /etc/sudoers.d, especially adding NOPASSWD or ALL rules, a privilege escalation and persistence technique granting an account passwordless root.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "sudoers"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-sudoers-modification.sigma"],
+  "intent": {
+    "conditions": ["Writes to /etc/sudoers or /etc/sudoers.d, or echo of NOPASSWD rules"],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {},
+    "sourceContext": "Adding a NOPASSWD sudo rule grants silent root escalation."
+  }
+}

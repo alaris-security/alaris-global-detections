@@ -1,0 +1,18 @@
+{
+  "uuid": "afe0ee89-9e73-4289-84c3-be477b2729aa",
+  "slug": "linux-kernel-module-load",
+  "title": "Linux Kernel Module Load",
+  "description": "Detects loading of kernel modules via insmod or modprobe from non-standard paths, a technique used to install kernel-level rootkits and persistence with the highest privileges.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "kernel-module", "rootkit"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.006", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-kernel-module-load.sigma"],
+  "intent": {
+    "conditions": ["insmod, or modprobe loading a module from a user-writable path"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Loadable kernel modules run in ring 0 and are the basis of kernel rootkits."
+  }
+}

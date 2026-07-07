@@ -1,0 +1,29 @@
+title: Linux Dangerous File Capability Assigned
+id: 5d21f6a2-ec06-4b2d-93f8-62985c0aca2b
+status: experimental
+description: Detects assignment of dangerous file capabilities.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/setcap'
+    CommandLine|contains:
+      - 'cap_setuid'
+      - 'cap_sys_admin'
+      - 'cap_dac_override'
+      - 'cap_sys_ptrace'
+      - 'cap_net_admin'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Packages assigning capabilities to their binaries
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548

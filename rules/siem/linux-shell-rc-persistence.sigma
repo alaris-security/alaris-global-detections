@@ -1,0 +1,37 @@
+title: Linux Shell RC File Persistence
+id: 866ecfa4-14a6-4bdd-abdc-a41c8ad6718e
+status: experimental
+description: Detects modification of shell rc files.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.bashrc'
+      - '.bash_profile'
+      - '.profile'
+      - '.zshrc'
+      - '/etc/profile.d/'
+      - '/etc/bash.bashrc'
+  selection_write:
+    CommandLine|contains:
+      - 'echo '
+      - 'tee '
+      - '>>'
+      - 'curl'
+      - 'wget'
+  condition: selection and selection_write
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Users customizing their shell environment
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1546.004

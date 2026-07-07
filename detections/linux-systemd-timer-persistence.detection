@@ -1,0 +1,18 @@
+{
+  "uuid": "6b70965a-9af9-43db-8933-94f081eff7c8",
+  "slug": "linux-systemd-timer-persistence",
+  "title": "Linux systemd Timer Persistence",
+  "description": "Detects creation of systemd .timer units paired with a service, a persistence technique that provides scheduled execution similar to cron but managed by systemd and easily overlooked.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "systemd-timer"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.006", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-systemd-timer-persistence.sigma"],
+  "intent": {
+    "conditions": ["Creation of a .timer unit, or systemctl enable of a timer"],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {},
+    "sourceContext": "systemd timers are a stealthy scheduled-execution persistence mechanism."
+  }
+}

@@ -1,0 +1,31 @@
+title: Linux systemd Service Persistence
+id: 03521bc5-d564-4f1e-95a9-1275fcef3556
+status: experimental
+description: Detects systemd service persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/002/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_path:
+    CommandLine|contains:
+      - '/etc/systemd/system/'
+      - '/lib/systemd/system/'
+      - '/.config/systemd/user/'
+    CommandLine|endswith: '.service'
+  selection_enable:
+    Image|endswith: '/systemctl'
+    CommandLine|contains: 'enable'
+  condition: selection_path or selection_enable
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Package installations creating services
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.002

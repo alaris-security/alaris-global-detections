@@ -1,0 +1,18 @@
+{
+  "uuid": "c761f6a8-0176-4dc2-9692-61c5f0bc59e3",
+  "slug": "linux-capability-setcap",
+  "title": "Linux Dangerous File Capability Assigned",
+  "description": "Detects setcap granting dangerous Linux capabilities (cap_setuid, cap_dac_override, cap_sys_admin) to a binary, a subtle privilege escalation technique that avoids the setuid bit while granting elevated powers.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "capabilities"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-capability-setcap.sigma"],
+  "intent": {
+    "conditions": ["setcap assigning cap_setuid/cap_sys_admin/cap_dac_override to a binary"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "File capabilities grant elevated powers without the visible setuid bit."
+  }
+}

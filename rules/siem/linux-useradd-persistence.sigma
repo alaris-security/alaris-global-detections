@@ -1,0 +1,32 @@
+title: Linux New Account Creation
+id: 496524e8-277d-49f5-9976-771e92d5580a
+status: experimental
+description: Detects new local account creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_cmd:
+    Image|endswith:
+      - '/useradd'
+      - '/adduser'
+  selection_passwd:
+    CommandLine|contains: '/etc/passwd'
+    CommandLine|contains:
+      - 'echo '
+      - '>>'
+      - 'tee '
+  condition: selection_cmd or selection_passwd
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate account provisioning
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136.001

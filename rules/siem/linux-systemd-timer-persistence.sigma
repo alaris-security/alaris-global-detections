@@ -1,0 +1,27 @@
+title: Linux systemd Timer Persistence
+id: 26b5fe9e-a79f-4b8a-b753-7385c9d01df7
+status: experimental
+description: Detects systemd timer persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/006/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/etc/systemd/system/'
+      - '/.config/systemd/user/'
+    CommandLine|endswith: '.timer'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Packages installing timer units
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1053.006

@@ -1,0 +1,30 @@
+title: Linux LD_PRELOAD Library Hijack
+id: 8867278e-f0db-46ff-8d72-a1865e96d795
+status: experimental
+description: Detects LD_PRELOAD-based hijacking.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/006/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_file:
+    CommandLine|contains: '/etc/ld.so.preload'
+  selection_env:
+    CommandLine|contains: 'LD_PRELOAD='
+    CommandLine|contains:
+      - '/tmp/'
+      - '/dev/shm/'
+      - '/var/tmp/'
+  condition: selection_file or selection_env
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Debugging and profiling tools using LD_PRELOAD
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1574.006

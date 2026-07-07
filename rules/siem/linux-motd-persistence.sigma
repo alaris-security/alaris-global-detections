@@ -1,0 +1,31 @@
+title: Linux update-motd Script Persistence
+id: 00e4dc3f-c5ff-474a-8fb5-b624e09631f1
+status: experimental
+description: Detects update-motd script persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1037/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: '/etc/update-motd.d/'
+  selection_write:
+    CommandLine|contains:
+      - 'echo '
+      - 'tee '
+      - '>>'
+      - 'chmod +x'
+      - 'cp '
+  condition: selection and selection_write
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Distribution updates to motd scripts
+level: high
+tags:
+  - attack.persistence
+  - attack.t1037

@@ -1,0 +1,18 @@
+{
+  "uuid": "6da03788-e05a-4e4d-b100-525b0c42fb36",
+  "slug": "linux-useradd-persistence",
+  "title": "Linux New Account Creation",
+  "description": "Detects creation of new local accounts via useradd/adduser, or direct edits to /etc/passwd, a persistence technique establishing a backdoor login, especially when adding UID 0 or sudo-group accounts.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "account-creation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-useradd-persistence.sigma"],
+  "intent": {
+    "conditions": ["useradd/adduser execution, or writes appending to /etc/passwd"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "New local accounts, especially privileged ones, are persistence backdoors."
+  }
+}
