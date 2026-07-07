@@ -1,0 +1,18 @@
+{
+  "uuid": "0bdf1c6e-9e9e-462a-8f1b-a5fec9d88936",
+  "slug": "discovery-cloud-service-dashboard",
+  "title": "Cloud Management Console Enumeration",
+  "description": "Detects broad Describe and Get calls across many services in a short window from a single principal via the console user agent, indicating an attacker browsing the cloud management dashboard to map the environment.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "cloud", "console"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1538", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-cloud-service-dashboard.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects broad Describe and Get calls across many services in a short window from a single principal via the console user agent, indicating an attacker browsing the cloud management dashboard to map the environment."
+  }
+}

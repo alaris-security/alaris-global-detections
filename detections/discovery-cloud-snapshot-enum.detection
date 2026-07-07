@@ -1,0 +1,18 @@
+{
+  "uuid": "7b222320-c087-498c-9af2-293d32aeb595",
+  "slug": "discovery-cloud-snapshot-enum",
+  "title": "Cloud Snapshot and Image Enumeration",
+  "description": "Detects enumeration of disk snapshots and machine images (DescribeSnapshots, DescribeImages, DescribeVolumes) in a short window, reconnaissance that precedes snapshot-sharing exfiltration of disk data.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "cloud", "snapshots"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1619", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-cloud-snapshot-enum.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects enumeration of disk snapshots and machine images (DescribeSnapshots, DescribeImages, DescribeVolumes) in a short window, reconnaissance that precedes snapshot-sharing exfiltration of disk data."
+  }
+}

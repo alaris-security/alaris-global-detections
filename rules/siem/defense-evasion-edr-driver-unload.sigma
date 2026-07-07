@@ -1,0 +1,33 @@
+title: EDR Minifilter Driver Unloaded
+id: a71ed5f2-3b98-472d-8e55-3a96a43b5a67
+status: experimental
+description: Detects fltmc unload targeting an EDR or AV minifilter driver altitude, a defense-evasion technique to detach the security product from filesystem and process telemetry without stopping its service.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\fltmc.exe'
+    CommandLine|contains: 'unload'
+  selection_drv:
+    CommandLine|contains:
+      - 'CSAgent'
+      - 'SentinelMonitor'
+      - 'CarbonBlack'
+      - 'edrsensor'
+      - 'WdFilter'
+  condition: selection and selection_drv
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Authorized troubleshooting of security drivers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

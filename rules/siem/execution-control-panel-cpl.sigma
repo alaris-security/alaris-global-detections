@@ -1,0 +1,31 @@
+title: Control Panel Item (.cpl) Execution
+id: 5eae7d95-d4f2-4e8a-aaa2-8faf45ef4245
+status: experimental
+description: Detects execution of a control panel item via control.exe or rundll32 shell32 Control_RunDLL loading a .cpl from a user-writable path, a technique to run a malicious DLL disguised as a control panel applet.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Control_RunDLL'
+      - '.cpl'
+    CommandLine|contains:
+      - '\\Temp\\'
+      - '\\AppData\\'
+      - '\\Downloads\\'
+      - '\\Users\\Public\\'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate control panel applets
+level: medium
+tags:
+  - attack.execution
+  - attack.t1218.002

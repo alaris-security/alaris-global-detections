@@ -1,0 +1,18 @@
+{
+  "uuid": "32f69a1b-63dd-402d-9664-8bcc8d551097",
+  "slug": "persistence-netsh-portproxy",
+  "title": "Netsh PortProxy Pivot Configured",
+  "description": "Detects netsh interface portproxy add configuring a local port-forward, a technique to pivot traffic through a compromised host to internal systems or to relay connections toward attacker infrastructure.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "proxy", "port-forwarding"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1090.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/persistence-netsh-portproxy.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects netsh interface portproxy add configuring a local port-forward, a technique to pivot traffic through a compromised host to internal systems or to relay connections toward attacker infrastructure."
+  }
+}

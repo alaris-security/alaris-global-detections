@@ -1,0 +1,30 @@
+title: Cloud Storage Object Discovery
+id: 4f7981cc-01fe-4869-b3b4-34469fcf5938
+status: experimental
+description: Detects a burst of cloud storage listing calls (S3 ListObjects/ListBuckets, GCS objects.list, Azure Blob ListBlobs) by a single principal, used to enumerate stored data before collection and exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1619/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 's3.amazonaws.com'
+    eventName:
+      - 'ListObjects'
+      - 'ListObjectsV2'
+      - 'ListBuckets'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 50
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Backup, analytics, and inventory tools
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1619

@@ -1,0 +1,37 @@
+title: EDR Service Stopped or Disabled
+id: 6181f70d-cfed-4712-b755-901d5e32ea93
+status: experimental
+description: Detects stopping, disabling, or deleting endpoint detection and response services (CrowdStrike, SentinelOne, Carbon Black, Cortex, Defender ATP) via net stop, sc, or PowerShell, a defense-evasion action to blind the endpoint.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'net stop'
+      - 'sc stop'
+      - 'sc config'
+      - 'sc delete'
+      - 'Stop-Service'
+    CommandLine|contains:
+      - 'csagent'
+      - 'CSFalcon'
+      - 'SentinelAgent'
+      - 'cbdefense'
+      - 'cyserver'
+      - 'Sense'
+      - 'WinDefend'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Authorized agent maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

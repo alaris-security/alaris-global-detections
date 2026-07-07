@@ -1,0 +1,28 @@
+title: Netsh PortProxy Pivot Configured
+id: e34b5e07-39b7-48ac-a476-f3f6c39b7316
+status: experimental
+description: Detects netsh interface portproxy add configuring a local port-forward, a technique to pivot traffic through a compromised host to internal systems or to relay connections toward attacker infrastructure.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1090/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\netsh.exe'
+    CommandLine|contains|all:
+      - 'interface'
+      - 'portproxy'
+      - 'add'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Administrators configuring legitimate forwards
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1090.001

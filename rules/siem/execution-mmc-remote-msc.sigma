@@ -1,0 +1,30 @@
+title: MMC Snap-in Console Execution from Suspicious Path
+id: d912ecd4-6cf7-4499-8e62-1fa2cda062fa
+status: experimental
+description: Detects mmc.exe loading a management console (.msc) from a user-writable or remote path, or mmc spawning a shell, a technique to proxy execution through the trusted Microsoft Management Console.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\mmc.exe'
+    CommandLine|contains:
+      - '\\Temp\\'
+      - '\\AppData\\'
+      - '\\Downloads\\'
+      - '\\\\'
+    CommandLine|contains: '.msc'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Administrators running custom consoles
+level: medium
+tags:
+  - attack.execution
+  - attack.t1218

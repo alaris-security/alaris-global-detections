@@ -1,0 +1,18 @@
+{
+  "uuid": "e33f0bc4-51e1-48bf-8b4d-371549e63fde",
+  "slug": "execution-mmc-remote-msc",
+  "title": "MMC Snap-in Console Execution from Suspicious Path",
+  "description": "Detects mmc.exe loading a management console (.msc) from a user-writable or remote path, or mmc spawning a shell, a technique to proxy execution through the trusted Microsoft Management Console.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "mmc", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/execution-mmc-remote-msc.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects mmc.exe loading a management console (.msc) from a user-writable or remote path, or mmc spawning a shell, a technique to proxy execution through the trusted Microsoft Management Console."
+  }
+}

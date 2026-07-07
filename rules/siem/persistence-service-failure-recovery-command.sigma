@@ -1,0 +1,28 @@
+title: Service Failure Recovery Command Persistence
+id: 4fefbdeb-6e97-4080-8b74-f71e83053a72
+status: experimental
+description: Detects sc failure configuring a service to run an arbitrary command on failure (failure actions with a command line), a persistence technique that executes attacker code as SYSTEM when the service is deliberately crashed.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\sc.exe'
+    CommandLine|contains: 'failure'
+    CommandLine|contains:
+      - 'command='
+      - 'run/'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate service recovery configuration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.003

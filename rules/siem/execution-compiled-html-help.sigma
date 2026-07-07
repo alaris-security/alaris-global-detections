@@ -1,0 +1,29 @@
+title: Compiled HTML Help Script Execution
+id: a4973aab-5e2d-4cb7-83f3-9227b64425a7
+status: experimental
+description: Detects hh.exe opening a compiled HTML Help file from a user-writable path or a .chm spawning a shell, a technique to run embedded script through the trusted help viewer.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\hh.exe'
+    CommandLine|contains:
+      - '.chm'
+      - '\\Temp\\'
+      - '\\AppData\\'
+      - 'http'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate help documentation
+level: high
+tags:
+  - attack.execution
+  - attack.t1218.001

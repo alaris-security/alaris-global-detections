@@ -1,0 +1,18 @@
+{
+  "uuid": "0a7c3e2e-e118-4c40-9957-5cc55b8e981e",
+  "slug": "defense-evasion-amsi-provider-registry",
+  "title": "AMSI Provider Removed via Registry",
+  "description": "Detects deletion or hijack of AMSI provider registration under the Providers CLSID key, a defense-evasion technique to unregister the antimalware scan interface provider so scripts run without AMSI inspection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "amsi", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/defense-evasion-amsi-provider-registry.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects deletion or hijack of AMSI provider registration under the Providers CLSID key, a defense-evasion technique to unregister the antimalware scan interface provider so scripts run without AMSI inspection."
+  }
+}

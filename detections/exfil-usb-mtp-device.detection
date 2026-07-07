@@ -1,0 +1,18 @@
+{
+  "uuid": "b8e92ba5-6327-415e-9575-fe3682a7c359",
+  "slug": "exfil-usb-mtp-device",
+  "title": "Data Transfer to MTP Portable Device",
+  "description": "Detects file transfers to a portable media transfer protocol device (phone or camera mounted via MTP under This PC), a physical exfiltration path that bypasses drive-letter based removable-media controls.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "removable-media", "mtp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1052.001", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-usb-mtp-device.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects file transfers to a portable media transfer protocol device (phone or camera mounted via MTP under This PC), a physical exfiltration path that bypasses drive-letter based removable-media controls."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "a761ba5a-d46e-44a6-a7aa-e09122ef4641",
+  "slug": "execution-control-panel-cpl",
+  "title": "Control Panel Item (.cpl) Execution",
+  "description": "Detects execution of a control panel item via control.exe or rundll32 shell32 Control_RunDLL loading a .cpl from a user-writable path, a technique to run a malicious DLL disguised as a control panel applet.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "control-panel", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.002", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/execution-control-panel-cpl.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects execution of a control panel item via control.exe or rundll32 shell32 Control_RunDLL loading a .cpl from a user-writable path, a technique to run a malicious DLL disguised as a control panel applet."
+  }
+}

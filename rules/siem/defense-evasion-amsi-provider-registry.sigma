@@ -1,0 +1,26 @@
+title: AMSI Provider Removed via Registry
+id: f9ab0d47-2539-461b-bd7c-f17ec34b6eb8
+status: experimental
+description: Detects deletion or hijack of AMSI provider registration under the Providers CLSID key, a defense-evasion technique to unregister the antimalware scan interface provider so scripts run without AMSI inspection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: windows
+  category: registry_event
+detection:
+  selection:
+    TargetObject|contains: '\\Microsoft\\AMSI\\Providers\\'
+    EventType:
+      - 'DeleteKey'
+      - 'DeleteValue'
+  condition: selection
+fields:
+  - TargetObject
+  - Image
+falsepositives:
+  - AV product updates re-registering providers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

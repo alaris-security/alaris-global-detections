@@ -1,0 +1,30 @@
+title: Cloud Management Console Enumeration
+id: e936b876-5ee3-45ff-b9a2-aa669b0c5339
+status: experimental
+description: Detects broad Describe and Get calls across many services in a short window from a single principal via the console user agent, indicating an attacker browsing the cloud management dashboard to map the environment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1538/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName|startswith:
+      - 'Describe'
+      - 'Get'
+      - 'List'
+    userAgent|contains: 'console.amazonaws.com'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 100
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Administrators actively using the console
+level: low
+tags:
+  - attack.discovery
+  - attack.t1538

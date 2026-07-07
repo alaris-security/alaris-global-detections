@@ -1,0 +1,18 @@
+{
+  "uuid": "e165a004-5141-49b0-982e-98ef7d2eebaf",
+  "slug": "collection-screen-recording-tool",
+  "title": "Screen Recording Tool Execution",
+  "description": "Detects execution of screen-recording tools headlessly (ffmpeg with gdigrab, OBS in silent mode), used to continuously capture the victim screen for surveillance rather than a one-off screenshot.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "screen-capture"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1113", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-screen-recording-tool.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects execution of screen-recording tools headlessly (ffmpeg with gdigrab, OBS in silent mode), used to continuously capture the victim screen for surveillance rather than a one-off screenshot."
+  }
+}

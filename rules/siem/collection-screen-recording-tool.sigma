@@ -1,0 +1,28 @@
+title: Screen Recording Tool Execution
+id: 1df837ca-48b3-42c2-b27d-b7d5dfbf173d
+status: experimental
+description: Detects execution of screen-recording tools headlessly (ffmpeg with gdigrab, OBS in silent mode), used to continuously capture the victim screen for surveillance rather than a one-off screenshot.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1113/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'gdigrab'
+      - 'x11grab'
+      - 'avfoundation'
+      - 'obs --startrecording'
+      - '--minimize-to-tray'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate recording and streaming
+level: medium
+tags:
+  - attack.collection
+  - attack.t1113

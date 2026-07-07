@@ -1,0 +1,18 @@
+{
+  "uuid": "86c0aa8f-3e7f-4f9a-9303-3258d5093cb8",
+  "slug": "defense-evasion-edr-driver-unload",
+  "title": "EDR Minifilter Driver Unloaded",
+  "description": "Detects fltmc unload targeting an EDR or AV minifilter driver altitude, a defense-evasion technique to detach the security product from filesystem and process telemetry without stopping its service.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "edr", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/defense-evasion-edr-driver-unload.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects fltmc unload targeting an EDR or AV minifilter driver altitude, a defense-evasion technique to detach the security product from filesystem and process telemetry without stopping its service."
+  }
+}

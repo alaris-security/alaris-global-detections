@@ -1,0 +1,18 @@
+{
+  "uuid": "2c9cadff-bbed-4a45-93b7-7ea456d33f83",
+  "slug": "execution-compiled-html-help",
+  "title": "Compiled HTML Help Script Execution",
+  "description": "Detects hh.exe opening a compiled HTML Help file from a user-writable path or a .chm spawning a shell, a technique to run embedded script through the trusted help viewer.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "chm", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.001", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/execution-compiled-html-help.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects hh.exe opening a compiled HTML Help file from a user-writable path or a .chm spawning a shell, a technique to run embedded script through the trusted help viewer."
+  }
+}

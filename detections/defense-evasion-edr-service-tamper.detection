@@ -1,0 +1,18 @@
+{
+  "uuid": "7ef71795-10eb-4698-9a98-d1183d208df2",
+  "slug": "defense-evasion-edr-service-tamper",
+  "title": "EDR Service Stopped or Disabled",
+  "description": "Detects stopping, disabling, or deleting endpoint detection and response services (CrowdStrike, SentinelOne, Carbon Black, Cortex, Defender ATP) via net stop, sc, or PowerShell, a defense-evasion action to blind the endpoint.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "edr", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/defense-evasion-edr-service-tamper.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects stopping, disabling, or deleting endpoint detection and response services (CrowdStrike, SentinelOne, Carbon Black, Cortex, Defender ATP) via net stop, sc, or PowerShell, a defense-evasion action to blind the endpoint."
+  }
+}

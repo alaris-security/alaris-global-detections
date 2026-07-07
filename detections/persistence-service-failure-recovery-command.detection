@@ -1,0 +1,18 @@
+{
+  "uuid": "af87c609-485a-424c-a92f-ec2e97de46a8",
+  "slug": "persistence-service-failure-recovery-command",
+  "title": "Service Failure Recovery Command Persistence",
+  "description": "Detects sc failure configuring a service to run an arbitrary command on failure (failure actions with a command line), a persistence technique that executes attacker code as SYSTEM when the service is deliberately crashed.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "service", "recovery-action"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1543.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-service-failure-recovery-command.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects sc failure configuring a service to run an arbitrary command on failure (failure actions with a command line), a persistence technique that executes attacker code as SYSTEM when the service is deliberately crashed."
+  }
+}

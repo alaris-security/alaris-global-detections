@@ -1,0 +1,30 @@
+title: Cloud Snapshot and Image Enumeration
+id: 840c6783-1fc1-4c70-a909-5c62d7a9678b
+status: experimental
+description: Detects enumeration of disk snapshots and machine images (DescribeSnapshots, DescribeImages, DescribeVolumes) in a short window, reconnaissance that precedes snapshot-sharing exfiltration of disk data.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1619/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2.amazonaws.com'
+    eventName:
+      - 'DescribeSnapshots'
+      - 'DescribeImages'
+      - 'DescribeVolumes'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 20
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Backup and inventory tooling
+level: low
+tags:
+  - attack.discovery
+  - attack.t1619

@@ -1,0 +1,18 @@
+{
+  "uuid": "b9df40ae-e87d-4901-b757-c589e9c6c692",
+  "slug": "cloud-storage-object-discovery",
+  "title": "Cloud Storage Object Discovery",
+  "description": "Detects a burst of cloud storage listing calls (S3 ListObjects/ListBuckets, GCS objects.list, Azure Blob ListBlobs) by a single principal, used to enumerate stored data before collection and exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "cloud", "storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1619", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/cloud-storage-object-discovery.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a burst of cloud storage listing calls (S3 ListObjects/ListBuckets, GCS objects.list, Azure Blob ListBlobs) by a single principal, used to enumerate stored data before collection and exfiltration."
+  }
+}
