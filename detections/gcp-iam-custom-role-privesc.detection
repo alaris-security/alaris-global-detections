@@ -1,0 +1,18 @@
+{
+  "uuid": "b8ce7586-3744-4457-a873-aa9b620db147",
+  "slug": "gcp-iam-custom-role-privesc",
+  "title": "GCP Custom IAM Role with Sensitive Permissions",
+  "description": "Detects CreateRole or UpdateRole defining a custom IAM role that includes powerful permissions such as setIamPolicy, serviceAccountKeys.create, or iam.roles.update, a subtle privilege escalation path.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "gcp", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/gcp-iam-custom-role-privesc.sigma"],
+  "intent": {
+    "conditions": ["CreateRole/UpdateRole whose permissions include high-impact IAM actions"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Custom roles with IAM-mutating permissions enable stealthy escalation."
+  }
+}

@@ -1,0 +1,23 @@
+title: GCP Organization Policy Weakened
+id: 3c5688f6-efe5-4665-9577-d0486f57e0ed
+status: experimental
+description: Detects organization policy modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains: 'SetOrgPolicy'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Governance changes by org administrators
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562

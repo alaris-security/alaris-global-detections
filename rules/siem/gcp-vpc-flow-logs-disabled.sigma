@@ -1,0 +1,24 @@
+title: GCP VPC Flow Logs Disabled
+id: 9fd8f4d9-0330-441b-9751-57ffcd0814e9
+status: experimental
+description: Detects disabling of VPC flow logs.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains: 'compute.subnetworks.patch'
+    data.protoPayload.request|contains: '"enableFlowLogs":false'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Cost-driven logging changes
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

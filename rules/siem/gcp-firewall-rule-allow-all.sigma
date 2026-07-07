@@ -1,0 +1,24 @@
+title: GCP Firewall Rule Allowing All Ingress
+id: d207d2c6-d824-4c43-a7ac-9b8c07b3fc0d
+status: experimental
+description: Detects permissive GCP firewall rules.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/007/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains: 'compute.firewalls.insert'
+    data.protoPayload.request.sourceRanges|contains: '0.0.0.0/0'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Intentional public-facing services
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.007

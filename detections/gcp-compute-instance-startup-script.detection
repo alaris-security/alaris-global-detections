@@ -1,0 +1,18 @@
+{
+  "uuid": "4c946a9b-43d6-40d1-bc05-cf6eb0d9aef0",
+  "slug": "gcp-compute-instance-startup-script",
+  "title": "GCP Compute Instance Created with Startup Script",
+  "description": "Detects compute.instances.insert or setMetadata setting a startup-script, which runs arbitrary code at boot, a technique to execute payloads or establish persistence on GCP VMs.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "gcp", "startup-script"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/gcp-compute-instance-startup-script.sigma"],
+  "intent": {
+    "conditions": ["compute.instances.insert or setMetadata with startup-script key"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Startup scripts run attacker code with the instance's service account at boot."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "c309b2ac-0de3-4caf-bad8-09bdf26ee3c9",
+  "slug": "gcp-storage-bucket-public",
+  "title": "GCP Cloud Storage Bucket Made Public",
+  "description": "Detects storage.setIamPermissions granting allUsers or allAuthenticatedUsers access to a Cloud Storage bucket, exposing data publicly and enabling exfiltration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "gcp", "cloud-storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/gcp-storage-bucket-public.sigma"],
+  "intent": {
+    "conditions": ["storage.setIamPermissions adding allUsers/allAuthenticatedUsers"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs"],
+    "tuningParameters": {},
+    "sourceContext": "Public GCS buckets can be read by anyone, enabling data theft."
+  }
+}

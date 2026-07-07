@@ -1,0 +1,18 @@
+{
+  "uuid": "b4c21c31-f256-45f1-9843-6e923c97fa7d",
+  "slug": "gcp-firewall-rule-allow-all",
+  "title": "GCP Firewall Rule Allowing All Ingress",
+  "description": "Detects compute.firewalls.insert creating an ingress rule with source range 0.0.0.0/0 and broad ports, exposing instances to the internet and weakening network controls.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "gcp", "firewall"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.007", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/gcp-firewall-rule-allow-all.sigma"],
+  "intent": {
+    "conditions": ["compute.firewalls.insert/patch with sourceRanges 0.0.0.0/0"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Allow-all firewall rules expose GCP workloads to the internet."
+  }
+}

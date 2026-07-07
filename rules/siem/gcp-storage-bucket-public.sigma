@@ -1,0 +1,26 @@
+title: GCP Cloud Storage Bucket Made Public
+id: b949c53d-9573-4f9c-a399-071f837a19f0
+status: experimental
+description: Detects GCS buckets exposed publicly.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains: 'storage.setIamPermissions'
+    data.protoPayload.serviceData.policyDelta.bindingDeltas.member|contains:
+      - 'allUsers'
+      - 'allAuthenticatedUsers'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Intended public content buckets
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537

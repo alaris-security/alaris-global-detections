@@ -1,0 +1,18 @@
+{
+  "uuid": "8e2cd503-95e9-4d10-82b7-b4b74a8272c5",
+  "slug": "gcp-logging-sink-deleted",
+  "title": "GCP Logging Sink Deleted or Disabled",
+  "description": "Detects DeleteSink or UpdateSink disabling a Cloud Logging export sink, a defense-evasion action to stop audit and resource logs from reaching downstream monitoring.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "gcp", "logging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/gcp-logging-sink-deleted.sigma"],
+  "intent": {
+    "conditions": ["logging DeleteSink or UpdateSink disabling operations"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Removing log sinks cuts off delivery of GCP logs to the SIEM."
+  }
+}

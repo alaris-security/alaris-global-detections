@@ -1,0 +1,18 @@
+{
+  "uuid": "57f621f3-bca4-4efa-ae1c-5baf32f5a0c6",
+  "slug": "gcp-audit-config-changed",
+  "title": "GCP Audit Logging Configuration Modified",
+  "description": "Detects SetIamPolicy changes that modify auditConfigs to disable Data Access or Admin Activity logging for a service, a defense-evasion action reducing GCP audit coverage.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "gcp", "audit-config"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/gcp-audit-config-changed.sigma"],
+  "intent": {
+    "conditions": ["SetIamPolicy where the request modifies auditConfigs"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Turning off audit configs silences logging for targeted services."
+  }
+}

@@ -1,0 +1,25 @@
+title: GCP Logging Sink Deleted or Disabled
+id: 6fed6b5d-0af2-441f-a985-f4ea1b7aabcd
+status: experimental
+description: Detects Cloud Logging sink deletion or disabling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains:
+      - 'DeleteSink'
+      - 'UpdateSink'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Logging pipeline reconfiguration
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

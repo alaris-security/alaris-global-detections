@@ -1,0 +1,25 @@
+title: GCP Cloud Function Deployed
+id: f7ad3a4c-50c4-43b0-a4ce-85aeb6a475b5
+status: experimental
+description: Detects Cloud Function deployment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains:
+      - 'CreateFunction'
+      - 'UpdateFunction'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Legitimate serverless deployments
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

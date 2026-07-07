@@ -1,0 +1,18 @@
+{
+  "uuid": "a8de8b8d-0612-4dad-a8f1-c0b2752691cb",
+  "slug": "gcp-vpc-flow-logs-disabled",
+  "title": "GCP VPC Flow Logs Disabled",
+  "description": "Detects compute.subnetworks.patch disabling VPC flow logs on a subnetwork, a defense-evasion action that removes network traffic visibility for lateral movement and exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "gcp", "vpc-flow-logs"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/gcp-vpc-flow-logs-disabled.sigma"],
+  "intent": {
+    "conditions": ["compute.subnetworks.patch with enableFlowLogs false"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling flow logs blinds network detection in GCP."
+  }
+}

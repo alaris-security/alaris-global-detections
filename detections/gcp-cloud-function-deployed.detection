@@ -1,0 +1,18 @@
+{
+  "uuid": "41943f0c-7943-4cc1-85a8-a628b7aceb0a",
+  "slug": "gcp-cloud-function-deployed",
+  "title": "GCP Cloud Function Deployed",
+  "description": "Detects CreateFunction or UpdateFunction in Cloud Functions, which attackers use to deploy serverless code for persistence, execution, or triggered exfiltration under a service account.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "gcp", "cloud-functions"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/gcp-cloud-function-deployed.sigma"],
+  "intent": {
+    "conditions": ["cloudfunctions CreateFunction or UpdateFunction"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Serverless functions can host persistent, triggerable attacker code."
+  }
+}

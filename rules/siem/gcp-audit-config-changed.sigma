@@ -1,0 +1,24 @@
+title: GCP Audit Logging Configuration Modified
+id: c7177049-2c0d-4ee9-a109-435c1a64ae00
+status: experimental
+description: Detects modification of GCP audit configs.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|endswith: 'SetIamPolicy'
+    data.protoPayload.request|contains: 'auditConfigs'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Legitimate audit configuration management
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

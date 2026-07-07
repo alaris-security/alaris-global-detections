@@ -1,0 +1,18 @@
+{
+  "uuid": "ed6bc4c1-4cff-46d8-a114-ad74a66a24c3",
+  "slug": "gcp-org-policy-modified",
+  "title": "GCP Organization Policy Weakened",
+  "description": "Detects SetOrgPolicy operations that relax organization constraints (e.g. allowing external IPs, disabling service account key restrictions), a defense-evasion action to remove guardrails.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "gcp", "org-policy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/gcp-org-policy-modified.sigma"],
+  "intent": {
+    "conditions": ["SetOrgPolicy modifying constraints related to keys, external IPs, or sharing"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs (Admin Activity)"],
+    "tuningParameters": {},
+    "sourceContext": "Weakening org policies removes preventative controls across the organization."
+  }
+}

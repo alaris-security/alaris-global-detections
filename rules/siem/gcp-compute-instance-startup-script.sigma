@@ -1,0 +1,26 @@
+title: GCP Compute Instance Created with Startup Script
+id: 9b9330e3-be5b-4619-b0f5-5cc98ba6486d
+status: experimental
+description: Detects GCP instance startup-script usage.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains:
+      - 'compute.instances.insert'
+      - 'compute.instances.setMetadata'
+    data.protoPayload.request|contains: 'startup-script'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.resourceName
+falsepositives:
+  - Standard instance provisioning with startup scripts
+level: medium
+tags:
+  - attack.execution
+  - attack.t1648
