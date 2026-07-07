@@ -1,0 +1,26 @@
+title: Cached Domain Credential Extraction
+id: 4ff85ffa-07d7-41c1-8b83-850c282eb68e
+status: experimental
+description: Detects cached domain credential dumping.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1003/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'cachedump'
+      - 'SECURITY\Cache'
+      - 'lsadump::cache'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized security assessment tooling
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.005

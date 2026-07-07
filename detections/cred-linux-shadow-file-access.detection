@@ -1,0 +1,18 @@
+{
+  "uuid": "8c8a6583-e314-4761-95c0-791d9c38164b",
+  "slug": "cred-linux-shadow-file-access",
+  "title": "Linux /etc/shadow Password Hash Access",
+  "description": "Detects reads or copies of /etc/shadow (and unshadow combining it with /etc/passwd) by non-package processes, exposing local password hashes for offline cracking.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "linux", "shadow"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.008", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-linux-shadow-file-access.sigma"],
+  "intent": {
+    "conditions": ["cat/cp/less/unshadow reading /etc/shadow"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Access to /etc/shadow yields crackable local password hashes."
+  }
+}

@@ -1,0 +1,32 @@
+title: Credential Hunting in Files via findstr/grep
+id: 481181a6-81ce-4ca4-a31b-fc6cbcefb4bb
+status: experimental
+description: Detects credential keyword searches across files.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/001/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\findstr.exe'
+      - '/grep'
+      - '/egrep'
+    CommandLine|contains:
+      - 'password'
+      - 'passwd'
+      - 'secret'
+      - 'apikey'
+      - 'api_key'
+      - 'credential'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Developers legitimately searching their own codebase
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1552.001

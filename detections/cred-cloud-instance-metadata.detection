@@ -1,0 +1,18 @@
+{
+  "uuid": "9512a794-953a-4f5e-b04b-ee839b8d4a63",
+  "slug": "cred-cloud-instance-metadata",
+  "title": "Cloud Instance Metadata Service Credential Access",
+  "description": "Detects requests to the cloud instance metadata endpoint (169.254.169.254) for IAM credential paths, a common technique to steal temporary cloud role credentials from a compromised instance or via SSRF.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "cloud", "imds"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1552.005", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-cloud-instance-metadata.sigma"],
+  "intent": {
+    "conditions": ["curl/wget/Invoke-WebRequest to 169.254.169.254 iam/security-credentials or metadata token paths"],
+    "dataSourceRequirements": ["Process creation telemetry or proxy/network logs"],
+    "tuningParameters": {},
+    "sourceContext": "The IMDS returns temporary cloud credentials; unexpected access is credential theft."
+  }
+}

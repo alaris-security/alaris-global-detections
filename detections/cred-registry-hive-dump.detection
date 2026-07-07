@@ -1,0 +1,18 @@
+{
+  "uuid": "98f0fc3d-f849-401b-a2a9-ae90233b8d54",
+  "slug": "cred-registry-hive-dump",
+  "title": "Registry Hive Dump of SAM/SYSTEM/SECURITY",
+  "description": "Detects reg.exe save or esentutl exporting the SAM, SYSTEM, or SECURITY hives to disk, the offline path to extract local account hashes and LSA secrets.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "sam", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.002", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-registry-hive-dump.sigma"],
+  "intent": {
+    "conditions": ["reg.exe with save/export referencing HKLM\\SAM, SYSTEM, or SECURITY"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Saving the SAM and SYSTEM hives lets attackers extract local hashes offline."
+  }
+}

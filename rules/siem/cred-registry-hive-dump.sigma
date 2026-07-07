@@ -1,0 +1,30 @@
+title: Registry Hive Dump of SAM/SYSTEM/SECURITY
+id: 6ed0a9ac-15eb-4aab-a084-cb44531fa538
+status: experimental
+description: Detects saving of sensitive registry hives.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1003/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\reg.exe'
+    CommandLine|contains:
+      - 'save'
+      - 'export'
+    CommandLine|contains:
+      - 'hklm\sam'
+      - 'hklm\system'
+      - 'hklm\security'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Backup and migration tools exporting hives
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.002

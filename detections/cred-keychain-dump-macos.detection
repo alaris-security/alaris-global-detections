@@ -1,0 +1,18 @@
+{
+  "uuid": "f29292d4-80ec-40ab-b6b0-bb45aad34538",
+  "slug": "cred-keychain-dump-macos",
+  "title": "macOS Keychain Credential Dump",
+  "description": "Detects use of the security command with dump-keychain or find-generic-password/find-internet-password to extract stored secrets from the macOS keychain.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "macos", "keychain"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1555.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-keychain-dump-macos.sigma"],
+  "intent": {
+    "conditions": ["security command with dump-keychain or find-*-password and -g"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "The keychain holds passwords, tokens, and keys; dumping it is credential theft."
+  }
+}

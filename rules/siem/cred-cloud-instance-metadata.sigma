@@ -1,0 +1,27 @@
+title: Cloud Instance Metadata Service Credential Access
+id: 6b7f2aca-d9f9-4d06-b070-c8a22049dacf
+status: experimental
+description: Detects access to the cloud instance metadata service.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/005/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: '169.254.169.254'
+    CommandLine|contains:
+      - 'iam/security-credentials'
+      - 'metadata'
+      - 'identity/oauth2/token'
+      - 'computeMetadata'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Instance bootstrap scripts and SDK agents querying metadata
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1552.005

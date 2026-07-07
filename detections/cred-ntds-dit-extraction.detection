@@ -1,0 +1,18 @@
+{
+  "uuid": "cb6e8822-90d6-4387-bf4f-7ee2a2443b74",
+  "slug": "cred-ntds-dit-extraction",
+  "title": "NTDS.dit Active Directory Database Extraction",
+  "description": "Detects use of ntdsutil, vssadmin, or diskshadow to copy ntds.dit, the Active Directory database containing every domain account hash, a full-domain credential theft technique.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "ntds", "active-directory"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.003", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-ntds-dit-extraction.sigma"],
+  "intent": {
+    "conditions": ["ntdsutil ifm/create, or vssadmin/diskshadow copying ntds.dit"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "ntds.dit holds all domain hashes; extracting it is a domain-wide compromise."
+  }
+}

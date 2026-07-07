@@ -1,0 +1,34 @@
+title: NTDS.dit Active Directory Database Extraction
+id: afc14f69-0244-4c19-bcee-a6d718ef651a
+status: experimental
+description: Detects extraction of the Active Directory database.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1003/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_ntdsutil:
+    Image|endswith: '\ntdsutil.exe'
+    CommandLine|contains:
+      - 'ifm'
+      - 'create full'
+      - 'ac i ntds'
+  selection_copy:
+    CommandLine|contains: 'ntds.dit'
+    CommandLine|contains:
+      - 'vssadmin'
+      - 'diskshadow'
+      - 'copy'
+      - 'esentutl'
+  condition: selection_ntdsutil or selection_copy
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Legitimate domain controller backup operations
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.003

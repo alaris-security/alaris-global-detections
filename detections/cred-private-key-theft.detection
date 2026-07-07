@@ -1,0 +1,18 @@
+{
+  "uuid": "5f88c9a7-1523-48ba-b966-28c562726566",
+  "slug": "cred-private-key-theft",
+  "title": "Private Key and Certificate Theft",
+  "description": "Detects access to private key material such as .pem, .pfx, .key, id_rsa, and .ppk files by copy or archive tools, indicating theft of SSH, TLS, or code-signing keys.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "private-keys", "certificates"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1552.004", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-private-key-theft.sigma"],
+  "intent": {
+    "conditions": ["Command line references private key extensions with copy/archive/read tooling"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Stolen private keys enable impersonation, decryption, and code signing."
+  }
+}

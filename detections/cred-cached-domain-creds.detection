@@ -1,0 +1,18 @@
+{
+  "uuid": "ded4ce55-d583-47bd-890a-ea1483dc8943",
+  "slug": "cred-cached-domain-creds",
+  "title": "Cached Domain Credential Extraction",
+  "description": "Detects access to the MSCache/MSCache2 cached domain logon verifiers via registry paths or cachedump-style tooling, used to crack domain credentials on hosts without DC connectivity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "mscache", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.005", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-cached-domain-creds.sigma"],
+  "intent": {
+    "conditions": ["Command line references Cache under SECURITY\\Policy or cachedump tooling"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Cached domain verifiers can be cracked offline to recover domain passwords."
+  }
+}

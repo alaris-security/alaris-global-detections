@@ -1,0 +1,27 @@
+title: macOS Keychain Credential Dump
+id: 2123dda3-3671-4d9d-9648-45e4b994f384
+status: experimental
+description: Detects macOS keychain credential extraction.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1555/001/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/security'
+    CommandLine|contains:
+      - 'dump-keychain'
+      - 'find-generic-password'
+      - 'find-internet-password'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Administrative keychain maintenance
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1555.001
