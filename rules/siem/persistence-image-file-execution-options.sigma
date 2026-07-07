@@ -1,0 +1,30 @@
+title: Image File Execution Options Debugger Hijack
+id: e43ec7b7-65f5-4c78-a879-7daadb28706b
+status: experimental
+description: Detects IFEO Debugger value creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/012/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Image File Execution Options\'
+    TargetObject|endswith:
+      - '\Debugger'
+      - '\GlobalFlag'
+      - '\ReportingMode'
+      - '\MonitorProcess'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Developer tools setting a debugger for legitimate applications
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.t1546.012

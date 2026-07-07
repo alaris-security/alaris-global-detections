@@ -1,0 +1,26 @@
+title: Winlogon Shell Value Hijack
+id: 330f92f2-a967-4563-899e-7bb9580d2bd0
+status: experimental
+description: Detects tampering with the Winlogon Shell value.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/004/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell'
+  filter:
+    Details: 'explorer.exe'
+  condition: selection and not filter
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare shell replacement software
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.004

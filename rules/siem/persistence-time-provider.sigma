@@ -1,0 +1,25 @@
+title: W32Time Time Provider DLL Persistence
+id: b4ecc485-e886-41d0-a014-1cca505b8915
+status: experimental
+description: Detects W32Time time provider DLL persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/003/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Services\W32Time\TimeProviders\'
+    TargetObject|endswith: '\DllName'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Enterprise time synchronization products
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.003

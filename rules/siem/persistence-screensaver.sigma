@@ -1,0 +1,26 @@
+title: Screensaver Executable Persistence
+id: fed57ff0-9130-4fd5-adc7-3323e94356a0
+status: experimental
+description: Detects screensaver executable persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Control Panel\Desktop\SCRNSAVE.EXE'
+  filter:
+    Details|startswith: 'C:\Windows\system32\'
+  condition: selection and not filter
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Custom corporate screensavers installed to Program Files
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1546.002

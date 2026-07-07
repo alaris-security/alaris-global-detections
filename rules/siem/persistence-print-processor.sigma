@@ -1,0 +1,27 @@
+title: Print Processor DLL Persistence
+id: 2a27d11d-cf20-40aa-bbda-e8ed99555331
+status: experimental
+description: Detects print processor DLL persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/012/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Control\Print\Environments\'
+    TargetObject|contains: '\Print Processors\'
+    TargetObject|endswith: '\Driver'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Printer software installing a custom print processor
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.t1547.012

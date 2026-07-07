@@ -1,0 +1,18 @@
+{
+  "uuid": "be189a63-790b-4eb0-9f81-28c9ad068258",
+  "slug": "persistence-time-provider",
+  "title": "W32Time Time Provider DLL Persistence",
+  "description": "Detects registration of a DllName under the W32Time TimeProviders key, which loads an attacker DLL into the time service (svchost) for persistence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "w32time", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-time-provider.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting a DllName under Services\\W32Time\\TimeProviders"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "W32Time providers load into svchost, an unusual and stealthy persistence location."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "776bdddd-8d3e-4bf1-be80-38f122d5e51e",
+  "slug": "persistence-lsa-security-package",
+  "title": "LSA Security Support Provider Registration",
+  "description": "Detects modification of the LSA Security Packages or OSConfig SecurityProviders values, which load an attacker DLL into LSASS for persistence and credential theft.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["persistence", "credential-access", "lsa", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.005", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-lsa-security-package.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting Lsa\\Security Packages or SecurityProviders"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "An SSP DLL runs inside LSASS with access to credentials, a stealthy and powerful persistence."
+  }
+}

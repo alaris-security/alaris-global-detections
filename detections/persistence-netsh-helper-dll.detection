@@ -1,0 +1,18 @@
+{
+  "uuid": "92dc3656-6742-41c6-8131-cac5848ccc11",
+  "slug": "persistence-netsh-helper-dll",
+  "title": "Netsh Helper DLL Persistence",
+  "description": "Detects registration of a netsh helper DLL under the NetSh registry key or via netsh add helper, which loads attacker code whenever netsh.exe runs, providing persistence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "netsh", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.007", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-netsh-helper-dll.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting a value under SOFTWARE\\Microsoft\\NetSh", "Or netsh add helper command"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set) and process creation"],
+    "tuningParameters": {},
+    "sourceContext": "netsh helper DLLs execute on any netsh invocation, a low-noise persistence location."
+  }
+}

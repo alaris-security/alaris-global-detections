@@ -1,0 +1,30 @@
+title: AppInit_DLLs Injection Persistence
+id: 51073f7d-1e38-4482-90ab-bf472c7a74be
+status: experimental
+description: Detects AppInit_DLLs modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/010/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith:
+      - '\Windows\AppInit_DLLs'
+      - '\Windows\LoadAppInit_DLLs'
+  filter:
+    Details:
+      - '(Empty)'
+      - '0'
+  condition: selection and not filter
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Legacy accessibility or input software using AppInit
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.010

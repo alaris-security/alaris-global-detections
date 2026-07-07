@@ -1,0 +1,32 @@
+title: Startup Folder Program Drop
+id: d4bb7114-86f5-4e6f-b49e-e44620279c6d
+status: experimental
+description: Detects executables and scripts dropped in Startup folders.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains: '\Start Menu\Programs\Startup\'
+    TargetFilename|endswith:
+      - '.exe'
+      - '.dll'
+      - '.vbs'
+      - '.js'
+      - '.bat'
+      - '.ps1'
+      - '.lnk'
+      - '.hta'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Applications legitimately adding startup shortcuts
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.001

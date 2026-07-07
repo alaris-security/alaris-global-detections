@@ -1,0 +1,18 @@
+{
+  "uuid": "bb98dd43-75e5-4f5c-b617-17034a808fde",
+  "slug": "persistence-appinit-dlls",
+  "title": "AppInit_DLLs Injection Persistence",
+  "description": "Detects modification of the AppInit_DLLs or LoadAppInit_DLLs registry values, which force a DLL to load into most user-mode processes that link user32.dll, providing broad persistence and injection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "dll-injection", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.010", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-appinit-dlls.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting AppInit_DLLs or LoadAppInit_DLLs"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "AppInit DLLs load into nearly every GUI process, an aggressive persistence and injection primitive."
+  }
+}

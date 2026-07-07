@@ -1,0 +1,28 @@
+title: LSA Security Support Provider Registration
+id: c57b9f26-40ad-4af8-b596-c48c9a61db27
+status: experimental
+description: Detects LSA Security Package (SSP) registration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/005/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Control\Lsa\'
+    TargetObject|endswith:
+      - '\Security Packages'
+      - '\SecurityProviders'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Legitimate SSO or authentication products registering providers
+level: critical
+tags:
+  - attack.persistence
+  - attack.credential_access
+  - attack.t1547.005

@@ -1,0 +1,18 @@
+{
+  "uuid": "cad40c13-1703-4d9b-b325-01ef894afef9",
+  "slug": "persistence-winlogon-shell",
+  "title": "Winlogon Shell Value Hijack",
+  "description": "Detects modification of the Winlogon Shell registry value away from explorer.exe, a persistence technique that runs an attacker binary at every interactive logon.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "winlogon", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-winlogon-shell.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting Winlogon\\Shell", "Details is not exactly explorer.exe"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {"expectedShell": "explorer.exe"},
+    "sourceContext": "Winlogon Shell runs at logon with the user's rights; appended commands are stealthy persistence."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "4f3351a4-94be-40cf-a555-a3c4f11e4d9e",
+  "slug": "persistence-winlogon-userinit",
+  "title": "Winlogon Userinit Value Hijack",
+  "description": "Detects appending a command to the Winlogon Userinit registry value beyond the default userinit.exe, a persistence method that executes an extra program during logon initialization.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "winlogon", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-winlogon-userinit.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting Winlogon\\Userinit", "Details contains a path beyond the default userinit.exe"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {"expectedUserinit": "C:\\Windows\\system32\\userinit.exe,"},
+    "sourceContext": "Userinit runs early at logon; extra comma-separated commands are classic persistence."
+  }
+}

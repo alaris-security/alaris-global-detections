@@ -1,0 +1,18 @@
+{
+  "uuid": "a7d55b27-2285-49ae-9684-22415278a223",
+  "slug": "persistence-accessibility-features",
+  "title": "Accessibility Feature Binary Replacement",
+  "description": "Detects replacement of or debugger hijack on accessibility binaries (sethc.exe, utilman.exe, osk.exe, magnify.exe, narrator.exe, displayswitch.exe), enabling a pre-logon SYSTEM shell from the lock screen.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["persistence", "privilege-escalation", "accessibility"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.008", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-accessibility-features.sigma"],
+  "intent": {
+    "conditions": ["cmd.exe or powershell spawned as a child of an accessibility binary", "Or an IFEO Debugger set on an accessibility binary"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "Accessibility binaries run as SYSTEM from the lock screen; a shell child is a backdoor."
+  }
+}

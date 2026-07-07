@@ -1,0 +1,27 @@
+title: Winlogon Userinit Value Hijack
+id: 60ff83e2-f2ae-4d36-b143-57178b242f1d
+status: experimental
+description: Detects tampering with the Winlogon Userinit value.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/004/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit'
+  filter:
+    Details|contains: 'userinit.exe,'
+    Details|endswith: 'userinit.exe,'
+  condition: selection and not filter
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Certain enterprise logon customizations
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.004

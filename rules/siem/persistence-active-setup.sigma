@@ -1,0 +1,25 @@
+title: Active Setup StubPath Persistence
+id: 61aa35b4-cf27-43a7-a042-b97f019d54ad
+status: experimental
+description: Detects Active Setup StubPath persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/014/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Active Setup\Installed Components\'
+    TargetObject|endswith: '\StubPath'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Software installers registering Active Setup components
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.014

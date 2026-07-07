@@ -1,0 +1,25 @@
+title: LSA Authentication Package Registration
+id: 3dff34f8-c3ac-4e07-ab02-5a89aca1acf0
+status: experimental
+description: Detects LSA Authentication Package registration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Control\Lsa\Authentication Packages'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Enterprise authentication software updating packages
+level: critical
+tags:
+  - attack.persistence
+  - attack.credential_access
+  - attack.t1547.002

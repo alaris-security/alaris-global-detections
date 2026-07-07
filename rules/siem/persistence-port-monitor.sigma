@@ -1,0 +1,26 @@
+title: Print Spooler Port Monitor DLL Persistence
+id: 58421991-f0be-4b4f-ae5b-0fe710214b6e
+status: experimental
+description: Detects port monitor DLL persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/010/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Control\Print\Monitors\'
+    TargetObject|endswith: '\Driver'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Printer driver installation registering legitimate monitors
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.t1547.010

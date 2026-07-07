@@ -1,0 +1,24 @@
+title: Netsh Helper DLL Persistence
+id: 0e1201a0-18a1-4f3f-8309-309d46dd3840
+status: experimental
+description: Detects netsh helper DLL registration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/007/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\SOFTWARE\Microsoft\NetSh'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Networking software registering legitimate netsh helpers
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.007

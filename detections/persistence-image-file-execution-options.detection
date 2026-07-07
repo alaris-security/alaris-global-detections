@@ -1,0 +1,18 @@
+{
+  "uuid": "9341a461-f67b-43c9-9d78-697587fdaa85",
+  "slug": "persistence-image-file-execution-options",
+  "title": "Image File Execution Options Debugger Hijack",
+  "description": "Detects creation of a Debugger value under Image File Execution Options, which redirects execution of a target program to an attacker binary for persistence, privilege escalation, or accessibility-feature backdoors.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "privilege-escalation", "ifeo", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.012", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-image-file-execution-options.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting an IFEO\\<image>\\Debugger or GlobalFlag value"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "An IFEO Debugger silently hijacks a program's launch, commonly paired with sethc/utilman."
+  }
+}

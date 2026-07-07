@@ -1,0 +1,18 @@
+{
+  "uuid": "16c07d33-fd8a-4915-9fd6-89c61dcdd042",
+  "slug": "persistence-screensaver",
+  "title": "Screensaver Executable Persistence",
+  "description": "Detects setting the desktop SCRNSAVE.EXE registry value to a binary outside System32, which runs the attacker program automatically after the user idle timeout.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "screensaver", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.002", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-screensaver.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 13 setting Control Panel\\Desktop\\SCRNSAVE.EXE", "Details points outside System32"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "A malicious .scr runs on idle, an old but effective low-privilege persistence method."
+  }
+}

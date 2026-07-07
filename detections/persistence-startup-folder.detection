@@ -1,0 +1,18 @@
+{
+  "uuid": "952184de-5a0e-45a8-8070-d3becf7b8996",
+  "slug": "persistence-startup-folder",
+  "title": "Startup Folder Program Drop",
+  "description": "Detects creation of executable or script files in the per-user or common Startup folders, causing the payload to launch automatically at logon for persistence.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "startup-folder", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-startup-folder.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 11 file create under a Startup directory", "TargetFilename ends in an executable or script extension"],
+    "dataSourceRequirements": ["Sysmon event 11 (file create)"],
+    "tuningParameters": {},
+    "sourceContext": "Files in Startup run at every logon; a common, simple persistence mechanism."
+  }
+}
