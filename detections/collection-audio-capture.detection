@@ -1,0 +1,18 @@
+{
+  "uuid": "e0a1058f-6579-409f-b420-6f9fa45d2523",
+  "slug": "collection-audio-capture",
+  "title": "Microphone Audio Capture",
+  "description": "Detects tools recording microphone audio via SoundRecorder, ffmpeg with an audio input device, or arecord/sox on Linux, used to eavesdrop on a victim's environment.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "audio-capture"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1123", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-audio-capture.sigma"],
+  "intent": {
+    "conditions": ["ffmpeg -f dshow audio, SoundRecorder, arecord, or sox rec"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Microphone capture turns an endpoint into a listening device."
+  }
+}

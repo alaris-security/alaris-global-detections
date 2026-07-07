@@ -1,0 +1,35 @@
+title: Local Data Staging in Hidden Directory
+id: 4b3f1e80-d119-49fd-99ba-f954af863de8
+status: experimental
+description: Detects document staging before exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1074/001/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'copy'
+      - 'robocopy'
+      - 'Copy-Item'
+      - 'cp '
+    CommandLine|contains:
+      - '.docx'
+      - '.xlsx'
+      - '.pdf'
+      - '.pst'
+    CommandLine|contains:
+      - '\Temp\'
+      - '\ProgramData\'
+      - '/tmp/'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Document backup routines
+level: medium
+tags:
+  - attack.collection
+  - attack.t1074.001

@@ -1,0 +1,18 @@
+{
+  "uuid": "912e3fc2-7588-454b-a4c0-d33d79e04cb6",
+  "slug": "collection-automated-document-collection",
+  "title": "Automated Document Collection by Extension",
+  "description": "Detects scripted enumeration and copying of office documents by extension using recursive Get-ChildItem/find filters, an automated collection technique to sweep up sensitive files.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "automated-collection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1119", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-automated-document-collection.sigma"],
+  "intent": {
+    "conditions": ["Recursive search filtered to office/document extensions combined with a copy action"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Extension-filtered recursive sweeps are how attackers gather documents at scale."
+  }
+}

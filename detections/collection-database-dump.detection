@@ -1,0 +1,18 @@
+{
+  "uuid": "63a9fdb9-18db-4e4c-97b7-9a0bcfeeee15",
+  "slug": "collection-database-dump",
+  "title": "Local Database Export or Dump",
+  "description": "Detects bulk database export via mysqldump, pg_dump, sqlcmd -o, or mongodump, used to collect entire databases from a compromised host prior to exfiltration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1005", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-database-dump.sigma"],
+  "intent": {
+    "conditions": ["mysqldump/pg_dump/mongodump, or sqlcmd exporting to a file"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Full database dumps collect the crown-jewel data in one operation."
+  }
+}

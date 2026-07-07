@@ -1,0 +1,27 @@
+title: Webcam Video Capture
+id: 2ada9cad-630a-4c81-9819-45a43ddd6c68
+status: experimental
+description: Detects webcam video capture.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1125/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'video=Integrated Camera'
+      - 'v4l2'
+      - '/dev/video0'
+      - 'avfoundation'
+      - 'vfwcap'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Video conferencing and streaming apps
+level: medium
+tags:
+  - attack.collection
+  - attack.t1125

@@ -1,0 +1,32 @@
+title: Chat Application Local Data Access
+id: 8d8c58dc-d87b-491b-8bc7-a7fcdfe29b01
+status: experimental
+description: Detects access to chat app local data.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1005/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '\Slack\'
+      - '\Microsoft\Teams\'
+      - '\discord\'
+      - 'Local Storage\leveldb'
+  selection_proc:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '/bash'
+      - '/sh'
+  condition: selection and selection_proc
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Backup software copying app data
+level: medium
+tags:
+  - attack.collection
+  - attack.t1005

@@ -1,0 +1,18 @@
+{
+  "uuid": "5a15e1b2-edac-4965-bc62-688b3605aee4",
+  "slug": "collection-screen-capture",
+  "title": "Screen Capture via API or Utility",
+  "description": "Detects scripted screen capture through the CopyFromScreen .NET method, screenshot utilities, or import/scrot on Linux, used to spy on a victim's on-screen activity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "screen-capture"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1113", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-screen-capture.sigma"],
+  "intent": {
+    "conditions": ["CopyFromScreen/Bitmap capture in PowerShell, or import/scrot on Linux"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Automated screenshots capture sensitive information the user is viewing."
+  }
+}

@@ -1,0 +1,32 @@
+title: Bulk Data Collection from Network Shares
+id: 9fe10dba-881b-45e3-9768-7dbcaaa6dc02
+status: experimental
+description: Detects bulk copy from network shares.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1039/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'robocopy'
+      - 'xcopy'
+      - 'Copy-Item'
+    CommandLine|contains: '\\\\'
+    CommandLine|contains:
+      - '/e'
+      - '/s'
+      - '-Recurse'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Data migration projects
+level: medium
+tags:
+  - attack.collection
+  - attack.t1039

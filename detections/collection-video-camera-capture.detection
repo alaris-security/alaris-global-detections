@@ -1,0 +1,18 @@
+{
+  "uuid": "f632f3b2-7033-441c-a535-56da9b6c8b62",
+  "slug": "collection-video-camera-capture",
+  "title": "Webcam Video Capture",
+  "description": "Detects tools capturing webcam video via ffmpeg with a video input device or Linux v4l2 access to /dev/video, used to surveil a victim through their camera.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "video-capture"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1125", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-video-camera-capture.sigma"],
+  "intent": {
+    "conditions": ["ffmpeg with a video input device, or access to /dev/video via capture tools"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Webcam capture is a privacy-invasive surveillance capability of RATs."
+  }
+}

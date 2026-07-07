@@ -1,0 +1,18 @@
+{
+  "uuid": "1550c9b3-1e50-4ada-bfa6-22fe63b0b18a",
+  "slug": "collection-local-data-staging",
+  "title": "Local Data Staging in Hidden Directory",
+  "description": "Detects copying of many documents into a single staging directory under Temp, ProgramData, or a hidden folder prior to archiving, an intermediate step before exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "data-staging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1074.001", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-local-data-staging.sigma"],
+  "intent": {
+    "conditions": ["Bulk copy of document types into a temp/hidden staging directory"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Consolidating documents into one folder precedes archiving and exfiltration."
+  }
+}

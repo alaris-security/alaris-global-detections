@@ -1,0 +1,33 @@
+title: Bulk Access to Information Repositories
+id: d8f3c7fb-388f-48c8-b2fd-cb62209a2b82
+status: experimental
+description: Detects bulk information repository scraping.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1213/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-uri-stem|contains:
+      - '/rest/api/content'
+      - '/_api/web/lists'
+      - '/api/v4/projects'
+      - '/wiki/rest/'
+  selection_ua:
+    cs-user-agent|contains:
+      - 'python'
+      - 'curl'
+      - 'Go-http-client'
+      - 'PowerShell'
+  condition: selection and selection_ua
+fields:
+  - cs-uri-stem
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Backup and migration integrations
+level: medium
+tags:
+  - attack.collection
+  - attack.t1213

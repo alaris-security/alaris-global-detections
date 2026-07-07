@@ -1,0 +1,18 @@
+{
+  "uuid": "16980e96-5962-4735-9591-bab427529169",
+  "slug": "collection-info-repository-access",
+  "title": "Bulk Access to Information Repositories",
+  "description": "Detects scripted, high-volume API access to internal information repositories such as Confluence, SharePoint, and GitLab (mass page or repo export via curl/API tokens), indicating knowledge-base scraping.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "information-repositories"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1213", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-info-repository-access.sigma"],
+  "intent": {
+    "conditions": ["Scripted user-agent hitting Confluence/SharePoint/GitLab export APIs at volume"],
+    "dataSourceRequirements": ["Proxy logs or application access logs"],
+    "tuningParameters": {},
+    "sourceContext": "Wikis and repos hold sensitive documentation attractive for bulk collection."
+  }
+}

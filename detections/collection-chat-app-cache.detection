@@ -1,0 +1,18 @@
+{
+  "uuid": "7a715893-2c13-4dbc-9291-48bd6394f207",
+  "slug": "collection-chat-app-cache",
+  "title": "Chat Application Local Data Access",
+  "description": "Detects access to local data stores of chat applications (Slack, Teams, Discord leveldb and token files) by non-application processes, used to collect messages and steal session tokens.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "chat-apps"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1005", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-chat-app-cache.sigma"],
+  "intent": {
+    "conditions": ["Access to Slack/Teams/Discord local storage or leveldb by shells or scripts"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Chat app caches contain conversations and reusable session tokens."
+  }
+}

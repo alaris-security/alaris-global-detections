@@ -1,0 +1,33 @@
+title: Microphone Audio Capture
+id: 1425eb04-7dca-4476-a445-317b7b940be1
+status: experimental
+description: Detects microphone audio capture.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1123/
+logsource:
+  category: process_creation
+detection:
+  selection_win:
+    CommandLine|contains:
+      - 'SoundRecorder'
+      - 'dshow'
+      - 'audio='
+      - 'waveInOpen'
+  selection_nix:
+    Image|endswith:
+      - '/arecord'
+      - '/sox'
+    CommandLine|contains:
+      - 'rec'
+      - '.wav'
+  condition: selection_win or selection_nix
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Conferencing and recording software
+level: medium
+tags:
+  - attack.collection
+  - attack.t1123

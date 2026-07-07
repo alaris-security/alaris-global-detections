@@ -1,0 +1,18 @@
+{
+  "uuid": "670aea91-6eb5-4b73-80ca-444d5859a33b",
+  "slug": "collection-data-from-removable-media",
+  "title": "Data Collection from Removable Media",
+  "description": "Detects reading and copying of files from a removable drive to local storage shortly after device insertion, a collection technique targeting data carried on USB media.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["collection", "removable-media"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1025", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-data-from-removable-media.sigma"],
+  "intent": {
+    "conditions": ["Copy from a removable drive letter to a local path"],
+    "dataSourceRequirements": ["Process telemetry and removable device events"],
+    "tuningParameters": {},
+    "sourceContext": "Harvesting data from inserted media is a targeted collection method."
+  }
+}

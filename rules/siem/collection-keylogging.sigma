@@ -1,0 +1,27 @@
+title: Keystroke Logging via Windows Hooks or GetAsyncKeyState
+id: 82d33d72-ee9f-4aeb-adbe-733d5d99324b
+status: experimental
+description: Detects keylogging API usage.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1056/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'SetWindowsHookEx'
+      - 'GetAsyncKeyState'
+      - 'WH_KEYBOARD_LL'
+      - 'GetKeyboardState'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Accessibility and macro tools
+level: high
+tags:
+  - attack.collection
+  - attack.t1056.001

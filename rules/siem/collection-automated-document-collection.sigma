@@ -1,0 +1,31 @@
+title: Automated Document Collection by Extension
+id: 95a20578-0282-49f5-8257-cc6b771a73fb
+status: experimental
+description: Detects automated document collection by extension.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1119/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Get-ChildItem'
+      - 'find '
+      - 'dir /s'
+    CommandLine|contains:
+      - '-Include'
+      - '-name'
+      - '*.doc'
+      - '*.xls'
+      - '*.pdf'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Search and indexing tools
+level: medium
+tags:
+  - attack.collection
+  - attack.t1119

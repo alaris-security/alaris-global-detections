@@ -1,0 +1,18 @@
+{
+  "uuid": "d6b8f1b1-ba3d-477a-9a18-7edfc7ccfae2",
+  "slug": "collection-keylogging",
+  "title": "Keystroke Logging via Windows Hooks or GetAsyncKeyState",
+  "description": "Detects PowerShell or tooling referencing keyboard hook APIs (SetWindowsHookEx, GetAsyncKeyState) used to capture keystrokes, a core capability of infostealers and RATs.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "keylogging", "input-capture"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1056.001", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-keylogging.sigma"],
+  "intent": {
+    "conditions": ["References to SetWindowsHookEx WH_KEYBOARD or GetAsyncKeyState in scripts"],
+    "dataSourceRequirements": ["PowerShell logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Keylogging captures passwords and messages as they are typed."
+  }
+}

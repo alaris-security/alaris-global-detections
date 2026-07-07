@@ -1,0 +1,26 @@
+title: Clipboard Data Capture
+id: d96aebf3-1522-4c2b-8b80-3c58a29d9fac
+status: experimental
+description: Detects clipboard data capture.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1115/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Get-Clipboard'
+      - 'System.Windows.Forms.Clipboard'
+      - 'Windows.ApplicationModel.DataTransfer'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Clipboard managers and automation
+level: medium
+tags:
+  - attack.collection
+  - attack.t1115

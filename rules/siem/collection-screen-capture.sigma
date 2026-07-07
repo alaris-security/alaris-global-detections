@@ -1,0 +1,30 @@
+title: Screen Capture via API or Utility
+id: 094ccbe8-729a-4e03-9838-837c77e3fab3
+status: experimental
+description: Detects scripted screen capture.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1113/
+logsource:
+  category: process_creation
+detection:
+  selection_win:
+    CommandLine|contains:
+      - 'CopyFromScreen'
+      - 'Drawing.Bitmap'
+      - 'Graphics.FromImage'
+  selection_nix:
+    Image|endswith:
+      - '/import'
+      - '/scrot'
+      - '/gnome-screenshot'
+  condition: selection_win or selection_nix
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Screenshot and screen-sharing tools
+level: medium
+tags:
+  - attack.collection
+  - attack.t1113

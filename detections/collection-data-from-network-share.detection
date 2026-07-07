@@ -1,0 +1,18 @@
+{
+  "uuid": "2ba5f354-8678-4e85-ac68-b275fa97c473",
+  "slug": "collection-data-from-network-share",
+  "title": "Bulk Data Collection from Network Shares",
+  "description": "Detects recursive copying of files from mapped drives or UNC network shares into local storage, a collection technique for harvesting file server data prior to exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "network-share"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1039", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-data-from-network-share.sigma"],
+  "intent": {
+    "conditions": ["Recursive copy from a UNC path or mapped drive to local storage"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "File servers are a rich target; recursive pulls indicate mass collection."
+  }
+}

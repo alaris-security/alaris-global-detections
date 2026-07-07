@@ -1,0 +1,18 @@
+{
+  "uuid": "e52b0254-e3ad-4b08-9187-5a06e5d8dbf0",
+  "slug": "collection-clipboard-data",
+  "title": "Clipboard Data Capture",
+  "description": "Detects programmatic access to the clipboard via Get-Clipboard, powershell clip usage, or the Windows clip.exe piped into a file, used to harvest copied passwords and sensitive text.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "clipboard"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1115", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-clipboard-data.sigma"],
+  "intent": {
+    "conditions": ["Get-Clipboard, Windows.Clipboard API, or clip.exe capture to file"],
+    "dataSourceRequirements": ["PowerShell logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Clipboard scraping steals credentials and crypto addresses users copy."
+  }
+}

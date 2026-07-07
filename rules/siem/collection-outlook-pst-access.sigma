@@ -1,0 +1,27 @@
+title: Outlook PST/OST Mail Archive Access
+id: d8a4e293-fbc2-492f-976a-f67e859ab331
+status: experimental
+description: Detects access to Outlook mail archives.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.pst'
+      - '.ost'
+  filter:
+    Image|endswith: '\outlook.exe'
+  condition: selection and not filter
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Backup software archiving mailboxes
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.001
