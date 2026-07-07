@@ -1,0 +1,32 @@
+title: Linux Reverse Shell Execution
+id: 3fa49c3c-e247-49b2-b146-09372f08a38b
+status: experimental
+description: Detects Linux reverse shell patterns.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/dev/tcp/'
+      - '/dev/udp/'
+      - 'nc -e'
+      - 'ncat -e'
+      - 'sh -i'
+      - 'bash -i'
+      - 'pty.spawn'
+      - 'socket.SOCK_STREAM'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+falsepositives:
+  - Rare legitimate socket scripting
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1059.004

@@ -1,0 +1,18 @@
+{
+  "uuid": "507f3127-a996-4931-b7dd-87827676a43b",
+  "slug": "linux-host-recon-commands",
+  "title": "Linux Host Reconnaissance Command Burst",
+  "description": "Detects a burst of host discovery commands (uname -a, id, hostname, cat /etc/os-release, lscpu) executed in quick succession, characteristic of automated reconnaissance after a foothold.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "linux", "system-information"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1082", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/linux-host-recon-commands.sigma"],
+  "intent": {
+    "conditions": ["Execution of uname/id/hostname/os-release read"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Chained host recon commands indicate automated environment fingerprinting."
+  }
+}

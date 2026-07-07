@@ -1,0 +1,30 @@
+title: Linux GTFOBins Shell Escape
+id: d8ad242d-98fb-4aee-9e25-44cf8bd51250
+status: experimental
+description: Detects GTFOBins-style shell escapes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '-exec /bin/sh'
+      - '-exec /bin/bash'
+      - 'awk ''BEGIN {system'
+      - 'perl -e ''exec'
+      - 'vim -c ''!'
+      - 'find . -exec'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+falsepositives:
+  - Administrators using find -exec legitimately
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548

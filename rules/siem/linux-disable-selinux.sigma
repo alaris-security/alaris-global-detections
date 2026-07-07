@@ -1,0 +1,29 @@
+title: Linux SELinux or AppArmor Disabled
+id: d0780ccd-b821-4c78-bf99-eb9f7d8a2931
+status: experimental
+description: Detects disabling of SELinux/AppArmor.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'setenforce 0'
+      - 'SELINUX=disabled'
+      - 'aa-disable'
+      - 'aa-teardown'
+      - 'stop apparmor'
+      - 'disable apparmor'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Troubleshooting requiring MAC to be relaxed
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

@@ -1,0 +1,28 @@
+title: Linux Host Reconnaissance Command Burst
+id: 1ef8eb8e-9f43-4189-8d40-e741c0db32c3
+status: experimental
+description: Detects host reconnaissance commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1082/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'uname -a'
+      - '/etc/os-release'
+      - '/etc/issue'
+      - 'lscpu'
+      - 'hostnamectl'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Administrators and inventory scripts
+level: low
+tags:
+  - attack.discovery
+  - attack.t1082

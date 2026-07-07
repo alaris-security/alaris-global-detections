@@ -1,0 +1,30 @@
+title: Linux Container Escape Attempt
+id: 7a96c182-ceae-40b9-beab-4a4d37b8c8fb
+status: experimental
+description: Detects container escape primitives.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1611/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'release_agent'
+      - 'nsenter -t 1'
+      - 'nsenter --target 1'
+      - '/proc/self/exe'
+      - 'unshare -m'
+      - 'core_pattern'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+falsepositives:
+  - Container runtime internals (tune to environment)
+level: critical
+tags:
+  - attack.privilege_escalation
+  - attack.t1611

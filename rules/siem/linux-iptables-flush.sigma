@@ -1,0 +1,30 @@
+title: Linux Host Firewall Flushed
+id: 1e4f420b-7516-4eae-abdb-5fb9ead893f2
+status: experimental
+description: Detects flushing of host firewall rules.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_iptables:
+    Image|endswith: '/iptables'
+    CommandLine|contains:
+      - '-F'
+      - '-P INPUT ACCEPT'
+      - '-P FORWARD ACCEPT'
+  selection_nft:
+    Image|endswith: '/nft'
+    CommandLine|contains: 'flush ruleset'
+  condition: selection_iptables or selection_nft
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Firewall reconfiguration by administrators
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562.004

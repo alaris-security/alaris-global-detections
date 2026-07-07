@@ -1,0 +1,27 @@
+title: Linux Network Scanning Tool Execution
+id: b94fe4e3-caaa-43a3-8d86-847abbb77de3
+status: experimental
+description: Detects network scanning tools.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1046/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/nmap'
+      - '/masscan'
+      - '/zmap'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Authorized vulnerability scanning
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1046

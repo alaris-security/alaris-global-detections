@@ -1,0 +1,18 @@
+{
+  "uuid": "92f669f7-dde8-4c5f-a317-b1b6335eab32",
+  "slug": "linux-network-scan-tools",
+  "title": "Linux Network Scanning Tool Execution",
+  "description": "Detects execution of network scanning tools (nmap, masscan, zmap) or scripted port sweeps on Linux hosts, used to map reachable systems and services for lateral movement.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "linux", "network-scanning"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1046", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/linux-network-scan-tools.sigma"],
+  "intent": {
+    "conditions": ["Execution of nmap/masscan/zmap, or /dev/tcp port-sweep loops"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Scanning from a compromised host maps the internal network."
+  }
+}

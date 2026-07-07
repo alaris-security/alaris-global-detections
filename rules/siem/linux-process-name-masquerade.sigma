@@ -1,0 +1,31 @@
+title: Linux Process Masquerading as Kernel Thread
+id: e6e3ebbb-126a-49a3-b24f-90af3ad95647
+status: experimental
+description: Detects processes faking kernel thread names.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1036/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|startswith: '['
+    CommandLine|contains:
+      - 'kworker'
+      - 'kthreadd'
+      - 'ksoftirqd'
+      - 'migration'
+  filter:
+    Image|startswith: '/proc'
+  condition: selection and not filter
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Rare userland tools using bracketed names
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1036.004

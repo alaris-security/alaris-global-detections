@@ -1,0 +1,18 @@
+{
+  "uuid": "cb36c9bd-525b-4c31-9d19-d752a973c774",
+  "slug": "linux-chattr-immutable",
+  "title": "Linux Immutable Attribute Set via chattr",
+  "description": "Detects chattr +i setting the immutable attribute on files, used by attackers to protect malicious binaries and persistence entries from deletion, or to lock defenders out of remediation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "chattr"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1222.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-chattr-immutable.sigma"],
+  "intent": {
+    "conditions": ["chattr +i on a file"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Immutable flags stop defenders from deleting attacker files."
+  }
+}

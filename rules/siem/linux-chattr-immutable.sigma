@@ -1,0 +1,24 @@
+title: Linux Immutable Attribute Set via chattr
+id: b66b3057-4f03-4fdb-b2dd-f59dbdf96af8
+status: experimental
+description: Detects setting of immutable file attribute.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1222/002/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/chattr'
+    CommandLine|contains: '+i'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Administrators protecting configuration files
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1222.002

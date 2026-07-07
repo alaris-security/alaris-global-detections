@@ -1,0 +1,18 @@
+{
+  "uuid": "3b4d6106-3d03-4420-870b-e361a94ac129",
+  "slug": "linux-log-file-deletion",
+  "title": "Linux Log File Deletion or Truncation",
+  "description": "Detects deletion or truncation of system logs under /var/log (auth.log, secure, wtmp, btmp, lastlog), an anti-forensics technique to erase evidence of logins and activity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "indicator-removal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-log-file-deletion.sigma"],
+  "intent": {
+    "conditions": ["rm/truncate/redirection to /dev/null against /var/log files"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Wiping /var/log removes login and system activity records."
+  }
+}

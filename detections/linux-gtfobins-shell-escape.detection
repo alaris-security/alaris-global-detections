@@ -1,0 +1,18 @@
+{
+  "uuid": "bc79599e-013a-4b34-aff9-92ec09a92fcb",
+  "slug": "linux-gtfobins-shell-escape",
+  "title": "Linux GTFOBins Shell Escape",
+  "description": "Detects GTFOBins-style shell escapes where utilities like find, vim, awk, less, or nmap are used with sudo or setuid to spawn an interactive shell, a common Linux privilege escalation technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "gtfobins"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-gtfobins-shell-escape.sigma"],
+  "intent": {
+    "conditions": ["find -exec /bin/sh, vim :!sh, awk system, less !command, etc."],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "GTFOBins abuse legitimate binaries to break out into privileged shells."
+  }
+}

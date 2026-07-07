@@ -1,0 +1,18 @@
+{
+  "uuid": "8570874e-f8ce-4a1d-9829-e5044719e6ea",
+  "slug": "linux-reverse-shell",
+  "title": "Linux Reverse Shell Execution",
+  "description": "Detects reverse shell patterns on Linux such as bash -i redirected to /dev/tcp, nc -e, and python/perl socket shells, which give an attacker interactive control over the host.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "linux", "reverse-shell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.004", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/linux-reverse-shell.sigma"],
+  "intent": {
+    "conditions": ["bash -i with /dev/tcp, nc -e, or interpreter socket shell one-liners"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Reverse shells hand interactive control of the host to an attacker."
+  }
+}

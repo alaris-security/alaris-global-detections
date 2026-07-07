@@ -1,0 +1,18 @@
+{
+  "uuid": "0593571b-e470-4b6a-9861-aa801f5a71f9",
+  "slug": "linux-process-name-masquerade",
+  "title": "Linux Process Masquerading as Kernel Thread",
+  "description": "Detects userland processes masquerading as kernel threads by using bracketed names like [kworker/0:0] or [kthreadd] with a real executable path, a defense-evasion trick to hide malware in ps output.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "masquerading"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1036.004", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-process-name-masquerade.sigma"],
+  "intent": {
+    "conditions": ["Process with a bracketed kernel-thread-style name but a userland executable path"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Real kernel threads have no on-disk image; a bracketed name with a path is fake."
+  }
+}

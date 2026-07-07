@@ -1,0 +1,18 @@
+{
+  "uuid": "6f714940-c193-42eb-91f8-bfa5acaa74c9",
+  "slug": "linux-auditd-tampering",
+  "title": "Linux auditd Tampering",
+  "description": "Detects disabling or stopping of the Linux audit daemon via auditctl -e 0, service/systemctl stop auditd, or deletion of audit rules, a defense-evasion action that blinds host auditing.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "auditd"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-auditd-tampering.sigma"],
+  "intent": {
+    "conditions": ["auditctl -e 0, stop/disable auditd, or clearing audit.rules"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Turning off auditd removes the primary Linux security log source."
+  }
+}

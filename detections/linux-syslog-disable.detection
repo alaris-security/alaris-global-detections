@@ -1,0 +1,18 @@
+{
+  "uuid": "14634664-0e95-4fa2-8b63-36cad11bc442",
+  "slug": "linux-syslog-disable",
+  "title": "Linux System Logging Service Disabled",
+  "description": "Detects stopping or masking of rsyslog or systemd-journald, a defense-evasion action to prevent system and application events from being recorded.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "syslog"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-syslog-disable.sigma"],
+  "intent": {
+    "conditions": ["systemctl stop/mask rsyslog or systemd-journald"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Stopping syslog/journald halts collection of host log data."
+  }
+}

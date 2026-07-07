@@ -1,0 +1,18 @@
+{
+  "uuid": "40cffbf5-655d-4811-a3b7-aa092a615983",
+  "slug": "linux-disable-selinux",
+  "title": "Linux SELinux or AppArmor Disabled",
+  "description": "Detects disabling of mandatory access controls via setenforce 0, edits to /etc/selinux/config, or aa-disable/apparmor teardown, a defense-evasion action removing kernel-enforced restrictions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "selinux", "apparmor"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-disable-selinux.sigma"],
+  "intent": {
+    "conditions": ["setenforce 0, SELINUX=disabled in config, or aa-disable/apparmor stop"],
+    "dataSourceRequirements": ["Linux process execution logs"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling MAC removes a strong layer of containment for attacker actions."
+  }
+}
