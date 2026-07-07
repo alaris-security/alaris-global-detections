@@ -1,0 +1,27 @@
+title: Exfiltration via Telegram Bot API
+id: 474fb281-d64e-4fb5-b06a-1cffc4a863e3
+status: experimental
+description: Detects use of the Telegram Bot API (api.telegram.org sendDocument/sendMessage) by scripting user agents, a channel widely used by infostealers to exfiltrate collected data to an attacker-controlled bot.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|contains: 'api.telegram.org'
+    cs-uri-stem|contains:
+      - '/sendDocument'
+      - '/sendMessage'
+      - '/bot'
+  condition: selection
+fields:
+  - cs-host
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Legitimate Telegram integrations
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1567

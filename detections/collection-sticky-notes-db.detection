@@ -1,0 +1,18 @@
+{
+  "uuid": "94059325-5719-4281-889f-9cb755f3c685",
+  "slug": "collection-sticky-notes-db",
+  "title": "Windows Sticky Notes Data Access",
+  "description": "Detects access to the Windows Sticky Notes database (plum.sqlite), which frequently contains passwords and sensitive reminders users store in notes.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["collection", "sticky-notes"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1005", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-sticky-notes-db.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects access to the Windows Sticky Notes database (plum.sqlite), which frequently contains passwords and sensitive reminders users store in notes."
+  }
+}

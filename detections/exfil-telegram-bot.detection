@@ -1,0 +1,18 @@
+{
+  "uuid": "abfbbfec-6d28-40ec-bc04-ab3748a6782b",
+  "slug": "exfil-telegram-bot",
+  "title": "Exfiltration via Telegram Bot API",
+  "description": "Detects use of the Telegram Bot API (api.telegram.org sendDocument/sendMessage) by scripting user agents, a channel widely used by infostealers to exfiltrate collected data to an attacker-controlled bot.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "telegram", "web-service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-telegram-bot.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the Telegram Bot API (api.telegram.org sendDocument/sendMessage) by scripting user agents, a channel widely used by infostealers to exfiltrate collected data to an attacker-controlled bot."
+  }
+}

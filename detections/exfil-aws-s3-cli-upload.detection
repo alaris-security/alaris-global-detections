@@ -1,0 +1,18 @@
+{
+  "uuid": "6ac2da53-fc8a-4362-aa03-e6253499026e",
+  "slug": "exfil-aws-s3-cli-upload",
+  "title": "Exfiltration via AWS CLI S3 Upload",
+  "description": "Detects aws s3 cp/sync/mv uploading local data to an S3 bucket, which can move collected data to an attacker-controlled bucket outside the organization.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "aws", "s3"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567.002", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-aws-s3-cli-upload.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects aws s3 cp/sync/mv uploading local data to an S3 bucket, which can move collected data to an attacker-controlled bucket outside the organization."
+  }
+}

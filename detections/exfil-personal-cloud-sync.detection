@@ -1,0 +1,18 @@
+{
+  "uuid": "ccc139e1-45db-4ebe-92d0-578d4bd7e2f1",
+  "slug": "exfil-personal-cloud-sync",
+  "title": "Data Sync to Personal Cloud Storage Client",
+  "description": "Detects execution of personal cloud-sync clients (personal OneDrive, gdrive CLI, dropbox uploader scripts) copying corporate data into personal accounts, a data-exfiltration channel.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "cloud-storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567.002", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-personal-cloud-sync.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects execution of personal cloud-sync clients (personal OneDrive, gdrive CLI, dropbox uploader scripts) copying corporate data into personal accounts, a data-exfiltration channel."
+  }
+}

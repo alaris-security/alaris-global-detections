@@ -1,0 +1,27 @@
+title: KeePass Trigger Export Abuse
+id: 97b7a817-8952-4ddc-8375-20213b90ac1f
+status: experimental
+description: Detects modification of the KeePass configuration to add an export trigger (KeePass.config.xml with a Trigger that exports the database to CSV/XML), a technique to silently dump a KeePass vault to cleartext.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1555/005/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'KeePass.config'
+    CommandLine|contains:
+      - 'Trigger'
+      - 'Export'
+      - 'ExportActiveDatabase'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Legitimate KeePass trigger configuration
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1555.005

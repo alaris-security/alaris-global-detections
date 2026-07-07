@@ -1,0 +1,18 @@
+{
+  "uuid": "5cee630c-d230-4c62-88f3-01d691ddc668",
+  "slug": "collection-browser-extension-install",
+  "title": "Malicious Browser Extension Installed",
+  "description": "Detects installation of a browser extension outside the official web store (load-extension flag, sideloaded CRX, or registry ExtensionInstallForcelist entries), which can harvest browsing data and session tokens.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "collection", "browser-extension"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1176", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/collection-browser-extension-install.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects installation of a browser extension outside the official web store (load-extension flag, sideloaded CRX, or registry ExtensionInstallForcelist entries), which can harvest browsing data and session tokens."
+  }
+}

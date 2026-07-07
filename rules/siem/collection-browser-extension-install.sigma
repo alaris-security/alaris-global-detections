@@ -1,0 +1,27 @@
+title: Malicious Browser Extension Installed
+id: 2d16fbfb-31e8-4213-816c-410fa01cc309
+status: experimental
+description: Detects installation of a browser extension outside the official web store (load-extension flag, sideloaded CRX, or registry ExtensionInstallForcelist entries), which can harvest browsing data and session tokens.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1176/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '--load-extension='
+      - '--pack-extension='
+      - 'ExtensionInstallForcelist'
+      - '.crx'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - IT-managed extension deployment
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1176

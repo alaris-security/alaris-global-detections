@@ -1,0 +1,18 @@
+{
+  "uuid": "9612b06a-ff75-45ad-9ff9-1d64106f01c1",
+  "slug": "collection-ftp-client-saved-creds",
+  "title": "FTP Client Saved Credential Theft",
+  "description": "Detects access to FTP/SFTP client credential stores (FileZilla sitemanager.xml and recentservers.xml, WinSCP.ini), which store server credentials often in cleartext or trivially reversible form.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["credential-access", "ftp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1552.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/collection-ftp-client-saved-creds.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects access to FTP/SFTP client credential stores (FileZilla sitemanager.xml and recentservers.xml, WinSCP.ini), which store server credentials often in cleartext or trivially reversible form."
+  }
+}

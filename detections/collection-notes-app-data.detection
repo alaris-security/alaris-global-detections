@@ -1,0 +1,18 @@
+{
+  "uuid": "b5f7c265-bed0-425e-b7c8-cae93f67bda7",
+  "slug": "collection-notes-app-data",
+  "title": "Notes Application Data Access",
+  "description": "Detects access to local data of note-taking apps (OneNote, Notion, Obsidian, Apple Notes) by shells or scripts, used to collect potentially sensitive personal and corporate notes.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["collection", "notes-apps"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1005", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/collection-notes-app-data.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects access to local data of note-taking apps (OneNote, Notion, Obsidian, Apple Notes) by shells or scripts, used to collect potentially sensitive personal and corporate notes."
+  }
+}

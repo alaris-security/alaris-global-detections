@@ -1,0 +1,27 @@
+title: Data Sync to Personal Cloud Storage Client
+id: 83441750-678b-4ce1-a0af-1f44cda76721
+status: experimental
+description: Detects execution of personal cloud-sync clients (personal OneDrive, gdrive CLI, dropbox uploader scripts) copying corporate data into personal accounts, a data-exfiltration channel.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'gdrive upload'
+      - 'dropbox_uploader'
+      - 'rclone copy'
+      - 'onedrive --upload'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Sanctioned personal-cloud usage
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567.002

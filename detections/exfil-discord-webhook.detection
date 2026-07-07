@@ -1,0 +1,18 @@
+{
+  "uuid": "6a9b503b-305d-411b-a887-c1035fffe7e9",
+  "slug": "exfil-discord-webhook",
+  "title": "Exfiltration via Discord Webhook",
+  "description": "Detects POSTs to Discord webhook endpoints (discord.com/api/webhooks) by non-Discord processes, a channel commonly used by stealers and RATs to exfiltrate data and receive commands.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "discord", "web-service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-discord-webhook.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects POSTs to Discord webhook endpoints (discord.com/api/webhooks) by non-Discord processes, a channel commonly used by stealers and RATs to exfiltrate data and receive commands."
+  }
+}

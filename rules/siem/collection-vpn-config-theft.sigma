@@ -1,0 +1,32 @@
+title: VPN Client Configuration Theft
+id: 477c89fb-2009-4ace-86d5-1f7c00ad2c8c
+status: experimental
+description: Detects access to VPN client configuration files that may embed credentials (OpenVPN ovpn with auth-user-pass, Cisco AnyConnect profiles, WireGuard conf), used to obtain remote-access credentials.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.ovpn'
+      - 'auth-user-pass'
+      - 'AnyConnect'
+      - 'wg0.conf'
+      - 'wireguard'
+    Image|endswith:
+      - '/cat'
+      - '/cp'
+      - '/grep'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Legitimate VPN configuration
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1552

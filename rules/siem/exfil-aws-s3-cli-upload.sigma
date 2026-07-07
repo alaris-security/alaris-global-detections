@@ -1,0 +1,28 @@
+title: Exfiltration via AWS CLI S3 Upload
+id: f8e5b827-83c4-4f07-ae00-bbbd367f6ee5
+status: experimental
+description: Detects aws s3 cp/sync/mv uploading local data to an S3 bucket, which can move collected data to an attacker-controlled bucket outside the organization.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'aws s3'
+    CommandLine|contains:
+      - 'cp '
+      - 'sync '
+      - 'mv '
+    CommandLine|contains: 's3://'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Legitimate S3 data workflows
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567.002

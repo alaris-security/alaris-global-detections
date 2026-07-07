@@ -1,0 +1,30 @@
+title: Saved RDP Connection Theft
+id: 86ca8bc5-5549-45ca-bea3-af00e2d56bf3
+status: experimental
+description: Detects access to saved Remote Desktop connection files (.rdp, Default.rdp) and cached RDP credentials, used to discover and reuse stored connections for lateral movement.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.rdp'
+      - 'Default.rdp'
+      - 'Terminal Server Client'
+    Image|endswith:
+      - '\\cmd.exe'
+      - '\\powershell.exe'
+      - '/cat'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Users opening saved RDP files
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1552

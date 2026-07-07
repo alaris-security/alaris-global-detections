@@ -1,0 +1,27 @@
+title: Clipboard Cryptocurrency Address Hijack
+id: 81a4ce23-a027-4696-8b5f-15f30f121fa5
+status: experimental
+description: Detects clipper malware behavior where the clipboard is monitored and rewritten when it contains a cryptocurrency wallet address (regex for BTC/ETH addresses combined with clipboard write APIs), redirecting payments to the attacker.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1115/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Set-Clipboard'
+      - 'SetClipboardData'
+      - 'clip.exe'
+    CommandLine|re: '(bc1|0x[a-fA-F0-9]{40}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.collection
+  - attack.t1115

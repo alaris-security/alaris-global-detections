@@ -1,0 +1,31 @@
+title: Notes Application Data Access
+id: d79d2dc2-a20b-4b90-a129-2a6ce0fce853
+status: experimental
+description: Detects access to local data of note-taking apps (OneNote, Notion, Obsidian, Apple Notes) by shells or scripts, used to collect potentially sensitive personal and corporate notes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1005/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Notion/'
+      - '.obsidian/'
+      - 'OneNote/'
+      - 'group.com.apple.notes'
+    Image|endswith:
+      - '/cat'
+      - '/cp'
+      - '/sqlite3'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Backup tooling
+level: low
+tags:
+  - attack.collection
+  - attack.t1005

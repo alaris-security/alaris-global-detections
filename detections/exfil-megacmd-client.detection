@@ -1,0 +1,18 @@
+{
+  "uuid": "6dd68671-c3cf-4e5e-8a19-6f8cde3594db",
+  "slug": "exfil-megacmd-client",
+  "title": "Exfiltration via MEGAcmd Client",
+  "description": "Detects use of the MEGAcmd command-line client (mega-put, mega-copy, megacmd) to upload data to MEGA cloud storage, a channel favored by ransomware crews for bulk exfiltration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "mega", "cloud-storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567.002", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-megacmd-client.sigma"],
+  "intent": {
+    "conditions": ["Endpoint or proxy telemetry matching the described collection/exfiltration pattern"],
+    "dataSourceRequirements": ["Process telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the MEGAcmd command-line client (mega-put, mega-copy, megacmd) to upload data to MEGA cloud storage, a channel favored by ransomware crews for bulk exfiltration."
+  }
+}
