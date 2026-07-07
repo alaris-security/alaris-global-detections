@@ -1,0 +1,13 @@
+{
+  "uuid": "fce08edc-6744-4aed-aff3-f14d073d2866",
+  "slug": "rmm-anydesk-silent-install",
+  "title": "AnyDesk Silent/Unattended Installation",
+  "description": "Detects AnyDesk installed silently with unattended-access flags (--install, --silent, --set-password), a technique adversaries use to deploy persistent remote access for hands-on-keyboard control.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "rmm", "anydesk"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1219", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/rmm-anydesk-silent-install.sigma"],
+  "intent": {"conditions": ["AnyDesk with --install/--silent/--set-password flags"], "dataSourceRequirements": ["Process creation telemetry with command line"], "tuningParameters": {}, "sourceContext": "Silent AnyDesk installs set up unattended attacker access."}
+}

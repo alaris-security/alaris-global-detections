@@ -1,0 +1,25 @@
+title: Single Account Authenticating to Many Hosts
+id: a2ee0a28-fd68-40a0-9e1f-b41ae1e0279c
+status: experimental
+description: Detects one account logging into many hosts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType: 3
+  timeframe: 10m
+  condition: selection | count(Computer) by TargetUserName > 30
+fields:
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Service and scanning accounts
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021

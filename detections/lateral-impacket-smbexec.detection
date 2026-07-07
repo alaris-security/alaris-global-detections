@@ -1,0 +1,13 @@
+{
+  "uuid": "00a37a24-9870-4ae3-99e7-16fa119146b3",
+  "slug": "lateral-impacket-smbexec",
+  "title": "Impacket smbexec Execution Pattern",
+  "description": "Detects the Impacket smbexec pattern, which creates a temporary service running cmd.exe with output redirected to a local file and read back over SMB, indicated by the %COMSPEC% echo-to-file service command line.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "impacket", "smb"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-impacket-smbexec.sigma"],
+  "intent": {"conditions": ["Service command line with cmd /Q /c echo ... > \\127.0.0.1\\C$ __output"], "dataSourceRequirements": ["Process/service creation telemetry"], "tuningParameters": {}, "sourceContext": "smbexec uses a throwaway service and file redirection recognizable in the command line."}
+}

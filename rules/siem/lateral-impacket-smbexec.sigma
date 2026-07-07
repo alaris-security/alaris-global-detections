@@ -1,0 +1,28 @@
+title: Impacket smbexec Execution Pattern
+id: 3b6646a2-3121-406b-bd54-2b0a6a970dcf
+status: experimental
+description: Detects Impacket smbexec command pattern.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'cmd.exe'
+      - '/Q'
+      - '/c'
+      - 'echo'
+      - '__output'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002

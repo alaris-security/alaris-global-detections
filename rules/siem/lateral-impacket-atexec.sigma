@@ -1,0 +1,31 @@
+title: Impacket atexec Execution Pattern
+id: 21b0a614-070f-4b1b-8bc4-b83485db19e4
+status: experimental
+description: Detects Impacket atexec command pattern.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\svchost.exe'
+      - '\taskeng.exe'
+    CommandLine|contains|all:
+      - 'cmd.exe'
+      - '/C'
+      - '\Windows\Temp\'
+      - '.tmp'
+    CommandLine|contains: '2>&1'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Rare scheduled task output redirection
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1053.002

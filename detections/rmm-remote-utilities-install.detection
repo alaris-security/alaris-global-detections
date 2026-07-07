@@ -1,0 +1,13 @@
+{
+  "uuid": "db08fd6c-7562-4415-b801-ced2225c6974",
+  "slug": "rmm-remote-utilities-install",
+  "title": "Remote Utilities/RemoteUtilities Deployment",
+  "description": "Detects deployment of Remote Utilities (rutserv.exe/rfusclient.exe) or similar niche RMM agents, tools abused by adversaries and tech-support scammers for persistent remote control.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "rmm", "remote-utilities"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1219", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/rmm-remote-utilities-install.sigma"],
+  "intent": {"conditions": ["Execution of rutserv.exe/rfusclient.exe"], "dataSourceRequirements": ["Process creation telemetry"], "tuningParameters": {}, "sourceContext": "Remote Utilities provides persistent remote control abused in intrusions."}
+}

@@ -1,0 +1,31 @@
+title: Suspicious Service Installed (Event 7045)
+id: ef7d557d-c752-4591-8edf-62949b08cb7b
+status: experimental
+description: Detects suspicious service installation via 7045.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  product: windows
+  service: system
+detection:
+  selection:
+    Provider_Name: 'Service Control Manager'
+    EventID: 7045
+    ImagePath|contains:
+      - 'cmd.exe /c'
+      - 'powershell'
+      - '%COMSPEC%'
+      - 'echo'
+      - '\Temp\'
+  condition: selection
+fields:
+  - ServiceName
+  - ImagePath
+  - AccountName
+falsepositives:
+  - Some management agents install helper services
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1543.003

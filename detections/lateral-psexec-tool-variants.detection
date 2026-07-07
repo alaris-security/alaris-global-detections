@@ -1,0 +1,13 @@
+{
+  "uuid": "b5dda6db-70a0-4855-9d64-7a88d31d3d0f",
+  "slug": "lateral-psexec-tool-variants",
+  "title": "PsExec-Style Remote Execution Tool Variants",
+  "description": "Detects PsExec-family remote execution tools beyond Sysinternals PsExec (PAExec, RemCom, CSExec) by their characteristic service and executable artifacts, used to run commands as SYSTEM on remote hosts.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "psexec", "service-execution"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-psexec-tool-variants.sigma"],
+  "intent": {"conditions": ["Service or process artifacts of PAExec/RemCom/CSExec"], "dataSourceRequirements": ["Process creation and service events"], "tuningParameters": {}, "sourceContext": "PsExec clones give SYSTEM remote execution while evading PsExec-specific rules."}
+}

@@ -1,0 +1,13 @@
+{
+  "uuid": "4b835ecf-bb5f-4486-aec4-baa6eb91fa25",
+  "slug": "lateral-cobaltstrike-named-pipe",
+  "title": "Cobalt Strike Default Named Pipe",
+  "description": "Detects creation or connection of named pipes matching Cobalt Strike default patterns (msagent_, postex_, status_, MSSE-), used by beacons for SMB peer-to-peer lateral communication and post-exploitation jobs.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "cobalt-strike", "named-pipe"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-cobaltstrike-named-pipe.sigma"],
+  "intent": {"conditions": ["Named pipe events matching Cobalt Strike default names"], "dataSourceRequirements": ["Sysmon events 17/18 (pipe created/connected)"], "tuningParameters": {}, "sourceContext": "Default CS named pipe names are a strong post-exploitation indicator."}
+}

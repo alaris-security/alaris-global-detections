@@ -1,0 +1,27 @@
+title: AnyDesk Silent/Unattended Installation
+id: 056093f4-0de9-4fc6-ae4e-d637df1608d0
+status: experimental
+description: Detects silent AnyDesk installation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1219/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\AnyDesk.exe'
+    CommandLine|contains:
+      - '--install'
+      - '--silent'
+      - '--set-password'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - IT-approved AnyDesk deployment
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1219

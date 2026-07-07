@@ -1,0 +1,30 @@
+title: Impacket dcomexec Execution Pattern
+id: 83deface-e382-460c-8c26-06f91c5214fd
+status: experimental
+description: Detects Impacket dcomexec command pattern.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\mmc.exe'
+      - '\svchost.exe'
+    CommandLine|contains|all:
+      - 'cmd.exe'
+      - '/Q'
+      - '/c'
+      - '\Windows\Temp\'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Rare legitimate DCOM automation
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.003

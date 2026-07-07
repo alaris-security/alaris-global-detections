@@ -1,0 +1,13 @@
+{
+  "uuid": "f13ba319-fb51-4ed6-b87c-a8ef4d704d70",
+  "slug": "lateral-impacket-dcomexec",
+  "title": "Impacket dcomexec Execution Pattern",
+  "description": "Detects the Impacket dcomexec pattern, where a DCOM host (mmc.exe via MMC20.Application or ShellWindows) spawns cmd.exe with /Q /c and output redirection, a DCOM-based semi-interactive remote execution method.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "impacket", "dcom"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.003", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-impacket-dcomexec.sigma"],
+  "intent": {"conditions": ["DCOM host process spawning cmd /Q /c with output redirection"], "dataSourceRequirements": ["Process creation telemetry with parent lineage"], "tuningParameters": {}, "sourceContext": "dcomexec proxies commands through DCOM objects with recognizable redirection."}
+}

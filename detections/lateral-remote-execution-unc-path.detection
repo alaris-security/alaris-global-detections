@@ -1,0 +1,13 @@
+{
+  "uuid": "d5145f72-d0a9-47fd-82d0-559cc0ed5b42",
+  "slug": "lateral-remote-execution-unc-path",
+  "title": "Execution from Remote UNC Path",
+  "description": "Detects execution of a binary or script directly from a remote UNC path (\\\\host\\share\\payload.exe), a lateral movement technique that runs attacker tooling from a network share without copying it locally.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "unc-path"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-remote-execution-unc-path.sigma"],
+  "intent": {"conditions": ["Process Image or CommandLine referencing a \\\\host\\share executable"], "dataSourceRequirements": ["Process creation telemetry"], "tuningParameters": {}, "sourceContext": "Running executables from UNC shares supports fileless lateral movement."}
+}

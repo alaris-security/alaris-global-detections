@@ -1,0 +1,13 @@
+{
+  "uuid": "df7c85c8-b49f-4d64-a900-dbae545c4570",
+  "slug": "rmm-screenconnect-deploy",
+  "title": "ScreenConnect/ConnectWise Client Deployment",
+  "description": "Detects deployment of the ScreenConnect (ConnectWise Control) client, indicated by the ScreenConnect.ClientSetup executable or client service install with an external relay URL, frequently abused for remote access.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "rmm", "screenconnect"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1219", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/rmm-screenconnect-deploy.sigma"],
+  "intent": {"conditions": ["ScreenConnect client setup/service with an external relay"], "dataSourceRequirements": ["Process creation telemetry with command line"], "tuningParameters": {}, "sourceContext": "Unsanctioned ScreenConnect deployment enables remote attacker access."}
+}

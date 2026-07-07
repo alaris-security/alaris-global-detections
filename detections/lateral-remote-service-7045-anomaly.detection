@@ -1,0 +1,13 @@
+{
+  "uuid": "a28d9633-4dcf-469b-b87f-1a1d5a183f8a",
+  "slug": "lateral-remote-service-7045-anomaly",
+  "title": "Suspicious Service Installed (Event 7045)",
+  "description": "Detects Service Control Manager event 7045 installing a service with a random-looking name or a cmd/powershell image path, the artifact left by PsExec-style and Cobalt Strike remote service execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "service-execution", "system-event-7045"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1543.003", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-remote-service-7045-anomaly.sigma"],
+  "intent": {"conditions": ["Event 7045 with ImagePath referencing cmd/powershell or a short random service name"], "dataSourceRequirements": ["Windows System log event 7045"], "tuningParameters": {}, "sourceContext": "Remote-exec frameworks install transient services visible as 7045 anomalies."}
+}

@@ -1,0 +1,26 @@
+title: Remote Utilities/RemoteUtilities Deployment
+id: 08f84923-af1f-4a16-99f8-238c6b006658
+status: experimental
+description: Detects Remote Utilities RMM deployment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1219/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\rutserv.exe'
+      - '\rfusclient.exe'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+falsepositives:
+  - Sanctioned Remote Utilities use
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1219

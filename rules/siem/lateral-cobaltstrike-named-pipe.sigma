@@ -1,0 +1,30 @@
+title: Cobalt Strike Default Named Pipe
+id: 0fa41cb7-1f9f-44a4-bc75-de8dd360613e
+status: experimental
+description: Detects Cobalt Strike default named pipes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/
+logsource:
+  product: windows
+  category: pipe_created
+detection:
+  selection:
+    PipeName|contains:
+      - '\msagent_'
+      - '\postex_'
+      - '\status_'
+      - '\MSSE-'
+      - '\mojo_'
+  filter:
+    PipeName|startswith: '\mojo.'
+  condition: selection and not filter
+fields:
+  - PipeName
+  - Image
+falsepositives:
+  - Rare software using similar pipe names
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021

@@ -1,0 +1,13 @@
+{
+  "uuid": "118b9b7e-88e0-49cc-9fa2-5077f06133b8",
+  "slug": "lateral-impacket-atexec",
+  "title": "Impacket atexec Execution Pattern",
+  "description": "Detects the Impacket atexec pattern, which creates a scheduled task via the remote Task Scheduler running cmd.exe with output redirected to a local temp file read back over SMB, a semi-interactive remote execution method.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "impacket", "scheduled-task"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-impacket-atexec.sigma"],
+  "intent": {"conditions": ["taskeng/svchost spawning cmd /C with output to a Temp .tmp read over SMB"], "dataSourceRequirements": ["Process creation telemetry with command line"], "tuningParameters": {}, "sourceContext": "atexec runs commands through a transient scheduled task with file redirection."}
+}

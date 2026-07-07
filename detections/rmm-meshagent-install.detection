@@ -1,0 +1,13 @@
+{
+  "uuid": "45481720-ebff-4c93-bad8-a2e100069346",
+  "slug": "rmm-meshagent-install",
+  "title": "MeshAgent/MeshCentral Deployment",
+  "description": "Detects installation of the open-source MeshCentral agent (meshagent, MeshAgent64), an RMM increasingly used by intrusion actors because it is free, cross-platform, and easily self-hosted.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "rmm", "meshcentral"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1219", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/rmm-meshagent-install.sigma"],
+  "intent": {"conditions": ["Execution of meshagent binaries with install flags"], "dataSourceRequirements": ["Process creation telemetry"], "tuningParameters": {}, "sourceContext": "MeshCentral agents provide self-hosted remote control popular with attackers."}
+}

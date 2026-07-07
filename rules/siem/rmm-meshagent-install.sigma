@@ -1,0 +1,26 @@
+title: MeshAgent/MeshCentral Deployment
+id: bae31d07-7176-4001-b811-8528a0fa3af0
+status: experimental
+description: Detects MeshCentral agent deployment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1219/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\meshagent.exe'
+      - '\MeshAgent64.exe'
+      - '/meshagent'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+falsepositives:
+  - Organizations using MeshCentral for IT
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1219

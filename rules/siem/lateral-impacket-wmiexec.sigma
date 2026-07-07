@@ -1,0 +1,28 @@
+title: Impacket wmiexec Execution Pattern
+id: 660045e9-fa65-409f-9fb3-7ca40dcab1cc
+status: experimental
+description: Detects Impacket wmiexec command pattern.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1047/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\WmiPrvSE.exe'
+    CommandLine|contains|all:
+      - 'cmd.exe'
+      - '/Q'
+      - '/c'
+      - '\\127.0.0.1\ADMIN$'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1047

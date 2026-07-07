@@ -1,0 +1,28 @@
+title: VNC Remote Session Activity
+id: 50ca1cc6-5b1a-4f7e-afab-5a48723afb91
+status: experimental
+description: Detects VNC remote access activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\winvnc.exe'
+      - '\tvnserver.exe'
+      - '\vncviewer.exe'
+      - '\vncserver.exe'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+falsepositives:
+  - Sanctioned VNC-based remote support
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021.005

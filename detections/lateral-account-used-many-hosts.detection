@@ -1,0 +1,13 @@
+{
+  "uuid": "12a8d9a6-1081-40c1-941e-7a6b4daeb424",
+  "slug": "lateral-account-used-many-hosts",
+  "title": "Single Account Authenticating to Many Hosts",
+  "description": "Detects one account producing network logons (4624 type 3) to an unusually high number of distinct hosts in a short window, a spraying/lateral-movement pattern as an attacker pivots with stolen credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "authentication"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-account-used-many-hosts.sigma"],
+  "intent": {"conditions": ["One account with 4624 type 3 to many distinct hosts in a short window"], "dataSourceRequirements": ["Windows Security log event 4624"], "tuningParameters": {"hostThreshold": 30}, "sourceContext": "Rapid authentication to many hosts is a lateral-movement fan-out."}
+}

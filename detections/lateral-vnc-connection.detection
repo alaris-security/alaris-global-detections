@@ -1,0 +1,13 @@
+{
+  "uuid": "2ac45756-5ba3-4467-ab2f-9b6523bbe7ee",
+  "slug": "lateral-vnc-connection",
+  "title": "VNC Remote Session Activity",
+  "description": "Detects execution of VNC server/client binaries (winvnc, tvnserver, vncviewer) or connections to VNC ports (5900-5901), used for graphical remote access during lateral movement.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "vnc"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.005", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-vnc-connection.sigma"],
+  "intent": {"conditions": ["VNC binary execution or connections to VNC ports"], "dataSourceRequirements": ["Process creation and network telemetry"], "tuningParameters": {}, "sourceContext": "Unexpected VNC use often indicates attacker graphical remote access."}
+}

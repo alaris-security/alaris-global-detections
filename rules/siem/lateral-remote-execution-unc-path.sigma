@@ -1,0 +1,26 @@
+title: Execution from Remote UNC Path
+id: 9c37286b-1efd-4a56-bf78-61162ddb5d55
+status: experimental
+description: Detects execution from remote UNC paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|startswith: '\\\\'
+  filter:
+    Image|startswith: '\\\\127.0.0.1'
+  condition: selection and not filter
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Applications legitimately run from file shares
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002

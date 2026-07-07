@@ -1,0 +1,13 @@
+{
+  "uuid": "118096af-8d9d-4dc7-9b14-ff58810c454b",
+  "slug": "lateral-impacket-wmiexec",
+  "title": "Impacket wmiexec Execution Pattern",
+  "description": "Detects the Impacket wmiexec command pattern, where cmd.exe runs with /Q /c and redirects output to a file on the ADMIN$ share (127.0.0.1\\ADMIN$), a signature of semi-interactive WMI remote execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "impacket", "wmi"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1047", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-impacket-wmiexec.sigma"],
+  "intent": {"conditions": ["cmd /Q /c with output redirected to \\\\127.0.0.1\\ADMIN$"], "dataSourceRequirements": ["Process creation telemetry with command line"], "tuningParameters": {}, "sourceContext": "wmiexec leaves a distinctive cmd redirection to ADMIN$ pattern."}
+}

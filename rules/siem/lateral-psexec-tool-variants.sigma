@@ -1,0 +1,31 @@
+title: PsExec-Style Remote Execution Tool Variants
+id: 268a7757-5223-4eb6-932b-ca49a54aad7a
+status: experimental
+description: Detects PsExec-family tool variants.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\paexec.exe'
+      - '\remcom.exe'
+      - '\csexec.exe'
+      - '\PAExec.exe'
+    CommandLine|contains:
+      - 'PAExec'
+      - 'RemCom'
+      - 'csexec'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrative remote execution tools
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002

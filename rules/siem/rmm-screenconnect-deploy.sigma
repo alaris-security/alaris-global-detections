@@ -1,0 +1,28 @@
+title: ScreenConnect/ConnectWise Client Deployment
+id: 62ef8d86-9369-480d-ba52-22c905adec84
+status: experimental
+description: Detects ScreenConnect client deployment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1219/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|contains: 'ScreenConnect'
+  selection_cmd:
+    CommandLine|contains:
+      - 'ClientSetup'
+      - 'relay'
+      - '&c=&'
+  condition: selection or selection_cmd
+fields:
+  - Image
+  - CommandLine
+falsepositives:
+  - Managed service providers using ScreenConnect
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1219
