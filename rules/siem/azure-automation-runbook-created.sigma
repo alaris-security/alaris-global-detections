@@ -1,0 +1,23 @@
+title: Azure Automation Runbook Created or Modified
+id: 9d7b6d7a-5ec2-407d-8718-4aad56b56af9
+status: experimental
+description: Detects Automation runbook creation/modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Legitimate automation development
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

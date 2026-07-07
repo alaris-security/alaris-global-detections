@@ -1,0 +1,25 @@
+title: Azure Monitor Alert Rule Deleted
+id: aa961542-cef6-4c75-a1ed-19e968721549
+status: experimental
+description: Detects deletion of Azure Monitor alerts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains:
+      - 'MICROSOFT.INSIGHTS/ACTIVITYLOGALERTS/DELETE'
+      - 'MICROSOFT.INSIGHTS/METRICALERTS/DELETE'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Alert lifecycle management
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

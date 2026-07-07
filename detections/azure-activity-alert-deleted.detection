@@ -1,0 +1,13 @@
+{
+  "uuid": "62d595c3-177a-4dc1-a725-f0a8e9b0115b",
+  "slug": "azure-activity-alert-deleted",
+  "title": "Azure Monitor Alert Rule Deleted",
+  "description": "Detects deletion of Azure Monitor activity log alert rules or metric alerts, a defense-evasion action to prevent alerting on subsequent malicious activity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "azure", "monitoring"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-activity-alert-deleted.sigma"],
+  "intent": {"conditions": ["activityLogAlerts or metricAlerts delete"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Deleting alert rules suppresses notification of malicious activity."}
+}

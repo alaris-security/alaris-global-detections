@@ -1,0 +1,23 @@
+title: Azure Key Vault Access Policy Modified
+id: 2db400c5-cb4a-4846-b9e5-adcb99fe57dc
+status: experimental
+description: Detects Key Vault access policy changes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.KEYVAULT/VAULTS/ACCESSPOLICIES/WRITE'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Legitimate access management
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1098

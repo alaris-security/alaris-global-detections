@@ -1,0 +1,24 @@
+title: Azure VM Custom Script Extension Deployed
+id: 689f7c47-f001-4313-9324-1193b70009c1
+status: experimental
+description: Detects CustomScriptExtension deployment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1651/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.COMPUTE/VIRTUALMACHINES/EXTENSIONS/WRITE'
+    properties|contains: 'CustomScriptExtension'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Provisioning automation
+level: high
+tags:
+  - attack.execution
+  - attack.t1651

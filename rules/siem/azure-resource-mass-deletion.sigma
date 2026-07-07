@@ -1,0 +1,24 @@
+title: Azure Mass Resource Deletion
+id: 5575666b-048b-4672-aaf4-e11b97eb2914
+status: experimental
+description: Detects mass resource deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1485/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|endswith: '/DELETE'
+  timeframe: 10m
+  condition: selection | count() by caller > 20
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Decommissioning projects
+level: high
+tags:
+  - attack.impact
+  - attack.t1485

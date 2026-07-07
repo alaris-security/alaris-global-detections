@@ -1,0 +1,13 @@
+{
+  "uuid": "759f296c-952d-46fe-866e-1235a1877d45",
+  "slug": "azure-managed-identity-token-request",
+  "title": "Azure Managed Identity Token Request from VM",
+  "description": "Detects requests to the Azure IMDS managed identity token endpoint (169.254.169.254/metadata/identity/oauth2/token) from a process on a VM, used to obtain the VM's managed identity token for accessing Azure resources.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["credential-access", "azure", "managed-identity"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1528", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/azure-managed-identity-token-request.sigma"],
+  "intent": {"conditions": ["Request to metadata/identity/oauth2/token on 169.254.169.254"], "dataSourceRequirements": ["Process command line or proxy logs"], "tuningParameters": {}, "sourceContext": "Managed identity tokens grant a VM's Azure permissions to whoever fetches them."}
+}

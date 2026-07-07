@@ -1,0 +1,13 @@
+{
+  "uuid": "de865b1b-c50a-48d6-a817-1bcec74d54fd",
+  "slug": "azure-automation-runbook-created",
+  "title": "Azure Automation Runbook Created or Modified",
+  "description": "Detects creation or modification of an Azure Automation runbook, which can run PowerShell/Python on a schedule or trigger under a Run As/managed identity, a persistence and execution technique in Azure.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "azure", "automation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-automation-runbook-created.sigma"],
+  "intent": {"conditions": ["automationAccounts runbooks write/publish"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Automation runbooks run privileged code on schedule, a persistence vector."}
+}

@@ -1,0 +1,23 @@
+title: Azure Managed Disk SAS Export
+id: 8cc715cb-7fe5-4867-8c03-791cefd51195
+status: experimental
+description: Detects managed disk SAS export.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'BEGINGETACCESS'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Backup and migration tools
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537

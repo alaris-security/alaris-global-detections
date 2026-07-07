@@ -1,0 +1,13 @@
+{
+  "uuid": "cedae5ac-4a24-4236-881d-8093e7cd37d7",
+  "slug": "azure-function-app-created",
+  "title": "Azure Function App Created",
+  "description": "Detects creation of an Azure Function App or function, which can host serverless attacker code triggered by events or HTTP under a managed identity, a persistence and execution technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "azure", "functions"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-function-app-created.sigma"],
+  "intent": {"conditions": ["Microsoft.Web/sites write for a function app"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Function apps host triggerable serverless code, a persistence vector."}
+}

@@ -1,0 +1,13 @@
+{
+  "uuid": "f2ecb0dc-f942-47ee-a951-46c26e859e96",
+  "slug": "azure-rbac-owner-assigned",
+  "title": "Azure RBAC Owner Role Assigned",
+  "description": "Detects roleAssignments/write granting the Owner or Contributor role at subscription or resource-group scope, a privilege escalation that grants broad control of Azure resources.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "azure", "rbac"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/azure-rbac-owner-assigned.sigma"],
+  "intent": {"conditions": ["roleAssignments write for Owner/Contributor"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Owner at subscription scope grants control over all resources."}
+}

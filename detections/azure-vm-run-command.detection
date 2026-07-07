@@ -1,0 +1,13 @@
+{
+  "uuid": "a1c43f59-bd6b-445d-991e-ac28b3c51c88",
+  "slug": "azure-vm-run-command",
+  "title": "Azure VM Run Command Execution",
+  "description": "Detects Microsoft.Compute virtualMachines runCommand operations, which execute arbitrary scripts on an Azure VM through the control plane, a technique to run code on hosts without RDP/SSH.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "azure", "run-command"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1651", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/azure-vm-run-command.sigma"],
+  "intent": {"conditions": ["Microsoft.Compute virtualMachines/runCommand action"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Run Command executes scripts on VMs via the cloud API, bypassing host access controls."}
+}

@@ -1,0 +1,13 @@
+{
+  "uuid": "240f34e8-40c1-478d-af66-57b85dd678cb",
+  "slug": "azure-managed-disk-sas-export",
+  "title": "Azure Managed Disk SAS Export",
+  "description": "Detects disks/beginGetAccess (SAS export) on an Azure managed disk or snapshot, which produces a downloadable URL to the raw disk, a technique to exfiltrate VM disk contents.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "azure", "managed-disk"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/azure-managed-disk-sas-export.sigma"],
+  "intent": {"conditions": ["disks/snapshots beginGetAccess operation"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "A disk SAS URL lets an attacker download the entire VM disk."}
+}

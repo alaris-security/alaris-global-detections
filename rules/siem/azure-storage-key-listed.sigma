@@ -1,0 +1,24 @@
+title: Azure Storage Account Keys Listed
+id: c82786ab-dc57-4271-a9e9-a9d52727aeed
+status: experimental
+description: Detects listing of storage account keys.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.STORAGE/STORAGEACCOUNTS/LISTKEYS'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+  - callerIpAddress
+falsepositives:
+  - Applications retrieving keys legitimately
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1552

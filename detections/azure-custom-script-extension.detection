@@ -1,0 +1,13 @@
+{
+  "uuid": "317a4b28-9401-4c90-8af4-7eeaedea49fb",
+  "slug": "azure-custom-script-extension",
+  "title": "Azure VM Custom Script Extension Deployed",
+  "description": "Detects installation of the CustomScriptExtension on an Azure VM, which downloads and runs an arbitrary script at deploy time, a technique for code execution and persistence on cloud VMs.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "azure", "vm-extension"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1651", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/azure-custom-script-extension.sigma"],
+  "intent": {"conditions": ["VM extension write with CustomScriptExtension type"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "CustomScriptExtension runs attacker scripts on a VM via the control plane."}
+}

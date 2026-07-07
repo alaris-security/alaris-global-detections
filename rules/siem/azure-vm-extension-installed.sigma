@@ -1,0 +1,28 @@
+title: Azure VM Extension Installed
+id: 6434f6dc-6d99-4a58-92c7-21cec9d274df
+status: experimental
+description: Detects VM extension installation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.COMPUTE/VIRTUALMACHINES/EXTENSIONS/WRITE'
+  filter:
+    properties|contains:
+      - 'MicrosoftMonitoringAgent'
+      - 'AzureMonitorWindowsAgent'
+      - 'DependencyAgent'
+  condition: selection and not filter
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Approved extension deployments
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

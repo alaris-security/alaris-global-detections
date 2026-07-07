@@ -1,0 +1,13 @@
+{
+  "uuid": "db7271e3-fcfe-4930-b4df-e3a4f3848dce",
+  "slug": "azure-keyvault-access-policy-modified",
+  "title": "Azure Key Vault Access Policy Modified",
+  "description": "Detects modification of a Key Vault access policy to grant a principal secret/key/certificate permissions, which attackers use to give themselves access to the vault's stored secrets.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "azure", "key-vault"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-keyvault-access-policy-modified.sigma"],
+  "intent": {"conditions": ["vaults/accessPolicies write operation"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Granting oneself Key Vault access opens the door to stored secrets."}
+}

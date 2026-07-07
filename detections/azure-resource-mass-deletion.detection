@@ -1,0 +1,13 @@
+{
+  "uuid": "24347751-d890-442b-a855-d596ba0ef4d7",
+  "slug": "azure-resource-mass-deletion",
+  "title": "Azure Mass Resource Deletion",
+  "description": "Detects a high volume of resource delete operations by a single principal in a short window, indicating destructive impact against Azure infrastructure (VMs, storage, databases).",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "azure", "data-destruction"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1485", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/azure-resource-mass-deletion.sigma"],
+  "intent": {"conditions": ["Many delete operations per caller in a short window"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {"threshold": 20}, "sourceContext": "Bulk resource deletion is destructive impact against the environment."}
+}

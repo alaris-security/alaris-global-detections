@@ -1,0 +1,13 @@
+{
+  "uuid": "c26e53e6-bbb7-4286-916d-ad05e6c466d8",
+  "slug": "azure-vm-extension-installed",
+  "title": "Azure VM Extension Installed",
+  "description": "Detects installation of a VM extension (extensions/write) other than expected management extensions, which can execute code or install agents on the VM, a persistence and execution technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "azure", "vm-extension"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-vm-extension-installed.sigma"],
+  "intent": {"conditions": ["virtualMachines/extensions/write for a non-standard extension"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "VM extensions run code and install agents, usable for persistence."}
+}

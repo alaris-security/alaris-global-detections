@@ -1,0 +1,27 @@
+title: Azure NSG Rule Allowing Any Source
+id: d83624d9-b3f1-4cb5-8476-7ee615a1c4dd
+status: experimental
+description: Detects permissive NSG rule creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/007/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.NETWORK/NETWORKSECURITYGROUPS/SECURITYRULES/WRITE'
+    properties|contains:
+      - '"sourceAddressPrefix":"*"'
+      - '"sourceAddressPrefix":"0.0.0.0/0"'
+      - '"sourceAddressPrefix":"Internet"'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Intended public endpoints
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.007

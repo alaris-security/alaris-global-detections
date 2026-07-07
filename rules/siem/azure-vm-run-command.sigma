@@ -1,0 +1,23 @@
+title: Azure VM Run Command Execution
+id: d1bc35df-bc2f-4c7d-bec2-140ae759efcb
+status: experimental
+description: Detects Azure VM Run Command.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1651/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.COMPUTE/VIRTUALMACHINES/RUNCOMMAND'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Legitimate automation using Run Command
+level: high
+tags:
+  - attack.execution
+  - attack.t1651

@@ -1,0 +1,24 @@
+title: Azure Function App Created
+id: 9fe7788a-2766-41d1-886d-40890fa545e5
+status: experimental
+description: Detects Azure Function App creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.WEB/SITES/WRITE'
+    properties|contains: 'functionapp'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Serverless deployments
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

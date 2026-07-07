@@ -1,0 +1,13 @@
+{
+  "uuid": "4371940d-d626-433c-8ef3-ed6f1976bd14",
+  "slug": "azure-nsg-permissive-rule",
+  "title": "Azure NSG Rule Allowing Any Source",
+  "description": "Detects creation of a Network Security Group rule allowing inbound traffic from any source (0.0.0.0/0 or Internet) to sensitive ports, weakening network controls and exposing services.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "azure", "nsg"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.007", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-nsg-permissive-rule.sigma"],
+  "intent": {"conditions": ["securityRules write with sourceAddressPrefix any/Internet and Allow"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Permissive NSG rules expose Azure services to the internet."}
+}

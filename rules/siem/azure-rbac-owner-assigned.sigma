@@ -1,0 +1,26 @@
+title: Azure RBAC Owner Role Assigned
+id: 303c9e9c-e138-4b8c-ad06-fadbcbd1f244
+status: experimental
+description: Detects RBAC Owner/Contributor assignment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.AUTHORIZATION/ROLEASSIGNMENTS/WRITE'
+    properties|contains:
+      - 'Owner'
+      - 'Contributor'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Legitimate role assignments
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098.003

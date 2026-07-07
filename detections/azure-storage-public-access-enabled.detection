@@ -1,0 +1,13 @@
+{
+  "uuid": "d9345858-674e-46f2-afe7-7dc7095d46fc",
+  "slug": "azure-storage-public-access-enabled",
+  "title": "Azure Storage Public Access Enabled",
+  "description": "Detects enabling of anonymous blob public access (allowBlobPublicAccess true) or creation of public containers, exposing storage data to the internet and enabling exfiltration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "azure", "storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/azure-storage-public-access-enabled.sigma"],
+  "intent": {"conditions": ["Storage account write enabling public blob access"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Public storage containers can be read by anyone, enabling data theft."}
+}

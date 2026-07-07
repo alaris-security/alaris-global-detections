@@ -1,0 +1,13 @@
+{
+  "uuid": "6e6e583f-96d3-49f3-8309-d876ea66b3c6",
+  "slug": "azure-storage-key-listed",
+  "title": "Azure Storage Account Keys Listed",
+  "description": "Detects listKeys operations on Azure Storage accounts, which return the account access keys granting full data-plane access, a credential-access technique to read or exfiltrate blob and file data.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "azure", "storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1552", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/azure-storage-key-listed.sigma"],
+  "intent": {"conditions": ["storageAccounts/listKeys action"], "dataSourceRequirements": ["Azure Activity logs"], "tuningParameters": {}, "sourceContext": "Storage account keys grant full access to all data in the account."}
+}

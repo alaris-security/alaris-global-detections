@@ -1,0 +1,24 @@
+title: Azure Storage Public Access Enabled
+id: 74275edd-4031-4700-8c1f-002d8cf52624
+status: experimental
+description: Detects enabling of public storage access.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.STORAGE/STORAGEACCOUNTS/WRITE'
+    properties|contains: '"allowBlobPublicAccess":true'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+falsepositives:
+  - Intended public content
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537
