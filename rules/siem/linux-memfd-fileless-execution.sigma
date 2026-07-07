@@ -1,7 +1,7 @@
 title: Fileless Execution via memfd_create
 id: 41af8b0f-e11a-4844-bc95-5979ddf0c1a6
 status: experimental
-description: Detects execution of a process backed by an anonymous in-memory file (/proc/self/fd or /memfd: path as the executable), the memfd_create reflective-loading technique that runs binaries without touching disk.
+description: Detects execution of a process backed by an anonymous in-memory file (an executable path under /proc/self/fd or an anonymous memfd region), the memfd_create reflective-loading technique that runs binaries without touching disk.
 author: Alaris Global
 references:
   - https://attack.mitre.org/techniques/T1620/
