@@ -1,0 +1,28 @@
+title: MongoDB Unauthenticated Access
+id: 7e42e298-4652-4c70-8361-3e30ae5ae93b
+status: experimental
+description: Detects MongoDB connections and operations from an unauthenticated context or the default admin database without credentials, indicating an exposed instance being accessed by an attacker.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  category: application
+  product: mongodb
+detection:
+  selection:
+    authenticated: false
+    command|contains:
+      - 'listDatabases'
+      - 'find'
+      - 'dropDatabase'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Health checks against open instances
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078

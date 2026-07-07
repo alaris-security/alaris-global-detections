@@ -1,0 +1,18 @@
+{
+  "uuid": "d2323233-ea23-471e-8799-999f772a65ad",
+  "slug": "db-privilege-grant",
+  "title": "Database Privilege Escalation Grant",
+  "description": "Detects creation of database accounts or grants of broad privileges (GRANT ALL, CREATE USER, ALTER ROLE ... SUPERUSER, sp_addsrvrolemember sysadmin), a persistence and escalation technique within the database.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "database", "privilege-escalation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/db-privilege-grant.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of database accounts or grants of broad privileges (GRANT ALL, CREATE USER, ALTER ROLE ... SUPERUSER, sp_addsrvrolemember sysadmin), a persistence and escalation technique within the database."
+  }
+}

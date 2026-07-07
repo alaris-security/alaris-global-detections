@@ -1,0 +1,28 @@
+title: MSSQL CLR Assembly Loaded
+id: b599f03f-7e15-40e8-a11d-99890e9c6fce
+status: experimental
+description: Detects loading of a custom CLR assembly in SQL Server (CREATE ASSEMBLY FROM 0x, sp_configure clr enabled), which can run arbitrary .NET code inside the database process for execution and persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1505/001/
+logsource:
+  category: application
+  product: mssql
+detection:
+  selection:
+    query_text|contains:
+      - 'CREATE ASSEMBLY'
+      - 'clr enabled'
+      - 'FROM 0x4d5a'
+      - 'PERMISSION_SET = UNSAFE'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate CLR integration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1505.001

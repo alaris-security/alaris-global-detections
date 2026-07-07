@@ -1,0 +1,28 @@
+title: Redis Unauthenticated Config Abuse
+id: 6b4c9d30-e5dd-4a2a-9844-f84f135cce72
+status: experimental
+description: Detects abuse of an unauthenticated Redis instance to write arbitrary files (CONFIG SET dir/dbfilename followed by SAVE), a technique to drop web shells, SSH keys, or cron jobs for code execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: application
+  product: redis
+detection:
+  selection:
+    command|contains:
+      - 'CONFIG SET dir'
+      - 'CONFIG SET dbfilename'
+      - 'SLAVEOF'
+      - 'MODULE LOAD'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate Redis administration
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

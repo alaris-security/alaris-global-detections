@@ -1,0 +1,29 @@
+title: MySQL LOAD_FILE Local File Read
+id: 053055fe-5e2a-4b07-8e54-e460678d304b
+status: experimental
+description: Detects use of the MySQL LOAD_FILE() function to read local files (/etc/passwd, config files) through the database, a data-access technique often chained from SQL injection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1005/
+logsource:
+  category: application
+  product: mysql
+detection:
+  selection:
+    query_text|contains: 'LOAD_FILE('
+    query_text|contains:
+      - '/etc/'
+      - '/var/'
+      - '.conf'
+      - '.pem'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate file import
+level: medium
+tags:
+  - attack.collection
+  - attack.t1005

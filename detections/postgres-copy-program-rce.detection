@@ -1,0 +1,18 @@
+{
+  "uuid": "30f31ba7-28c3-4b93-83b9-c1f16a93ed72",
+  "slug": "postgres-copy-program-rce",
+  "title": "PostgreSQL COPY TO/FROM PROGRAM RCE",
+  "description": "Detects PostgreSQL COPY ... TO/FROM PROGRAM, which executes an OS command via the database server, a well-known remote code execution technique against exposed or injected Postgres.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["execution", "postgresql", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/postgres-copy-program-rce.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects PostgreSQL COPY ... TO/FROM PROGRAM, which executes an OS command via the database server, a well-known remote code execution technique against exposed or injected Postgres."
+  }
+}

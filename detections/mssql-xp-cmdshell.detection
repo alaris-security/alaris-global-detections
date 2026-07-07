@@ -1,0 +1,18 @@
+{
+  "uuid": "e111b729-45fd-4282-8f66-63b91f6bfc14",
+  "slug": "mssql-xp-cmdshell",
+  "title": "MSSQL xp_cmdshell Command Execution",
+  "description": "Detects the SQL Server database engine (sqlservr.exe) spawning cmd.exe or powershell, the artifact of xp_cmdshell being enabled and used to run OS commands from a compromised database.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["execution", "mssql", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/mssql-xp-cmdshell.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects the SQL Server database engine (sqlservr.exe) spawning cmd.exe or powershell, the artifact of xp_cmdshell being enabled and used to run OS commands from a compromised database."
+  }
+}

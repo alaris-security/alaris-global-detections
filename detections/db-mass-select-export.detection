@@ -1,0 +1,18 @@
+{
+  "uuid": "e22a72bf-da71-4447-b475-6f0a3986e0ab",
+  "slug": "db-mass-select-export",
+  "title": "Database Mass Row Export",
+  "description": "Detects a single database session returning an anomalously high row count or dumping entire tables (SELECT * with no filter across large tables), indicating bulk collection of database contents.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "database", "data-access"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/db-mass-select-export.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a single database session returning an anomalously high row count or dumping entire tables (SELECT * with no filter across large tables), indicating bulk collection of database contents."
+  }
+}

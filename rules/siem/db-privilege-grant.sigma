@@ -1,0 +1,28 @@
+title: Database Privilege Escalation Grant
+id: b495e418-01eb-4fb4-9d7e-712515e797b1
+status: experimental
+description: Detects creation of database accounts or grants of broad privileges (GRANT ALL, CREATE USER, ALTER ROLE ... SUPERUSER, sp_addsrvrolemember sysadmin), a persistence and escalation technique within the database.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  category: application
+detection:
+  selection:
+    query_text|contains:
+      - 'GRANT ALL'
+      - 'CREATE USER'
+      - 'SUPERUSER'
+      - 'sp_addsrvrolemember'
+      - 'WITH GRANT OPTION'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate account administration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

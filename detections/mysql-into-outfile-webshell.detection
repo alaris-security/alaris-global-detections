@@ -1,0 +1,18 @@
+{
+  "uuid": "4268eab9-e22a-4a1b-a977-97851a2d55bd",
+  "slug": "mysql-into-outfile-webshell",
+  "title": "MySQL INTO OUTFILE Web Shell Write",
+  "description": "Detects MySQL SELECT ... INTO OUTFILE/DUMPFILE writing to a web-accessible directory, a technique to drop a web shell or arbitrary file to the filesystem via SQL injection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "mysql", "web-shell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1505.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/mysql-into-outfile-webshell.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects MySQL SELECT ... INTO OUTFILE/DUMPFILE writing to a web-accessible directory, a technique to drop a web shell or arbitrary file to the filesystem via SQL injection."
+  }
+}

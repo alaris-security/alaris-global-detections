@@ -1,0 +1,27 @@
+title: MSSQL Database Backup to External Location
+id: 5da67347-b0d0-4df9-b395-1573ddbc52fe
+status: experimental
+description: Detects SQL Server BACKUP DATABASE to a UNC path or non-standard location, a technique to copy full database contents out for exfiltration under the guise of a backup.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  category: application
+  product: mssql
+detection:
+  selection:
+    query_text|contains: 'BACKUP DATABASE'
+    query_text|contains:
+      - '\\\\'
+      - 'DISK ='
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Scheduled database backups
+level: medium
+tags:
+  - attack.collection
+  - attack.t1530

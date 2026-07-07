@@ -1,0 +1,31 @@
+title: MySQL INTO OUTFILE Web Shell Write
+id: c474d3bf-b605-4e3d-b46f-6e7830a047d1
+status: experimental
+description: Detects MySQL SELECT ... INTO OUTFILE/DUMPFILE writing to a web-accessible directory, a technique to drop a web shell or arbitrary file to the filesystem via SQL injection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1505/003/
+logsource:
+  category: application
+  product: mysql
+detection:
+  selection:
+    query_text|contains:
+      - 'INTO OUTFILE'
+      - 'INTO DUMPFILE'
+    query_text|contains:
+      - '/www/'
+      - '/htdocs/'
+      - '.php'
+      - '.jsp'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate data export
+level: high
+tags:
+  - attack.persistence
+  - attack.t1505.003

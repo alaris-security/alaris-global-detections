@@ -1,0 +1,29 @@
+title: Oracle Java/Scheduler Command Execution
+id: 3045a2bf-6620-46f7-84b6-31e4efa95959
+status: experimental
+description: Detects Oracle command execution via DBMS_SCHEDULER external jobs or DBMS_JAVA.RUNJAVA, which run OS commands from the database, a code-execution technique against Oracle instances.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/
+logsource:
+  category: application
+  product: oracle
+detection:
+  selection:
+    query_text|contains:
+      - 'DBMS_SCHEDULER'
+      - 'DBMS_JAVA'
+      - 'RUNJAVA'
+      - 'CREATE_PROGRAM'
+      - 'EXTERNAL'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate scheduled jobs
+level: high
+tags:
+  - attack.execution
+  - attack.t1059

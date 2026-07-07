@@ -1,0 +1,28 @@
+title: MSSQL Linked Server Abuse
+id: 96b374bf-9db5-4277-baa3-ec1f9e6dea28
+status: experimental
+description: Detects use of SQL Server linked servers to execute queries or commands on remote database instances (OPENQUERY, EXEC AT, sp_addlinkedserver), a lateral-movement technique across SQL infrastructure.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1210/
+logsource:
+  category: application
+  product: mssql
+detection:
+  selection:
+    query_text|contains:
+      - 'sp_addlinkedserver'
+      - 'OPENQUERY'
+      - 'AT [' 
+      - 'EXEC ('
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate cross-server queries
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1210

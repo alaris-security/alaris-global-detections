@@ -1,0 +1,28 @@
+title: Database Audit Logging Disabled
+id: bbad78a3-45a7-491c-b6d4-43f9efa666f8
+status: experimental
+description: Detects disabling of database audit or query logging (SQL Server audit disabled, MySQL SET GLOBAL general_log OFF, Postgres logging_collector off), a defense-evasion action to hide database activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  category: application
+detection:
+  selection:
+    query_text|contains:
+      - 'general_log'
+      - 'ALTER SERVER AUDIT'
+      - 'DISABLE'
+      - 'logging_collector'
+      - 'sp_audit'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Administrators reconfiguring logging
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562

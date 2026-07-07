@@ -1,0 +1,18 @@
+{
+  "uuid": "cb0dd2ba-da05-457b-b985-10f13b151c15",
+  "slug": "mysql-load-file-read",
+  "title": "MySQL LOAD_FILE Local File Read",
+  "description": "Detects use of the MySQL LOAD_FILE() function to read local files (/etc/passwd, config files) through the database, a data-access technique often chained from SQL injection.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "mysql", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1005", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/mysql-load-file-read.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the MySQL LOAD_FILE() function to read local files (/etc/passwd, config files) through the database, a data-access technique often chained from SQL injection."
+  }
+}

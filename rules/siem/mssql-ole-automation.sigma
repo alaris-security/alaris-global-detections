@@ -1,0 +1,27 @@
+title: MSSQL OLE Automation Procedure Abuse
+id: 0078ec12-c9ed-4b50-9aaa-2961fe0f4a68
+status: experimental
+description: Detects use of SQL Server OLE automation procedures (sp_OACreate, sp_OAMethod) in queries, which instantiate COM objects to run commands or write files, an alternative to xp_cmdshell for code execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/
+logsource:
+  category: application
+  product: mssql
+detection:
+  selection:
+    query_text|contains:
+      - 'sp_OACreate'
+      - 'sp_OAMethod'
+      - 'Ole Automation Procedures'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate OLE automation usage
+level: high
+tags:
+  - attack.execution
+  - attack.t1059

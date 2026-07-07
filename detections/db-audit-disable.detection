@@ -1,0 +1,18 @@
+{
+  "uuid": "8029af00-e24f-4b4d-8f34-4754c8307f5b",
+  "slug": "db-audit-disable",
+  "title": "Database Audit Logging Disabled",
+  "description": "Detects disabling of database audit or query logging (SQL Server audit disabled, MySQL SET GLOBAL general_log OFF, Postgres logging_collector off), a defense-evasion action to hide database activity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "database", "logging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/db-audit-disable.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects disabling of database audit or query logging (SQL Server audit disabled, MySQL SET GLOBAL general_log OFF, Postgres logging_collector off), a defense-evasion action to hide database activity."
+  }
+}

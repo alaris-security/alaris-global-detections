@@ -1,0 +1,18 @@
+{
+  "uuid": "27695be1-f04e-40d4-a3c2-85d6f34a818c",
+  "slug": "mssql-ole-automation",
+  "title": "MSSQL OLE Automation Procedure Abuse",
+  "description": "Detects use of SQL Server OLE automation procedures (sp_OACreate, sp_OAMethod) in queries, which instantiate COM objects to run commands or write files, an alternative to xp_cmdshell for code execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "mssql", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/mssql-ole-automation.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of SQL Server OLE automation procedures (sp_OACreate, sp_OAMethod) in queries, which instantiate COM objects to run commands or write files, an alternative to xp_cmdshell for code execution."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "a62c10e1-02e6-43c7-87b5-00ab75fcc794",
+  "slug": "mssql-clr-assembly",
+  "title": "MSSQL CLR Assembly Loaded",
+  "description": "Detects loading of a custom CLR assembly in SQL Server (CREATE ASSEMBLY FROM 0x, sp_configure clr enabled), which can run arbitrary .NET code inside the database process for execution and persistence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "mssql", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1505.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/mssql-clr-assembly.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects loading of a custom CLR assembly in SQL Server (CREATE ASSEMBLY FROM 0x, sp_configure clr enabled), which can run arbitrary .NET code inside the database process for execution and persistence."
+  }
+}

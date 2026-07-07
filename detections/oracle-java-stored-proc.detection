@@ -1,0 +1,18 @@
+{
+  "uuid": "a5f5eef8-2996-4b37-8fee-0013c4c5d4f5",
+  "slug": "oracle-java-stored-proc",
+  "title": "Oracle Java/Scheduler Command Execution",
+  "description": "Detects Oracle command execution via DBMS_SCHEDULER external jobs or DBMS_JAVA.RUNJAVA, which run OS commands from the database, a code-execution technique against Oracle instances.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "oracle", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/oracle-java-stored-proc.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects Oracle command execution via DBMS_SCHEDULER external jobs or DBMS_JAVA.RUNJAVA, which run OS commands from the database, a code-execution technique against Oracle instances."
+  }
+}

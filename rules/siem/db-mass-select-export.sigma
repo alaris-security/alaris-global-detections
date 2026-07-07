@@ -1,0 +1,28 @@
+title: Database Mass Row Export
+id: 4c20f3a9-97c0-432b-930c-24f3bd9b4c29
+status: experimental
+description: Detects a single database session returning an anomalously high row count or dumping entire tables (SELECT * with no filter across large tables), indicating bulk collection of database contents.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  category: application
+detection:
+  selection:
+    rows_returned|gt: 1000000
+  selection_dump:
+    query_text|contains:
+      - 'SELECT * FROM'
+    query_text|contains: 'mysqldump'
+  condition: selection or selection_dump
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Analytics and reporting jobs
+level: high
+tags:
+  - attack.collection
+  - attack.t1530

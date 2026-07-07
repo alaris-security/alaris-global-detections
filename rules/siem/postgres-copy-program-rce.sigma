@@ -1,0 +1,29 @@
+title: PostgreSQL COPY TO/FROM PROGRAM RCE
+id: ce1af83d-b2b7-41eb-baf4-4c9b042b5288
+status: experimental
+description: Detects PostgreSQL COPY ... TO/FROM PROGRAM, which executes an OS command via the database server, a well-known remote code execution technique against exposed or injected Postgres.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/
+logsource:
+  category: application
+  product: postgresql
+detection:
+  selection:
+    query_text|contains:
+      - 'COPY '
+      - 'PROGRAM'
+    query_text|contains:
+      - 'FROM PROGRAM'
+      - 'TO PROGRAM'
+  condition: selection
+fields:
+  - query_text
+  - user_name
+  - client_ip
+falsepositives:
+  - Legitimate ETL using COPY PROGRAM
+level: critical
+tags:
+  - attack.execution
+  - attack.t1059

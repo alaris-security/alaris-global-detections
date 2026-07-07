@@ -1,0 +1,18 @@
+{
+  "uuid": "e111b729-45fd-4282-8f66-63b91f6bfc15",
+  "slug": "mssql-backup-to-external",
+  "title": "MSSQL Database Backup to External Location",
+  "description": "Detects SQL Server BACKUP DATABASE to a UNC path or non-standard location, a technique to copy full database contents out for exfiltration under the guise of a backup.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "mssql", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/mssql-backup-to-external.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects SQL Server BACKUP DATABASE to a UNC path or non-standard location, a technique to copy full database contents out for exfiltration under the guise of a backup."
+  }
+}

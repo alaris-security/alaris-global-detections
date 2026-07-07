@@ -1,0 +1,18 @@
+{
+  "uuid": "f741031a-c40d-48a7-8b8a-a307da9b2093",
+  "slug": "redis-unauth-command",
+  "title": "Redis Unauthenticated Config Abuse",
+  "description": "Detects abuse of an unauthenticated Redis instance to write arbitrary files (CONFIG SET dir/dbfilename followed by SAVE), a technique to drop web shells, SSH keys, or cron jobs for code execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "redis", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/redis-unauth-command.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects abuse of an unauthenticated Redis instance to write arbitrary files (CONFIG SET dir/dbfilename followed by SAVE), a technique to drop web shells, SSH keys, or cron jobs for code execution."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "477e042d-da5b-4e2d-a4aa-bf2ea7bd36c7",
+  "slug": "mongodb-no-auth-access",
+  "title": "MongoDB Unauthenticated Access",
+  "description": "Detects MongoDB connections and operations from an unauthenticated context or the default admin database without credentials, indicating an exposed instance being accessed by an attacker.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "mongodb", "database"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/mongodb-no-auth-access.sigma"],
+  "intent": {
+    "conditions": ["Database or process event matching the described pattern"],
+    "dataSourceRequirements": ["Database query/audit logs or process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Detects MongoDB connections and operations from an unauthenticated context or the default admin database without credentials, indicating an exposed instance being accessed by an attacker."
+  }
+}
