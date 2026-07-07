@@ -1,0 +1,18 @@
+{
+  "uuid": "139211fa-18c7-4f47-a755-2d2727433bbe",
+  "slug": "aws-s3-mass-object-download",
+  "title": "AWS S3 Mass Object Download",
+  "description": "Detects a single principal performing a high volume of S3 GetObject calls in a short window, indicating bulk collection or exfiltration of data from cloud storage.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "aws", "s3"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/aws-s3-mass-object-download.sigma"],
+  "intent": {
+    "conditions": ["High count of s3 GetObject per principal in a short window"],
+    "dataSourceRequirements": ["AWS CloudTrail S3 data events"],
+    "tuningParameters": {"threshold": 1000},
+    "sourceContext": "Bulk GetObject activity indicates data being pulled from storage."
+  }
+}

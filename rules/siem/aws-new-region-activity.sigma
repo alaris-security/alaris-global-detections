@@ -1,0 +1,32 @@
+title: AWS Activity in Unused Region
+id: 6ccbe2f1-dbc5-4828-b2fd-499212da494d
+status: experimental
+description: Detects resource creation in unused regions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1535/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName:
+      - 'RunInstances'
+      - 'CreateFunction20150331'
+      - 'CreateStack'
+  filter:
+    awsRegion:
+      - 'us-east-1'
+      - 'us-west-2'
+      - 'eu-west-1'
+  condition: selection and not filter
+fields:
+  - userIdentity.arn
+  - awsRegion
+  - eventName
+falsepositives:
+  - Legitimate expansion into new regions
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1535

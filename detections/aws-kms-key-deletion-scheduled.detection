@@ -1,0 +1,18 @@
+{
+  "uuid": "db06b3ba-0e9d-4b34-8a5c-68cd80e96730",
+  "slug": "aws-kms-key-deletion-scheduled",
+  "title": "AWS KMS Key Scheduled for Deletion or Disabled",
+  "description": "Detects ScheduleKeyDeletion or DisableKey in KMS, which can render encrypted data permanently inaccessible, a destructive impact and denial-of-access technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "aws", "kms"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1485", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/aws-kms-key-deletion-scheduled.sigma"],
+  "intent": {
+    "conditions": ["kms ScheduleKeyDeletion or DisableKey"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting or disabling a KMS key can destroy access to all data it protects."
+  }
+}

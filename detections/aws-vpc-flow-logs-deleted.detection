@@ -1,0 +1,18 @@
+{
+  "uuid": "16806aa7-681f-4666-9dd4-fb629d1683ab",
+  "slug": "aws-vpc-flow-logs-deleted",
+  "title": "AWS VPC Flow Logs Deleted",
+  "description": "Detects DeleteFlowLogs, which removes network traffic visibility for a VPC, subnet, or ENI, a defense-evasion action to hide lateral movement and exfiltration.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "vpc-flow-logs"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-vpc-flow-logs-deleted.sigma"],
+  "intent": {
+    "conditions": ["ec2 DeleteFlowLogs event"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting flow logs blinds network-level detection in the cloud."
+  }
+}

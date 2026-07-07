@@ -1,0 +1,18 @@
+{
+  "uuid": "b26c6775-96ac-4b8f-82a7-c3466669d67c",
+  "slug": "aws-guardduty-disabled",
+  "title": "AWS GuardDuty Detector Disabled or Deleted",
+  "description": "Detects DeleteDetector, or UpdateDetector setting enable=false, which turns off AWS GuardDuty threat detection, a defense-evasion action to blind cloud monitoring.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "guardduty"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-guardduty-disabled.sigma"],
+  "intent": {
+    "conditions": ["guardduty DeleteDetector, or UpdateDetector with enable false"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling GuardDuty removes native AWS threat detection."
+  }
+}

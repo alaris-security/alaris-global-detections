@@ -1,0 +1,28 @@
+title: AWS Security Hub Disabled
+id: f462dbb5-930b-401a-b779-f9ee802a4209
+status: experimental
+description: Detects disabling of AWS Security Hub.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'securityhub.amazonaws.com'
+    eventName:
+      - 'DisableSecurityHub'
+      - 'BatchDisableStandards'
+      - 'DeleteMembers'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Authorized posture management changes
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

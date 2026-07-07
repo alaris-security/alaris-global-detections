@@ -1,0 +1,29 @@
+title: AWS GuardDuty Detector Disabled or Deleted
+id: 040ae25e-6b9b-41bf-a431-60b2e2ccb112
+status: experimental
+description: Detects GuardDuty being disabled or deleted.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'guardduty.amazonaws.com'
+    eventName:
+      - 'DeleteDetector'
+      - 'UpdateDetector'
+      - 'CreateFilter'
+      - 'StopMonitoringMembers'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Authorized security tooling changes
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

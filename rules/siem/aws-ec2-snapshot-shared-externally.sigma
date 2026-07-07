@@ -1,0 +1,28 @@
+title: AWS EBS Snapshot Shared with External Account
+id: 08b42e14-5502-426c-8961-e429c54ed540
+status: experimental
+description: Detects EBS snapshot sharing to external accounts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2.amazonaws.com'
+    eventName: 'ModifySnapshotAttribute'
+    requestParameters.createVolumePermission|contains:
+      - 'add'
+      - 'all'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.snapshotId
+  - sourceIPAddress
+falsepositives:
+  - Cross-account snapshot sharing for legitimate DR
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537

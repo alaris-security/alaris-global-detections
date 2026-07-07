@@ -1,0 +1,25 @@
+title: AWS VPC Flow Logs Deleted
+id: a2a783de-d244-427f-bc4a-8712c8c89ff4
+status: experimental
+description: Detects deletion of VPC flow logs.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2.amazonaws.com'
+    eventName: 'DeleteFlowLogs'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.FlowLogId
+  - sourceIPAddress
+falsepositives:
+  - Network teams reconfiguring logging
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

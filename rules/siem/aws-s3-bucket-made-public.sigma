@@ -1,0 +1,34 @@
+title: AWS S3 Bucket Made Public
+id: 7d836c2b-6432-4fd0-8565-41f99140d862
+status: experimental
+description: Detects S3 buckets being exposed publicly.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 's3.amazonaws.com'
+    eventName:
+      - 'PutBucketPolicy'
+      - 'PutBucketAcl'
+      - 'PutBucketPublicAccessBlock'
+      - 'DeletePublicAccessBlock'
+  selection_public:
+    requestParameters|contains:
+      - 'AllUsers'
+      - 'AuthenticatedUsers'
+      - '"Principal":"*"'
+  condition: selection and selection_public
+fields:
+  - userIdentity.arn
+  - requestParameters.bucketName
+  - sourceIPAddress
+falsepositives:
+  - Intentional static website hosting buckets
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537

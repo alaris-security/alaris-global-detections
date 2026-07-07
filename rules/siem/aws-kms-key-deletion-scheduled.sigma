@@ -1,0 +1,27 @@
+title: AWS KMS Key Scheduled for Deletion or Disabled
+id: 5ec60b4c-bb7f-44e9-bd48-4beed8e77ad9
+status: experimental
+description: Detects KMS key deletion or disabling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1485/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'kms.amazonaws.com'
+    eventName:
+      - 'ScheduleKeyDeletion'
+      - 'DisableKey'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.keyId
+  - sourceIPAddress
+falsepositives:
+  - Key lifecycle management
+level: high
+tags:
+  - attack.impact
+  - attack.t1485

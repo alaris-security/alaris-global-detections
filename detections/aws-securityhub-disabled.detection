@@ -1,0 +1,18 @@
+{
+  "uuid": "9d756780-f5c7-454f-8ca1-2056ec2879fd",
+  "slug": "aws-securityhub-disabled",
+  "title": "AWS Security Hub Disabled",
+  "description": "Detects DisableSecurityHub or BatchDisableStandards, which turn off centralized cloud security posture findings, a defense-evasion action to reduce visibility of misconfigurations and threats.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "security-hub"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-securityhub-disabled.sigma"],
+  "intent": {
+    "conditions": ["securityhub DisableSecurityHub or BatchDisableStandards"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling Security Hub silences aggregated security findings."
+  }
+}

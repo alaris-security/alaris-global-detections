@@ -1,0 +1,27 @@
+title: AWS CloudWatch Log Group Deleted
+id: 7fea5d15-7a99-46e1-b398-3d09da352280
+status: experimental
+description: Detects CloudWatch log group/stream deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'logs.amazonaws.com'
+    eventName:
+      - 'DeleteLogGroup'
+      - 'DeleteLogStream'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.logGroupName
+  - sourceIPAddress
+falsepositives:
+  - Log lifecycle cleanup automation
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

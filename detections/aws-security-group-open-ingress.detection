@@ -1,0 +1,18 @@
+{
+  "uuid": "91b5221a-f323-4b34-ad9b-1332bf30d0fe",
+  "slug": "aws-security-group-open-ingress",
+  "title": "AWS Security Group Opened to the Internet",
+  "description": "Detects AuthorizeSecurityGroupIngress adding a rule allowing 0.0.0.0/0 to sensitive ports (22, 3389, 3306, etc.), which exposes services to the internet and weakens network defenses.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "security-group"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.007", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-security-group-open-ingress.sigma"],
+  "intent": {
+    "conditions": ["AuthorizeSecurityGroupIngress with cidrIp 0.0.0.0/0"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Opening a security group to the world exposes services for access or exfil."
+  }
+}

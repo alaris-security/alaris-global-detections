@@ -1,0 +1,18 @@
+{
+  "uuid": "bad23fe1-eeda-4dff-9a1d-3d8e1218f9b5",
+  "slug": "aws-network-acl-permissive",
+  "title": "AWS Permissive Network ACL Entry Created",
+  "description": "Detects CreateNetworkAclEntry adding an allow-all rule (0.0.0.0/0, all protocols) to a network ACL, weakening subnet-level network controls to enable access or exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "network-acl"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.007", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-network-acl-permissive.sigma"],
+  "intent": {
+    "conditions": ["CreateNetworkAclEntry with cidrBlock 0.0.0.0/0 and ruleAction allow"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Permissive NACL rules broaden subnet exposure across the board."
+  }
+}

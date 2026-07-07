@@ -1,0 +1,18 @@
+{
+  "uuid": "bdc476d3-5de9-4fa4-affe-d460f10edd7d",
+  "slug": "aws-ami-shared-externally",
+  "title": "AWS AMI Shared with External Account",
+  "description": "Detects ModifyImageAttribute making an AMI available to another AWS account or public, which can leak baked-in secrets and data or facilitate exfiltration through a copied image.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "aws", "ami"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/aws-ami-shared-externally.sigma"],
+  "intent": {
+    "conditions": ["ModifyImageAttribute adding launchPermission for another account or all"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Shared AMIs can carry embedded credentials and application data outward."
+  }
+}

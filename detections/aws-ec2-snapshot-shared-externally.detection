@@ -1,0 +1,18 @@
+{
+  "uuid": "20d06254-f85a-41c5-bd0d-f49d7c42a92f",
+  "slug": "aws-ec2-snapshot-shared-externally",
+  "title": "AWS EBS Snapshot Shared with External Account",
+  "description": "Detects ModifySnapshotAttribute adding create-volume permission for an external AWS account or all, a technique to exfiltrate disk data by copying a snapshot into attacker-controlled infrastructure.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "aws", "ebs-snapshot"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/aws-ec2-snapshot-shared-externally.sigma"],
+  "intent": {
+    "conditions": ["ModifySnapshotAttribute adding createVolumePermission for another account or all"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Sharing snapshots externally moves disk data to an attacker's account."
+  }
+}

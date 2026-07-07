@@ -1,0 +1,18 @@
+{
+  "uuid": "416e7302-9066-4a05-a788-485e4a969c06",
+  "slug": "aws-cloudwatch-log-group-deleted",
+  "title": "AWS CloudWatch Log Group Deleted",
+  "description": "Detects DeleteLogGroup or DeleteLogStream in CloudWatch Logs, which erases stored application and audit logs, an anti-forensics and defense-evasion action.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "cloudwatch"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-cloudwatch-log-group-deleted.sigma"],
+  "intent": {
+    "conditions": ["logs DeleteLogGroup or DeleteLogStream event"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting log groups destroys retained telemetry needed to investigate."
+  }
+}

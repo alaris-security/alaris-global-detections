@@ -1,0 +1,26 @@
+title: AWS Security Group Opened to the Internet
+id: 0aa6ca29-3e96-4062-af45-fcf98fbeccc7
+status: experimental
+description: Detects security group ingress opened to 0.0.0.0/0.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/007/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2.amazonaws.com'
+    eventName: 'AuthorizeSecurityGroupIngress'
+    requestParameters.ipPermissions|contains: '0.0.0.0/0'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.groupId
+  - sourceIPAddress
+falsepositives:
+  - Intentionally public services (web servers)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.007

@@ -1,0 +1,18 @@
+{
+  "uuid": "d1d63f94-2ed5-4c0d-a2ae-c01e25c005af",
+  "slug": "aws-config-recorder-stopped",
+  "title": "AWS Config Recorder Stopped or Deleted",
+  "description": "Detects StopConfigurationRecorder, DeleteConfigurationRecorder, or DeleteDeliveryChannel, which halt AWS Config resource tracking and remove a source of change history used for detection and forensics.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "config"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-config-recorder-stopped.sigma"],
+  "intent": {
+    "conditions": ["config StopConfigurationRecorder/DeleteConfigurationRecorder/DeleteDeliveryChannel"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Stopping AWS Config removes the record of resource changes."
+  }
+}

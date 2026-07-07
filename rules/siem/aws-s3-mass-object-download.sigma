@@ -1,0 +1,26 @@
+title: AWS S3 Mass Object Download
+id: 18e1916f-ade4-4552-b111-729d68ca30a0
+status: experimental
+description: Detects bulk S3 object download.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 's3.amazonaws.com'
+    eventName: 'GetObject'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 1000
+fields:
+  - userIdentity.arn
+  - requestParameters.bucketName
+  - sourceIPAddress
+falsepositives:
+  - Backup, analytics, or replication jobs
+level: high
+tags:
+  - attack.collection
+  - attack.t1530

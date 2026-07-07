@@ -1,0 +1,28 @@
+title: AWS AMI Shared with External Account
+id: 237bac16-48d0-40c1-a675-4cc63bc56af9
+status: experimental
+description: Detects AMI sharing to external accounts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2.amazonaws.com'
+    eventName: 'ModifyImageAttribute'
+    requestParameters.launchPermission|contains:
+      - 'add'
+      - 'all'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.imageId
+  - sourceIPAddress
+falsepositives:
+  - Legitimate cross-account image distribution
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537

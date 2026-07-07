@@ -1,0 +1,18 @@
+{
+  "uuid": "7a84c3ec-3661-4ead-ae57-afe0b3bf3351",
+  "slug": "aws-s3-bucket-made-public",
+  "title": "AWS S3 Bucket Made Public",
+  "description": "Detects PutBucketPolicy, PutBucketAcl, or PutBucketPublicAccessBlock changes that grant public access to an S3 bucket, a common precursor to data exposure and exfiltration to an attacker.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "aws", "s3"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/aws-s3-bucket-made-public.sigma"],
+  "intent": {
+    "conditions": ["PutBucketPolicy/PutBucketAcl granting AllUsers, or PublicAccessBlock disabled"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Public buckets can be read by anyone, enabling data theft."
+  }
+}

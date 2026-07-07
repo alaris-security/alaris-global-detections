@@ -1,0 +1,18 @@
+{
+  "uuid": "8cbd6e8f-20ec-423e-80ae-9d444807809c",
+  "slug": "aws-new-region-activity",
+  "title": "AWS Activity in Unused Region",
+  "description": "Detects resource-creating API calls (RunInstances, CreateFunction) in an AWS region the account does not normally use, a technique attackers use to run cryptominers or C2 where monitoring is weaker.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "unused-region"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1535", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-new-region-activity.sigma"],
+  "intent": {
+    "conditions": ["RunInstances/CreateFunction in a region not on the account allowlist"],
+    "dataSourceRequirements": ["AWS CloudTrail management events with awsRegion"],
+    "tuningParameters": {"allowedRegions": ["us-east-1", "us-west-2", "eu-west-1"]},
+    "sourceContext": "Activity in unused regions often hides attacker-provisioned resources."
+  }
+}

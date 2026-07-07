@@ -1,0 +1,27 @@
+title: AWS Permissive Network ACL Entry Created
+id: 5ff12117-0dcb-433d-a7f4-d600b7ee38e1
+status: experimental
+description: Detects permissive network ACL entries.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/007/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2.amazonaws.com'
+    eventName: 'CreateNetworkAclEntry'
+    requestParameters.cidrBlock: '0.0.0.0/0'
+    requestParameters.ruleAction: 'allow'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.networkAclId
+  - sourceIPAddress
+falsepositives:
+  - Intentional permissive network design
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562.007
