@@ -1,0 +1,25 @@
+title: AWS KMS High-Volume Decrypt Operations
+id: 847b4f86-122c-42e4-b9ed-bc40a8eb52a5
+status: experimental
+description: Detects unusual volume of KMS Decrypt operations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/001/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'kms.amazonaws.com'
+    eventName: 'Decrypt'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 100
+fields:
+  - userIdentity.arn
+  - sourceIPAddress
+falsepositives:
+  - Applications performing bulk cryptographic operations
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1552.001

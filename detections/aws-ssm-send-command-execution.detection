@@ -1,0 +1,18 @@
+{
+  "uuid": "0ea6fa5e-bf8c-4e09-a787-b8ed6c41f574",
+  "slug": "aws-ssm-send-command-execution",
+  "title": "AWS SSM Remote Command Execution",
+  "description": "Detects SSM SendCommand or StartSession, which run commands directly on EC2 instances through the cloud control plane, a technique to execute code on hosts without SSH or RDP.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "aws", "ssm", "cloud-admin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1651", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/aws-ssm-send-command-execution.sigma"],
+  "intent": {
+    "conditions": ["ssm SendCommand with a RunShellScript/RunPowerShellScript document, or StartSession"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "SSM lets an identity run commands on instances via the API, bypassing host access controls."
+  }
+}

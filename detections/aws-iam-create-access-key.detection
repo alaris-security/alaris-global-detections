@@ -1,0 +1,18 @@
+{
+  "uuid": "63f390eb-4338-4925-ac7d-bf6b93dbfbca",
+  "slug": "aws-iam-create-access-key",
+  "title": "AWS IAM Access Key Created for Another User",
+  "description": "Detects CreateAccessKey where the requesting principal differs from the target user, a persistence technique that mints long-lived programmatic credentials for an account the attacker controls.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-iam-create-access-key.sigma"],
+  "intent": {
+    "conditions": ["CloudTrail CreateAccessKey where requester != target user"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "New access keys for another user create durable attacker-controlled credentials."
+  }
+}

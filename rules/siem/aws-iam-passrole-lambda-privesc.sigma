@@ -1,0 +1,28 @@
+title: AWS PassRole to Lambda Privilege Escalation
+id: c49892c9-b8d0-473c-8eaf-bd39b5061113
+status: experimental
+description: Detects Lambda role passing for privilege escalation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'lambda.amazonaws.com'
+    eventName|startswith:
+      - 'CreateFunction'
+      - 'UpdateFunctionConfiguration'
+    requestParameters.role|exists: true
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.role
+  - requestParameters.functionName
+falsepositives:
+  - Legitimate serverless deployments
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

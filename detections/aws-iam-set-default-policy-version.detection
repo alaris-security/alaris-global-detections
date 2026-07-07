@@ -1,0 +1,18 @@
+{
+  "uuid": "98847546-17de-4c70-ac10-3355cd544972",
+  "slug": "aws-iam-set-default-policy-version",
+  "title": "AWS Policy Version Rollback for Privilege Escalation",
+  "description": "Detects CreatePolicyVersion or SetDefaultPolicyVersion, which can silently activate a more permissive existing policy version, a well-known IAM privilege escalation technique that avoids attaching new policies.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/aws-iam-set-default-policy-version.sigma"],
+  "intent": {
+    "conditions": ["CreatePolicyVersion with setAsDefault, or SetDefaultPolicyVersion"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Switching to a permissive policy version escalates access without obvious attach events."
+  }
+}

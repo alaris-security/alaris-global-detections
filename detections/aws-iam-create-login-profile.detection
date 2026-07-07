@@ -1,0 +1,18 @@
+{
+  "uuid": "0ce2dc77-b148-4ad2-b151-a79dbf4b187f",
+  "slug": "aws-iam-create-login-profile",
+  "title": "AWS Console Login Profile Created or Updated",
+  "description": "Detects CreateLoginProfile or UpdateLoginProfile on a user that previously had none or belongs to another principal, enabling console password access as a persistence and account-takeover technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-iam-create-login-profile.sigma"],
+  "intent": {
+    "conditions": ["CreateLoginProfile/UpdateLoginProfile, especially targeting another user"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Adding a console password to a programmatic user opens an interactive backdoor."
+  }
+}

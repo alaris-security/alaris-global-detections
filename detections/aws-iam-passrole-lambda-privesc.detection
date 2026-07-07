@@ -1,0 +1,18 @@
+{
+  "uuid": "bcc461c0-206e-464a-bc1d-fb10da2455d8",
+  "slug": "aws-iam-passrole-lambda-privesc",
+  "title": "AWS PassRole to Lambda Privilege Escalation",
+  "description": "Detects CreateFunction or UpdateFunctionConfiguration passing a privileged role to Lambda, a common iam:PassRole escalation where an attacker runs code under a role more privileged than their own.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "aws", "lambda", "passrole"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/aws-iam-passrole-lambda-privesc.sigma"],
+  "intent": {
+    "conditions": ["lambda CreateFunction/UpdateFunctionConfiguration with a role parameter"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Passing a high-privilege role to attacker-controlled Lambda code escalates access."
+  }
+}

@@ -1,0 +1,27 @@
+title: AWS MFA Device Deactivated or Deleted
+id: 0b4f9bcf-abdc-4804-a375-b6899f49403f
+status: experimental
+description: Detects MFA device deactivation or deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName:
+      - 'DeactivateMFADevice'
+      - 'DeleteVirtualMFADevice'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.userName
+  - sourceIPAddress
+falsepositives:
+  - Users replacing lost MFA devices
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

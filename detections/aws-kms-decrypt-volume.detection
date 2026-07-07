@@ -1,0 +1,18 @@
+{
+  "uuid": "e13005dc-5f1c-4b31-aee4-634f53ca9ee7",
+  "slug": "aws-kms-decrypt-volume",
+  "title": "AWS KMS High-Volume Decrypt Operations",
+  "description": "Detects an unusual volume of KMS Decrypt calls by a single principal, which can indicate mass decryption of protected data or an attacker abusing key access for credential and data access.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["credential-access", "aws", "kms"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1552.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/aws-kms-decrypt-volume.sigma"],
+  "intent": {
+    "conditions": ["High count of kms Decrypt per principal in a short window"],
+    "dataSourceRequirements": ["AWS CloudTrail data events for KMS"],
+    "tuningParameters": {"threshold": 100},
+    "sourceContext": "A spike in Decrypt calls can signal bulk data or secret decryption."
+  }
+}

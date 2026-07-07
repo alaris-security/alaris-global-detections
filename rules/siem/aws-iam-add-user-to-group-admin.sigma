@@ -1,0 +1,29 @@
+title: AWS User Added to Privileged Group
+id: e0fe44ad-5ba9-4e1b-a982-9d87b0e1661e
+status: experimental
+description: Detects addition of users to privileged groups.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName: 'AddUserToGroup'
+    requestParameters.groupName|contains:
+      - 'Admin'
+      - 'admin'
+      - 'PowerUser'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.userName
+  - requestParameters.groupName
+falsepositives:
+  - Legitimate group membership changes
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

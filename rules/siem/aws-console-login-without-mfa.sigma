@@ -1,0 +1,26 @@
+title: AWS Console Login Without MFA
+id: 50ab9085-f9f1-4400-940a-10bbac5de308
+status: experimental
+description: Detects console logins without MFA.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: 'ConsoleLogin'
+    responseElements.ConsoleLogin: 'Success'
+    additionalEventData.MFAUsed: 'No'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - sourceIPAddress
+  - additionalEventData.MFAUsed
+falsepositives:
+  - Federated logins where MFA is enforced upstream
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1078.004

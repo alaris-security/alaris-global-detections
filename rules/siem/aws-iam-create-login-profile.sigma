@@ -1,0 +1,27 @@
+title: AWS Console Login Profile Created or Updated
+id: 277531e2-f888-47a9-9861-151d31646d0d
+status: experimental
+description: Detects IAM login profile creation/update.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName:
+      - 'CreateLoginProfile'
+      - 'UpdateLoginProfile'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.userName
+  - sourceIPAddress
+falsepositives:
+  - Administrators enabling console access
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

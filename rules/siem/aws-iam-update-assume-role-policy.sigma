@@ -1,0 +1,25 @@
+title: AWS Role Trust Policy Modification
+id: 92cab0e1-e8f9-475a-bd12-deb02b5c0f6d
+status: experimental
+description: Detects role trust policy modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName: 'UpdateAssumeRolePolicy'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.roleName
+  - sourceIPAddress
+falsepositives:
+  - Infrastructure-as-code updating trust relationships
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

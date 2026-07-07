@@ -1,0 +1,26 @@
+title: AWS Root Account Usage
+id: 8bf8b7de-dd78-4e77-9d1b-b71d02e1ce83
+status: experimental
+description: Detects root account API activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    userIdentity.type: 'Root'
+  filter:
+    eventType: 'AwsServiceEvent'
+  condition: selection and not filter
+fields:
+  - eventName
+  - sourceIPAddress
+  - userAgent
+falsepositives:
+  - Documented break-glass root use
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078.004

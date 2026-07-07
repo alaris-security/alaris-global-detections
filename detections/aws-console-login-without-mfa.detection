@@ -1,0 +1,18 @@
+{
+  "uuid": "73c13080-9806-4f66-b663-c49c8259ddce",
+  "slug": "aws-console-login-without-mfa",
+  "title": "AWS Console Login Without MFA",
+  "description": "Detects successful ConsoleLogin events where MFA was not used, indicating a weakly protected identity that is attractive for account takeover and valid-account initial access.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "aws", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/aws-console-login-without-mfa.sigma"],
+  "intent": {
+    "conditions": ["ConsoleLogin success with additionalEventData.MFAUsed = No"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Non-MFA console logins are prime targets for credential-based takeover."
+  }
+}

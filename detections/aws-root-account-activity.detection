@@ -1,0 +1,18 @@
+{
+  "uuid": "f569757d-674e-4615-bbf7-9c23c65207bd",
+  "slug": "aws-root-account-activity",
+  "title": "AWS Root Account Usage",
+  "description": "Detects any API activity performed by the AWS account root identity, which should be reserved for rare account-level tasks; routine root usage strongly indicates compromise or policy violation.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "aws", "root-account"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/aws-root-account-activity.sigma"],
+  "intent": {
+    "conditions": ["CloudTrail event with userIdentity.type = Root (excluding scheduled billing events)"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "The root identity is all-powerful; its use outside break-glass is a red flag."
+  }
+}

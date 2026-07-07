@@ -1,0 +1,27 @@
+title: AWS IAM Access Key Created for Another User
+id: cb37ab23-0791-4d21-8f11-391491a4e37c
+status: experimental
+description: Detects creation of IAM access keys for other users.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/001/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName: 'CreateAccessKey'
+  filter:
+    userIdentity.userName|fieldref: requestParameters.userName
+  condition: selection and not filter
+fields:
+  - userIdentity.arn
+  - requestParameters.userName
+  - sourceIPAddress
+falsepositives:
+  - Administrators provisioning keys for others
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098.001

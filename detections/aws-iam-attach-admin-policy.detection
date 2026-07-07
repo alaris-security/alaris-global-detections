@@ -1,0 +1,18 @@
+{
+  "uuid": "b45bcd35-2988-4727-a975-8e8d7af03cb9",
+  "slug": "aws-iam-attach-admin-policy",
+  "title": "AWS Administrator Policy Attachment",
+  "description": "Detects AttachUserPolicy/AttachRolePolicy/AttachGroupPolicy attaching AdministratorAccess or other highly privileged managed policies, a privilege escalation technique in AWS IAM.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/aws-iam-attach-admin-policy.sigma"],
+  "intent": {
+    "conditions": ["Attach*Policy with policyArn referencing AdministratorAccess or PowerUserAccess"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Attaching admin policies grants full control, a direct escalation path."
+  }
+}

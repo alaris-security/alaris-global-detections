@@ -1,0 +1,27 @@
+title: AWS SSM Remote Command Execution
+id: 0cfa17a4-e27a-4594-85e6-cfa5be2bbfb4
+status: experimental
+description: Detects SSM remote command execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1651/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ssm.amazonaws.com'
+    eventName:
+      - 'SendCommand'
+      - 'StartSession'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.documentName
+  - requestParameters.instanceIds
+falsepositives:
+  - Legitimate operations and configuration management
+level: high
+tags:
+  - attack.execution
+  - attack.t1651

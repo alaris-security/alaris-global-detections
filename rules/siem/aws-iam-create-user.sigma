@@ -1,0 +1,25 @@
+title: AWS IAM User Creation
+id: 484e6a45-31a2-4036-8d26-0ce4ae5b68ef
+status: experimental
+description: Detects IAM user creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1136/003/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName: 'CreateUser'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.userName
+  - sourceIPAddress
+falsepositives:
+  - Provisioning automation and administrators
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1136.003

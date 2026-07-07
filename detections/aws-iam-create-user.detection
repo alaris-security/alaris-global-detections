@@ -1,0 +1,18 @@
+{
+  "uuid": "405ffcaa-79cf-4a7b-8192-fd051d487135",
+  "slug": "aws-iam-create-user",
+  "title": "AWS IAM User Creation",
+  "description": "Detects CreateUser in CloudTrail, which attackers use to establish new persistent identities in an AWS account, often followed by policy attachment and access key creation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-iam-create-user.sigma"],
+  "intent": {
+    "conditions": ["CloudTrail CreateUser event"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "New IAM users are a common persistence foothold in cloud intrusions."
+  }
+}

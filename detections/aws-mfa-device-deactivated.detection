@@ -1,0 +1,18 @@
+{
+  "uuid": "c261398f-9e03-42f8-a387-ef43bb5c074d",
+  "slug": "aws-mfa-device-deactivated",
+  "title": "AWS MFA Device Deactivated or Deleted",
+  "description": "Detects DeactivateMFADevice or DeleteVirtualMFADevice, which weakens an identity's authentication and is used by attackers to remove MFA before or after taking over an account.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-mfa-device-deactivated.sigma"],
+  "intent": {
+    "conditions": ["DeactivateMFADevice or DeleteVirtualMFADevice event"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Removing MFA lowers the bar for continued unauthorized access."
+  }
+}

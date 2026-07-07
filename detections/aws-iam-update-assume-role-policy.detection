@@ -1,0 +1,18 @@
+{
+  "uuid": "9a362418-303c-4fda-9e31-a17b4ca827d0",
+  "slug": "aws-iam-update-assume-role-policy",
+  "title": "AWS Role Trust Policy Modification",
+  "description": "Detects UpdateAssumeRolePolicy, which can broaden a role's trust to include an external account or the attacker's principal, enabling cross-account privilege escalation and persistence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "aws", "iam", "trust-policy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/aws-iam-update-assume-role-policy.sigma"],
+  "intent": {
+    "conditions": ["UpdateAssumeRolePolicy event"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Rewriting a role's trust policy can let external principals assume it."
+  }
+}
