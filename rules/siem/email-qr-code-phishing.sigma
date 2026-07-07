@@ -1,0 +1,24 @@
+title: QR Code Phishing (Quishing)
+id: 1a445daa-258b-4b38-a0d7-1204017fff97
+status: experimental
+description: Detects emails containing a QR code image with little body text, a quishing technique that moves the malicious link into an image to evade URL scanning and push victims to scan with a personal device.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/
+logsource:
+  category: mail
+detection:
+  selection:
+    has_qr_code_image: true
+    body_url_count: 0
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate marketing emails with QR codes
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1566

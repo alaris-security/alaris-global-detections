@@ -1,0 +1,18 @@
+{
+  "uuid": "cf0328d5-5c01-4e16-8b7e-596a3c855936",
+  "slug": "email-internal-spearphishing",
+  "title": "Internal Spearphishing from Compromised Account",
+  "description": "Detects internal-to-internal emails carrying phishing links or malicious attachments from a legitimate mailbox, indicating a compromised internal account being used to spearphish colleagues.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "phishing", "internal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1534", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/email-internal-spearphishing.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects internal-to-internal emails carrying phishing links or malicious attachments from a legitimate mailbox, indicating a compromised internal account being used to spearphish colleagues."
+  }
+}

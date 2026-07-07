@@ -1,0 +1,18 @@
+{
+  "uuid": "03b718c6-6ff5-4e50-9756-3fd432a41c9f",
+  "slug": "email-lookalike-sender-domain",
+  "title": "Lookalike/Homoglyph Sender Domain",
+  "description": "Detects inbound mail from domains that are visually similar to the organization or a trusted brand (character substitution, added hyphens, homoglyphs), a lookalike-domain phishing technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "typosquatting"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566.002", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-lookalike-sender-domain.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects inbound mail from domains that are visually similar to the organization or a trusted brand (character substitution, added hyphens, homoglyphs), a lookalike-domain phishing technique."
+  }
+}

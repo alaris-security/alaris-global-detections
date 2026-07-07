@@ -1,0 +1,18 @@
+{
+  "uuid": "c36800a7-280f-40e4-8adc-cf1d41ba1310",
+  "slug": "email-bec-financial-lure",
+  "title": "BEC Financial Request Lure",
+  "description": "Detects business-email-compromise lures combining urgency and financial-action language (wire transfer, change bank details, gift cards, urgent payment) from an external or spoofed sender.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "bec"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-bec-financial-lure.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects business-email-compromise lures combining urgency and financial-action language (wire transfer, change bank details, gift cards, urgent payment) from an external or spoofed sender."
+  }
+}

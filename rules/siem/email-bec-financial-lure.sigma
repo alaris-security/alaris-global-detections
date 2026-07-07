@@ -1,0 +1,29 @@
+title: BEC Financial Request Lure
+id: 1efbd1ba-30ee-4930-b9cb-74a2937d2b2a
+status: experimental
+description: Detects business-email-compromise lures combining urgency and financial-action language (wire transfer, change bank details, gift cards, urgent payment) from an external or spoofed sender.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/
+logsource:
+  category: mail
+detection:
+  selection:
+    subject|contains:
+      - 'wire transfer'
+      - 'change bank'
+      - 'gift card'
+      - 'urgent payment'
+      - 'invoice update'
+    sender_domain_external: true
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate finance correspondence
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1566

@@ -1,0 +1,18 @@
+{
+  "uuid": "a873a0ae-22a8-49bb-874b-3bcefd7f9b7e",
+  "slug": "email-qr-code-phishing",
+  "title": "QR Code Phishing (Quishing)",
+  "description": "Detects emails containing a QR code image with little body text, a quishing technique that moves the malicious link into an image to evade URL scanning and push victims to scan with a personal device.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "quishing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-qr-code-phishing.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects emails containing a QR code image with little body text, a quishing technique that moves the malicious link into an image to evade URL scanning and push victims to scan with a personal device."
+  }
+}

@@ -1,0 +1,25 @@
+title: Internal Spearphishing from Compromised Account
+id: 42c1d064-17aa-48e6-8372-c0d17d6f57fd
+status: experimental
+description: Detects internal-to-internal emails carrying phishing links or malicious attachments from a legitimate mailbox, indicating a compromised internal account being used to spearphish colleagues.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1534/
+logsource:
+  category: mail
+detection:
+  selection:
+    sender_internal: true
+    recipient_internal: true
+    has_suspicious_link_or_attachment: true
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate internal file sharing
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1534

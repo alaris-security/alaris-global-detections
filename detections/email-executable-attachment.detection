@@ -1,0 +1,18 @@
+{
+  "uuid": "db0a9370-8575-4f24-ae75-96540502b751",
+  "slug": "email-executable-attachment",
+  "title": "Executable Email Attachment",
+  "description": "Detects inbound email carrying executable or script attachments (.exe, .scr, .js, .vbs, .hta, .lnk), high-risk file types used to deliver malware directly to users.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "attachment"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566.001", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-executable-attachment.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects inbound email carrying executable or script attachments (.exe, .scr, .js, .vbs, .hta, .lnk), high-risk file types used to deliver malware directly to users."
+  }
+}

@@ -1,0 +1,27 @@
+title: Display Name Impersonation of Executive
+id: fe7c0209-15cd-44da-bdd1-364bee284b1f
+status: experimental
+description: Detects emails whose display name matches a company executive or brand but whose sender domain is external and unrelated, a display-name spoofing technique used in business email compromise.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/
+logsource:
+  category: mail
+detection:
+  selection:
+    display_name|contains:
+      - 'CEO'
+      - 'CFO'
+      - 'President'
+    sender_domain_external: true
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - External partners legitimately using similar names
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1566

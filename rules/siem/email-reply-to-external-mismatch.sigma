@@ -1,0 +1,24 @@
+title: Reply-To Domain Mismatch
+id: b25890bd-d6ca-418d-97e4-bc9cf33427f9
+status: experimental
+description: Detects emails whose Reply-To address points to a different, external domain than the From address, a technique used in BEC to redirect replies to an attacker-controlled mailbox.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/
+logsource:
+  category: mail
+detection:
+  selection:
+    from_domain_internal: true
+    replyto_domain_external: true
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate use of external reply-to (marketing platforms)
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1566

@@ -1,0 +1,30 @@
+title: Executable Email Attachment
+id: 695a58c2-ef2d-4795-882c-ad07177a60c4
+status: experimental
+description: Detects inbound email carrying executable or script attachments (.exe, .scr, .js, .vbs, .hta, .lnk), high-risk file types used to deliver malware directly to users.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/001/
+logsource:
+  category: mail
+detection:
+  selection:
+    attachment_name|endswith:
+      - '.exe'
+      - '.scr'
+      - '.js'
+      - '.vbs'
+      - '.hta'
+      - '.lnk'
+      - '.iso'
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Rare legitimate software delivery by email
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1566.001

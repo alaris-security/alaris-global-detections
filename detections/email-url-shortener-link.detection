@@ -1,0 +1,18 @@
+{
+  "uuid": "822d271a-3744-43da-bf34-077fd42834a6",
+  "slug": "email-url-shortener-link",
+  "title": "URL Shortener Link in Email",
+  "description": "Detects inbound emails whose links use URL-shortening services (bit.ly, tinyurl, t.co, cutt.ly), which obscure the true destination and are frequently used to hide phishing landing pages.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "url-shortener"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566.002", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-url-shortener-link.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects inbound emails whose links use URL-shortening services (bit.ly, tinyurl, t.co, cutt.ly), which obscure the true destination and are frequently used to hide phishing landing pages."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "21b21a09-afea-494c-9f09-45a28712c3ef",
+  "slug": "email-authentication-failure",
+  "title": "Email Authentication Failure (SPF/DKIM/DMARC)",
+  "description": "Detects inbound mail that fails SPF, DKIM, and DMARC while claiming to originate from a protected domain, a spoofing indicator commonly used in phishing and BEC.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "email-auth"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-authentication-failure.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects inbound mail that fails SPF, DKIM, and DMARC while claiming to originate from a protected domain, a spoofing indicator commonly used in phishing and BEC."
+  }
+}

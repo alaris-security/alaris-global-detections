@@ -1,0 +1,18 @@
+{
+  "uuid": "c1dab830-1d77-4496-9917-1369e2ee59ce",
+  "slug": "email-macro-enabled-attachment",
+  "title": "Macro-Enabled Office Attachment",
+  "description": "Detects macro-enabled Office attachments (.docm, .xlsm, .pptm) delivered by email, a common carrier for malicious macros that download or execute second-stage payloads.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "macro"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566.001", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-macro-enabled-attachment.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects macro-enabled Office attachments (.docm, .xlsm, .pptm) delivered by email, a common carrier for malicious macros that download or execute second-stage payloads."
+  }
+}

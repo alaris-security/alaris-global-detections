@@ -1,0 +1,29 @@
+title: URL Shortener Link in Email
+id: ab5806d6-b35d-4928-85ff-73d15df6ebb8
+status: experimental
+description: Detects inbound emails whose links use URL-shortening services (bit.ly, tinyurl, t.co, cutt.ly), which obscure the true destination and are frequently used to hide phishing landing pages.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/002/
+logsource:
+  category: mail
+detection:
+  selection:
+    body_url|contains:
+      - 'bit.ly/'
+      - 'tinyurl.com/'
+      - 'cutt.ly/'
+      - 'is.gd/'
+      - 't.co/'
+      - 'rebrand.ly/'
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate marketing shortened links
+level: low
+tags:
+  - attack.initial_access
+  - attack.t1566.002

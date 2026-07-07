@@ -1,0 +1,18 @@
+{
+  "uuid": "8072223c-cc70-4e43-93d1-0f91306be6d8",
+  "slug": "email-spoofed-display-name",
+  "title": "Display Name Impersonation of Executive",
+  "description": "Detects emails whose display name matches a company executive or brand but whose sender domain is external and unrelated, a display-name spoofing technique used in business email compromise.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "impersonation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-spoofed-display-name.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects emails whose display name matches a company executive or brand but whose sender domain is external and unrelated, a display-name spoofing technique used in business email compromise."
+  }
+}

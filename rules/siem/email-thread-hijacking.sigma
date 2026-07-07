@@ -1,0 +1,29 @@
+title: Email Thread Hijacking
+id: 7d6e234e-1a9c-462b-a7f3-ebcae0fab3ee
+status: experimental
+description: Detects replies that inject a malicious attachment or link into an existing legitimate email thread (Re:/Fwd: subject with an external sender newly appearing), a thread-hijacking technique used by Emotet/QakBot-style operations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/
+logsource:
+  category: mail
+detection:
+  selection:
+    subject|startswith:
+      - 'RE:'
+      - 'FW:'
+      - 'Re:'
+      - 'Fwd:'
+    sender_first_seen_in_thread: true
+    has_attachment: true
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate new participants replying with attachments
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1566

@@ -1,0 +1,25 @@
+title: Email Authentication Failure (SPF/DKIM/DMARC)
+id: fa8710d7-b7cb-4a72-bb7b-48980d282c11
+status: experimental
+description: Detects inbound mail that fails SPF, DKIM, and DMARC while claiming to originate from a protected domain, a spoofing indicator commonly used in phishing and BEC.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/
+logsource:
+  category: mail
+detection:
+  selection:
+    spf_result: 'fail'
+    dkim_result: 'fail'
+    dmarc_result: 'fail'
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Misconfigured legitimate senders
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1566

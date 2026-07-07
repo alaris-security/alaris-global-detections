@@ -1,0 +1,18 @@
+{
+  "uuid": "d57ea760-52a2-4bee-ac92-36baf88e2d9a",
+  "slug": "email-reply-to-external-mismatch",
+  "title": "Reply-To Domain Mismatch",
+  "description": "Detects emails whose Reply-To address points to a different, external domain than the From address, a technique used in BEC to redirect replies to an attacker-controlled mailbox.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "reply-to"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-reply-to-external-mismatch.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects emails whose Reply-To address points to a different, external domain than the From address, a technique used in BEC to redirect replies to an attacker-controlled mailbox."
+  }
+}

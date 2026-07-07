@@ -1,0 +1,18 @@
+{
+  "uuid": "34beeeeb-4e05-46db-9723-cf56b4d52e00",
+  "slug": "email-double-extension-attachment",
+  "title": "Double-Extension Email Attachment",
+  "description": "Detects attachments using a deceptive double extension (invoice.pdf.exe, report.docx.scr) that hides the true executable type from users relying on the visible extension.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "attachment"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566.001", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-double-extension-attachment.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects attachments using a deceptive double extension (invoice.pdf.exe, report.docx.scr) that hides the true executable type from users relying on the visible extension."
+  }
+}

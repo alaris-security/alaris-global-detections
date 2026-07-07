@@ -1,0 +1,18 @@
+{
+  "uuid": "d12bf839-e9a2-46a4-9a32-1d3ebdc0fdf4",
+  "slug": "email-thread-hijacking",
+  "title": "Email Thread Hijacking",
+  "description": "Detects replies that inject a malicious attachment or link into an existing legitimate email thread (Re:/Fwd: subject with an external sender newly appearing), a thread-hijacking technique used by Emotet/QakBot-style operations.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "phishing", "thread-hijack"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1566", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/email-thread-hijacking.sigma"],
+  "intent": {
+    "conditions": ["Mail gateway event matching the described phishing pattern"],
+    "dataSourceRequirements": ["Email gateway / message tracking logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects replies that inject a malicious attachment or link into an existing legitimate email thread (Re:/Fwd: subject with an external sender newly appearing), a thread-hijacking technique used by Emotet/QakBot-style operations."
+  }
+}

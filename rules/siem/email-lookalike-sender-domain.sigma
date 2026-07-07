@@ -1,0 +1,23 @@
+title: Lookalike/Homoglyph Sender Domain
+id: b67fa69f-8bee-41f5-a9ed-d81c7ae24561
+status: experimental
+description: Detects inbound mail from domains that are visually similar to the organization or a trusted brand (character substitution, added hyphens, homoglyphs), a lookalike-domain phishing technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1566/002/
+logsource:
+  category: mail
+detection:
+  selection:
+    sender_domain_lookalike: true
+  condition: selection
+fields:
+  - sender
+  - recipient
+  - subject
+falsepositives:
+  - Legitimate similar-named partner domains
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1566.002
