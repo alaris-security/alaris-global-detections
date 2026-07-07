@@ -1,0 +1,18 @@
+{
+  "uuid": "7f7e1e3b-3495-42f0-8548-754be4ba6c19",
+  "slug": "ad-scheduled-task-registered",
+  "title": "Scheduled Task Registered (4698)",
+  "description": "Detects registration of a new scheduled task (event 4698), a persistence and execution mechanism; suspicious actions/paths in the task definition increase confidence.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "scheduled-task"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-scheduled-task-registered.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects registration of a new scheduled task (event 4698), a persistence and execution mechanism; suspicious actions/paths in the task definition increase confidence."
+  }
+}

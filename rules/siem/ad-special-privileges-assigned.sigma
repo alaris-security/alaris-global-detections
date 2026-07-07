@@ -1,0 +1,29 @@
+title: Sensitive Privileges Assigned at Logon
+id: 8d420733-1a8a-43a0-b173-b75b16534eb3
+status: experimental
+description: Detects assignment of sensitive privileges at logon (event 4672 with SeDebugPrivilege/SeTcbPrivilege/SeBackupPrivilege) to accounts that are not expected administrators, indicating privileged access.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4672
+    PrivilegeList|contains:
+      - 'SeDebugPrivilege'
+      - 'SeTcbPrivilege'
+      - 'SeBackupPrivilege'
+      - 'SeLoadDriverPrivilege'
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Administrator and service logons
+level: medium
+tags:
+  - attack.privilege_escalation
+  - attack.t1078

@@ -1,0 +1,28 @@
+title: Sensitive Network Share Access (5145)
+id: c0b41777-6321-4c6e-a409-33b6a1c0e055
+status: experimental
+description: Detects detailed file share access (event 5145) to administrative or sensitive shares (C$, ADMIN$, SYSVOL scripts), which accompanies remote tool staging and lateral movement over SMB.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5145
+    ShareName:
+      - '\\*\C$'
+      - '\\*\ADMIN$'
+  condition: selection
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Administrative file operations
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002

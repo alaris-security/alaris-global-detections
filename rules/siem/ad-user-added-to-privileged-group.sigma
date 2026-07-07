@@ -1,0 +1,27 @@
+title: User Added to Privileged Group
+id: e486617b-2985-4505-aa6a-312860642421
+status: experimental
+description: Detects addition of a member to a security-enabled administrative group (events 4728/4732/4756 for Domain Admins, Enterprise Admins, Administrators), a persistence and privilege-escalation action.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID:
+      - 4728
+      - 4732
+      - 4756
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Legitimate group membership changes
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

@@ -1,0 +1,18 @@
+{
+  "uuid": "52f9530c-9f22-4dcc-82c9-eafd27389b95",
+  "slug": "ad-computer-account-created",
+  "title": "Computer Account Created (4741)",
+  "description": "Detects creation of a computer/machine account (event 4741) by a non-administrator, which is abused in attacks such as noPac/sAMAccountName spoofing and resource-based constrained delegation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "machine-account"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-computer-account-created.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of a computer/machine account (event 4741) by a non-administrator, which is abused in attacks such as noPac/sAMAccountName spoofing and resource-based constrained delegation."
+  }
+}

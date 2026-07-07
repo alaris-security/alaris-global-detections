@@ -1,0 +1,24 @@
+title: Scheduled Task Registered (4698)
+id: 3637a8ad-74bc-44ca-8423-a7feabe34633
+status: experimental
+description: Detects registration of a new scheduled task (event 4698), a persistence and execution mechanism; suspicious actions/paths in the task definition increase confidence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4698
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Software installers creating tasks
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1053.005

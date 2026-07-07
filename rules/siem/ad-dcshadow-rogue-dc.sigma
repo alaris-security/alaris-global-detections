@@ -1,0 +1,28 @@
+title: DCShadow Rogue Domain Controller
+id: dca89b8c-fa63-4695-a677-d98ea3ac7cb6
+status: experimental
+description: Detects DCShadow, where an attacker registers a rogue domain controller (nTDSDSA object creation / server registration in the Configuration partition via 5137) to push malicious directory changes without normal auditing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1207/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5137
+    ObjectClass:
+      - 'nTDSDSA'
+      - 'server'
+  condition: selection
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Legitimate domain controller promotion
+level: critical
+tags:
+  - attack.defense_evasion
+  - attack.t1207

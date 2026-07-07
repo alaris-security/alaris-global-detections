@@ -1,0 +1,24 @@
+title: Audit Policy Changed (4719)
+id: 65238d99-918c-4332-9a47-cb3b810b0dbc
+status: experimental
+description: Detects modification of the system audit policy (event 4719), which attackers use to disable auditing of specific categories and reduce visibility into their subsequent actions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/002/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4719
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Administrators tuning audit policy
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.002

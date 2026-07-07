@@ -1,0 +1,24 @@
+title: Active Directory User Account Created
+id: cf1fa3df-0ba3-42dd-bba0-d35b1576fcca
+status: experimental
+description: Detects creation of a new user account (event 4720), which attackers use to establish a persistent identity; correlation with off-hours or non-admin creators raises the signal.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4720
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Routine IT account provisioning
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1136.001

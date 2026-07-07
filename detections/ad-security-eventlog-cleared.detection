@@ -1,0 +1,18 @@
+{
+  "uuid": "86879341-bc99-4ff4-ac53-4ce44f98eee5",
+  "slug": "ad-security-eventlog-cleared",
+  "title": "Security Event Log Cleared (1102)",
+  "description": "Detects clearing of the Windows Security audit log (event 1102), an anti-forensics action that removes the record of authentication and privileged activity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "indicator-removal", "event-log"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/ad-security-eventlog-cleared.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects clearing of the Windows Security audit log (event 1102), an anti-forensics action that removes the record of authentication and privileged activity."
+  }
+}

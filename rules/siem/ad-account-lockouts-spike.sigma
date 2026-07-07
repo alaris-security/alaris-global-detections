@@ -1,0 +1,26 @@
+title: Account Lockout Spike
+id: 71829099-069a-45cc-99ec-e83b039071e0
+status: experimental
+description: Detects a spike in account lockout events (4740) across multiple accounts in a short window, a side effect of aggressive brute-force or password-spray activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1110/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4740
+  timeframe: 15m
+  condition: selection | count(TargetUserName) > 10
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Widespread password change causing lockouts
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1110

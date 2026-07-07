@@ -1,0 +1,18 @@
+{
+  "uuid": "e863d54f-bb7e-4915-9f92-868489ffd452",
+  "slug": "ad-user-added-to-privileged-group",
+  "title": "User Added to Privileged Group",
+  "description": "Detects addition of a member to a security-enabled administrative group (events 4728/4732/4756 for Domain Admins, Enterprise Admins, Administrators), a persistence and privilege-escalation action.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "group-membership"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-user-added-to-privileged-group.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects addition of a member to a security-enabled administrative group (events 4728/4732/4756 for Domain Admins, Enterprise Admins, Administrators), a persistence and privilege-escalation action."
+  }
+}

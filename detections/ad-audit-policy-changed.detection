@@ -1,0 +1,18 @@
+{
+  "uuid": "450cc6ea-03bd-45be-84bc-fc5a7654fc8c",
+  "slug": "ad-audit-policy-changed",
+  "title": "Audit Policy Changed (4719)",
+  "description": "Detects modification of the system audit policy (event 4719), which attackers use to disable auditing of specific categories and reduce visibility into their subsequent actions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "audit-policy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/ad-audit-policy-changed.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects modification of the system audit policy (event 4719), which attackers use to disable auditing of specific categories and reduce visibility into their subsequent actions."
+  }
+}

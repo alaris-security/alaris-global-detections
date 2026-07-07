@@ -1,0 +1,18 @@
+{
+  "uuid": "247870e8-5991-4f7f-9dc9-62c7f763a62f",
+  "slug": "ad-special-privileges-assigned",
+  "title": "Sensitive Privileges Assigned at Logon",
+  "description": "Detects assignment of sensitive privileges at logon (event 4672 with SeDebugPrivilege/SeTcbPrivilege/SeBackupPrivilege) to accounts that are not expected administrators, indicating privileged access.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "active-directory", "privileges"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/ad-special-privileges-assigned.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects assignment of sensitive privileges at logon (event 4672 with SeDebugPrivilege/SeTcbPrivilege/SeBackupPrivilege) to accounts that are not expected administrators, indicating privileged access."
+  }
+}

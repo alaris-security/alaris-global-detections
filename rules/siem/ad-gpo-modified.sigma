@@ -1,0 +1,27 @@
+title: Group Policy Object Modified (5136)
+id: 4c406bf7-b29e-4f14-9427-3b9f817f9e18
+status: experimental
+description: Detects directory service changes to Group Policy objects (event 5136 on groupPolicyContainer/gPCMachineExtensionNames), which attackers abuse to push scripts, scheduled tasks, or settings domain-wide.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1484/001/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 5136
+    ObjectClass:
+      - 'groupPolicyContainer'
+  condition: selection
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Legitimate GPO administration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1484.001

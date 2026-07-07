@@ -1,0 +1,18 @@
+{
+  "uuid": "17a54ff5-143f-4922-a6ab-f3250cfb1bdb",
+  "slug": "ad-user-account-created",
+  "title": "Active Directory User Account Created",
+  "description": "Detects creation of a new user account (event 4720), which attackers use to establish a persistent identity; correlation with off-hours or non-admin creators raises the signal.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "active-directory", "account-creation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ad-user-account-created.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of a new user account (event 4720), which attackers use to establish a persistent identity; correlation with off-hours or non-admin creators raises the signal."
+  }
+}

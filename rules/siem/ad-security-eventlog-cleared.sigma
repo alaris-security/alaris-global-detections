@@ -1,0 +1,24 @@
+title: Security Event Log Cleared (1102)
+id: da7d26ba-6c23-49fc-b443-0946e792ff95
+status: experimental
+description: Detects clearing of the Windows Security audit log (event 1102), an anti-forensics action that removes the record of authentication and privileged activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/001/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 1102
+  condition: selection
+fields:
+  - SubjectUserName
+  - TargetUserName
+  - IpAddress
+falsepositives:
+  - Administrators clearing logs during maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001

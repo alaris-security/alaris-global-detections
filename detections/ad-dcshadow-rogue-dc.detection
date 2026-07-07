@@ -1,0 +1,18 @@
+{
+  "uuid": "a72d485d-788c-4d35-afe4-0b766756c868",
+  "slug": "ad-dcshadow-rogue-dc",
+  "title": "DCShadow Rogue Domain Controller",
+  "description": "Detects DCShadow, where an attacker registers a rogue domain controller (nTDSDSA object creation / server registration in the Configuration partition via 5137) to push malicious directory changes without normal auditing.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "active-directory", "dcshadow"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1207", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/ad-dcshadow-rogue-dc.sigma"],
+  "intent": {
+    "conditions": ["Windows Security log event matching the described pattern"],
+    "dataSourceRequirements": ["Windows Security event log"],
+    "tuningParameters": {},
+    "sourceContext": "Detects DCShadow, where an attacker registers a rogue domain controller (nTDSDSA object creation / server registration in the Configuration partition via 5137) to push malicious directory changes without normal auditing."
+  }
+}
