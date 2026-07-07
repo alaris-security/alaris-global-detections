@@ -1,0 +1,32 @@
+title: PowerShell WMI Event Subscription via Cmdlet
+id: 7b98513d-e6b4-4c64-ab32-5ab563c80a06
+status: experimental
+description: Detects creation of WMI permanent event subscriptions through PowerShell cmdlets (Set-WmiInstance/New-CimInstance for __EventFilter, CommandLineEventConsumer, __FilterToConsumerBinding), a fileless persistence technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Set-WmiInstance'
+      - 'New-CimInstance'
+      - 'Register-WmiEvent'
+    CommandLine|contains:
+      - '__EventFilter'
+      - 'CommandLineEventConsumer'
+      - 'FilterToConsumerBinding'
+      - 'ActiveScriptEventConsumer'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Monitoring agents registering consumers
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003

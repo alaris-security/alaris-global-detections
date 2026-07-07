@@ -1,0 +1,18 @@
+{
+  "uuid": "8db374d7-306e-4c02-a151-77c17e061bd6",
+  "slug": "powershell-empire-covenant-stager",
+  "title": "PowerShell C2 Framework Stager",
+  "description": "Detects PowerShell stagers from C2 frameworks such as Empire and Covenant, indicated by System.Net.WebClient with a base64 blob, System.Text.Encoding decode, and IEX in a single one-liner mirroring their default stager.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "powershell", "empire"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/powershell-empire-covenant-stager.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects PowerShell stagers from C2 frameworks such as Empire and Covenant, indicated by System.Net.WebClient with a base64 blob, System.Text.Encoding decode, and IEX in a single one-liner mirroring their default stager."
+  }
+}

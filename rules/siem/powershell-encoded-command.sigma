@@ -1,0 +1,31 @@
+title: PowerShell EncodedCommand Execution
+id: daf25c74-7805-4d68-acb8-cbf40edf407e
+status: experimental
+description: Detects PowerShell invoked with -EncodedCommand (or the -e/-enc/-ec abbreviations) carrying a base64 payload, a common way to hide the executed script from casual command-line inspection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+    CommandLine|contains:
+      - ' -enc '
+      - ' -e '
+      - '-EncodedCommand'
+      - ' -ec '
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Management tools that pass encoded commands
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001

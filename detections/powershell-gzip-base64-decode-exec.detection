@@ -1,0 +1,18 @@
+{
+  "uuid": "7a6352f0-f93a-42ab-8ed7-f9052865ee9e",
+  "slug": "powershell-gzip-base64-decode-exec",
+  "title": "PowerShell Compressed Payload Decode and Execute",
+  "description": "Detects PowerShell decompressing an embedded base64+GZip/Deflate blob and piping it to Invoke-Expression, a common packing technique to hide the real script from static inspection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "powershell", "obfuscation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1027", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/powershell-gzip-base64-decode-exec.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects PowerShell decompressing an embedded base64+GZip/Deflate blob and piping it to Invoke-Expression, a common packing technique to hide the real script from static inspection."
+  }
+}

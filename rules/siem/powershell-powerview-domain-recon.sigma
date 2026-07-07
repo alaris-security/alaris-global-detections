@@ -1,0 +1,31 @@
+title: PowerView Domain Reconnaissance
+id: 3a3ddbed-81eb-4d03-bb98-a8b9aaab5ed4
+status: experimental
+description: Detects PowerView reconnaissance functions (Get-NetUser, Get-DomainUser, Invoke-ShareFinder, Find-DomainShare, Get-NetGroupMember), used to map Active Directory users, groups, shares, and trusts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1087/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Get-NetUser'
+      - 'Get-DomainUser'
+      - 'Invoke-ShareFinder'
+      - 'Find-DomainShare'
+      - 'Get-NetGroupMember'
+      - 'Get-DomainController'
+      - 'Invoke-UserHunter'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Authorized AD assessments
+level: high
+tags:
+  - attack.discovery
+  - attack.t1087.002

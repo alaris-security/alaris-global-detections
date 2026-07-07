@@ -1,0 +1,18 @@
+{
+  "uuid": "2fd5936a-6382-4ffe-87c7-664d115f5c60",
+  "slug": "powershell-register-scheduledjob-persistence",
+  "title": "PowerShell Scheduled Job Persistence",
+  "description": "Detects creation of a PowerShell scheduled job (Register-ScheduledJob / New-JobTrigger), which persists as a task under the the PowerShell ScheduledJobs path and runs script blocks on a trigger.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "powershell", "scheduled-task"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/powershell-register-scheduledjob-persistence.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of a PowerShell scheduled job (Register-ScheduledJob / New-JobTrigger), which persists as a task under the the PowerShell ScheduledJobs path and runs script blocks on a trigger."
+  }
+}

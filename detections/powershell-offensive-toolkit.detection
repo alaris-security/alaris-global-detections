@@ -1,0 +1,18 @@
+{
+  "uuid": "5a69d7fb-0d64-4053-b7f2-cb44b77847a1",
+  "slug": "powershell-offensive-toolkit",
+  "title": "Offensive PowerShell Toolkit Function",
+  "description": "Detects invocation of well-known offensive PowerShell functions from PowerSploit, Nishang, and PowerUp (Invoke-Mimikatz, Invoke-Shellcode, Invoke-PowerDump, Get-System), a strong signal of post-exploitation tooling.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "powershell", "offensive-tooling"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.001", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/powershell-offensive-toolkit.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects invocation of well-known offensive PowerShell functions from PowerSploit, Nishang, and PowerUp (Invoke-Mimikatz, Invoke-Shellcode, Invoke-PowerDump, Get-System), a strong signal of post-exploitation tooling."
+  }
+}

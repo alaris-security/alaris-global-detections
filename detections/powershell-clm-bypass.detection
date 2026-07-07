@@ -1,0 +1,18 @@
+{
+  "uuid": "39f5b9b2-d68e-4ebb-8d1d-2ffae955b049",
+  "slug": "powershell-clm-bypass",
+  "title": "PowerShell Constrained Language Mode Bypass",
+  "description": "Detects attempts to bypass PowerShell Constrained Language Mode, such as invoking older engine versions (-Version 2), custom runspaces, or setting __PSLockdownPolicy, used to regain full-language script execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "powershell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/powershell-clm-bypass.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects attempts to bypass PowerShell Constrained Language Mode, such as invoking older engine versions (-Version 2), custom runspaces, or setting __PSLockdownPolicy, used to regain full-language script execution."
+  }
+}

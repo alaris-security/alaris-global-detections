@@ -1,0 +1,18 @@
+{
+  "uuid": "26165e90-1500-4395-93de-ca518cb03ca1",
+  "slug": "powershell-wmi-persistence-cmdlet",
+  "title": "PowerShell WMI Event Subscription via Cmdlet",
+  "description": "Detects creation of WMI permanent event subscriptions through PowerShell cmdlets (Set-WmiInstance/New-CimInstance for __EventFilter, CommandLineEventConsumer, __FilterToConsumerBinding), a fileless persistence technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "powershell", "wmi"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/powershell-wmi-persistence-cmdlet.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of WMI permanent event subscriptions through PowerShell cmdlets (Set-WmiInstance/New-CimInstance for __EventFilter, CommandLineEventConsumer, __FilterToConsumerBinding), a fileless persistence technique."
+  }
+}

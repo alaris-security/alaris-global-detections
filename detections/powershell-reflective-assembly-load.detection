@@ -1,0 +1,18 @@
+{
+  "uuid": "a9665f39-c3ea-4293-8064-4eaa90175ef5",
+  "slug": "powershell-reflective-assembly-load",
+  "title": "PowerShell In-Memory Assembly Load",
+  "description": "Detects reflective loading of a .NET assembly in PowerShell ([Reflection.Assembly]::Load with a byte array), a fileless technique to run tooling entirely in memory and bypass on-disk detection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "powershell", "reflective-loading"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1620", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/powershell-reflective-assembly-load.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects reflective loading of a .NET assembly in PowerShell ([Reflection.Assembly]::Load with a byte array), a fileless technique to run tooling entirely in memory and bypass on-disk detection."
+  }
+}

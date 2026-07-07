@@ -1,0 +1,18 @@
+{
+  "uuid": "7fbe2d0d-5eea-4d4a-a01a-dcc2b274a4f2",
+  "slug": "powershell-invoke-dllinjection",
+  "title": "PowerShell Shellcode/DLL Injection",
+  "description": "Detects PowerShell performing process injection via Win32 API calls (VirtualAllocEx, WriteProcessMemory, CreateRemoteThread) or the PowerSploit Invoke-Shellcode/Invoke-DllInjection functions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "powershell", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/powershell-invoke-dllinjection.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects PowerShell performing process injection via Win32 API calls (VirtualAllocEx, WriteProcessMemory, CreateRemoteThread) or the PowerSploit Invoke-Shellcode/Invoke-DllInjection functions."
+  }
+}

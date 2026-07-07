@@ -1,0 +1,29 @@
+title: PowerShell Add-Type Inline C# Compilation
+id: cf3f10ac-bb9a-4fc0-8886-bb2f9481129e
+status: experimental
+description: Detects PowerShell Add-Type compiling inline C# that imports Win32 APIs (DllImport of VirtualAlloc, CreateThread, kernel32/ntdll), a technique to run native shellcode or perform injection from PowerShell.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'Add-Type'
+    CommandLine|contains:
+      - 'DllImport'
+      - 'kernel32'
+      - 'VirtualAlloc'
+      - 'CreateThread'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Developers compiling inline helpers
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059.001

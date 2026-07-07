@@ -1,0 +1,18 @@
+{
+  "uuid": "5bb81e6a-e4bc-478b-99c7-8718625ebddd",
+  "slug": "powershell-invoke-restmethod-c2",
+  "title": "PowerShell Invoke-RestMethod C2 Polling",
+  "description": "Detects PowerShell using Invoke-RestMethod/Invoke-WebRequest in a loop to poll a remote endpoint and execute returned content, a lightweight web-protocol command-and-control pattern.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "powershell", "web-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/powershell-invoke-restmethod-c2.sigma"],
+  "intent": {
+    "conditions": ["PowerShell command line or script block matching the described pattern"],
+    "dataSourceRequirements": ["PowerShell script-block logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects PowerShell using Invoke-RestMethod/Invoke-WebRequest in a loop to poll a remote endpoint and execute returned content, a lightweight web-protocol command-and-control pattern."
+  }
+}

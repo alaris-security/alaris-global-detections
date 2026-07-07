@@ -1,0 +1,28 @@
+title: PowerShell Shellcode/DLL Injection
+id: 82b1b8d1-a673-4746-817d-2f9b643b1d30
+status: experimental
+description: Detects PowerShell performing process injection via Win32 API calls (VirtualAllocEx, WriteProcessMemory, CreateRemoteThread) or the PowerSploit Invoke-Shellcode/Invoke-DllInjection functions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'VirtualAllocEx'
+      - 'WriteProcessMemory'
+      - 'CreateRemoteThread'
+      - 'NtCreateThreadEx'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate low-level automation (rare)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.001

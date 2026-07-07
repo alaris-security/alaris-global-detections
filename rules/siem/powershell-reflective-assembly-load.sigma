@@ -1,0 +1,28 @@
+title: PowerShell In-Memory Assembly Load
+id: 82dab48a-3172-4d65-b3fc-77913d8c4626
+status: experimental
+description: Detects reflective loading of a .NET assembly in PowerShell ([Reflection.Assembly]::Load with a byte array), a fileless technique to run tooling entirely in memory and bypass on-disk detection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1620/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '[Reflection.Assembly]::Load'
+      - 'System.Reflection.Assembly]::Load'
+      - '.Load([byte[]]'
+      - 'FromBase64String'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate in-memory .NET usage
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1620
