@@ -1,0 +1,18 @@
+{
+  "uuid": "f6d520ed-9b1c-4b70-bc6a-75e78c7f87df",
+  "slug": "macos-launchdaemon-persistence",
+  "title": "macOS LaunchDaemon Persistence",
+  "description": "Detects creation of LaunchDaemon property list files in /Library/LaunchDaemons or /System/Library/LaunchDaemons, a persistence technique that runs attacker code as root at boot.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "macos", "launchdaemon"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1543.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/macos-launchdaemon-persistence.sigma"],
+  "intent": {
+    "conditions": ["File creation of a .plist under a LaunchDaemons directory"],
+    "dataSourceRequirements": ["macOS file or process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "LaunchDaemons run as root at boot, a high-privilege persistence spot."
+  }
+}

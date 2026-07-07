@@ -1,0 +1,25 @@
+title: macOS emond Rule Persistence
+id: b96bcc03-5c8d-4389-8822-ecba1099bdb9
+status: experimental
+description: Detects emond rule persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/014/
+logsource:
+  product: macos
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains:
+      - '/etc/emond.d/rules/'
+      - '/private/var/db/emondClients/'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - None expected on modern macOS
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.014

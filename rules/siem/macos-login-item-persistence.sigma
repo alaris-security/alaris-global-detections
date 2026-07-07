@@ -1,0 +1,26 @@
+title: macOS Login Item Persistence
+id: ad16f538-6b70-467a-bfdb-ca9ad10d6352
+status: experimental
+description: Detects login item persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/015/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'make login item'
+      - 'System Events'
+      - 'sfltool add-item'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Applications registering themselves as login items
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.015

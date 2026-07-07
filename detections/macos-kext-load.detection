@@ -1,0 +1,18 @@
+{
+  "uuid": "83f95405-47c3-449c-a180-8cf10ae8aa99",
+  "slug": "macos-kext-load",
+  "title": "macOS Kernel Extension Load",
+  "description": "Detects loading of kernel extensions via kextload or kmutil load, which run code in the kernel and can be abused for rootkits and deep persistence on macOS.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "macos", "kext"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.006", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/macos-kext-load.sigma"],
+  "intent": {
+    "conditions": ["kextload or kmutil load of a kernel extension"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Kernel extensions run in ring 0 and enable rootkit-level persistence."
+  }
+}

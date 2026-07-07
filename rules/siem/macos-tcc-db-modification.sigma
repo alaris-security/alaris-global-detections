@@ -1,0 +1,26 @@
+title: macOS TCC Database Manipulation
+id: 46be1dea-1798-470b-a0bc-957933571369
+status: experimental
+description: Detects TCC database manipulation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/006/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'TCC.db'
+    Image|endswith:
+      - '/sqlite3'
+      - '/tccutil'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - MDM tools managing privacy settings
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.006

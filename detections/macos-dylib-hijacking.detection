@@ -1,0 +1,18 @@
+{
+  "uuid": "c1bc3084-8d92-4c89-a7da-24aec5c0e33c",
+  "slug": "macos-dylib-hijacking",
+  "title": "macOS Dylib Hijacking",
+  "description": "Detects placement of a dynamic library into an application's search path (Contents/Frameworks, @rpath locations) enabling dylib hijacking, where a trusted app loads attacker code for persistence and evasion.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "privilege-escalation", "macos", "dylib"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.004", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/macos-dylib-hijacking.sigma"],
+  "intent": {
+    "conditions": ["Creation of a .dylib inside an app bundle Frameworks/rpath directory by a non-installer process"],
+    "dataSourceRequirements": ["macOS file telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "A planted dylib in an app's search path runs inside the trusted application."
+  }
+}

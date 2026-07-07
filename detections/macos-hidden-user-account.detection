@@ -1,0 +1,18 @@
+{
+  "uuid": "6edbea2b-bee2-4243-9139-64e533f1203f",
+  "slug": "macos-hidden-user-account",
+  "title": "macOS Hidden User Account Configuration",
+  "description": "Detects configuration hiding a user account from the login window (dscl setting IsHidden 1, or Hide500Users), a defense-evasion technique to conceal a backdoor account from users.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "hidden-account"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1564.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-hidden-user-account.sigma"],
+  "intent": {
+    "conditions": ["dscl setting IsHidden 1, or defaults write Hide500Users"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Hiding an account keeps a backdoor login out of the user's sight."
+  }
+}

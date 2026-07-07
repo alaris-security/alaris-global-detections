@@ -1,0 +1,18 @@
+{
+  "uuid": "34c28ebf-fca8-49c4-84ee-3040cae84cc7",
+  "slug": "macos-security-tool-kill",
+  "title": "macOS Security Tool Termination",
+  "description": "Detects termination or unloading of macOS security agents (killall of EDR/MDM daemons, launchctl unload of security LaunchDaemons), a defense-evasion action to disable endpoint monitoring.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-security-tool-kill.sigma"],
+  "intent": {
+    "conditions": ["killall/launchctl unload targeting known security agents"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Killing the EDR agent blinds monitoring on the endpoint."
+  }
+}

@@ -1,0 +1,29 @@
+title: macOS Local Account Creation via dscl
+id: 8e49e196-8f7c-4eae-a5ac-2fd3fa6443be
+status: experimental
+description: Detects local account creation on macOS.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection_dscl:
+    Image|endswith: '/dscl'
+    CommandLine|contains|all:
+      - '-create'
+      - '/Users/'
+  selection_sysadmin:
+    Image|endswith: '/sysadminctl'
+    CommandLine|contains: '-addUser'
+  condition: selection_dscl or selection_sysadmin
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - MDM or admins provisioning accounts
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136.001

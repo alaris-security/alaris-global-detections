@@ -1,0 +1,18 @@
+{
+  "uuid": "fcaf27df-4e03-45b8-b5ce-8200a27832e1",
+  "slug": "macos-launchagent-persistence",
+  "title": "macOS LaunchAgent Persistence",
+  "description": "Detects creation of LaunchAgent property list files in ~/Library/LaunchAgents or /Library/LaunchAgents, a persistence technique that runs attacker code at user login via launchd.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "macos", "launchagent"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1543.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/macos-launchagent-persistence.sigma"],
+  "intent": {
+    "conditions": ["File creation of a .plist under a LaunchAgents directory"],
+    "dataSourceRequirements": ["macOS file or process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "LaunchAgents are the most common macOS user-level persistence mechanism."
+  }
+}

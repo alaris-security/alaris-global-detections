@@ -1,0 +1,18 @@
+{
+  "uuid": "7a40fb96-1cfa-4490-9708-abcfbf85003e",
+  "slug": "macos-dscl-user-add",
+  "title": "macOS Local Account Creation via dscl",
+  "description": "Detects creation of local accounts using dscl . -create /Users, or sysadminctl -addUser, a persistence technique establishing a backdoor login on macOS.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "macos", "account-creation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/macos-dscl-user-add.sigma"],
+  "intent": {
+    "conditions": ["dscl . -create /Users, or sysadminctl -addUser"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "New local accounts on macOS provide durable backdoor access."
+  }
+}

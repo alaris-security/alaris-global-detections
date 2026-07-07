@@ -1,0 +1,28 @@
+title: macOS Kernel Extension Load
+id: 6898e1c7-3a65-4a0f-ad8a-bd11304e33f0
+status: experimental
+description: Detects kernel extension loading.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/006/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/kextload'
+      - '/kmutil'
+    CommandLine|contains:
+      - '.kext'
+      - 'load'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Legitimate driver installation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.006

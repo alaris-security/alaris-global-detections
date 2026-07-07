@@ -1,0 +1,32 @@
+title: macOS Dylib Hijacking
+id: 4e980d86-5c3d-481a-9ed6-c262ebc64600
+status: experimental
+description: Detects dylib hijacking file drops.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/004/
+logsource:
+  product: macos
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains:
+      - '.app/Contents/Frameworks/'
+      - '.app/Contents/MacOS/'
+    TargetFilename|endswith: '.dylib'
+  filter:
+    Image|endswith:
+      - '/installer'
+      - '/package_script_service'
+  condition: selection and not filter
+fields:
+  - TargetFilename
+  - Image
+  - User
+falsepositives:
+  - Application updates replacing bundled libraries
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.t1574.004

@@ -1,0 +1,18 @@
+{
+  "uuid": "18eb0458-9d0d-46a5-80e8-b3b46a146925",
+  "slug": "macos-sip-disable",
+  "title": "macOS System Integrity Protection Disabled",
+  "description": "Detects csrutil disable, which turns off System Integrity Protection, removing kernel-enforced protection of system files and enabling deep persistence and tampering.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "sip"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-sip-disable.sigma"],
+  "intent": {
+    "conditions": ["csrutil disable"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling SIP removes macOS's strongest protection of system integrity."
+  }
+}

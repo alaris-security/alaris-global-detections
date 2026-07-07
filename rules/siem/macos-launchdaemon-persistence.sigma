@@ -1,0 +1,25 @@
+title: macOS LaunchDaemon Persistence
+id: b3051af8-6bac-4f65-9bcc-d7f1018f20b0
+status: experimental
+description: Detects LaunchDaemon plist creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/004/
+logsource:
+  product: macos
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains: '/Library/LaunchDaemons/'
+    TargetFilename|endswith: '.plist'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+  - User
+falsepositives:
+  - Software installers adding daemons
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.004

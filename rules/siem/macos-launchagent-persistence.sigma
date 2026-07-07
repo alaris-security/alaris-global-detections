@@ -1,0 +1,25 @@
+title: macOS LaunchAgent Persistence
+id: 2cdcd60d-45c3-4aeb-9d0d-3bf42b78ba70
+status: experimental
+description: Detects LaunchAgent plist creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/001/
+logsource:
+  product: macos
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains: '/Library/LaunchAgents/'
+    TargetFilename|endswith: '.plist'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+  - User
+falsepositives:
+  - Legitimate application install adding a LaunchAgent
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.001

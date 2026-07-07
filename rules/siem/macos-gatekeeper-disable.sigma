@@ -1,0 +1,27 @@
+title: macOS Gatekeeper Disabled
+id: c0da6ba5-b53b-4f6f-bf4c-1ffa337c260c
+status: experimental
+description: Detects disabling of Gatekeeper.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1553/001/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/spctl'
+    CommandLine|contains:
+      - '--master-disable'
+      - '--global-disable'
+      - '--add'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Developers relaxing Gatekeeper for testing
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1553.001

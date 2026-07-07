@@ -1,0 +1,18 @@
+{
+  "uuid": "0cce19f0-8491-47f0-b19d-d1695da6a6bb",
+  "slug": "macos-gatekeeper-disable",
+  "title": "macOS Gatekeeper Disabled",
+  "description": "Detects spctl --master-disable or spctl --add, which turn off or bypass Gatekeeper code-signing enforcement, allowing unsigned or untrusted applications to run.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "gatekeeper"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1553.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-gatekeeper-disable.sigma"],
+  "intent": {
+    "conditions": ["spctl --master-disable or spctl --add"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling Gatekeeper lets unsigned malware execute without prompts."
+  }
+}

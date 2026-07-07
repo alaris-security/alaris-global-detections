@@ -1,0 +1,18 @@
+{
+  "uuid": "f9639e3b-16a5-4179-bffd-a92161f3e076",
+  "slug": "macos-emond-persistence",
+  "title": "macOS emond Rule Persistence",
+  "description": "Detects creation of Event Monitor (emond) rule plists under /etc/emond.d/rules or /private/var/db/emondClients, a lesser-known macOS persistence mechanism that runs commands on system events.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "macos", "emond"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.014", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/macos-emond-persistence.sigma"],
+  "intent": {
+    "conditions": ["File creation under emond rules directories"],
+    "dataSourceRequirements": ["macOS file telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "emond rules trigger commands on system events, an obscure persistence spot."
+  }
+}

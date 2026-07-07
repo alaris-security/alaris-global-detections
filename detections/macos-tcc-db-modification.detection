@@ -1,0 +1,18 @@
+{
+  "uuid": "cab2890b-f4af-4a9d-a6b2-228bc86139c1",
+  "slug": "macos-tcc-db-modification",
+  "title": "macOS TCC Database Manipulation",
+  "description": "Detects direct modification of the TCC.db privacy database via sqlite3 or tccutil resets, a technique to silently grant an app access to sensitive resources (camera, mic, full disk) bypassing user consent.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "macos", "tcc"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.006", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/macos-tcc-db-modification.sigma"],
+  "intent": {
+    "conditions": ["sqlite3 writing to TCC.db, or tccutil resets granting access"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Editing TCC.db grants privacy permissions without the user's consent."
+  }
+}

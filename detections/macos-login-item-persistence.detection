@@ -1,0 +1,18 @@
+{
+  "uuid": "303f7324-18e4-4d07-b82a-496fd26946f0",
+  "slug": "macos-login-item-persistence",
+  "title": "macOS Login Item Persistence",
+  "description": "Detects addition of login items via osascript System Events make login item or sfltool, a persistence technique that launches an application when the user logs in.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "macos", "login-item"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.015", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/macos-login-item-persistence.sigma"],
+  "intent": {
+    "conditions": ["osascript adding a login item, or sfltool add-item"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Login items auto-run apps at logon, a user-level persistence method."
+  }
+}

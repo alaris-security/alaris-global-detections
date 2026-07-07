@@ -1,0 +1,18 @@
+{
+  "uuid": "5d4979a5-e113-4500-93a8-458048dae3e6",
+  "slug": "macos-quarantine-removal",
+  "title": "macOS Quarantine Attribute Removal",
+  "description": "Detects xattr -d com.apple.quarantine or xattr -c stripping the quarantine flag from a downloaded file, which removes Gatekeeper's mark-of-the-web so the file runs without warnings.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "quarantine"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1553.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-quarantine-removal.sigma"],
+  "intent": {
+    "conditions": ["xattr removing com.apple.quarantine"],
+    "dataSourceRequirements": ["macOS process telemetry (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Stripping quarantine lets downloaded payloads execute without Gatekeeper prompts."
+  }
+}
