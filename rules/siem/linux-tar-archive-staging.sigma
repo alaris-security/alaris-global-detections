@@ -1,0 +1,33 @@
+title: Sensitive Directory Archived for Exfiltration
+id: 9d82bad5-77e1-4f18-ac65-d34daa3f7598
+status: experimental
+description: Detects creation of a compressed archive over sensitive directories (tar of /etc, /home, /root, or database data dirs), a staging step before exfiltration on Linux.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1560/001/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/tar'
+    CommandLine|contains:
+      - '/etc'
+      - '/home'
+      - '/root'
+      - '/var/lib/mysql'
+    CommandLine|contains:
+      - 'czf'
+      - 'cjf'
+      - '-c'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate backups
+level: medium
+tags:
+  - attack.collection
+  - attack.t1560.001

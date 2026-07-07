@@ -1,0 +1,18 @@
+{
+  "uuid": "3562c968-3174-4fb0-a190-0b3fd56a8b3d",
+  "slug": "linux-kubelet-api-access",
+  "title": "Direct Kubelet API Access",
+  "description": "Detects direct access to the kubelet API (port 10250 /run or /exec endpoints) via curl, which can be abused to execute commands in pods on a node bypassing the API server and its auditing.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "linux", "kubernetes"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/linux-kubelet-api-access.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects direct access to the kubelet API (port 10250 /run or /exec endpoints) via curl, which can be abused to execute commands in pods on a node bypassing the API server and its auditing."
+  }
+}

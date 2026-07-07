@@ -1,0 +1,18 @@
+{
+  "uuid": "e44ff496-0f0b-4735-a725-cc7937dd78e1",
+  "slug": "linux-http-server-staging",
+  "title": "Ad-hoc HTTP Server for Data Staging",
+  "description": "Detects launching an ad-hoc web server (python -m http.server, php -S, busybox httpd) on a host, frequently used by attackers to stage files for download or serve payloads to other hosts.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "linux", "staging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/linux-http-server-staging.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects launching an ad-hoc web server (python -m http.server, php -S, busybox httpd) on a host, frequently used by attackers to stage files for download or serve payloads to other hosts."
+  }
+}

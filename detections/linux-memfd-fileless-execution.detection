@@ -1,0 +1,18 @@
+{
+  "uuid": "d80f7eef-032e-4cb6-865c-850a72eeaac6",
+  "slug": "linux-memfd-fileless-execution",
+  "title": "Fileless Execution via memfd_create",
+  "description": "Detects execution of a process backed by an anonymous in-memory file (/proc/self/fd or /memfd: path as the executable), the memfd_create reflective-loading technique that runs binaries without touching disk.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "fileless"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1620", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-memfd-fileless-execution.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects execution of a process backed by an anonymous in-memory file (/proc/self/fd or /memfd: path as the executable), the memfd_create reflective-loading technique that runs binaries without touching disk."
+  }
+}

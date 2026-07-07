@@ -1,0 +1,28 @@
+title: Direct Kubelet API Access
+id: 71f56cf6-2be2-479d-b510-3d97c562349a
+status: experimental
+description: Detects direct access to the kubelet API (port 10250 /run or /exec endpoints) via curl, which can be abused to execute commands in pods on a node bypassing the API server and its auditing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: ':10250'
+    CommandLine|contains:
+      - '/run/'
+      - '/exec/'
+      - '/pods'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate node health tooling
+level: high
+tags:
+  - attack.execution
+  - attack.t1610

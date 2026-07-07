@@ -1,0 +1,28 @@
+title: SSHD Configuration Weakened
+id: 8b073495-cd9b-45cf-af88-8ddd98a581ff
+status: experimental
+description: Detects modification of sshd_config to weaken authentication (PermitRootLogin yes, PasswordAuthentication yes, PermitEmptyPasswords yes), which an attacker uses to preserve or broaden remote access.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'sshd_config'
+    CommandLine|contains:
+      - 'PermitRootLogin yes'
+      - 'PermitEmptyPasswords yes'
+      - 'PasswordAuthentication yes'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators adjusting SSH policy
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

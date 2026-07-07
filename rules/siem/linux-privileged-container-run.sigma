@@ -1,0 +1,30 @@
+title: Privileged Container Launched
+id: 7002584a-4bed-45ba-a74a-5b3dba5ce5e1
+status: experimental
+description: Detects docker run with --privileged or a host root bind mount (-v /:/host), which grants the container near-host capabilities and is used to break out onto the underlying node.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/docker'
+    CommandLine|contains: 'run'
+    CommandLine|contains:
+      - '--privileged'
+      - '-v /:/'
+      - '--pid=host'
+      - '--net=host'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate privileged workloads
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1610

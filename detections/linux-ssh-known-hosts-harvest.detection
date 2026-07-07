@@ -1,0 +1,18 @@
+{
+  "uuid": "5a151bae-14fa-4a7d-b708-caf351e87df6",
+  "slug": "linux-ssh-known-hosts-harvest",
+  "title": "SSH known_hosts and Config Harvesting",
+  "description": "Detects reading of SSH known_hosts and config files to enumerate previously-connected hosts, a discovery technique used to identify lateral-movement targets from a compromised system.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "linux", "ssh"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1018", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/linux-ssh-known-hosts-harvest.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects reading of SSH known_hosts and config files to enumerate previously-connected hosts, a discovery technique used to identify lateral-movement targets from a compromised system."
+  }
+}

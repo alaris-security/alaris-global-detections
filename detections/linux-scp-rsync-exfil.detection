@@ -1,0 +1,18 @@
+{
+  "uuid": "6aaef357-56e7-4a5b-94f8-7ebee9b65408",
+  "slug": "linux-scp-rsync-exfil",
+  "title": "Data Exfiltration via scp/rsync",
+  "description": "Detects bulk transfer of files to an external host via scp or rsync over SSH, an alternative-protocol exfiltration channel that blends with legitimate administration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "linux", "scp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1048", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/linux-scp-rsync-exfil.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects bulk transfer of files to an external host via scp or rsync over SSH, an alternative-protocol exfiltration channel that blends with legitimate administration."
+  }
+}

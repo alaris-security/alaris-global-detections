@@ -1,0 +1,18 @@
+{
+  "uuid": "6feb0135-5b63-4947-b3a5-6ba581d4dbc9",
+  "slug": "linux-docker-socket-mount",
+  "title": "Docker Socket Access for Escape",
+  "description": "Detects use of the Docker daemon socket (/var/run/docker.sock) via the docker CLI or curl from within a container to launch a privileged container, a common container-escape and host-takeover technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "docker", "container-escape"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-docker-socket-mount.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the Docker daemon socket (/var/run/docker.sock) via the docker CLI or curl from within a container to launch a privileged container, a common container-escape and host-takeover technique."
+  }
+}

@@ -1,0 +1,28 @@
+title: Docker Socket Access for Escape
+id: d6e556c2-618d-4cbe-bf87-41558705967c
+status: experimental
+description: Detects use of the Docker daemon socket (/var/run/docker.sock) via the docker CLI or curl from within a container to launch a privileged container, a common container-escape and host-takeover technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: '/var/run/docker.sock'
+    CommandLine|contains:
+      - 'docker run'
+      - 'curl'
+      - 'containers/create'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate Docker-in-Docker tooling
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1610

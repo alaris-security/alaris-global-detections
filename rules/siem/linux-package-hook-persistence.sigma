@@ -1,0 +1,32 @@
+title: Package Manager Hook Persistence
+id: 98aa68a6-cba7-4d2c-87eb-1d674021fecf
+status: experimental
+description: Detects creation of package-manager hooks (APT DPkg::Pre-Invoke in apt.conf.d, yum/dnf plugins) that run attacker commands whenever software is installed or updated, an under-monitored persistence location.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/etc/apt/apt.conf.d/'
+      - 'DPkg::Pre-Invoke'
+      - 'DPkg::Post-Invoke'
+      - '/etc/yum/pluginconf.d/'
+    CommandLine|contains:
+      - 'echo '
+      - 'tee '
+      - '>>'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate package configuration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546

@@ -1,0 +1,18 @@
+{
+  "uuid": "92be95a4-73d5-47bf-802c-0ae6f96edb39",
+  "slug": "linux-systemd-run-transient",
+  "title": "Transient Command Execution via systemd-run",
+  "description": "Detects use of systemd-run to launch a transient unit, which executes a command under systemd with elevated context and can obscure the parent relationship, a lesser-known execution technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "linux", "systemd"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1569", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/linux-systemd-run-transient.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of systemd-run to launch a transient unit, which executes a command under systemd with elevated context and can obscure the parent relationship, a lesser-known execution technique."
+  }
+}

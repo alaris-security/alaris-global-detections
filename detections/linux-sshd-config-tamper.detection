@@ -1,0 +1,18 @@
+{
+  "uuid": "9e463ce3-96e1-4242-8147-e2f7830ca12b",
+  "slug": "linux-sshd-config-tamper",
+  "title": "SSHD Configuration Weakened",
+  "description": "Detects modification of sshd_config to weaken authentication (PermitRootLogin yes, PasswordAuthentication yes, PermitEmptyPasswords yes), which an attacker uses to preserve or broaden remote access.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "ssh"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-sshd-config-tamper.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects modification of sshd_config to weaken authentication (PermitRootLogin yes, PasswordAuthentication yes, PermitEmptyPasswords yes), which an attacker uses to preserve or broaden remote access."
+  }
+}

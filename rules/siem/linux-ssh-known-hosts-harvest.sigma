@@ -1,0 +1,31 @@
+title: SSH known_hosts and Config Harvesting
+id: 9d200bf3-8191-4dd2-861f-fb81ed9934f0
+status: experimental
+description: Detects reading of SSH known_hosts and config files to enumerate previously-connected hosts, a discovery technique used to identify lateral-movement targets from a compromised system.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1018/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.ssh/known_hosts'
+      - '.ssh/config'
+    Image|endswith:
+      - '/cat'
+      - '/grep'
+      - '/less'
+      - '/awk'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Users inspecting their SSH configuration
+level: low
+tags:
+  - attack.discovery
+  - attack.t1018

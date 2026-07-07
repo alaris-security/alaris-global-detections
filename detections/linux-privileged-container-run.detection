@@ -1,0 +1,18 @@
+{
+  "uuid": "5a9be387-f0b7-471b-aaa5-2a535f8aa226",
+  "slug": "linux-privileged-container-run",
+  "title": "Privileged Container Launched",
+  "description": "Detects docker run with --privileged or a host root bind mount (-v /:/host), which grants the container near-host capabilities and is used to break out onto the underlying node.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "docker"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/linux-privileged-container-run.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects docker run with --privileged or a host root bind mount (-v /:/host), which grants the container near-host capabilities and is used to break out onto the underlying node."
+  }
+}

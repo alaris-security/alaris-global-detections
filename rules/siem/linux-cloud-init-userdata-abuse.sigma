@@ -1,0 +1,30 @@
+title: Cloud-Init User-Data Persistence
+id: d1106331-869c-4a90-b69e-ae1266fd3b3c
+status: experimental
+description: Detects modification of cloud-init user-data or scripts under /var/lib/cloud, which run at boot on cloud instances and can be abused to persist attacker code across instance restarts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/var/lib/cloud/'
+      - '/etc/cloud/cloud.cfg'
+    CommandLine|contains:
+      - 'echo '
+      - 'tee '
+      - '>>'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate cloud provisioning
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

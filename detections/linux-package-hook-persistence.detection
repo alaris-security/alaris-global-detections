@@ -1,0 +1,18 @@
+{
+  "uuid": "f1d35580-3e3a-4d3b-9538-bed8827e02e2",
+  "slug": "linux-package-hook-persistence",
+  "title": "Package Manager Hook Persistence",
+  "description": "Detects creation of package-manager hooks (APT DPkg::Pre-Invoke in apt.conf.d, yum/dnf plugins) that run attacker commands whenever software is installed or updated, an under-monitored persistence location.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "package-manager"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-package-hook-persistence.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of package-manager hooks (APT DPkg::Pre-Invoke in apt.conf.d, yum/dnf plugins) that run attacker commands whenever software is installed or updated, an under-monitored persistence location."
+  }
+}

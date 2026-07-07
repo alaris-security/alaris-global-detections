@@ -1,0 +1,18 @@
+{
+  "uuid": "aaae06ee-13c7-4958-9b04-75c0789e5fff",
+  "slug": "linux-cloud-init-userdata-abuse",
+  "title": "Cloud-Init User-Data Persistence",
+  "description": "Detects modification of cloud-init user-data or scripts under /var/lib/cloud, which run at boot on cloud instances and can be abused to persist attacker code across instance restarts.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "linux", "cloud-init"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/linux-cloud-init-userdata-abuse.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects modification of cloud-init user-data or scripts under /var/lib/cloud, which run at boot on cloud instances and can be abused to persist attacker code across instance restarts."
+  }
+}

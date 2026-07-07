@@ -1,0 +1,18 @@
+{
+  "uuid": "fd40d55a-8cd4-4098-80e4-395b01e623f9",
+  "slug": "linux-ebpf-rootkit-load",
+  "title": "Suspicious eBPF Program Load",
+  "description": "Detects loading of eBPF programs via bpftool or unusual bpf() usage from non-observability processes, a technique modern Linux rootkits use to hide processes, files, and network connections in kernel space.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "ebpf", "rootkit"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1014", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/linux-ebpf-rootkit-load.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects loading of eBPF programs via bpftool or unusual bpf() usage from non-observability processes, a technique modern Linux rootkits use to hide processes, files, and network connections in kernel space."
+  }
+}

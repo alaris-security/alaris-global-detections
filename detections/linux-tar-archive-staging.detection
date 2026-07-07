@@ -1,0 +1,18 @@
+{
+  "uuid": "6feb0135-5b63-4947-b3a5-6ba581d4dbca",
+  "slug": "linux-tar-archive-staging",
+  "title": "Sensitive Directory Archived for Exfiltration",
+  "description": "Detects creation of a compressed archive over sensitive directories (tar of /etc, /home, /root, or database data dirs), a staging step before exfiltration on Linux.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "linux", "archive"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1560.001", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/linux-tar-archive-staging.sigma"],
+  "intent": {
+    "conditions": ["Linux process/audit event matching the described pattern"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of a compressed archive over sensitive directories (tar of /etc, /home, /root, or database data dirs), a staging step before exfiltration on Linux."
+  }
+}

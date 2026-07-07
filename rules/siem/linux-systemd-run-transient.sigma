@@ -1,0 +1,28 @@
+title: Transient Command Execution via systemd-run
+id: ac8d7dbc-265a-4bd5-a1b8-d91041ee7983
+status: experimental
+description: Detects use of systemd-run to launch a transient unit, which executes a command under systemd with elevated context and can obscure the parent relationship, a lesser-known execution technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1569/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/systemd-run'
+    CommandLine|contains:
+      - '--scope'
+      - '-t'
+      - '--uid'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators using systemd-run
+level: medium
+tags:
+  - attack.execution
+  - attack.t1569
