@@ -1,0 +1,27 @@
+title: Rundll32 JavaScript Protocol Execution
+id: 0e9f9832-504e-430d-b6c3-36900b4e19c4
+status: experimental
+description: Detects rundll32 javascript protocol abuse.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/011/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains:
+      - 'javascript:'
+      - 'RunHTMLApplication'
+      - 'mshtml'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Very rare legitimate use
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218.011

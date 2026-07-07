@@ -1,0 +1,18 @@
+{
+  "uuid": "8c536f5b-305c-411f-8179-83b38ed64e4e",
+  "slug": "lolbin-wmic-xsl-execution",
+  "title": "WMIC XSL Script Execution (Squiblytwo)",
+  "description": "Detects wmic.exe using /format: or /output: with a remote or local .xsl stylesheet to execute embedded script (Squiblytwo), a signed proxy-execution and allowlist bypass technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "xsl-script-processing", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1220", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-wmic-xsl-execution.sigma"],
+  "intent": {
+    "conditions": ["Image is wmic.exe", "CommandLine contains /format: or /output: with .xsl or http"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "wmic can run JScript/VBScript embedded in XSL, bypassing script controls."
+  }
+}

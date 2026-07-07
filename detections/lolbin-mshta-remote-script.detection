@@ -1,0 +1,18 @@
+{
+  "uuid": "d6dcf403-81c7-4c5b-b160-205171cbc4bd",
+  "slug": "lolbin-mshta-remote-script",
+  "title": "Mshta Remote HTA or Inline Script Execution",
+  "description": "Detects mshta.exe executing remote HTA files over http(s) or inline vbscript/javascript, a signed proxy-execution method to run attacker code and bypass allowlisting.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.005", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-mshta-remote-script.sigma"],
+  "intent": {
+    "conditions": ["Image is mshta.exe", "CommandLine references http(s), javascript:, or vbscript:"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "mshta runs HTML applications with full trust and is a favorite for phishing droppers."
+  }
+}

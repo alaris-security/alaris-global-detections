@@ -1,0 +1,28 @@
+title: MSDT Follina Diagnostic Tool Abuse
+id: b5f09660-48e1-4c02-ae00-bad62219bc30
+status: experimental
+description: Detects msdt Follina exploitation patterns.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\msdt.exe'
+    CommandLine|contains:
+      - 'ms-msdt'
+      - 'PCWDiagnostic'
+      - 'IT_BrowseForFile'
+      - 'IT_RebrowseForFile'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Genuine troubleshooter invocation by the user
+level: high
+tags:
+  - attack.execution
+  - attack.t1218

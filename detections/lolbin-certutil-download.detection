@@ -1,0 +1,18 @@
+{
+  "uuid": "81948c17-d7de-457c-a608-cc627485d6a9",
+  "slug": "lolbin-certutil-download",
+  "title": "Certutil Used to Download or Decode Payloads",
+  "description": "Detects certutil.exe invoked with -urlcache, -verifyctl, or -decode arguments to fetch remote files or decode base64 blobs, a signed LOLBin technique for ingress transfer and deobfuscation.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1105", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/lolbin-certutil-download.sigma"],
+  "intent": {
+    "conditions": ["Image is certutil.exe", "CommandLine contains -urlcache, -verifyctl, -split, or -decode"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "certutil is a trusted binary abused to pull tooling and decode payloads past download controls."
+  }
+}

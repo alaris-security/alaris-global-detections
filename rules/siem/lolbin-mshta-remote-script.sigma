@@ -1,0 +1,28 @@
+title: Mshta Remote HTA or Inline Script Execution
+id: be44bd93-667e-4a6e-9eef-b0b9cafde8ce
+status: experimental
+description: Detects mshta executing remote or inline scripts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\mshta.exe'
+    CommandLine|contains:
+      - 'http'
+      - 'javascript:'
+      - 'vbscript:'
+      - '.hta'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Legacy internal HTA-based line-of-business tools
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218.005

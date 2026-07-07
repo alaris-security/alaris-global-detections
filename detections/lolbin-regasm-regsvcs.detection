@@ -1,0 +1,18 @@
+{
+  "uuid": "bcb33c22-5299-4576-ba41-4d60eeb6a0f5",
+  "slug": "lolbin-regasm-regsvcs",
+  "title": "RegAsm/RegSvcs Assembly Proxy Execution",
+  "description": "Detects regasm.exe or regsvcs.exe registering a .NET assembly to trigger its ComRegisterFunction/UnRegister code, a signed developer-utility LOLBin used to execute code and bypass allowlisting.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "trusted-developer-utility", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.009", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-regasm-regsvcs.sigma"],
+  "intent": {
+    "conditions": ["Image is regasm.exe or regsvcs.exe", "Assembly path is in a user-writable directory"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "These .NET tools run register/unregister callbacks in the target assembly, a code-exec bypass."
+  }
+}

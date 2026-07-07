@@ -1,0 +1,31 @@
+title: Forfiles Proxy Command Execution
+id: 6e3cf4da-0b95-4543-8c54-645540fea622
+status: experimental
+description: Detects forfiles used to proxy command execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\forfiles.exe'
+    CommandLine|contains: '/c'
+  selection_cmd:
+    CommandLine|contains:
+      - 'cmd'
+      - 'powershell'
+      - 'wscript'
+      - 'cscript'
+      - 'rundll32'
+  condition: selection and selection_cmd
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Batch maintenance scripts using forfiles legitimately
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218

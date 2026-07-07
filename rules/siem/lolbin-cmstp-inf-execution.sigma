@@ -1,0 +1,27 @@
+title: CMSTP INF Command Execution and UAC Bypass
+id: ff5f919a-b54c-4813-be79-7c09703789ae
+status: experimental
+description: Detects cmstp INF-based command execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\cmstp.exe'
+    CommandLine|contains:
+      - '/s'
+      - '.inf'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Legitimate VPN connection manager profile installation
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.privilege_escalation
+  - attack.t1218.003

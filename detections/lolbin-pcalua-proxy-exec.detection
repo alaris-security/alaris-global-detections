@@ -1,0 +1,18 @@
+{
+  "uuid": "b0a6f7fb-be4a-4959-aba9-bdc30a3a2f51",
+  "slug": "lolbin-pcalua-proxy-exec",
+  "title": "Pcalua Program Compatibility Proxy Execution",
+  "description": "Detects pcalua.exe (Program Compatibility Assistant) launched with -a to execute an arbitrary program, a signed LOLBin used to proxy execution and evade parent-based detections.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-pcalua-proxy-exec.sigma"],
+  "intent": {
+    "conditions": ["Image is pcalua.exe", "CommandLine contains -a followed by an executable"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "pcalua -a runs a chosen program under the compatibility assistant, masking the launcher."
+  }
+}

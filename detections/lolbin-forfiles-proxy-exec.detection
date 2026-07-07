@@ -1,0 +1,18 @@
+{
+  "uuid": "76db0c07-2e43-4ae7-bcda-82a60a6f552d",
+  "slug": "lolbin-forfiles-proxy-exec",
+  "title": "Forfiles Proxy Command Execution",
+  "description": "Detects forfiles.exe using /c to spawn cmd or powershell, a signed LOLBin used to proxy-execute commands and obscure the true parent-child process lineage.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-forfiles-proxy-exec.sigma"],
+  "intent": {
+    "conditions": ["Image is forfiles.exe", "CommandLine contains /c with cmd, powershell, or a script host"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "forfiles /c breaks process lineage, hiding the real launcher of malicious commands."
+  }
+}

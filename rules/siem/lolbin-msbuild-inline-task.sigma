@@ -1,0 +1,30 @@
+title: MSBuild Inline Task Code Execution
+id: 67f96abe-016d-46b0-85f6-734503de0136
+status: experimental
+description: Detects msbuild running project files from suspicious paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1127/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\msbuild.exe'
+  selection_path:
+    CommandLine|contains:
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+      - '\Downloads\'
+  condition: selection and selection_path
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Developers building projects from non-standard directories
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1127.001

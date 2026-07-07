@@ -1,0 +1,18 @@
+{
+  "uuid": "9a29e9b9-fc4e-4921-bf83-6a67dc6d7f97",
+  "slug": "lolbin-msbuild-inline-task",
+  "title": "MSBuild Inline Task Code Execution",
+  "description": "Detects msbuild.exe compiling and running inline C# tasks from project files in user-writable locations, a trusted-developer-tool method to execute arbitrary code and bypass allowlisting.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "trusted-developer-utility", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1127.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-msbuild-inline-task.sigma"],
+  "intent": {
+    "conditions": ["Image is msbuild.exe", "Project path is under Temp/AppData/Public or references .csproj/.xml in user space"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {"developerBuildPaths": ["C:\\src\\", "C:\\build\\"]},
+    "sourceContext": "MSBuild inline tasks let attackers run C# without a compiler, cloaked as a build."
+  }
+}

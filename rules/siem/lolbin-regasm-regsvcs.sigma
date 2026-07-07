@@ -1,0 +1,31 @@
+title: RegAsm/RegSvcs Assembly Proxy Execution
+id: af02491f-8239-433f-b242-f194ee20022a
+status: experimental
+description: Detects regasm/regsvcs execution from suspicious paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/009/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\regasm.exe'
+      - '\regsvcs.exe'
+  selection_path:
+    CommandLine|contains:
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+  condition: selection and selection_path
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Developer registration of COM assemblies
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218.009

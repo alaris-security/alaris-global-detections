@@ -1,0 +1,18 @@
+{
+  "uuid": "7f7b4392-2313-4aa7-a4cb-4b2fad45ad2d",
+  "slug": "lolbin-msdt-follina",
+  "title": "MSDT Follina Diagnostic Tool Abuse",
+  "description": "Detects msdt.exe launched with an ms-msdt URI or PCWDiagnostic payload containing IT_BrowseForFile/PowerShell, the Follina (CVE-2022-30190) code-execution technique often triggered from Office documents.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "follina", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/lolbin-msdt-follina.sigma"],
+  "intent": {
+    "conditions": ["Image is msdt.exe", "CommandLine contains ms-msdt, PCWDiagnostic, or IT_BrowseForFile"],
+    "dataSourceRequirements": ["Process creation telemetry with command line and parent"],
+    "tuningParameters": {},
+    "sourceContext": "msdt spawned from Office with an ms-msdt payload is the Follina exploitation pattern."
+  }
+}

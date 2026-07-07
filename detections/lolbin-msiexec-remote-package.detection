@@ -1,0 +1,18 @@
+{
+  "uuid": "c96cbbec-d009-45b1-8588-0374c739d9dc",
+  "slug": "lolbin-msiexec-remote-package",
+  "title": "Msiexec Remote MSI Package Installation",
+  "description": "Detects msiexec.exe installing an MSI package directly from an http(s) URL (/i /q), a signed proxy-execution technique to fetch and run attacker code silently.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.007", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-msiexec-remote-package.sigma"],
+  "intent": {
+    "conditions": ["Image is msiexec.exe", "CommandLine contains an http(s) URL and /i or /q"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Remote MSI install is a stealthy download-and-execute channel through a trusted installer."
+  }
+}
