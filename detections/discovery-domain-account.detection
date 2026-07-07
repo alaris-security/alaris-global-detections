@@ -1,0 +1,18 @@
+{
+  "uuid": "3ae8d727-3bf4-4f3f-b8b1-fc51007d012b",
+  "slug": "discovery-domain-account",
+  "title": "Domain Account Discovery",
+  "description": "Detects enumeration of domain accounts via net user /domain, dsquery, and Get-ADUser, used to build a target list of domain identities during an intrusion.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "account-discovery", "active-directory"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1087.002", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-domain-account.sigma"],
+  "intent": {
+    "conditions": ["net user /domain, dsquery user, or Get-ADUser -Filter *"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Domain account enumeration is a hallmark of AD reconnaissance."
+  }
+}

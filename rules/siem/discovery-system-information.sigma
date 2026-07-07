@@ -1,0 +1,29 @@
+title: System Information Discovery
+id: 417a40ab-f5e0-4d3b-a54f-3402ee12c9fb
+status: experimental
+description: Detects system information discovery commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1082/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_systeminfo:
+    Image|endswith: '\systeminfo.exe'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains:
+      - 'os get'
+      - 'computersystem get'
+      - 'bios get'
+  condition: selection_systeminfo or selection_wmic
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Inventory and asset management scripts
+level: low
+tags:
+  - attack.discovery
+  - attack.t1082

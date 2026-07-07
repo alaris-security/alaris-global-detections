@@ -1,0 +1,18 @@
+{
+  "uuid": "2a0ebb2c-9608-408b-98c3-a1aaebbe8542",
+  "slug": "discovery-network-connections",
+  "title": "Network Connection Discovery",
+  "description": "Detects enumeration of active network connections and sessions via netstat -ano and net use, used to identify existing sessions and pivot opportunities.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "network-connections"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1049", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-network-connections.sigma"],
+  "intent": {
+    "conditions": ["netstat -ano/-anob, or net use listing"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Active connection discovery reveals sessions to abuse for movement."
+  }
+}

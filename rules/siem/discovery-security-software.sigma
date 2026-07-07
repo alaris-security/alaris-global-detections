@@ -1,0 +1,37 @@
+title: Security Software Discovery
+id: 977d31ac-1c30-4bf2-bbc9-927c6174a17f
+status: experimental
+description: Detects enumeration of security software.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1518/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'MsMpEng'
+      - 'CrowdStrike'
+      - 'csfalcon'
+      - 'SentinelOne'
+      - 'CarbonBlack'
+      - 'cb.exe'
+      - 'cylance'
+      - 'Sysmon'
+      - 'Defender'
+    Image|endswith:
+      - '\tasklist.exe'
+      - '\sc.exe'
+      - '\wmic.exe'
+      - '\findstr.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - IT verifying agent health
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1518.001

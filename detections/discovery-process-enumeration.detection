@@ -1,0 +1,18 @@
+{
+  "uuid": "36b86c66-9bac-4cff-9247-e27be63f904e",
+  "slug": "discovery-process-enumeration",
+  "title": "Process Enumeration Discovery",
+  "description": "Detects listing of running processes via tasklist or wmic process, often used to locate security tooling, credential stores, or injection targets.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "process-discovery"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1057", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-process-enumeration.sigma"],
+  "intent": {
+    "conditions": ["tasklist /v /svc, or wmic process list"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Process listing reveals defenses and interesting targets to an attacker."
+  }
+}

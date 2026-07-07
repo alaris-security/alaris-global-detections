@@ -1,0 +1,18 @@
+{
+  "uuid": "7d3285cf-479d-4a91-a64f-780191bb0b48",
+  "slug": "discovery-file-and-directory",
+  "title": "Broad File and Directory Discovery",
+  "description": "Detects broad filesystem enumeration such as dir /s of a whole drive, tree, or recursive Get-ChildItem, often used to locate sensitive documents prior to collection and exfiltration.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "file-discovery"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1083", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-file-and-directory.sigma"],
+  "intent": {
+    "conditions": ["dir /s from a drive root, tree, or recursive Get-ChildItem across drives"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Wide directory sweeps precede document theft."
+  }
+}

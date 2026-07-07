@@ -1,0 +1,18 @@
+{
+  "uuid": "328c30be-9864-4f2d-bf81-8b7adf1beb0b",
+  "slug": "discovery-system-information",
+  "title": "System Information Discovery",
+  "description": "Detects host profiling via systeminfo, hostname, ver, and wmic os/computersystem queries, used by attackers and malware to fingerprint the environment and detect sandboxes.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "system-information"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1082", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-system-information.sigma"],
+  "intent": {
+    "conditions": ["systeminfo, or wmic os/computersystem get queries"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Host fingerprinting feeds targeting decisions and sandbox evasion."
+  }
+}

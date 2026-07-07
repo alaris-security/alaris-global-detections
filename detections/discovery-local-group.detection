@@ -1,0 +1,18 @@
+{
+  "uuid": "6e514f3d-81b8-4c74-9f58-3cd2ad0c9d6b",
+  "slug": "discovery-local-group",
+  "title": "Local Group Membership Discovery",
+  "description": "Detects enumeration of local group membership (especially Administrators) via net localgroup and Get-LocalGroupMember, used to find privileged accounts on a host.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "group-discovery"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1069.001", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-local-group.sigma"],
+  "intent": {
+    "conditions": ["net localgroup administrators, or Get-LocalGroupMember"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Local admin membership shows which accounts can be leveraged on the host."
+  }
+}

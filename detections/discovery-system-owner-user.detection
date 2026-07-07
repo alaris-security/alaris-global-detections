@@ -1,0 +1,18 @@
+{
+  "uuid": "e21552f4-9559-437c-99e7-fba24711270a",
+  "slug": "discovery-system-owner-user",
+  "title": "System Owner and Logged-On User Discovery",
+  "description": "Detects reconnaissance of the current user and interactive sessions via whoami, query user, and quser, typically run early after a foothold to understand privileges and who is logged in.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "system-owner"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1033", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-system-owner-user.sigma"],
+  "intent": {
+    "conditions": ["whoami with /all or /priv, or query user/quser"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Identity and session discovery is a near-universal early post-exploitation step."
+  }
+}

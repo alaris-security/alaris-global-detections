@@ -1,0 +1,18 @@
+{
+  "uuid": "337a9d2f-3b11-45f2-bc6a-9a27a36b2d6a",
+  "slug": "discovery-domain-trust",
+  "title": "Domain Trust Discovery",
+  "description": "Detects enumeration of domain trust relationships via nltest /domain_trusts, Get-ADTrust, and dsquery, used to plan cross-domain and cross-forest attacks.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "domain-trust", "active-directory"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1482", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-domain-trust.sigma"],
+  "intent": {
+    "conditions": ["nltest /domain_trusts, Get-ADTrust, or dsquery trust"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Trust mapping enables movement across domain boundaries."
+  }
+}

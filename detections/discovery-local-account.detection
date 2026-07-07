@@ -1,0 +1,18 @@
+{
+  "uuid": "f753e1ac-5f7b-4db4-a29c-a4c0f9e4770f",
+  "slug": "discovery-local-account",
+  "title": "Local Account Discovery",
+  "description": "Detects enumeration of local user accounts via net user and Get-LocalUser, used to map available identities for privilege escalation and lateral movement.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "account-discovery"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1087.001", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-local-account.sigma"],
+  "intent": {
+    "conditions": ["net user (no /domain), or Get-LocalUser"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Local account discovery maps identities on a compromised host."
+  }
+}

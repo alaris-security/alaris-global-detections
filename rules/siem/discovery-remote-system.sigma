@@ -1,0 +1,31 @@
+title: Remote System Discovery
+id: c6d41e9f-f40e-48c3-8487-f614ce882721
+status: experimental
+description: Detects remote system discovery commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1018/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_netview:
+    Image|endswith:
+      - '\net.exe'
+      - '\net1.exe'
+    CommandLine|contains: 'view'
+  selection_nltest:
+    Image|endswith: '\nltest.exe'
+    CommandLine|contains:
+      - '/dclist'
+      - '/dsgetdc'
+  condition: selection_netview or selection_nltest
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Logon scripts using net view
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1018

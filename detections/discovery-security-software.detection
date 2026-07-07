@@ -1,0 +1,18 @@
+{
+  "uuid": "451c0d39-9218-48e0-95a3-fb9bc673d8f8",
+  "slug": "discovery-security-software",
+  "title": "Security Software Discovery",
+  "description": "Detects attempts to enumerate installed security products by filtering tasklist or sc query for common AV/EDR process and service names, used to plan evasion.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "security-software"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1518.001", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-security-software.sigma"],
+  "intent": {
+    "conditions": ["tasklist/sc/wmic query filtered for AV or EDR names"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Knowing which defenses run informs the attacker's evasion strategy."
+  }
+}

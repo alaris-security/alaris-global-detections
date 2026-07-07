@@ -1,0 +1,27 @@
+title: Domain Trust Discovery
+id: 006e8abe-afa9-475d-9a44-aaf28275edfd
+status: experimental
+description: Detects domain trust discovery commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1482/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/domain_trusts'
+      - 'Get-ADTrust'
+      - 'dsquery * -filter "(objectClass=trustedDomain)"'
+      - 'nltest /trusted_domains'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Directory administrators auditing trusts
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1482

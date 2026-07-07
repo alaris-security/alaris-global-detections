@@ -1,0 +1,28 @@
+title: Network Connection Discovery
+id: 2d55530c-7d9e-4ca5-b5d1-0d1a7eadbc43
+status: experimental
+description: Detects network connection discovery commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1049/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_netstat:
+    Image|endswith: '\netstat.exe'
+  selection_netuse:
+    Image|endswith:
+      - '\net.exe'
+      - '\net1.exe'
+    CommandLine|contains: 'use'
+  condition: selection_netstat or selection_netuse
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Network diagnostics
+level: low
+tags:
+  - attack.discovery
+  - attack.t1049

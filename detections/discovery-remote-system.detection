@@ -1,0 +1,18 @@
+{
+  "uuid": "f01bf78c-0867-41ab-8519-3799080a6833",
+  "slug": "discovery-remote-system",
+  "title": "Remote System Discovery",
+  "description": "Detects enumeration of other hosts and domain controllers via net view, nltest /dclist, and ping sweeps, used to map reachable systems for lateral movement.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "remote-system"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1018", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-remote-system.sigma"],
+  "intent": {
+    "conditions": ["net view, nltest /dclist or /dsgetdc, or scripted ping sweeps"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Mapping reachable hosts and DCs precedes lateral movement."
+  }
+}

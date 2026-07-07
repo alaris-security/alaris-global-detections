@@ -1,0 +1,18 @@
+{
+  "uuid": "66ec257f-e273-496d-95dd-4afd7ad4fb35",
+  "slug": "discovery-network-configuration",
+  "title": "Network Configuration Discovery",
+  "description": "Detects host network reconnaissance via ipconfig /all, arp -a, route print, and getmac, used to understand the network position of a compromised host.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "network-configuration"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1016", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-network-configuration.sigma"],
+  "intent": {
+    "conditions": ["ipconfig /all, arp -a, route print, or getmac"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Network config discovery orients an attacker within the environment."
+  }
+}

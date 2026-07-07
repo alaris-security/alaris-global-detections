@@ -1,0 +1,18 @@
+{
+  "uuid": "26070b28-37ed-49ed-98bf-5a35a0b29937",
+  "slug": "discovery-sharphound-collection",
+  "title": "BloodHound SharpHound Collection Activity",
+  "description": "Detects execution of SharpHound collectors by command-line collection method flags (CollectionMethod All/DCOnly, --zipfilename, invoke-bloodhound), used to graph attack paths across Active Directory.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["discovery", "bloodhound", "active-directory"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1087.002", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-sharphound-collection.sigma"],
+  "intent": {
+    "conditions": ["CommandLine references CollectionMethod, Invoke-BloodHound, or SharpHound zip output"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "SharpHound collection maps the entire AD attack surface for an intruder."
+  }
+}

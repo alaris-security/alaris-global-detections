@@ -1,0 +1,28 @@
+title: Local Group Membership Discovery
+id: cefbfba1-2892-4d8b-b23a-9d198be5d9ee
+status: experimental
+description: Detects local group membership enumeration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1069/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_net:
+    Image|endswith:
+      - '\net.exe'
+      - '\net1.exe'
+    CommandLine|contains: 'localgroup'
+  selection_ps:
+    CommandLine|contains: 'Get-LocalGroupMember'
+  condition: selection_net or selection_ps
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrators auditing local privileges
+level: low
+tags:
+  - attack.discovery
+  - attack.t1069.001

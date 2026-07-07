@@ -1,0 +1,18 @@
+{
+  "uuid": "c5e08cfe-d64e-41a4-b3cb-be075a475d22",
+  "slug": "discovery-domain-group",
+  "title": "Domain Group Discovery (Privileged Groups)",
+  "description": "Detects enumeration of privileged domain groups such as Domain Admins and Enterprise Admins via net group /domain and Get-ADGroupMember, used to identify high-value targets.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "group-discovery", "active-directory"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1069.002", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/discovery-domain-group.sigma"],
+  "intent": {
+    "conditions": ["net group /domain referencing privileged groups, or Get-ADGroupMember"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Finding members of Domain Admins points attackers at the accounts worth stealing."
+  }
+}

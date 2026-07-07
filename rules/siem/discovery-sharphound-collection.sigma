@@ -1,0 +1,29 @@
+title: BloodHound SharpHound Collection Activity
+id: 5513ed38-dd0a-4b73-8a4d-31f480016304
+status: experimental
+description: Detects SharpHound/BloodHound collection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1087/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'CollectionMethod'
+      - 'Invoke-BloodHound'
+      - 'SharpHound'
+      - '--zipfilename'
+      - 'DCOnly'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Authorized red team assessments
+level: high
+tags:
+  - attack.discovery
+  - attack.t1087.002

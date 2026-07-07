@@ -1,0 +1,26 @@
+title: Process Enumeration Discovery
+id: 73e9920f-00f7-49a2-8ad2-c062c304d854
+status: experimental
+description: Detects process enumeration commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1057/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_tasklist:
+    Image|endswith: '\tasklist.exe'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains: 'process'
+  condition: selection_tasklist or selection_wmic
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Monitoring agents and administrators
+level: low
+tags:
+  - attack.discovery
+  - attack.t1057
