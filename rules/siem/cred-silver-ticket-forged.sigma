@@ -1,0 +1,27 @@
+title: Silver Ticket Forgery
+id: 43efb641-9b68-4224-8b1f-e252e064b62b
+status: experimental
+description: Detects Silver Ticket forgery tooling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1558/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: '/service:'
+    CommandLine|contains:
+      - 'kerberos::golden'
+      - 'silver'
+      - '/rc4:'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized penetration testing
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1558.002

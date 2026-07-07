@@ -1,0 +1,18 @@
+{
+  "uuid": "d65fd3f1-ecdc-4b4e-8d88-f73f6015caf0",
+  "slug": "cred-llmnr-nbtns-poisoning",
+  "title": "LLMNR/NBT-NS Poisoning Tooling",
+  "description": "Detects execution of name-resolution poisoning tools (Responder, Inveigh) that spoof LLMNR/NBT-NS/mDNS responses to capture NTLM authentication material for offline cracking or relay.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "llmnr", "responder"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1557.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-llmnr-nbtns-poisoning.sigma"],
+  "intent": {
+    "conditions": ["Execution of Responder/Inveigh or their characteristic flags"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "LLMNR/NBT-NS poisoning harvests NTLM hashes from the local network."
+  }
+}

@@ -1,0 +1,27 @@
+title: Golden Ticket Forgery
+id: 1579d978-c83e-40f8-8b05-3f86bcfef0b6
+status: experimental
+description: Detects Golden Ticket forgery tooling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1558/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'kerberos::golden'
+      - 'golden /user'
+      - '/krbtgt:'
+      - '/sid:'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized red team activity
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1558.001

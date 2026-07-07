@@ -1,0 +1,18 @@
+{
+  "uuid": "970da00c-3115-4a07-8054-5db8c5ac29f6",
+  "slug": "cred-cloud-cli-config-theft",
+  "title": "Cloud CLI Credential File Theft",
+  "description": "Detects access to cloud CLI credential files (~/.aws/credentials, ~/.config/gcloud, ~/.azure) by copy/read tools, used to steal long-lived cloud access keys and tokens from a compromised host.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "cloud", "cli-credentials"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1552.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-cloud-cli-config-theft.sigma"],
+  "intent": {
+    "conditions": ["Access to .aws/credentials, gcloud, or azure token cache by shells/copy tools"],
+    "dataSourceRequirements": ["Process execution telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "Cloud CLI config files hold reusable keys and tokens for cloud access."
+  }
+}

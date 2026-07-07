@@ -1,0 +1,27 @@
+title: LLMNR/NBT-NS Poisoning Tooling
+id: 0ffb9d1b-6570-4d28-b028-81691f95d2fc
+status: experimental
+description: Detects LLMNR/NBT-NS poisoning tools.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1557/001/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Responder.py'
+      - 'Inveigh'
+      - '-I eth0 -wrf'
+      - 'Invoke-Inveigh'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Authorized security assessments
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1557.001

@@ -1,0 +1,18 @@
+{
+  "uuid": "075ff016-ba53-4c24-a2db-061fa75b468c",
+  "slug": "cred-kerberos-ticket-dump-rubeus",
+  "title": "Kerberos Ticket Dump via Rubeus",
+  "description": "Detects Rubeus dump/tgtdeleg/monitor or mimikatz sekurlsa::tickets used to extract Kerberos tickets from memory, which can be reused for pass-the-ticket lateral movement.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "kerberos", "rubeus"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-kerberos-ticket-dump-rubeus.sigma"],
+  "intent": {
+    "conditions": ["Rubeus dump/monitor/tgtdeleg, or sekurlsa::tickets"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Dumped Kerberos tickets enable pass-the-ticket attacks."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "ab7ca04b-ab0e-4176-954a-42d2545f1563",
+  "slug": "cred-dpapi-masterkey-access",
+  "title": "DPAPI Master Key Access",
+  "description": "Detects access to DPAPI master keys via tooling (dpapi::masterkey, SharpDPAPI) or reads of the Protect master key directory, used to decrypt credentials, browser secrets, and vault data protected by DPAPI.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "dpapi"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1555", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-dpapi-masterkey-access.sigma"],
+  "intent": {
+    "conditions": ["dpapi::masterkey / SharpDPAPI, or access to Microsoft\\Protect master keys"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "DPAPI master keys unlock the credentials and secrets they protect."
+  }
+}

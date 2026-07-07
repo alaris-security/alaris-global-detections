@@ -1,0 +1,18 @@
+{
+  "uuid": "7487c3e8-4f64-441e-8896-ac3a88f7ea2e",
+  "slug": "cred-mimikatz-invocation",
+  "title": "Mimikatz Command Invocation",
+  "description": "Detects Mimikatz usage through its characteristic module::command syntax (sekurlsa::logonpasswords, lsadump::sam, privilege::debug) regardless of the renamed binary, a hallmark of credential theft.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "mimikatz"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-mimikatz-invocation.sigma"],
+  "intent": {
+    "conditions": ["Command line containing Mimikatz module::function syntax"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Mimikatz module syntax is unique and survives binary renaming."
+  }
+}

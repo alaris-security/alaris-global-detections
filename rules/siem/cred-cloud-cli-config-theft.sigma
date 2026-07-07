@@ -1,0 +1,36 @@
+title: Cloud CLI Credential File Theft
+id: 508d36fc-4e41-46e0-b60c-991b5f6c534e
+status: experimental
+description: Detects access to cloud CLI credential files.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/001/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.aws/credentials'
+      - '.aws/config'
+      - '.config/gcloud/'
+      - '.azure/accessTokens'
+      - '.azure/msal_token_cache'
+  selection_tool:
+    Image|endswith:
+      - '/cat'
+      - '/cp'
+      - '/tar'
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '/scp'
+  condition: selection and selection_tool
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Backup of home directories
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1552.001

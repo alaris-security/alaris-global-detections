@@ -1,0 +1,18 @@
+{
+  "uuid": "498c3b37-cb8c-4b57-a7dd-9932cca39d68",
+  "slug": "cred-golden-ticket-forged",
+  "title": "Golden Ticket Forgery",
+  "description": "Detects Golden Ticket creation, indicated by tooling command lines (kerberos::golden, Rubeus golden) or Kerberos TGS requests (4769) with no preceding TGT (4768), enabling impersonation of any domain user using the stolen krbtgt hash.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "kerberos", "golden-ticket"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-golden-ticket-forged.sigma"],
+  "intent": {
+    "conditions": ["kerberos::golden / Rubeus golden command lines, or anomalous TGS without TGT"],
+    "dataSourceRequirements": ["Process telemetry and DC Security logs"],
+    "tuningParameters": {},
+    "sourceContext": "Golden Tickets forge TGTs with the krbtgt key, granting arbitrary domain access."
+  }
+}
