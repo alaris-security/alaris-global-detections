@@ -1,0 +1,33 @@
+title: Data Copy to Removable Media
+id: 273460af-91b3-48ac-ab95-17ffd96e8b09
+status: experimental
+description: Detects file copies to removable drives.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1052/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'robocopy'
+      - 'xcopy'
+      - 'copy '
+      - 'Copy-Item'
+    CommandLine|re: '[D-Z]:\\'
+    CommandLine|contains:
+      - '/e'
+      - '/s'
+      - '-Recurse'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Backups to external drives
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1052.001

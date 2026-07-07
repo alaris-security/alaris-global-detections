@@ -1,0 +1,18 @@
+{
+  "uuid": "6a750c68-01db-466c-8a1f-5ec295c64952",
+  "slug": "exfil-git-external-push",
+  "title": "Data Exfiltration via Git Push to External Repo",
+  "description": "Detects git commits and pushes to an external or newly-added remote from an unusual location, a technique to smuggle source code or documents out through version control services.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "git", "web-service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-git-external-push.sigma"],
+  "intent": {
+    "conditions": ["git remote add to an external host, or git push to a non-corporate remote"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {"corporateGitHosts": ["git.internal.example.com"]},
+    "sourceContext": "Pushing to an attacker-controlled repo exfiltrates data via a trusted protocol."
+  }
+}

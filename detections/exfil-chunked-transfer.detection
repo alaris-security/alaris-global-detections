@@ -1,0 +1,18 @@
+{
+  "uuid": "94ac4ea8-f1ef-4830-8fb5-1c9b2d84ff59",
+  "slug": "exfil-chunked-transfer",
+  "title": "Data Split into Fixed-Size Chunks",
+  "description": "Detects use of split, or archive volume switches (-v for rar/7z), to break data into uniform chunks under a size limit, a technique to evade size-based DLP and blend with normal transfers.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "data-transfer-size-limits"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1030", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-chunked-transfer.sigma"],
+  "intent": {
+    "conditions": ["split with -b/-n, or rar/7z volume size switches"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Chunking keeps each transfer under DLP thresholds."
+  }
+}

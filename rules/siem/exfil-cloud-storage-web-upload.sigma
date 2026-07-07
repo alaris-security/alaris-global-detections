@@ -1,0 +1,37 @@
+title: Exfiltration to Web Cloud Storage
+id: 6230e3e0-bfab-400a-84e7-09057b9b72b7
+status: experimental
+description: Detects uploads to consumer cloud storage.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|contains:
+      - 'mega.nz'
+      - 'mega.co.nz'
+      - 'dropbox.com'
+      - 'drive.google.com'
+      - 'wetransfer.com'
+      - 'pcloud.com'
+    cs-method: 'POST'
+  selection_ua:
+    cs-user-agent|contains:
+      - 'python'
+      - 'curl'
+      - 'powershell'
+      - 'Go-http-client'
+  condition: selection and selection_ua
+fields:
+  - cs-host
+  - cs-method
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Sanctioned cloud backup clients
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1567.002

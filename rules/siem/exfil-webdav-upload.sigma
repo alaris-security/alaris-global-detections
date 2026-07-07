@@ -1,0 +1,29 @@
+title: Exfiltration over WebDAV
+id: 8052a74d-4eee-489a-8fe4-727f3f56bbf8
+status: experimental
+description: Detects WebDAV-based exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1048/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '@SSL\'
+      - 'DavWWWRoot'
+      - '\\\\'
+    CommandLine|contains:
+      - 'net use'
+      - 'PUT'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Legitimate WebDAV shares
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1048

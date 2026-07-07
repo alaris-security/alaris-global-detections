@@ -1,0 +1,31 @@
+title: PowerShell Web Upload Exfiltration
+id: 1435c831-fea1-4300-ba96-b2b992da44ff
+status: experimental
+description: Detects PowerShell web upload exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1048/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Invoke-RestMethod'
+      - 'Invoke-WebRequest'
+    CommandLine|contains:
+      - 'POST'
+    CommandLine|contains:
+      - '-InFile'
+      - '-Body'
+      - 'GetBytes'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Legitimate API automation scripts
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1048

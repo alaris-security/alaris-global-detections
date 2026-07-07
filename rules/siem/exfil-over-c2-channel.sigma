@@ -1,0 +1,25 @@
+title: Large Upload over Established C2 Channel
+id: 3628acd6-a8c5-41cc-8640-eec2f3f2995b
+status: experimental
+description: Detects large asymmetric outbound transfers.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1041/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    direction: 'outbound'
+    bytes_out|gt: 50000000
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - bytes_out
+  - bytes_in
+falsepositives:
+  - Legitimate large uploads (backups, media)
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1041

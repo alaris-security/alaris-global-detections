@@ -1,0 +1,30 @@
+title: Exfiltration to Anonymous File Sharing Sites
+id: e7f4d765-e87d-4194-866c-f1d28721f79a
+status: experimental
+description: Detects uploads to anonymous file-sharing services.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|contains:
+      - 'transfer.sh'
+      - 'anonfiles.com'
+      - 'file.io'
+      - 'gofile.io'
+      - 'temp.sh'
+      - 'ufile.io'
+      - '0x0.st'
+  condition: selection
+fields:
+  - cs-host
+  - cs-method
+  - c-ip
+falsepositives:
+  - Rare legitimate ad-hoc file sharing
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1567

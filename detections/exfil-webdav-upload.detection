@@ -1,0 +1,18 @@
+{
+  "uuid": "17dac78b-df8c-4c20-9218-bd18ba787d82",
+  "slug": "exfil-webdav-upload",
+  "title": "Exfiltration over WebDAV",
+  "description": "Detects mounting of a remote WebDAV share (net use \\\\host@SSL\\path) or PUT requests to a WebDAV endpoint, an alternative-protocol exfiltration channel that tunnels over HTTP(S).",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "webdav", "alternative-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1048", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-webdav-upload.sigma"],
+  "intent": {
+    "conditions": ["net use to a DavWWWRoot/@SSL share, or PUT to a WebDAV path"],
+    "dataSourceRequirements": ["Process creation telemetry or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "WebDAV rides HTTP(S) to move data where FTP or SMB egress is blocked."
+  }
+}

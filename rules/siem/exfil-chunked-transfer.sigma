@@ -1,0 +1,30 @@
+title: Data Split into Fixed-Size Chunks
+id: 53b4df01-2ffd-4f16-9ce7-b87337be242f
+status: experimental
+description: Detects data chunking for exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1030/
+logsource:
+  category: process_creation
+detection:
+  selection_split:
+    Image|endswith: '/split'
+    CommandLine|contains:
+      - '-b'
+      - '-n'
+  selection_vol:
+    Image|endswith:
+      - '\rar.exe'
+      - '\7z.exe'
+    CommandLine|re: '-v[0-9]+[kmg]'
+  condition: selection_split or selection_vol
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Legitimate archiving of very large files
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1030

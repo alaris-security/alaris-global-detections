@@ -1,0 +1,18 @@
+{
+  "uuid": "55733ea3-60b5-4dfa-9655-c5e036708473",
+  "slug": "exfil-rclone-transfer",
+  "title": "Rclone Cloud Sync Exfiltration",
+  "description": "Detects execution of rclone with copy/sync/move to a remote backend, a tool heavily used by ransomware crews to bulk-exfiltrate data to attacker-controlled cloud storage before encryption.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "rclone", "cloud-storage"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567.002", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-rclone-transfer.sigma"],
+  "intent": {
+    "conditions": ["rclone with copy/sync/move and remote config flags"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "rclone is a signature tool of double-extortion ransomware exfiltration."
+  }
+}

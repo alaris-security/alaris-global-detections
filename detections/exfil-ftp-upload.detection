@@ -1,0 +1,18 @@
+{
+  "uuid": "a35f0812-43b2-4611-b5ca-206b3a5c00f9",
+  "slug": "exfil-ftp-upload",
+  "title": "Exfiltration over FTP",
+  "description": "Detects outbound FTP/FTPS transfers via ftp.exe, curl ftp://, or PowerShell FtpWebRequest with an upload method, an alternative-protocol exfiltration channel to attacker infrastructure.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "ftp", "alternative-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1048.003", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-ftp-upload.sigma"],
+  "intent": {
+    "conditions": ["ftp.exe with a script, curl ftp:// upload, or FtpWebRequest UploadFile"],
+    "dataSourceRequirements": ["Process creation telemetry or network logs"],
+    "tuningParameters": {},
+    "sourceContext": "FTP is a simple exfiltration path where egress filtering is weak."
+  }
+}

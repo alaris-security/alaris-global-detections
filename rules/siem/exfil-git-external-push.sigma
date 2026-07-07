@@ -1,0 +1,31 @@
+title: Data Exfiltration via Git Push to External Repo
+id: 15e93fec-35c4-478c-9b12-5ac90c516193
+status: experimental
+description: Detects git push to external repositories.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\git.exe'
+      - '/git'
+    CommandLine|contains:
+      - 'remote add'
+      - 'push'
+    CommandLine|contains:
+      - 'github.com'
+      - 'gitlab.com'
+      - 'bitbucket.org'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Developers legitimately pushing to public repos
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567

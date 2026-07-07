@@ -1,0 +1,18 @@
+{
+  "uuid": "b55433b5-33a6-435f-beac-659c69a785e1",
+  "slug": "exfil-over-c2-channel",
+  "title": "Large Upload over Established C2 Channel",
+  "description": "Detects an outbound session with a strongly asymmetric byte ratio (large upload, small download) to a rare external destination, consistent with exfiltrating data back over the existing C2 channel.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "c2-channel"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1041", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-over-c2-channel.sigma"],
+  "intent": {
+    "conditions": ["Outbound flow where bytes_out greatly exceeds bytes_in to an uncommon destination"],
+    "dataSourceRequirements": ["Network flow logs with byte counts"],
+    "tuningParameters": {"minUploadBytes": 50000000},
+    "sourceContext": "Exfil over C2 avoids opening a second channel, keeping activity consolidated."
+  }
+}

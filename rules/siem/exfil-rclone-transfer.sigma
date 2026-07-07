@@ -1,0 +1,34 @@
+title: Rclone Cloud Sync Exfiltration
+id: 888564e4-22e6-4986-8486-e2847f30289f
+status: experimental
+description: Detects rclone data exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\rclone.exe'
+  selection_alt:
+    Image|endswith: '/rclone'
+  selection_cmd:
+    CommandLine|contains:
+      - 'copy'
+      - 'sync'
+      - 'move'
+      - 'copyto'
+      - '--config'
+      - 'mega:'
+      - 'ftp:'
+  condition: (selection or selection_alt) and selection_cmd
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Sanctioned backup jobs using rclone
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1567.002

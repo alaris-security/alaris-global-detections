@@ -1,0 +1,18 @@
+{
+  "uuid": "ce3adea9-edfd-4b52-96c3-4dd66b219114",
+  "slug": "exfil-scheduled-transfer",
+  "title": "Scheduled Data Transfer to External Host",
+  "description": "Detects a scheduled task or cron job whose action performs an outbound data transfer (curl/Invoke-RestMethod/scp) to an external destination, indicating automated, timed exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "scheduled-transfer"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1029", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-scheduled-transfer.sigma"],
+  "intent": {
+    "conditions": ["schtasks/cron creation whose command performs an outbound upload"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Timed transfers spread exfiltration across low-traffic windows to avoid notice."
+  }
+}

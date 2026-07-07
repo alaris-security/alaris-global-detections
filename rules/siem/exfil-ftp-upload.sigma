@@ -1,0 +1,31 @@
+title: Exfiltration over FTP
+id: 487c2b21-82c5-49a1-b9e3-bf81e3e39276
+status: experimental
+description: Detects FTP-based exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1048/003/
+logsource:
+  category: process_creation
+detection:
+  selection_ftp:
+    Image|endswith: '\ftp.exe'
+    CommandLine|contains:
+      - '-s:'
+      - 'put'
+  selection_curl:
+    CommandLine|contains:
+      - 'curl ftp://'
+      - 'curl -T'
+      - 'FtpWebRequest'
+      - 'UploadFile'
+  condition: selection_ftp or selection_curl
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Legacy FTP-based data transfer jobs
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1048.003

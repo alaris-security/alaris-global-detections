@@ -1,0 +1,18 @@
+{
+  "uuid": "dd4735e8-9961-4b01-ae58-aee7c1f658f4",
+  "slug": "exfil-powershell-web-upload",
+  "title": "PowerShell Web Upload Exfiltration",
+  "description": "Detects PowerShell posting file contents to an external endpoint via Invoke-RestMethod or Invoke-WebRequest with -Method POST and -InFile/-Body, a scripted exfiltration technique over HTTP(S).",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "powershell", "alternative-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1048", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-powershell-web-upload.sigma"],
+  "intent": {
+    "conditions": ["Invoke-RestMethod/Invoke-WebRequest with POST and -InFile or -Body to an http URL"],
+    "dataSourceRequirements": ["PowerShell logging or process command line"],
+    "tuningParameters": {},
+    "sourceContext": "PowerShell POST uploads are a native exfiltration path requiring no extra tooling."
+  }
+}

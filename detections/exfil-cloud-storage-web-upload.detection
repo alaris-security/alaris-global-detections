@@ -1,0 +1,18 @@
+{
+  "uuid": "91d16990-2fe1-4196-8a86-fe3e2bbe3a6c",
+  "slug": "exfil-cloud-storage-web-upload",
+  "title": "Exfiltration to Web Cloud Storage",
+  "description": "Detects endpoint uploads to consumer cloud storage services (MEGA, Dropbox, Google Drive, WeTransfer, pCloud) by non-browser processes, a common web exfiltration channel to personal accounts.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "cloud-storage", "web-service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567.002", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-cloud-storage-web-upload.sigma"],
+  "intent": {
+    "conditions": ["Non-browser process POSTing to consumer cloud storage hosts"],
+    "dataSourceRequirements": ["Proxy logs with host, method, and user-agent"],
+    "tuningParameters": {},
+    "sourceContext": "Uploading to personal cloud storage moves data outside organizational control."
+  }
+}

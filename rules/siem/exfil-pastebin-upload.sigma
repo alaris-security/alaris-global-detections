@@ -1,0 +1,30 @@
+title: Exfiltration to Paste Sites
+id: 188f95be-917c-4ac7-8da9-f41cdc80c498
+status: experimental
+description: Detects uploads to paste services.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|contains:
+      - 'pastebin.com'
+      - 'hastebin.com'
+      - 'ghostbin.com'
+      - 'dpaste.com'
+      - 'privatebin'
+    cs-method: 'POST'
+  condition: selection
+fields:
+  - cs-host
+  - cs-method
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Developers sharing snippets
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567

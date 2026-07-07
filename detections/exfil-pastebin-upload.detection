@@ -1,0 +1,18 @@
+{
+  "uuid": "ba35d2e8-09d9-4b7a-b029-82a6250cde92",
+  "slug": "exfil-pastebin-upload",
+  "title": "Exfiltration to Paste Sites",
+  "description": "Detects POST uploads to paste services (pastebin, hastebin, ghostbin, dpaste, privatebin) by scripting engines, used to exfiltrate small volumes of sensitive text such as credentials and configs.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "pastebin", "web-service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-pastebin-upload.sigma"],
+  "intent": {
+    "conditions": ["POST to a paste service host by a scripting user-agent"],
+    "dataSourceRequirements": ["Proxy logs with host, method, user-agent"],
+    "tuningParameters": {},
+    "sourceContext": "Paste sites are convenient drop points for stolen text."
+  }
+}

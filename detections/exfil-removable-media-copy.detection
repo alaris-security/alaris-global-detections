@@ -1,0 +1,18 @@
+{
+  "uuid": "0ebb945e-3655-4a0d-9b8d-533313009ffe",
+  "slug": "exfil-removable-media-copy",
+  "title": "Data Copy to Removable Media",
+  "description": "Detects bulk file copies to a removable drive shortly after a USB storage device insertion (event 6416/2003), a physical exfiltration technique for stealing data offline.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "removable-media", "usb"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1052.001", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-removable-media-copy.sigma"],
+  "intent": {
+    "conditions": ["copy/robocopy/Copy-Item targeting a removable drive letter after USB insertion"],
+    "dataSourceRequirements": ["Process telemetry and PnP/removable device events"],
+    "tuningParameters": {},
+    "sourceContext": "Copying data to USB is a low-tech but effective exfiltration route."
+  }
+}

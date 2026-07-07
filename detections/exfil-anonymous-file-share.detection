@@ -1,0 +1,18 @@
+{
+  "uuid": "d13844eb-192e-47e8-b279-8332fec3f003",
+  "slug": "exfil-anonymous-file-share",
+  "title": "Exfiltration to Anonymous File Sharing Sites",
+  "description": "Detects uploads to anonymous or ephemeral file-sharing services (transfer.sh, anonfiles, file.io, gofile.io, temp.sh), frequently used to quickly stage stolen data on disposable links.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "web-service", "file-share"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-anonymous-file-share.sigma"],
+  "intent": {
+    "conditions": ["Connections/uploads to known anonymous file-sharing hosts"],
+    "dataSourceRequirements": ["Proxy logs or process command line with URLs"],
+    "tuningParameters": {},
+    "sourceContext": "Anonymous sharing sites offer fast, throwaway exfiltration endpoints."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "7a499e1c-0359-40aa-8d90-2df38047b2b0",
+  "slug": "exfil-smtp-data-send",
+  "title": "Exfiltration over SMTP",
+  "description": "Detects scripted sending of email with attachments via Send-MailMessage or direct SMTP to external servers, used to exfiltrate collected files through the mail protocol.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "smtp", "alternative-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1048", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/exfil-smtp-data-send.sigma"],
+  "intent": {
+    "conditions": ["Send-MailMessage with -Attachments and an external SMTP server"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Programmatic email with attachments is a straightforward exfiltration method."
+  }
+}
