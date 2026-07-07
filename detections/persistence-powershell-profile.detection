@@ -1,0 +1,18 @@
+{
+  "uuid": "a9d585e7-0fd4-4dc1-b2bf-3721a9a49791",
+  "slug": "persistence-powershell-profile",
+  "title": "PowerShell Profile Persistence",
+  "description": "Detects modification of PowerShell profile scripts (profile.ps1, Microsoft.PowerShell_profile.ps1), which run automatically whenever PowerShell starts, providing user-level persistence and execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "powershell", "profile"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.013", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-powershell-profile.sigma"],
+  "intent": {
+    "conditions": ["File create/modify of a PowerShell profile script"],
+    "dataSourceRequirements": ["Sysmon event 11 (file create)"],
+    "tuningParameters": {},
+    "sourceContext": "PowerShell profiles execute on every shell launch, a persistence foothold."
+  }
+}

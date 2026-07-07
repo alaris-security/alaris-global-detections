@@ -1,0 +1,18 @@
+{
+  "uuid": "231c6461-1ed9-4c59-b57d-ea2547e7775d",
+  "slug": "persistence-office-global-template",
+  "title": "Office Global Template Persistence",
+  "description": "Detects modification of the Word global template (Normal.dotm) or Excel XLSTART files, which auto-load macros every time the application starts, providing Office-based persistence.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "office", "template"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1137.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-office-global-template.sigma"],
+  "intent": {
+    "conditions": ["File modify of Normal.dotm or files under an XLSTART directory"],
+    "dataSourceRequirements": ["Sysmon event 11 (file create)"],
+    "tuningParameters": {},
+    "sourceContext": "Office templates auto-run macros on every launch of the app."
+  }
+}

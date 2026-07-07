@@ -1,0 +1,18 @@
+{
+  "uuid": "ae753162-293f-4b59-bc65-6d762af20571",
+  "slug": "persistence-appcert-dlls",
+  "title": "AppCertDLLs Injection Persistence",
+  "description": "Detects modification of the AppCertDLLs registry value under Session Manager, which loads a DLL into every process that calls CreateProcess-family APIs, providing broad persistence and injection.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "appcertdlls", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.009", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-appcert-dlls.sigma"],
+  "intent": {
+    "conditions": ["Registry set of Control\\Session Manager\\AppCertDLLs"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "AppCertDLLs load into a wide range of processes, an aggressive persistence."
+  }
+}

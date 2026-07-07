@@ -1,0 +1,28 @@
+title: RunOnce and RunServices Key Persistence
+id: a7fb8273-a792-4055-acd0-e717f30bde3b
+status: experimental
+description: Detects RunOnce/RunServices autostart persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains:
+      - '\CurrentVersion\RunOnce\'
+      - '\CurrentVersion\RunOnceEx\'
+      - '\CurrentVersion\RunServices\'
+      - '\CurrentVersion\RunServicesOnce\'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Installers using RunOnce for setup completion
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.001

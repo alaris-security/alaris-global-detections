@@ -1,0 +1,18 @@
+{
+  "uuid": "458b85c3-eb86-4ffa-80e7-7ad217aa1e45",
+  "slug": "persistence-service-dll-parameters",
+  "title": "svchost ServiceDll Parameter Hijack",
+  "description": "Detects modification of a service's Parameters\\ServiceDll value under CurrentControlSet\\Services, which points a shared svchost-hosted service at an attacker DLL, providing persistence running as the service.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "service", "servicedll"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1543.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-service-dll-parameters.sigma"],
+  "intent": {
+    "conditions": ["Registry set of Services\\<svc>\\Parameters\\ServiceDll"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Repointing ServiceDll runs attacker code inside a trusted svchost service."
+  }
+}

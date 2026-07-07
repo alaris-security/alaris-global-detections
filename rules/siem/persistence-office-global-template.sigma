@@ -1,0 +1,30 @@
+title: Office Global Template Persistence
+id: 22dc2c36-aacb-4f30-bf2b-563dcee42209
+status: experimental
+description: Detects Office global template persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1137/001/
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains:
+      - '\Templates\Normal.dotm'
+      - '\XLSTART\'
+      - '\Word\STARTUP\'
+  filter:
+    Image|endswith:
+      - '\winword.exe'
+      - '\excel.exe'
+  condition: selection and not filter
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - User macro customization
+level: high
+tags:
+  - attack.persistence
+  - attack.t1137.001

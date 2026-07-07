@@ -1,0 +1,18 @@
+{
+  "uuid": "455fa1f1-e0b0-4220-b14b-c81fb28cdeae",
+  "slug": "persistence-application-shimming",
+  "title": "Application Shim Database Installation",
+  "description": "Detects installation of a custom application compatibility shim database via sdbinst.exe or writes to the AppCompatFlags\\Custom registry, a persistence and privilege-escalation technique that injects code into shimmed applications.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "application-shimming"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.011", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-application-shimming.sigma"],
+  "intent": {
+    "conditions": ["sdbinst.exe installing a .sdb, or writes to AppCompatFlags\\Custom/InstalledSDB"],
+    "dataSourceRequirements": ["Process creation and Sysmon event 13"],
+    "tuningParameters": {},
+    "sourceContext": "Shim databases can silently patch and inject into target applications."
+  }
+}

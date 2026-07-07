@@ -1,0 +1,18 @@
+{
+  "uuid": "62c013a0-2286-4d25-98b0-233554d54f7e",
+  "slug": "persistence-com-hijacking",
+  "title": "COM Object Hijacking via HKCU CLSID",
+  "description": "Detects creation of InprocServer32/LocalServer32 values under HKCU\\Software\\Classes\\CLSID, which override a system COM object with an attacker DLL, providing persistence and execution when the object is instantiated.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "com-hijacking", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.015", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-com-hijacking.sigma"],
+  "intent": {
+    "conditions": ["HKCU CLSID InprocServer32/LocalServer32 value set to a DLL"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "HKCU COM entries take precedence over HKLM, silently hijacking objects."
+  }
+}

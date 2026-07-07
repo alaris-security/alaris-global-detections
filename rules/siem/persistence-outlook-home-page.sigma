@@ -1,0 +1,28 @@
+title: Outlook Home Page Persistence
+id: d14cee4b-fe2c-432c-820e-6ad209754f46
+status: experimental
+description: Detects Outlook home page persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1137/004/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Software\Microsoft\Office\'
+    TargetObject|contains: '\Outlook\'
+    TargetObject|endswith:
+      - '\URL'
+      - '\WebView\Inbox\URL'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Legacy folder home page configurations
+level: high
+tags:
+  - attack.persistence
+  - attack.t1137.004

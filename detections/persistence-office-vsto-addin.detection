@@ -1,0 +1,18 @@
+{
+  "uuid": "3a0209ec-2f05-481a-9717-53f8e773ffb4",
+  "slug": "persistence-office-vsto-addin",
+  "title": "Office VSTO/COM Add-in Persistence",
+  "description": "Detects registration of a new Office add-in via the Addins registry keys (LoadBehavior set), which loads attacker code into Word/Excel/Outlook on startup, an Office persistence technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "office", "addin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1137.006", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-office-vsto-addin.sigma"],
+  "intent": {
+    "conditions": ["Registry set under Office\\<app>\\Addins with LoadBehavior"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Office add-ins auto-load into the application, running attacker code."
+  }
+}

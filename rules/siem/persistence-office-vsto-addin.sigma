@@ -1,0 +1,27 @@
+title: Office VSTO/COM Add-in Persistence
+id: 6dc91d0a-f90d-4dc3-a255-648123104839
+status: experimental
+description: Detects Office add-in persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1137/006/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Office\'
+    TargetObject|contains: '\Addins\'
+    TargetObject|endswith: '\LoadBehavior'
+    Details: 'DWORD (0x00000003)'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Legitimate Office add-in installation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1137.006

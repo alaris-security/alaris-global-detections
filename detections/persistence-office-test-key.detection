@@ -1,0 +1,18 @@
+{
+  "uuid": "669ac324-7c7d-4888-ad3a-30c616b1adbc",
+  "slug": "persistence-office-test-key",
+  "title": "Office Test Registry Key Persistence",
+  "description": "Detects creation of the Office Test\\Special\\Perf registry key, an undocumented location that loads a specified DLL into every Office application at startup, a stealthy persistence technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "office", "office-test"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1137.002", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-office-test-key.sigma"],
+  "intent": {
+    "conditions": ["Registry set under Software\\Microsoft\\Office test\\Special\\Perf"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "The Office Test key loads a DLL into all Office apps, rarely used legitimately."
+  }
+}

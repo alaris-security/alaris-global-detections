@@ -1,0 +1,18 @@
+{
+  "uuid": "48243876-6077-4322-b963-e2809a5367ff",
+  "slug": "persistence-logon-script-userinitmpr",
+  "title": "Logon Script via UserInitMprLogonScript",
+  "description": "Detects setting the HKCU\\Environment\\UserInitMprLogonScript value, a per-user logon script registry entry that executes at logon, providing stealthy persistence not shown in Group Policy.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "logon-script", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1037.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-logon-script-userinitmpr.sigma"],
+  "intent": {
+    "conditions": ["Registry set of HKCU\\Environment\\UserInitMprLogonScript"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "UserInitMprLogonScript runs a script at logon, a hidden persistence spot."
+  }
+}

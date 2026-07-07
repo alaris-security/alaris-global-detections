@@ -1,0 +1,24 @@
+title: Office Test Registry Key Persistence
+id: 0e013e30-69c3-4449-9ed3-0831c9fe3341
+status: experimental
+description: Detects Office Test key persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1137/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Office test\Special\Perf'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.persistence
+  - attack.t1137.002

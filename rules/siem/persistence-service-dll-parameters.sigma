@@ -1,0 +1,31 @@
+title: svchost ServiceDll Parameter Hijack
+id: c5953d54-6189-491c-997f-170d9f7748c9
+status: experimental
+description: Detects ServiceDll parameter modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\CurrentControlSet\Services\'
+    TargetObject|endswith: '\Parameters\ServiceDll'
+  selection_susp:
+    Details|contains:
+      - '\Temp\'
+      - '\AppData\'
+      - '\ProgramData\'
+      - '\Users\Public\'
+  condition: selection and selection_susp
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Legitimate service installations
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.003

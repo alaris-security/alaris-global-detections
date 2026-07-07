@@ -1,0 +1,24 @@
+title: AppCertDLLs Injection Persistence
+id: bf186a6d-36b0-46d1-987a-9692cc985878
+status: experimental
+description: Detects AppCertDLLs modification.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/009/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Control\Session Manager\AppCertDLLs'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare legitimate software
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.009

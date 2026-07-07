@@ -1,0 +1,27 @@
+title: SilentProcessExit Monitor Persistence
+id: a086355a-54b6-40e5-8f64-65e4024a1e41
+status: experimental
+description: Detects SilentProcessExit persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/012/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\SilentProcessExit\'
+    TargetObject|endswith:
+      - '\MonitorProcess'
+      - '\ReportingMode'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Debugging configurations
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.012

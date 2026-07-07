@@ -1,0 +1,25 @@
+title: AppDomainManager Injection
+id: accd2a98-d393-4b5d-a0b6-8e3ab6b762b5
+status: experimental
+description: Detects AppDomainManager injection artifacts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/014/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'APPDOMAIN_MANAGER_ASM'
+      - 'APPDOMAIN_MANAGER_TYPE'
+      - 'appDomainManagerAssembly'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Rare legitimate .NET hosting configurations
+level: high
+tags:
+  - attack.persistence
+  - attack.t1574.014

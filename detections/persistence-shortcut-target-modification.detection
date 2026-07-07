@@ -1,0 +1,18 @@
+{
+  "uuid": "fa985784-2112-4289-88b5-addf223678dd",
+  "slug": "persistence-shortcut-target-modification",
+  "title": "Shortcut Target Modified for Persistence",
+  "description": "Detects modification of frequently-used .lnk shortcuts (browsers, Office) so their target launches an attacker command before or instead of the real application, a persistence and execution technique.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "shortcut", "lnk"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.009", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-shortcut-target-modification.sigma"],
+  "intent": {
+    "conditions": ["Modification of .lnk files by a non-installer process"],
+    "dataSourceRequirements": ["Sysmon event 11 (file create)"],
+    "tuningParameters": {},
+    "sourceContext": "Hijacked shortcuts run attacker code when the user opens a familiar app."
+  }
+}

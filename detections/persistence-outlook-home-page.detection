@@ -1,0 +1,18 @@
+{
+  "uuid": "4ed6749d-7d44-479e-8f3a-be6da060cbf2",
+  "slug": "persistence-outlook-home-page",
+  "title": "Outlook Home Page Persistence",
+  "description": "Detects setting the Outlook folder WebView/Home Page URL registry values, which load a remote or local HTML page (with script) when Outlook opens the folder, a stealthy persistence and execution technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "outlook", "home-page"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1137.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-outlook-home-page.sigma"],
+  "intent": {
+    "conditions": ["Registry set of Outlook WebView URL / Home Page values"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Outlook home pages run HTML/script when the folder is viewed."
+  }
+}

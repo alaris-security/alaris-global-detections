@@ -1,0 +1,18 @@
+{
+  "uuid": "f6c1cbb3-ebb3-403d-bbd6-b98aa81464a3",
+  "slug": "persistence-appdomainmanager-injection",
+  "title": "AppDomainManager Injection",
+  "description": "Detects AppDomainManager injection, where a .config file or environment variable redirects a .NET application to load an attacker assembly as its AppDomainManager, hijacking execution inside a trusted process.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "defense-evasion", "dotnet"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.014", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-appdomainmanager-injection.sigma"],
+  "intent": {
+    "conditions": ["Creation of a .exe.config with appDomainManagerAssembly, or APPDOMAIN_MANAGER env vars"],
+    "dataSourceRequirements": ["File create and process telemetry"],
+    "tuningParameters": {},
+    "sourceContext": "AppDomainManager injection loads attacker .NET code into a trusted host."
+  }
+}

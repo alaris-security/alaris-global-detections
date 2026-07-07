@@ -1,0 +1,29 @@
+title: COM Object Hijacking via HKCU CLSID
+id: e8c3c1e4-b598-406e-9e8b-85d564d72233
+status: experimental
+description: Detects COM hijacking via HKCU CLSID.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/015/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Software\Classes\CLSID\'
+    TargetObject|endswith:
+      - '\InprocServer32\(Default)'
+      - '\LocalServer32\(Default)'
+  filter:
+    Details|startswith: 'C:\Windows\System32\'
+  condition: selection and not filter
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Software registering per-user COM servers
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.015

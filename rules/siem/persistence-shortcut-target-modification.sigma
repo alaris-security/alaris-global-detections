@@ -1,0 +1,29 @@
+title: Shortcut Target Modified for Persistence
+id: 977d5dd3-920a-4a9e-acf4-e84c39cbdd76
+status: experimental
+description: Detects modification of shortcut files.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1547/009/
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|endswith: '.lnk'
+  selection_proc:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\cmd.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+  condition: selection and selection_proc
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Scripts legitimately creating shortcuts
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.009

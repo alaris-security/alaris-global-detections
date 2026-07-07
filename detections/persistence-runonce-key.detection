@@ -1,0 +1,18 @@
+{
+  "uuid": "6baafa38-a336-4e4e-b132-7ab483551435",
+  "slug": "persistence-runonce-key",
+  "title": "RunOnce and RunServices Key Persistence",
+  "description": "Detects writes to the RunOnce, RunOnceEx, RunServices, and RunServicesOnce registry keys, autostart locations less commonly monitored than the standard Run key but equally effective for persistence.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "registry", "autostart"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1547.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-runonce-key.sigma"],
+  "intent": {
+    "conditions": ["Registry set under RunOnce/RunOnceEx/RunServices"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "RunOnce variants autostart programs and are under-monitored."
+  }
+}

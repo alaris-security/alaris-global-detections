@@ -1,0 +1,26 @@
+title: PowerShell Profile Persistence
+id: 9df780f8-5bb7-4ab7-b683-a0e906857ea4
+status: experimental
+description: Detects modification of PowerShell profiles.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/013/
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|endswith:
+      - '\Microsoft.PowerShell_profile.ps1'
+      - '\profile.ps1'
+      - '\Microsoft.PowerShellISE_profile.ps1'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Users customizing their PowerShell profile
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.013

@@ -1,0 +1,18 @@
+{
+  "uuid": "ee0329e7-acbf-4acc-b550-28b5ec28db67",
+  "slug": "persistence-silent-process-exit",
+  "title": "SilentProcessExit Monitor Persistence",
+  "description": "Detects configuration of a SilentProcessExit monitor (MonitorProcess/GlobalFlag under the SilentProcessExit registry key), which launches an attacker process when a target process exits, providing persistence and triggered execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "silentprocessexit", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1546.012", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/persistence-silent-process-exit.sigma"],
+  "intent": {
+    "conditions": ["Registry set under \\SilentProcessExit\\ with MonitorProcess/ReportingMode"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "SilentProcessExit runs a chosen process whenever a monitored process ends."
+  }
+}

@@ -1,0 +1,24 @@
+title: Logon Script via UserInitMprLogonScript
+id: a276e44c-1972-4acd-94b8-9a4488fa1da0
+status: experimental
+description: Detects UserInitMprLogonScript persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1037/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Environment\UserInitMprLogonScript'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare legitimate logon script configuration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1037.001
