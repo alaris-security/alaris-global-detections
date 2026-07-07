@@ -1,0 +1,24 @@
+title: Azure Diagnostic Settings Deleted
+id: cec9a0bc-7099-4490-be2d-cc54b77b8f48
+status: experimental
+description: Detects deletion of Azure diagnostic settings.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.INSIGHTS/DIAGNOSTICSETTINGS/DELETE'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+  - operationName
+falsepositives:
+  - Reconfiguration of monitoring pipelines
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

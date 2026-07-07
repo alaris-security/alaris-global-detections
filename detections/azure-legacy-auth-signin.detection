@@ -1,0 +1,18 @@
+{
+  "uuid": "a86538d0-4a3b-461e-88d8-3647c5dd5bf4",
+  "slug": "azure-legacy-auth-signin",
+  "title": "Entra ID Legacy Authentication Sign-In",
+  "description": "Detects successful sign-ins using legacy authentication protocols (POP, IMAP, SMTP, older Exchange clients) that cannot enforce MFA, a common bypass used with valid stolen credentials.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "azure", "legacy-auth"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/azure-legacy-auth-signin.sigma"],
+  "intent": {
+    "conditions": ["Sign-in with a legacy client app (Other clients / IMAP / POP / SMTP)"],
+    "dataSourceRequirements": ["Entra ID sign-in logs"],
+    "tuningParameters": {},
+    "sourceContext": "Legacy protocols skip modern controls, making them attractive with stolen creds."
+  }
+}

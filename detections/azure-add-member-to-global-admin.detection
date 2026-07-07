@@ -1,0 +1,18 @@
+{
+  "uuid": "bb4d7099-4754-4220-9a9f-252a98927ea3",
+  "slug": "azure-add-member-to-global-admin",
+  "title": "Entra ID Member Added to Privileged Directory Role",
+  "description": "Detects Add member to role operations assigning users to highly privileged Entra ID roles such as Global Administrator or Privileged Role Administrator, a cloud privilege escalation and persistence action.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "azure", "entra-id"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/azure-add-member-to-global-admin.sigma"],
+  "intent": {
+    "conditions": ["Audit log 'Add member to role' where role is Global/Privileged Administrator"],
+    "dataSourceRequirements": ["Entra ID audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Global Administrator grants tenant-wide control; additions must be scrutinized."
+  }
+}

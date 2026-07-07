@@ -1,0 +1,18 @@
+{
+  "uuid": "42610ac7-d7b4-481e-a9f8-9e1eff928778",
+  "slug": "azure-guest-user-invited",
+  "title": "Entra ID External Guest User Invited",
+  "description": "Detects invitation of external guest users into the tenant (Invite external user), which attackers use to establish a persistent foothold identity that can be granted access to resources.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "azure", "guest-user"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1136.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-guest-user-invited.sigma"],
+  "intent": {
+    "conditions": ["Invite external user operation"],
+    "dataSourceRequirements": ["Entra ID audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Guest identities can be quietly added and later granted access."
+  }
+}

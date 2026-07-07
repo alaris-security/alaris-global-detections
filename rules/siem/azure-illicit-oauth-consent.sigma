@@ -1,0 +1,33 @@
+title: Entra ID Illicit OAuth Application Consent
+id: aea1b6be-c4dc-4d62-aa27-c1ffd498bd40
+status: experimental
+description: Detects risky OAuth application consent.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1528/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName:
+      - 'Consent to application'
+      - 'Add OAuth2PermissionGrant'
+  selection_scope:
+    Properties|contains:
+      - 'Mail.Read'
+      - 'Mail.ReadWrite'
+      - 'Files.ReadWrite.All'
+      - 'offline_access'
+      - 'Directory.Read.All'
+  condition: selection and selection_scope
+fields:
+  - InitiatedBy
+  - TargetResources
+  - Properties
+falsepositives:
+  - Approved enterprise applications
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1528

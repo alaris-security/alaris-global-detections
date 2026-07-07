@@ -1,0 +1,18 @@
+{
+  "uuid": "0fa054cb-bab0-4a87-9389-5ff7662d2f93",
+  "slug": "azure-diagnostic-settings-deleted",
+  "title": "Azure Diagnostic Settings Deleted",
+  "description": "Detects deletion of Azure Monitor diagnostic settings, which stops resource and activity logs from flowing to Log Analytics or storage, a defense-evasion action to blind cloud logging.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "azure", "diagnostic-settings"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-diagnostic-settings-deleted.sigma"],
+  "intent": {
+    "conditions": ["Microsoft.Insights/diagnosticSettings/delete operation"],
+    "dataSourceRequirements": ["Azure Activity logs"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting diagnostic settings cuts off the flow of Azure logs."
+  }
+}

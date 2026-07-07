@@ -1,0 +1,26 @@
+title: Entra ID External Guest User Invited
+id: 109f665b-4687-46f2-9bd1-96fb4c01bd27
+status: experimental
+description: Detects external guest user invitations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1136/003/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName:
+      - 'Invite external user'
+      - 'Add user'
+    Properties|contains: '#EXT#'
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+falsepositives:
+  - Legitimate B2B collaboration
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1136.003

@@ -1,0 +1,31 @@
+title: Entra ID Legacy Authentication Sign-In
+id: b9067d0b-76e8-41c0-904f-236e77c71133
+status: experimental
+description: Detects legacy authentication sign-ins.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    ClientAppUsed:
+      - 'Other clients'
+      - 'IMAP4'
+      - 'POP3'
+      - 'SMTP'
+      - 'Authenticated SMTP'
+      - 'Exchange ActiveSync'
+    ResultType: '0'
+  condition: selection
+fields:
+  - UserPrincipalName
+  - ClientAppUsed
+  - IPAddress
+falsepositives:
+  - Legacy mail clients still in use
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1078.004

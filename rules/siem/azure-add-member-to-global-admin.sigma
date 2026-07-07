@@ -1,0 +1,28 @@
+title: Entra ID Member Added to Privileged Directory Role
+id: 217c77de-b889-4a01-ad18-92b59d0aff9d
+status: experimental
+description: Detects additions to privileged Entra ID roles.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName: 'Add member to role'
+    Properties|contains:
+      - 'Global Administrator'
+      - 'Privileged Role Administrator'
+      - 'Privileged Authentication Administrator'
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+  - Properties
+falsepositives:
+  - Sanctioned administrative role assignments
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098.003

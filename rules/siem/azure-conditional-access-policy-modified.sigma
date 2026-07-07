@@ -1,0 +1,26 @@
+title: Entra ID Conditional Access Policy Modified
+id: ea6f327b-6679-40cd-becb-e249692098a8
+status: experimental
+description: Detects Conditional Access policy changes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName:
+      - 'Update conditional access policy'
+      - 'Delete conditional access policy'
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+  - OperationName
+falsepositives:
+  - Identity administrators tuning policies
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

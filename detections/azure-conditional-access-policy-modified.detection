@@ -1,0 +1,18 @@
+{
+  "uuid": "d65b978d-b26c-48e9-b28f-5c2a403f0156",
+  "slug": "azure-conditional-access-policy-modified",
+  "title": "Entra ID Conditional Access Policy Modified",
+  "description": "Detects updates to or deletion of Conditional Access policies, which attackers weaken to bypass MFA and location restrictions, a defense-evasion action against identity controls.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "azure", "conditional-access"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-conditional-access-policy-modified.sigma"],
+  "intent": {
+    "conditions": ["Update/Delete conditional access policy operations"],
+    "dataSourceRequirements": ["Entra ID audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Weakening Conditional Access removes MFA and location enforcement."
+  }
+}

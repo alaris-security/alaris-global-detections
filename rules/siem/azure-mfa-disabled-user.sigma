@@ -1,0 +1,27 @@
+title: Entra ID Strong Authentication Disabled
+id: c5f38eb0-a64b-4f98-81e9-2125e3c9ad1a
+status: experimental
+description: Detects disabling of user MFA methods.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/006/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName|contains:
+      - 'Disable Strong Authentication'
+      - 'Delete security info'
+      - 'User deleted security info'
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+  - OperationName
+falsepositives:
+  - Help desk resetting a user's MFA
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556.006

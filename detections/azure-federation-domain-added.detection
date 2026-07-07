@@ -1,0 +1,18 @@
+{
+  "uuid": "35fdb162-9e75-431e-abcf-398a819b8857",
+  "slug": "azure-federation-domain-added",
+  "title": "Entra ID Federated Domain Added or Modified",
+  "description": "Detects addition or modification of a federated domain and its trust settings (Set domain authentication / Set federation settings), the AADInternals golden-SAML style persistence that lets attackers forge tokens for any user.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["persistence", "defense-evasion", "azure", "federation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1484.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-federation-domain-added.sigma"],
+  "intent": {
+    "conditions": ["Set domain authentication or Set federation settings on domain operations"],
+    "dataSourceRequirements": ["Entra ID audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Adding a rogue federated domain enables forging SAML tokens for any identity."
+  }
+}

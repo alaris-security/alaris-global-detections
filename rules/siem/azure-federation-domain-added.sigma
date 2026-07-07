@@ -1,0 +1,28 @@
+title: Entra ID Federated Domain Added or Modified
+id: 9c921010-a65b-4d2f-ad9a-b780fa69352a
+status: experimental
+description: Detects federation/domain trust changes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1484/002/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName:
+      - 'Set domain authentication'
+      - 'Set federation settings on domain'
+      - 'Add unverified domain'
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+  - OperationName
+falsepositives:
+  - Legitimate federation configuration by identity admins
+level: critical
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1484.002

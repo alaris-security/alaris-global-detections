@@ -1,0 +1,32 @@
+title: Entra ID App Role Assignment Granted
+id: b9210e96-ca20-403f-8b2c-9936635aff10
+status: experimental
+description: Detects privileged app role assignments.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName:
+      - 'Add app role assignment to service principal'
+      - 'Add app role assignment grant to user'
+  selection_scope:
+    Properties|contains:
+      - 'RoleManagement.ReadWrite.Directory'
+      - 'AppRoleAssignment.ReadWrite.All'
+      - 'Directory.ReadWrite.All'
+      - 'Mail.ReadWrite'
+  condition: selection and selection_scope
+fields:
+  - InitiatedBy
+  - TargetResources
+  - Properties
+falsepositives:
+  - Approved application permission grants
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098.003

@@ -1,0 +1,18 @@
+{
+  "uuid": "95aac738-9309-4c86-81da-c4eb3784600d",
+  "slug": "azure-mfa-disabled-user",
+  "title": "Entra ID Strong Authentication Disabled",
+  "description": "Detects disabling of a user's strong authentication (MFA) methods or deletion of registered security info, which weakens identity protection to enable account takeover.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "azure", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556.006", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-mfa-disabled-user.sigma"],
+  "intent": {
+    "conditions": ["Disable Strong Authentication or delete security info operations"],
+    "dataSourceRequirements": ["Entra ID audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Removing MFA methods lowers the barrier for continued unauthorized access."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "7454b2ea-3e59-4b4f-aed7-957c7521f38e",
+  "slug": "azure-signin-from-anonymous-ip",
+  "title": "Entra ID Sign-In from Anonymous IP",
+  "description": "Detects successful sign-ins flagged with the anonymized IP address risk (Tor, anonymizing VPN/proxy), which frequently accompanies credential abuse and account takeover.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "azure", "anonymous-ip"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/azure-signin-from-anonymous-ip.sigma"],
+  "intent": {
+    "conditions": ["Sign-in with RiskEventType anonymizedIPAddress and success"],
+    "dataSourceRequirements": ["Entra ID sign-in logs with risk detections"],
+    "tuningParameters": {},
+    "sourceContext": "Anonymized-IP sign-ins are a strong indicator of hostile access."
+  }
+}

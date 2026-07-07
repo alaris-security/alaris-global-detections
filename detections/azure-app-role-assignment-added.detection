@@ -1,0 +1,18 @@
+{
+  "uuid": "aad97c35-e642-45ef-ad09-cf8a53bd228c",
+  "slug": "azure-app-role-assignment-added",
+  "title": "Entra ID App Role Assignment Granted",
+  "description": "Detects granting of application permissions (app role assignment) with high-privilege Microsoft Graph scopes to a service principal, a persistence and privilege escalation technique for non-interactive access.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "azure", "app-role"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-app-role-assignment-added.sigma"],
+  "intent": {
+    "conditions": ["Add app role assignment to service principal with privileged Graph app roles"],
+    "dataSourceRequirements": ["Entra ID audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "App role grants give service principals durable high-privilege API access."
+  }
+}

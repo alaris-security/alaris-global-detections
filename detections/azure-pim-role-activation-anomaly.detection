@@ -1,0 +1,18 @@
+{
+  "uuid": "ba7ff65e-e434-4a77-bdac-3ff545542cd9",
+  "slug": "azure-pim-role-activation-anomaly",
+  "title": "Entra ID PIM Privileged Role Activation",
+  "description": "Detects Privileged Identity Management activation of eligible high-privilege roles, which is normal for admins but anomalous when performed by unusual accounts, from new locations, or outside business hours.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "azure", "pim"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/azure-pim-role-activation-anomaly.sigma"],
+  "intent": {
+    "conditions": ["PIM 'Add member to role completed (PIM activation)' for privileged roles"],
+    "dataSourceRequirements": ["Entra ID audit logs (PIM)"],
+    "tuningParameters": {},
+    "sourceContext": "PIM activations grant just-in-time elevation; unusual ones warrant review."
+  }
+}

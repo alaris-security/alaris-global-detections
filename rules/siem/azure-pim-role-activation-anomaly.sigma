@@ -1,0 +1,27 @@
+title: Entra ID PIM Privileged Role Activation
+id: de712a07-3696-4837-bc24-6a4149ca99e4
+status: experimental
+description: Detects PIM privileged role activations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName|contains: 'PIM activation'
+    Properties|contains:
+      - 'Global Administrator'
+      - 'Security Administrator'
+      - 'Privileged Role Administrator'
+  condition: selection
+fields:
+  - InitiatedBy
+  - Properties
+falsepositives:
+  - Routine just-in-time admin elevation
+level: medium
+tags:
+  - attack.privilege_escalation
+  - attack.t1078.004
