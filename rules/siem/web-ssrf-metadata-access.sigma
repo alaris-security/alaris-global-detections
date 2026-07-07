@@ -1,0 +1,28 @@
+title: SSRF Targeting Cloud Metadata
+id: 840cd03b-dded-4bf6-8e98-7d48a571114c
+status: experimental
+description: Detects server-side request forgery attempts where a web parameter points at internal or cloud-metadata endpoints (169.254.169.254, localhost, internal RFC1918 URLs), used to reach the metadata service and steal cloud credentials.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '169.254.169.254'
+      - 'metadata.google.internal'
+      - 'http://localhost'
+      - 'http://127.0.0.1'
+      - 'file:///'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Applications with legitimate URL parameters
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

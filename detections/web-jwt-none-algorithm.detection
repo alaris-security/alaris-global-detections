@@ -1,0 +1,18 @@
+{
+  "uuid": "6de5d2bb-4b2f-4f74-9407-b44e88f4552c",
+  "slug": "web-jwt-none-algorithm",
+  "title": "JWT alg=none or Tampering",
+  "description": "Detects JSON Web Token manipulation attempts, including tokens using the insecure alg=none header, used to bypass signature verification and forge authenticated sessions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "jwt", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-jwt-none-algorithm.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects JSON Web Token manipulation attempts, including tokens using the insecure alg=none header, used to bypass signature verification and forge authenticated sessions."
+  }
+}

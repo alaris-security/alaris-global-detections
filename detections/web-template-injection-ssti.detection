@@ -1,0 +1,18 @@
+{
+  "uuid": "ccc16eb8-7907-4033-974c-864538da5025",
+  "slug": "web-template-injection-ssti",
+  "title": "Server-Side Template Injection",
+  "description": "Detects server-side template injection probes in HTTP parameters, such as template evaluation expressions (${7*7}, {{7*7}}, #{}, and Freemarker/Velocity/Jinja constructs) used to achieve code execution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "ssti", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-template-injection-ssti.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects server-side template injection probes in HTTP parameters, such as template evaluation expressions (${7*7}, {{7*7}}, #{}, and Freemarker/Velocity/Jinja constructs) used to achieve code execution."
+  }
+}

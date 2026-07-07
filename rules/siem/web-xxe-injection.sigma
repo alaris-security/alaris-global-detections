@@ -1,0 +1,27 @@
+title: XML External Entity (XXE) Injection
+id: 121059f7-df15-4623-b2ce-a2afafb8f97a
+status: experimental
+description: Detects XML External Entity injection payloads in request bodies, indicated by DOCTYPE with ENTITY definitions referencing SYSTEM file:// or http:// URIs, used to read local files or perform SSRF.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '<!ENTITY'
+      - '<!DOCTYPE'
+      - 'SYSTEM "file:'
+      - 'SYSTEM "http'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Applications legitimately processing DTDs
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

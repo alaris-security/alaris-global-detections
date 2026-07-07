@@ -1,0 +1,28 @@
+title: NoSQL Injection Attempt
+id: 2f743715-6204-4aeb-9789-58d2a89de146
+status: experimental
+description: Detects NoSQL injection payloads in HTTP requests, such as MongoDB operator injection ($ne, $gt, $where, $regex) used to bypass authentication or extract data from document databases.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '$ne'
+      - '$gt'
+      - '$where'
+      - '$regex'
+      - '[$ne]='
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Applications legitimately using these parameter names
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

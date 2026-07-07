@@ -1,0 +1,27 @@
+title: CRLF Injection / HTTP Response Splitting
+id: 91f666d0-0eb1-4366-bf4c-fd7dac2a6734
+status: experimental
+description: Detects CRLF injection attempts where encoded carriage-return/line-feed sequences (%0d%0a) are used to inject headers or split the HTTP response, enabling cache poisoning and header manipulation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '%0d%0a'
+      - '%0D%0A'
+      - '\r\nSet-Cookie'
+      - '%0aSet-Cookie'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Rare legitimate encoded newlines
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1190

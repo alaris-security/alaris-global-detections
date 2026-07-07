@@ -1,0 +1,18 @@
+{
+  "uuid": "f6e1ca09-aa58-4d75-9fa3-33a830dccec7",
+  "slug": "web-file-upload-webshell",
+  "title": "Web Shell File Upload Attempt",
+  "description": "Detects HTTP POST uploads whose target or content indicates a server-side script (.php, .jsp, .aspx, .ashx) being written into a web-accessible directory, the delivery step for a web shell.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "web-shell", "file-upload"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1505.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/web-file-upload-webshell.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects HTTP POST uploads whose target or content indicates a server-side script (.php, .jsp, .aspx, .ashx) being written into a web-accessible directory, the delivery step for a web shell."
+  }
+}

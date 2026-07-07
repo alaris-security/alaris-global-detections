@@ -1,0 +1,26 @@
+title: JWT alg=none or Tampering
+id: ef0401cf-aad1-4874-a0cd-d7db2e9455cc
+status: experimental
+description: Detects JSON Web Token manipulation attempts, including tokens using the insecure alg=none header, used to bypass signature verification and forge authenticated sessions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - 'eyJhbGciOiJub25l'
+      - 'alg":"none'
+      - 'alg":"None'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Rare legitimate unsigned tokens
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

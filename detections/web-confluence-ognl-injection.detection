@@ -1,0 +1,18 @@
+{
+  "uuid": "02268485-d991-4fe4-8e78-df2096e0fb6c",
+  "slug": "web-confluence-ognl-injection",
+  "title": "Confluence OGNL Injection Exploitation",
+  "description": "Detects OGNL injection against Atlassian Confluence (CVE-2021-26084 / CVE-2022-26134), indicated by OGNL expressions and Runtime.getRuntime().exec payloads in the request path or query.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["initial-access", "confluence", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-confluence-ognl-injection.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects OGNL injection against Atlassian Confluence (CVE-2021-26084 / CVE-2022-26134), indicated by OGNL expressions and Runtime.getRuntime().exec payloads in the request path or query."
+  }
+}

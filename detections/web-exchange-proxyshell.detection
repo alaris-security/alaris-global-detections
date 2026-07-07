@@ -1,0 +1,18 @@
+{
+  "uuid": "31590a48-a09b-40e3-9430-45acc33fb135",
+  "slug": "web-exchange-proxyshell",
+  "title": "Exchange ProxyShell/ProxyLogon Exploitation",
+  "description": "Detects Microsoft Exchange ProxyShell/ProxyLogon exploitation patterns in autodiscover/PowerShell backend URIs (/autodiscover/autodiscover.json with X-Rps-CAT or /powershell mapping), used for pre-auth RCE.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["initial-access", "exchange", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-exchange-proxyshell.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects Microsoft Exchange ProxyShell/ProxyLogon exploitation patterns in autodiscover/PowerShell backend URIs (/autodiscover/autodiscover.json with X-Rps-CAT or /powershell mapping), used for pre-auth RCE."
+  }
+}

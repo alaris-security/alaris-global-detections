@@ -1,0 +1,18 @@
+{
+  "uuid": "272272a5-c8e2-4749-90ff-629ce4432bd9",
+  "slug": "web-os-command-injection",
+  "title": "OS Command Injection in Web Request",
+  "description": "Detects operating-system command injection payloads in HTTP requests, such as shell metacharacters chaining commands (;id, |whoami, backtick and dollar-paren substitution) against vulnerable web parameters.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "command-injection", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-os-command-injection.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects operating-system command injection payloads in HTTP requests, such as shell metacharacters chaining commands (;id, |whoami, backtick and dollar-paren substitution) against vulnerable web parameters."
+  }
+}

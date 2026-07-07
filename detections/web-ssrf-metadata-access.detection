@@ -1,0 +1,18 @@
+{
+  "uuid": "4e0bc833-70df-488f-b669-33e8f38c09ba",
+  "slug": "web-ssrf-metadata-access",
+  "title": "SSRF Targeting Cloud Metadata",
+  "description": "Detects server-side request forgery attempts where a web parameter points at internal or cloud-metadata endpoints (169.254.169.254, localhost, internal RFC1918 URLs), used to reach the metadata service and steal cloud credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "ssrf", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-ssrf-metadata-access.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects server-side request forgery attempts where a web parameter points at internal or cloud-metadata endpoints (169.254.169.254, localhost, internal RFC1918 URLs), used to reach the metadata service and steal cloud credentials."
+  }
+}

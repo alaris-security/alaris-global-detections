@@ -1,0 +1,26 @@
+title: GraphQL Introspection Query Abuse
+id: ed76cf40-baaa-4788-bf7f-b869749d0998
+status: experimental
+description: Detects GraphQL introspection queries (__schema, __type) against production endpoints, which attackers use to enumerate the full API schema, hidden fields, and mutations for further exploitation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '__schema'
+      - '__type'
+      - 'IntrospectionQuery'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Developer tooling exploring the schema
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1190

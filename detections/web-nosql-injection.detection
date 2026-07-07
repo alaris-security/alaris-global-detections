@@ -1,0 +1,18 @@
+{
+  "uuid": "f81b677f-f937-47a0-83b9-02dff70c3828",
+  "slug": "web-nosql-injection",
+  "title": "NoSQL Injection Attempt",
+  "description": "Detects NoSQL injection payloads in HTTP requests, such as MongoDB operator injection ($ne, $gt, $where, $regex) used to bypass authentication or extract data from document databases.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "nosql-injection", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-nosql-injection.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects NoSQL injection payloads in HTTP requests, such as MongoDB operator injection ($ne, $gt, $where, $regex) used to bypass authentication or extract data from document databases."
+  }
+}

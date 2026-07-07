@@ -1,0 +1,18 @@
+{
+  "uuid": "876237bf-c918-4554-9ca4-fc59d238d798",
+  "slug": "web-xxe-injection",
+  "title": "XML External Entity (XXE) Injection",
+  "description": "Detects XML External Entity injection payloads in request bodies, indicated by DOCTYPE with ENTITY definitions referencing SYSTEM file:// or http:// URIs, used to read local files or perform SSRF.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "xxe", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-xxe-injection.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects XML External Entity injection payloads in request bodies, indicated by DOCTYPE with ENTITY definitions referencing SYSTEM file:// or http:// URIs, used to read local files or perform SSRF."
+  }
+}

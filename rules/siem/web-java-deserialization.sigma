@@ -1,0 +1,27 @@
+title: Java Insecure Deserialization Payload
+id: ecca39dd-549a-4fca-aa8e-dfa4d380fe68
+status: experimental
+description: Detects Java deserialization exploitation, indicated by serialized-object magic bytes (rO0AB base64 / ac ed 00 05) and ysoserial gadget-chain markers in HTTP request bodies or parameters.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - 'rO0AB'
+      - 'aced0005'
+      - 'CommonsCollections'
+      - 'ysoserial'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Applications that legitimately transport serialized Java objects
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

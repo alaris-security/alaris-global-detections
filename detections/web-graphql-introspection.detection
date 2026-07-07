@@ -1,0 +1,18 @@
+{
+  "uuid": "0cf90fde-53a0-4d40-9342-dbcfb94602f4",
+  "slug": "web-graphql-introspection",
+  "title": "GraphQL Introspection Query Abuse",
+  "description": "Detects GraphQL introspection queries (__schema, __type) against production endpoints, which attackers use to enumerate the full API schema, hidden fields, and mutations for further exploitation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "graphql", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-graphql-introspection.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects GraphQL introspection queries (__schema, __type) against production endpoints, which attackers use to enumerate the full API schema, hidden fields, and mutations for further exploitation."
+  }
+}

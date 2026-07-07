@@ -1,0 +1,29 @@
+title: Web Shell File Upload Attempt
+id: 00c5eaf0-63be-4e8c-92f5-c71026b97e11
+status: experimental
+description: Detects HTTP POST uploads whose target or content indicates a server-side script (.php, .jsp, .aspx, .ashx) being written into a web-accessible directory, the delivery step for a web shell.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1505/003/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method: 'POST'
+    cs-uri-stem|endswith:
+      - '.php'
+      - '.jsp'
+      - '.aspx'
+      - '.ashx'
+      - '.jspx'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Legitimate uploads to script endpoints
+level: high
+tags:
+  - attack.persistence
+  - attack.t1505.003

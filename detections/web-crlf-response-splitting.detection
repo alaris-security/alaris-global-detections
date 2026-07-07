@@ -1,0 +1,18 @@
+{
+  "uuid": "79c04fcf-4025-438a-a478-a6c7f5de3632",
+  "slug": "web-crlf-response-splitting",
+  "title": "CRLF Injection / HTTP Response Splitting",
+  "description": "Detects CRLF injection attempts where encoded carriage-return/line-feed sequences (%0d%0a) are used to inject headers or split the HTTP response, enabling cache poisoning and header manipulation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["initial-access", "crlf", "web"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1190", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/web-crlf-response-splitting.sigma"],
+  "intent": {
+    "conditions": ["HTTP request matching the listed web-exploitation pattern"],
+    "dataSourceRequirements": ["Web server or WAF logs with URI, query, and body"],
+    "tuningParameters": {},
+    "sourceContext": "Detects CRLF injection attempts where encoded carriage-return/line-feed sequences (%0d%0a) are used to inject headers or split the HTTP response, enabling cache poisoning and header manipulation."
+  }
+}

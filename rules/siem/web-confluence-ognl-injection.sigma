@@ -1,0 +1,27 @@
+title: Confluence OGNL Injection Exploitation
+id: b62e160b-5da6-460a-bd76-63033ec1f7ef
+status: experimental
+description: Detects OGNL injection against Atlassian Confluence (CVE-2021-26084 / CVE-2022-26134), indicated by OGNL expressions and Runtime.getRuntime().exec payloads in the request path or query.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - 'ognl'
+      - 'Runtime@getRuntime'
+      - '@java.lang.Runtime@'
+      - '${@'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - None expected
+level: critical
+tags:
+  - attack.initial_access
+  - attack.t1190

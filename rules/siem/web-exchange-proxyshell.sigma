@@ -1,0 +1,29 @@
+title: Exchange ProxyShell/ProxyLogon Exploitation
+id: 143df832-004c-4e0f-a4df-7e3d272f6ada
+status: experimental
+description: Detects Microsoft Exchange ProxyShell/ProxyLogon exploitation patterns in autodiscover/PowerShell backend URIs (/autodiscover/autodiscover.json with X-Rps-CAT or /powershell mapping), used for pre-auth RCE.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1190/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-stem|contains:
+      - '/autodiscover/autodiscover.json'
+      - '/mapi/nspi'
+      - '/powershell'
+    cs-uri-query|contains:
+      - 'X-Rps-CAT'
+      - 'Email=autodiscover'
+  condition: selection
+fields:
+  - cs-uri-query
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Legacy Exchange clients
+level: critical
+tags:
+  - attack.initial_access
+  - attack.t1190
