@@ -1,0 +1,24 @@
+title: Process Doppelganging
+id: 27d7884a-2270-4568-8a2a-e12ed4b8a0f7
+status: experimental
+description: Detects process doppelganging, in which a process is created from an image loaded through an NTFS transaction so no file exists on disk, reported by Sysmon process tampering as an image replacement.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/013/
+logsource:
+  product: windows
+  category: process_tampering
+detection:
+  selection:
+    EventID: 25
+    Type|contains: 'Image is replaced'
+  condition: selection
+fields:
+  - Image
+  - Type
+falsepositives:
+  - Packers and self-modifying installers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.013

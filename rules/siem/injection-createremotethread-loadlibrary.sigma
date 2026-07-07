@@ -1,0 +1,27 @@
+title: Classic DLL Injection via CreateRemoteThread
+id: 7949dfcc-13d3-48e5-9a13-ecef70e8b264
+status: experimental
+description: Detects a remote thread created in another process whose start address resolves to LoadLibrary, the classic DLL-injection technique for loading an attacker DLL into a victim process.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/001/
+logsource:
+  product: windows
+  category: create_remote_thread
+detection:
+  selection:
+    EventID: 8
+    StartFunction|contains:
+      - 'LoadLibrary'
+      - 'LoadLibraryA'
+      - 'LoadLibraryW'
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+falsepositives:
+  - Some security products inject via LoadLibrary
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.001

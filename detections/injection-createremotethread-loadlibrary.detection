@@ -1,0 +1,18 @@
+{
+  "uuid": "609e042b-4c1c-4280-b473-6cac0232cea3",
+  "slug": "injection-createremotethread-loadlibrary",
+  "title": "Classic DLL Injection via CreateRemoteThread",
+  "description": "Detects a remote thread created in another process whose start address resolves to LoadLibrary, the classic DLL-injection technique for loading an attacker DLL into a victim process.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-createremotethread-loadlibrary.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a remote thread created in another process whose start address resolves to LoadLibrary, the classic DLL-injection technique for loading an attacker DLL into a victim process."
+  }
+}

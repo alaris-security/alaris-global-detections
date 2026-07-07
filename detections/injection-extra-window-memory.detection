@@ -1,0 +1,18 @@
+{
+  "uuid": "d1996b7e-fbc2-40e1-8eae-a81d9940a3c6",
+  "slug": "injection-extra-window-memory",
+  "title": "Extra Window Memory Injection",
+  "description": "Detects extra window memory (EWM) injection, where a source process opens explorer.exe or a GUI process with write rights and manipulates window class extra memory (SetWindowLongPtr) to execute shellcode.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.011", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-extra-window-memory.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects extra window memory (EWM) injection, where a source process opens explorer.exe or a GUI process with write rights and manipulates window class extra memory (SetWindowLongPtr) to execute shellcode."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "d451d7fa-0b1b-4976-933d-99476e236d35",
+  "slug": "injection-dyld-insert-libraries-macos",
+  "title": "macOS DYLD_INSERT_LIBRARIES Injection",
+  "description": "Detects use of the DYLD_INSERT_LIBRARIES environment variable to load an attacker dylib into a process at launch on macOS, a library-injection technique for code execution and hooking.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "macos", "dyld"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.006", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/injection-dyld-insert-libraries-macos.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the DYLD_INSERT_LIBRARIES environment variable to load an attacker dylib into a process at launch on macOS, a library-injection technique for code execution and hooking."
+  }
+}

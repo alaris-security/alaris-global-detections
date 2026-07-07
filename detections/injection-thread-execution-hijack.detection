@@ -1,0 +1,18 @@
+{
+  "uuid": "50f723cb-da39-4c78-b11e-9923c0321f09",
+  "slug": "injection-thread-execution-hijack",
+  "title": "Thread Execution Hijacking",
+  "description": "Detects thread execution hijacking, where a source process opens a thread in a target with SUSPEND/SET_CONTEXT access (Sysmon event 10 GrantedAccess 0x1800 class) to redirect it to injected code.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.003", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-thread-execution-hijack.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects thread execution hijacking, where a source process opens a thread in a target with SUSPEND/SET_CONTEXT access (Sysmon event 10 GrantedAccess 0x1800 class) to redirect it to injected code."
+  }
+}

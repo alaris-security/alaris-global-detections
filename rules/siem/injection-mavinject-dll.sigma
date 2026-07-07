@@ -1,0 +1,24 @@
+title: DLL Injection via mavinject
+id: 4f03e644-cef0-471d-a9f9-18b8bf374689
+status: experimental
+description: Detects mavinject.exe with /INJECTRUNNING, a signed LOLBin that injects a DLL into a running process, used for stealthy code injection under a Microsoft-signed binary.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\mavinject.exe'
+    CommandLine|contains: '/INJECTRUNNING'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - App-V virtualization (rare)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.001

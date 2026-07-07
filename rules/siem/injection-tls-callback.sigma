@@ -1,0 +1,24 @@
+title: TLS Callback Injection
+id: ab3538c6-c048-4236-8611-c35496764844
+status: experimental
+description: Detects thread-local storage (TLS) callback injection, where malicious code executes via a PE's TLS callbacks before the entry point; observed as a suspended-then-resumed child with a modified image (process tampering).
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/005/
+logsource:
+  product: windows
+  category: process_tampering
+detection:
+  selection:
+    EventID: 25
+    Type|contains: 'Image'
+  condition: selection
+fields:
+  - Image
+  - Type
+falsepositives:
+  - Packers using TLS callbacks
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1055.005

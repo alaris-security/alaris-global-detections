@@ -1,0 +1,25 @@
+title: Extra Window Memory Injection
+id: b1adf04c-025e-4d8f-9c8a-cd9a4d8e9331
+status: experimental
+description: Detects extra window memory (EWM) injection, where a source process opens explorer.exe or a GUI process with write rights and manipulates window class extra memory (SetWindowLongPtr) to execute shellcode.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/011/
+logsource:
+  product: windows
+  category: process_access
+detection:
+  selection:
+    EventID: 10
+    TargetImage|endswith: '\\explorer.exe'
+    CallTrace|contains: 'SetWindowLong'
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+falsepositives:
+  - Rare legitimate GUI hooking
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1055.011

@@ -1,0 +1,26 @@
+title: Process Ghosting / Herpaderping
+id: 51908fcf-3803-42f2-9e72-ac48ef18261a
+status: experimental
+description: Detects process ghosting and herpaderping, where a process is created from a delete-pending or post-write-modified image so the on-disk file differs from the running image, surfaced by Sysmon process tampering.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/
+logsource:
+  product: windows
+  category: process_tampering
+detection:
+  selection:
+    EventID: 25
+    Type|contains:
+      - 'Image is locked for access'
+      - 'Image is replaced'
+  condition: selection
+fields:
+  - Image
+  - Type
+falsepositives:
+  - Some legitimate packers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055

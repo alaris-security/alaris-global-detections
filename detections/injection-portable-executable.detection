@@ -1,0 +1,18 @@
+{
+  "uuid": "266d8aec-2e40-4e3e-bb43-a7f0c5fe0bb6",
+  "slug": "injection-portable-executable",
+  "title": "Portable Executable Injection",
+  "description": "Detects portable executable injection, where a full PE image is written into and executed within another process (Sysmon event 8 with a start address in unbacked memory of a target it did not create).",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-portable-executable.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects portable executable injection, where a full PE image is written into and executed within another process (Sysmon event 8 with a start address in unbacked memory of a target it did not create)."
+  }
+}

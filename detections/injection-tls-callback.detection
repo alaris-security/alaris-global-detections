@@ -1,0 +1,18 @@
+{
+  "uuid": "2e9bd42c-d161-41e0-a332-935c4c15bf64",
+  "slug": "injection-tls-callback",
+  "title": "TLS Callback Injection",
+  "description": "Detects thread-local storage (TLS) callback injection, where malicious code executes via a PE's TLS callbacks before the entry point; observed as a suspended-then-resumed child with a modified image (process tampering).",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.005", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-tls-callback.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects thread-local storage (TLS) callback injection, where malicious code executes via a PE's TLS callbacks before the entry point; observed as a suspended-then-resumed child with a modified image (process tampering)."
+  }
+}

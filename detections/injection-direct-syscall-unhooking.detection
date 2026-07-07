@@ -1,0 +1,18 @@
+{
+  "uuid": "80437556-596c-4389-bf1f-f4fda83bdff8",
+  "slug": "injection-direct-syscall-unhooking",
+  "title": "Native API Unhooking / Direct Syscalls",
+  "description": "Detects behaviors associated with EDR unhooking and direct syscalls, such as a process mapping a fresh copy of ntdll from disk or KnownDlls and executing syscall stubs, used to bypass user-mode API hooks.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "native-api"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1106", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-direct-syscall-unhooking.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects behaviors associated with EDR unhooking and direct syscalls, such as a process mapping a fresh copy of ntdll from disk or KnownDlls and executing syscall stubs, used to bypass user-mode API hooks."
+  }
+}

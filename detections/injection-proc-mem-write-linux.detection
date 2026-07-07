@@ -1,0 +1,18 @@
+{
+  "uuid": "41d9a8f1-1e4c-4230-8813-224eb6bc5b1c",
+  "slug": "injection-proc-mem-write-linux",
+  "title": "Linux Injection via /proc/pid/mem",
+  "description": "Detects writing to another process's memory through /proc/<pid>/mem or /proc/<pid>/maps, a Linux code-injection technique that modifies a running process without ptrace.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.009", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-proc-mem-write-linux.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects writing to another process's memory through /proc/<pid>/mem or /proc/<pid>/maps, a Linux code-injection technique that modifies a running process without ptrace."
+  }
+}

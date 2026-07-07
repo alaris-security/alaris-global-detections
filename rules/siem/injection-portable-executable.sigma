@@ -1,0 +1,27 @@
+title: Portable Executable Injection
+id: befdfee9-63a8-4481-990e-7fac50df8888
+status: experimental
+description: Detects portable executable injection, where a full PE image is written into and executed within another process (Sysmon event 8 with a start address in unbacked memory of a target it did not create).
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/002/
+logsource:
+  product: windows
+  category: create_remote_thread
+detection:
+  selection:
+    EventID: 8
+  filter:
+    StartModule|contains: '.dll'
+  condition: selection and not filter
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+  - StartAddress
+falsepositives:
+  - Security tools that inject threads
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.002

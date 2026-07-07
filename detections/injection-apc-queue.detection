@@ -1,0 +1,18 @@
+{
+  "uuid": "6af5ad5c-44e9-4189-9a86-ac25ca5dd34c",
+  "slug": "injection-apc-queue",
+  "title": "APC Queue Code Injection",
+  "description": "Detects asynchronous procedure call (APC) injection indicators, where a source process opens a target with thread-context rights and queues an APC (Sysmon event 10 with QueueUserAPC/NtQueueApcThread call traces), including early-bird variants.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection", "apc"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.004", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-apc-queue.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects asynchronous procedure call (APC) injection indicators, where a source process opens a target with thread-context rights and queues an APC (Sysmon event 10 with QueueUserAPC/NtQueueApcThread call traces), including early-bird variants."
+  }
+}

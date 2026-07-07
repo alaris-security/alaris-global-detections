@@ -1,0 +1,28 @@
+title: Linux ptrace Process Injection
+id: f8f0bfbb-4092-4420-a591-e68976a48595
+status: experimental
+description: Detects use of ptrace-based injection tooling on Linux (gdb attach with inject, or processes attaching to and writing another process's memory via PTRACE_POKETEXT), used to inject code into running processes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/008/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'PTRACE_POKETEXT'
+      - 'gdb -p'
+      - 'ptrace('
+      - 'inject.so'
+  condition: selection
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Debugging with gdb
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1055.008

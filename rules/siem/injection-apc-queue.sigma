@@ -1,0 +1,26 @@
+title: APC Queue Code Injection
+id: a7e74b27-4148-4ae8-83fd-68960b36a9ee
+status: experimental
+description: Detects asynchronous procedure call (APC) injection indicators, where a source process opens a target with thread-context rights and queues an APC (Sysmon event 10 with QueueUserAPC/NtQueueApcThread call traces), including early-bird variants.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/004/
+logsource:
+  product: windows
+  category: create_remote_thread
+detection:
+  selection:
+    EventID: 8
+    StartFunction|contains:
+      - 'QueueUserAPC'
+      - 'NtQueueApcThread'
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+falsepositives:
+  - Rare legitimate APC usage
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.004

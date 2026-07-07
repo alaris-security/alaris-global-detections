@@ -1,0 +1,28 @@
+title: Thread Execution Hijacking
+id: 3c86cf1b-2b8f-4c38-b623-22e62bfd68fe
+status: experimental
+description: Detects thread execution hijacking, where a source process opens a thread in a target with SUSPEND/SET_CONTEXT access (Sysmon event 10 GrantedAccess 0x1800 class) to redirect it to injected code.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/003/
+logsource:
+  product: windows
+  category: process_access
+detection:
+  selection:
+    EventID: 10
+    GrantedAccess|contains:
+      - '0x1800'
+      - '0x1fffff'
+    CallTrace|contains: 'SetThreadContext'
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+  - GrantedAccess
+falsepositives:
+  - Debuggers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.003

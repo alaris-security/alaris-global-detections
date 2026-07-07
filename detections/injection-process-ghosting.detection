@@ -1,0 +1,18 @@
+{
+  "uuid": "266d8aec-2e40-4e3e-bb43-a7f0c5fe0bb5",
+  "slug": "injection-process-ghosting",
+  "title": "Process Ghosting / Herpaderping",
+  "description": "Detects process ghosting and herpaderping, where a process is created from a delete-pending or post-write-modified image so the on-disk file differs from the running image, surfaced by Sysmon process tampering.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-process-ghosting.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects process ghosting and herpaderping, where a process is created from a delete-pending or post-write-modified image so the on-disk file differs from the running image, surfaced by Sysmon process tampering."
+  }
+}

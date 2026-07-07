@@ -1,0 +1,18 @@
+{
+  "uuid": "71943cb5-346c-409e-b1ab-513b7a31cd5b",
+  "slug": "injection-vdso-hijack-linux",
+  "title": "Linux VDSO Hijacking Indicators",
+  "description": "Detects indicators of VDSO hijacking on Linux, where an attacker patches the virtual dynamic shared object of a target process to redirect syscalls to injected code, typically via ptrace against a target followed by memory writes to the vdso region.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "linux", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.014", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-vdso-hijack-linux.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects indicators of VDSO hijacking on Linux, where an attacker patches the virtual dynamic shared object of a target process to redirect syscalls to injected code, typically via ptrace against a target followed by memory writes to the vdso region."
+  }
+}

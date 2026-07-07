@@ -1,0 +1,23 @@
+title: macOS DYLD_INSERT_LIBRARIES Injection
+id: 98b136bc-f7aa-4131-99fb-39eb50f1fb73
+status: experimental
+description: Detects use of the DYLD_INSERT_LIBRARIES environment variable to load an attacker dylib into a process at launch on macOS, a library-injection technique for code execution and hooking.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/006/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'DYLD_INSERT_LIBRARIES'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Some developer and debugging tools
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1574.006

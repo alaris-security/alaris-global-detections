@@ -1,0 +1,18 @@
+{
+  "uuid": "9829d63e-972c-4808-a750-3c94fb5f4feb",
+  "slug": "injection-ptrace-linux",
+  "title": "Linux ptrace Process Injection",
+  "description": "Detects use of ptrace-based injection tooling on Linux (gdb attach with inject, or processes attaching to and writing another process's memory via PTRACE_POKETEXT), used to inject code into running processes.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "linux", "process-injection", "ptrace"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.008", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/injection-ptrace-linux.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of ptrace-based injection tooling on Linux (gdb attach with inject, or processes attaching to and writing another process's memory via PTRACE_POKETEXT), used to inject code into running processes."
+  }
+}

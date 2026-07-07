@@ -1,0 +1,18 @@
+{
+  "uuid": "8b664a4d-2c44-4d56-9932-99b67dd8025c",
+  "slug": "injection-process-doppelganging",
+  "title": "Process Doppelganging",
+  "description": "Detects process doppelganging, in which a process is created from an image loaded through an NTFS transaction so no file exists on disk, reported by Sysmon process tampering as an image replacement.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.013", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-process-doppelganging.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects process doppelganging, in which a process is created from an image loaded through an NTFS transaction so no file exists on disk, reported by Sysmon process tampering as an image replacement."
+  }
+}

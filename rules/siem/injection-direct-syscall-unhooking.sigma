@@ -1,0 +1,27 @@
+title: Native API Unhooking / Direct Syscalls
+id: b19bb08e-63c3-4ed1-87d2-a1a7ac9429a4
+status: experimental
+description: Detects behaviors associated with EDR unhooking and direct syscalls, such as a process mapping a fresh copy of ntdll from disk or KnownDlls and executing syscall stubs, used to bypass user-mode API hooks.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1106/
+logsource:
+  product: windows
+  category: create_remote_thread
+detection:
+  selection:
+    EventID: 8
+    StartModule|endswith: '\\ntdll.dll'
+  filter:
+    SourceImage|startswith: 'C:\\Windows\\'
+  condition: selection and not filter
+  condition: selection
+fields:
+  - SourceImage
+  - TargetImage
+falsepositives:
+  - Some legitimate runtimes remap ntdll
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1106

@@ -1,0 +1,18 @@
+{
+  "uuid": "23c38bbc-757b-4c5e-9a9e-d94c65a1849b",
+  "slug": "injection-mavinject-dll",
+  "title": "DLL Injection via mavinject",
+  "description": "Detects mavinject.exe with /INJECTRUNNING, a signed LOLBin that injects a DLL into a running process, used for stealthy code injection under a Microsoft-signed binary.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/injection-mavinject-dll.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described injection/execution technique"],
+    "dataSourceRequirements": ["Endpoint telemetry (Sysmon/EDR or auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects mavinject.exe with /INJECTRUNNING, a signed LOLBin that injects a DLL into a running process, used for stealthy code injection under a Microsoft-signed binary."
+  }
+}

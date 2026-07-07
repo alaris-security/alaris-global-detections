@@ -1,0 +1,28 @@
+title: Linux VDSO Hijacking Indicators
+id: 77b15184-aec5-4a6a-b69b-4deac4832179
+status: experimental
+description: Detects indicators of VDSO hijacking on Linux, where an attacker patches the virtual dynamic shared object of a target process to redirect syscalls to injected code, typically via ptrace against a target followed by memory writes to the vdso region.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/014/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'vdso'
+      - '[vdso]'
+    CommandLine|contains:
+      - 'ptrace'
+      - '/proc/'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Rare legitimate use
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1055.014
