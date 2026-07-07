@@ -1,0 +1,18 @@
+{
+  "uuid": "4b2f3c19-a399-48b8-a167-45f79c25dde0",
+  "slug": "impact-service-stop-mass",
+  "title": "Mass Service and Process Termination",
+  "description": "Detects stopping or killing of database, backup, and security services (SQL, Veeam, Exchange, Backup Exec) via net stop, sc stop, or taskkill, a pre-encryption step ransomware uses to unlock files.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "service-stop", "ransomware"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1489", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-service-stop-mass.sigma"],
+  "intent": {
+    "conditions": ["net stop / sc stop / taskkill targeting database, backup, or mail services"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Ransomware stops services holding file locks so it can encrypt their data."
+  }
+}

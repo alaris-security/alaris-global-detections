@@ -1,0 +1,36 @@
+title: Mass Deletion of User Data
+id: dfc0b917-5eec-48dc-ad60-a50a80763334
+status: experimental
+description: Detects mass deletion of user data.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1485/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Remove-Item'
+      - 'del /s'
+      - 'rm -rf'
+    CommandLine|contains:
+      - '\Users\'
+      - '\\\\'
+      - '/home/'
+      - '/mnt/'
+    CommandLine|contains:
+      - '-Recurse'
+      - '-Force'
+      - '/q'
+      - '-rf'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Bulk cleanup operations
+level: high
+tags:
+  - attack.impact
+  - attack.t1485

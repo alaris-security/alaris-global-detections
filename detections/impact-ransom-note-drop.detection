@@ -1,0 +1,18 @@
+{
+  "uuid": "7b903863-d02c-4522-945c-4dfd7238702e",
+  "slug": "impact-ransom-note-drop",
+  "title": "Ransom Note File Creation",
+  "description": "Detects rapid creation of ransom-note style files (readme/decrypt/how_to_* with .txt/.html) across many directories, a strong indicator that data encryption for impact is underway.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "ransomware", "ransom-note"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1486", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-ransom-note-drop.sigma"],
+  "intent": {
+    "conditions": ["File creation of note filenames such as readme/decrypt/how_to_decrypt in multiple folders"],
+    "dataSourceRequirements": ["File create telemetry (Sysmon event 11)"],
+    "tuningParameters": {},
+    "sourceContext": "Ransom notes are dropped alongside encryption; their pattern is highly specific."
+  }
+}

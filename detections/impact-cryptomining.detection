@@ -1,0 +1,18 @@
+{
+  "uuid": "5efbf193-8e1b-4c32-8218-e8ae69e1ccdf",
+  "slug": "impact-cryptomining",
+  "title": "Cryptocurrency Miner Execution",
+  "description": "Detects execution of cryptocurrency miners (xmrig, minerd) or connections to mining pool protocols (stratum+tcp), indicating resource hijacking of compromised hosts for coin mining.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "resource-hijacking", "cryptomining"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1496", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-cryptomining.sigma"],
+  "intent": {
+    "conditions": ["Miner binary names, stratum pool URLs, or wallet/donate-level mining flags"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Coin miners steal CPU/GPU resources and often follow initial compromise."
+  }
+}

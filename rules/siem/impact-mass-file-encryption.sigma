@@ -1,0 +1,32 @@
+title: Mass File Rename to Ransomware Extension
+id: 9a41b65c-169f-471f-b17c-e3b77bee8f63
+status: experimental
+description: Detects file creation with ransomware extensions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1486/
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|endswith:
+      - '.locked'
+      - '.encrypted'
+      - '.crypt'
+      - '.crypted'
+      - '.enc'
+      - '.lockbit'
+      - '.conti'
+      - '.ryuk'
+      - '.wcry'
+  condition: selection
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Backup software using .enc extensions
+level: critical
+tags:
+  - attack.impact
+  - attack.t1486

@@ -1,0 +1,18 @@
+{
+  "uuid": "edde65bb-9444-4440-af4b-cf2cf8da5c44",
+  "slug": "impact-wmic-shadowcopy-delete",
+  "title": "Volume Shadow Copy Deletion via WMIC",
+  "description": "Detects wmic shadowcopy delete and PowerShell Get-WmiObject Win32_ShadowCopy removal, an alternative to vssadmin for destroying restore points before ransomware encryption.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "inhibit-recovery", "shadow-copy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1490", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-wmic-shadowcopy-delete.sigma"],
+  "intent": {
+    "conditions": ["wmic shadowcopy delete, or Win32_ShadowCopy Delete via PowerShell"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting shadow copies removes the volume snapshots users would restore from."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "8e0b7b69-a5b9-444f-a279-a91f29be2d9b",
+  "slug": "impact-wbadmin-delete-backups",
+  "title": "Backup Catalog Deletion via wbadmin",
+  "description": "Detects wbadmin delete catalog/systemstatebackup/backup, which destroys Windows Server Backup data to inhibit recovery, a step commonly taken by ransomware before encryption.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "inhibit-recovery", "wbadmin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1490", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-wbadmin-delete-backups.sigma"],
+  "intent": {
+    "conditions": ["wbadmin delete of catalog, backup, or systemstatebackup"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Destroying backups removes the fallback that would defeat ransom demands."
+  }
+}

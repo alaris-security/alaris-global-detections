@@ -1,0 +1,32 @@
+title: Bulk Disk Content Wipe
+id: e07573c6-8ca1-4108-9974-36f544ef50e6
+status: experimental
+description: Detects bulk destructive file wiping.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1561/001/
+logsource:
+  category: process_creation
+detection:
+  selection_win:
+    CommandLine|contains:
+      - 'del /f /s /q C:\'
+      - 'rd /s /q C:\'
+      - 'cipher /w:C'
+      - 'Remove-Item C:\ -Recurse -Force'
+  selection_nix:
+    CommandLine|contains:
+      - 'rm -rf /'
+      - 'rm -rf /*'
+      - 'shred -n'
+  condition: selection_win or selection_nix
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Provisioning or decommissioning scripts
+level: critical
+tags:
+  - attack.impact
+  - attack.t1561.001

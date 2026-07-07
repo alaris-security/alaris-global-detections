@@ -1,0 +1,18 @@
+{
+  "uuid": "cddfa4a2-bc56-4332-9c54-d25ec3ba6203",
+  "slug": "impact-disk-wipe-mbr",
+  "title": "Master Boot Record Overwrite",
+  "description": "Detects direct writes to the physical drive boot sector (\\\\.\\PhysicalDrive0) or use of dd/diskpart clean against the system disk, a disk-structure-wipe technique used by destructive wipers.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "disk-wipe", "mbr"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1561.002", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-disk-wipe-mbr.sigma"],
+  "intent": {
+    "conditions": ["Writes to \\\\.\\PhysicalDrive0, dd of=/dev/sda, or diskpart clean all"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Overwriting the MBR renders systems unbootable, the goal of wiper malware."
+  }
+}

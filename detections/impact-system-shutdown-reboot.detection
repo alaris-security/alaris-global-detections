@@ -1,0 +1,18 @@
+{
+  "uuid": "61d8f80f-0d9c-4102-8c81-65ac45e16b6a",
+  "slug": "impact-system-shutdown-reboot",
+  "title": "Forced System Shutdown or Reboot",
+  "description": "Detects forced shutdown or reboot commands (shutdown /r /f /t 0, wmic os shutdown), which attackers use to trigger boot into an encrypted or wiped state or to disrupt operations.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["impact", "system-shutdown"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1529", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-system-shutdown-reboot.sigma"],
+  "intent": {
+    "conditions": ["shutdown /r or /s with /f, or scripted OS reboot"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Forced reboots finalize destructive changes and interrupt availability."
+  }
+}

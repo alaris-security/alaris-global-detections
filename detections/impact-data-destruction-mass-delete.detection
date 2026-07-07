@@ -1,0 +1,18 @@
+{
+  "uuid": "905f2a10-ab47-4090-81b6-1301f4970691",
+  "slug": "impact-data-destruction-mass-delete",
+  "title": "Mass Deletion of User Data",
+  "description": "Detects recursive forced deletion of user document directories or network shares (Remove-Item -Recurse -Force over Users/Shares, del /s of file shares), a data-destruction impact technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "data-destruction"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1485", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-data-destruction-mass-delete.sigma"],
+  "intent": {
+    "conditions": ["Recursive forced delete of user or share directories"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Destroying user data causes direct operational impact and pressures victims."
+  }
+}

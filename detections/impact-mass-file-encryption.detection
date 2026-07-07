@@ -1,0 +1,18 @@
+{
+  "uuid": "350e6762-9825-455c-9880-59685046d4f0",
+  "slug": "impact-mass-file-encryption",
+  "title": "Mass File Rename to Ransomware Extension",
+  "description": "Detects a single process renaming or creating a high volume of files with known ransomware extensions (.locked, .encrypted, .crypt and family-specific suffixes), the core signature of data-encryption impact.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "ransomware", "encryption"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1486", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-mass-file-encryption.sigma"],
+  "intent": {
+    "conditions": ["File creation with known ransomware extensions in volume from one process"],
+    "dataSourceRequirements": ["File create telemetry (Sysmon event 11)"],
+    "tuningParameters": {},
+    "sourceContext": "A flood of files gaining an encryption extension is unambiguous ransomware behavior."
+  }
+}

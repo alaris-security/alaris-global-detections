@@ -1,0 +1,28 @@
+title: Backup Catalog Deletion via wbadmin
+id: cf704db8-e7f2-434e-b719-647e1fddd833
+status: experimental
+description: Detects wbadmin backup deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1490/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\wbadmin.exe'
+    CommandLine|contains: 'delete'
+    CommandLine|contains:
+      - 'catalog'
+      - 'backup'
+      - 'systemstatebackup'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrators managing backup catalogs
+level: high
+tags:
+  - attack.impact
+  - attack.t1490

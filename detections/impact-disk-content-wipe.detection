@@ -1,0 +1,18 @@
+{
+  "uuid": "8ecad0ff-00d8-475a-8354-8a114562dcb9",
+  "slug": "impact-disk-content-wipe",
+  "title": "Bulk Disk Content Wipe",
+  "description": "Detects destructive bulk deletion or overwriting of file content across the filesystem (recursive del/rm of system paths, cipher /w on whole volumes), consistent with data-destruction wipers.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "disk-wipe", "destruction"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1561.001", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-disk-content-wipe.sigma"],
+  "intent": {
+    "conditions": ["Recursive forced deletion of broad system paths, or cipher /w over volumes"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Mass content destruction is the payload of wiper attacks."
+  }
+}

@@ -1,0 +1,26 @@
+title: ESXi Virtual Machine Encryption Preparation
+id: 1c79015b-f16f-485a-baf3-eed5aa3455a0
+status: experimental
+description: Detects ESXi mass VM power-off before encryption.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1486/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'esxcli vm process kill'
+      - 'vim-cmd vmsvc/power.off'
+      - 'vim-cmd vmsvc/getallvms'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Administrators performing bulk maintenance
+level: critical
+tags:
+  - attack.impact
+  - attack.t1486

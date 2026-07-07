@@ -1,0 +1,18 @@
+{
+  "uuid": "3c031299-e06f-4578-b705-7dc801391b6b",
+  "slug": "impact-bcdedit-recovery-disable",
+  "title": "Boot Recovery Disabled via bcdedit",
+  "description": "Detects bcdedit disabling automatic repair and ignoring boot failures (recoveryenabled No, bootstatuspolicy ignoreallfailures), a recovery-inhibition step used by ransomware to prevent Windows self-healing.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "inhibit-recovery", "bcdedit"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1490", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-bcdedit-recovery-disable.sigma"],
+  "intent": {
+    "conditions": ["bcdedit setting recoveryenabled No or bootstatuspolicy ignoreallfailures"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling boot recovery stops Windows from repairing itself after encryption."
+  }
+}

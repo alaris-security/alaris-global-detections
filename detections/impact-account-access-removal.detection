@@ -1,0 +1,18 @@
+{
+  "uuid": "218571a1-e466-490e-b314-9e2be4f9d4d3",
+  "slug": "impact-account-access-removal",
+  "title": "Account Access Removal and Lockout",
+  "description": "Detects disabling accounts, forcing password changes, or deleting users at scale via net user, Disable-ADAccount, and Set-ADAccountPassword, an impact technique to lock defenders out during an attack.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "account-access-removal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1531", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-account-access-removal.sigma"],
+  "intent": {
+    "conditions": ["net user with /active:no or password reset, or Disable-ADAccount / Set-ADAccountPassword"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Locking out admins prevents defenders from responding during encryption."
+  }
+}

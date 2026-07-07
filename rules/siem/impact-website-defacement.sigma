@@ -1,0 +1,37 @@
+title: Web Content Defacement
+id: 13cc5435-2e2b-4f9d-b19b-75f63ce5db7d
+status: experimental
+description: Detects overwriting of web index files.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1491/001/
+logsource:
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains:
+      - '\inetpub\wwwroot\'
+      - '/var/www/'
+      - '/htdocs/'
+    TargetFilename|endswith:
+      - 'index.html'
+      - 'index.php'
+      - 'default.aspx'
+      - 'index.htm'
+  selection_proc:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '/bash'
+      - '/sh'
+      - '\w3wp.exe'
+  condition: selection and selection_proc
+fields:
+  - TargetFilename
+  - Image
+falsepositives:
+  - Legitimate site deployments (should come from CI/CD)
+level: high
+tags:
+  - attack.impact
+  - attack.t1491.001

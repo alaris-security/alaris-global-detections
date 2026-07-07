@@ -1,0 +1,18 @@
+{
+  "uuid": "f7b28644-94a0-440e-8f9a-cdeeffa097d7",
+  "slug": "impact-esxi-vm-encryption",
+  "title": "ESXi Virtual Machine Encryption Preparation",
+  "description": "Detects ESXi shell commands that forcibly power off all running VMs (esxcli vm process kill, vim-cmd vmsvc/power.off) followed by encryptor execution, the pre-encryption pattern of ESXi-targeting ransomware.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["impact", "ransomware", "esxi"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1486", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/impact-esxi-vm-encryption.sigma"],
+  "intent": {
+    "conditions": ["esxcli vm process kill or vim-cmd power.off across many VMs"],
+    "dataSourceRequirements": ["ESXi shell/audit logs with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Killing all VMs unlocks their disk files for bulk encryption on the hypervisor."
+  }
+}

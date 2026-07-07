@@ -1,0 +1,30 @@
+title: Master Boot Record Overwrite
+id: a767ef47-63a4-4c34-b8ae-a78050839d14
+status: experimental
+description: Detects boot sector overwrite attempts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1561/002/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '\\.\PhysicalDrive0'
+      - 'of=/dev/sda'
+      - 'of=/dev/nvme0n1'
+      - 'diskpart'
+    CommandLine|contains:
+      - 'clean all'
+      - 'dd '
+      - 'write'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized disk imaging and provisioning
+level: critical
+tags:
+  - attack.impact
+  - attack.t1561.002
