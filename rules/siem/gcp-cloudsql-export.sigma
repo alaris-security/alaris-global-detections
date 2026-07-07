@@ -1,0 +1,23 @@
+title: GCP Cloud SQL Database Export
+id: d2d5ae67-61da-44af-bce0-5a5698dc482d
+status: experimental
+description: Detects Cloud SQL export operations (instances.export) writing a database dump to Cloud Storage, a technique to bulk-collect database contents for exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains: 'cloudsql.instances.export'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.methodName
+falsepositives:
+  - Scheduled database backups
+level: medium
+tags:
+  - attack.collection
+  - attack.t1530

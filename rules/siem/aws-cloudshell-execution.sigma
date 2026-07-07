@@ -1,0 +1,27 @@
+title: AWS CloudShell Session Started
+id: 0c716a9a-cd4d-4f32-a8ff-1afad0106ab3
+status: experimental
+description: Detects creation of an AWS CloudShell session (CreateSession/CreateEnvironment), which provides a browser-based shell with the caller's credentials; unexpected use can indicate hands-on-keyboard cloud activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1651/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'cloudshell.amazonaws.com'
+    eventName:
+      - 'CreateSession'
+      - 'CreateEnvironment'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Administrators using CloudShell
+level: low
+tags:
+  - attack.execution
+  - attack.t1651

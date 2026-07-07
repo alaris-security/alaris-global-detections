@@ -1,0 +1,18 @@
+{
+  "uuid": "0c2d6a07-e060-462d-9ca0-f7cb7ce2f57c",
+  "slug": "aws-backup-deletion",
+  "title": "AWS Backup Vault or Recovery Point Deleted",
+  "description": "Detects deletion of AWS Backup vaults or recovery points (DeleteBackupVault, DeleteRecoveryPoint), an inhibit-recovery action that removes the ability to restore data after destruction or ransomware.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["impact", "aws", "inhibit-recovery"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1490", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/aws-backup-deletion.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Detects deletion of AWS Backup vaults or recovery points (DeleteBackupVault, DeleteRecoveryPoint), an inhibit-recovery action that removes the ability to restore data after destruction or ransomware."
+  }
+}

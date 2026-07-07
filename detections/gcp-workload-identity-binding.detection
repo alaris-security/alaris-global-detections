@@ -1,0 +1,18 @@
+{
+  "uuid": "b076a53e-41d6-4294-a695-9bf5d94e2bbf",
+  "slug": "gcp-workload-identity-binding",
+  "title": "GCP Workload Identity Binding Added",
+  "description": "Detects binding of an external or Kubernetes identity to a service account via workloadIdentityUser (SetIamPolicy on a service account), which can let an attacker-controlled workload impersonate a privileged service account.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "gcp", "workload-identity"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/gcp-workload-identity-binding.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects binding of an external or Kubernetes identity to a service account via workloadIdentityUser (SetIamPolicy on a service account), which can let an attacker-controlled workload impersonate a privileged service account."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "68ece6c2-1126-4607-b290-6597567a5385",
+  "slug": "gcp-cloudsql-export",
+  "title": "GCP Cloud SQL Database Export",
+  "description": "Detects Cloud SQL export operations (instances.export) writing a database dump to Cloud Storage, a technique to bulk-collect database contents for exfiltration.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "gcp", "cloudsql"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/gcp-cloudsql-export.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects Cloud SQL export operations (instances.export) writing a database dump to Cloud Storage, a technique to bulk-collect database contents for exfiltration."
+  }
+}

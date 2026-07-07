@@ -1,0 +1,27 @@
+title: AWS STS Role Chaining Anomaly
+id: 00752337-961d-47da-b710-10c02464d0e9
+status: experimental
+description: Detects AssumeRole chains where an assumed-role session immediately assumes another role repeatedly, a role-chaining pattern used to pivot across permissions and obscure the originating identity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: 'AssumeRole'
+    userIdentity.type: 'AssumedRole'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 5
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Automation that legitimately chains roles
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1078.004

@@ -1,0 +1,18 @@
+{
+  "uuid": "9a28a2d5-e450-4902-9e7a-55a9f443d3b4",
+  "slug": "gcp-deployment-manager-deploy",
+  "title": "GCP Deployment Manager Deployment",
+  "description": "Detects Deployment Manager deployments (deploymentmanager.deployments.insert), which can provision resources and run actions with elevated service-account permissions, usable to bulk-deploy attacker infrastructure.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "gcp", "deployment-manager"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/gcp-deployment-manager-deploy.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["GCP Cloud Audit Logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects Deployment Manager deployments (deploymentmanager.deployments.insert), which can provision resources and run actions with elevated service-account permissions, usable to bulk-deploy attacker infrastructure."
+  }
+}

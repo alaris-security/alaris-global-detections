@@ -1,0 +1,18 @@
+{
+  "uuid": "398d8348-fdc9-4b97-83c3-2a6143bcef63",
+  "slug": "aws-macie-detective-disabled",
+  "title": "AWS Macie or Detective Disabled",
+  "description": "Detects disabling of AWS Macie or Detective (DisableMacie, DeleteGraph), reducing data-security and investigation visibility, a defense-evasion action.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-macie-detective-disabled.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Detects disabling of AWS Macie or Detective (DisableMacie, DeleteGraph), reducing data-security and investigation visibility, a defense-evasion action."
+  }
+}

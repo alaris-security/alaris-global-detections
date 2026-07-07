@@ -1,0 +1,24 @@
+title: Azure Logic App Created or Modified
+id: aa87251e-9825-4896-aad8-99a0cee7f374
+status: experimental
+description: Detects creation or modification of an Azure Logic App workflow, which can host attacker automation triggered by events or HTTP under a managed identity, a persistence and exfiltration vector.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains: 'MICROSOFT.LOGIC/WORKFLOWS/WRITE'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+  - operationName
+falsepositives:
+  - Legitimate workflow automation
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

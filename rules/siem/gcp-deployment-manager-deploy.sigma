@@ -1,0 +1,23 @@
+title: GCP Deployment Manager Deployment
+id: 9a79d7f4-86a1-4e6f-b7e8-1acc165545af
+status: experimental
+description: Detects Deployment Manager deployments (deploymentmanager.deployments.insert), which can provision resources and run actions with elevated service-account permissions, usable to bulk-deploy attacker infrastructure.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains: 'deploymentmanager.deployments.insert'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.methodName
+falsepositives:
+  - Infrastructure-as-code deployments
+level: medium
+tags:
+  - attack.execution
+  - attack.t1648

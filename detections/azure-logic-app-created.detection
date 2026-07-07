@@ -1,0 +1,18 @@
+{
+  "uuid": "07b36956-6edc-49de-ad71-fb5bd6ed9cc2",
+  "slug": "azure-logic-app-created",
+  "title": "Azure Logic App Created or Modified",
+  "description": "Detects creation or modification of an Azure Logic App workflow, which can host attacker automation triggered by events or HTTP under a managed identity, a persistence and exfiltration vector.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "azure", "logic-apps"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/azure-logic-app-created.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["Azure Activity and Audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation or modification of an Azure Logic App workflow, which can host attacker automation triggered by events or HTTP under a managed identity, a persistence and exfiltration vector."
+  }
+}

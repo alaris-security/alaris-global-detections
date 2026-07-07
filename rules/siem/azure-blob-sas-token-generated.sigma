@@ -1,0 +1,26 @@
+title: Azure Storage SAS Token Generated
+id: 73ba624b-8ee6-421c-b89a-5da9e750a49f
+status: experimental
+description: Detects generation of a storage account SAS token (ListAccountSas/ListServiceSas), which grants time-limited data access via a URL; broad or long-lived SAS tokens can be used to exfiltrate blob data.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    operationName|contains:
+      - 'MICROSOFT.STORAGE/STORAGEACCOUNTS/LISTACCOUNTSAS'
+      - 'MICROSOFT.STORAGE/STORAGEACCOUNTS/LISTSERVICESAS'
+  condition: selection
+fields:
+  - caller
+  - resourceId
+  - operationName
+falsepositives:
+  - Applications generating SAS for legitimate access
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1537

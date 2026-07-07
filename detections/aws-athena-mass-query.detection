@@ -1,0 +1,18 @@
+{
+  "uuid": "ff7ccabe-1005-4634-a396-029b4714b482",
+  "slug": "aws-athena-mass-query",
+  "title": "AWS Athena Large Data Query",
+  "description": "Detects a high volume of Athena StartQueryExecution calls or queries scanning large data volumes by a single principal, indicating bulk querying of data-lake contents for collection.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["collection", "aws", "athena"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/aws-athena-mass-query.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a high volume of Athena StartQueryExecution calls or queries scanning large data volumes by a single principal, indicating bulk querying of data-lake contents for collection."
+  }
+}

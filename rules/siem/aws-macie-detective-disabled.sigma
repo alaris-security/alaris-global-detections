@@ -1,0 +1,28 @@
+title: AWS Macie or Detective Disabled
+id: 94148d0a-c398-4b61-8ae1-cb4d3e680e3b
+status: experimental
+description: Detects disabling of AWS Macie or Detective (DisableMacie, DeleteGraph), reducing data-security and investigation visibility, a defense-evasion action.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName:
+      - 'DisableMacie'
+      - 'DisableOrganizationAdminAccount'
+      - 'DeleteGraph'
+      - 'DeleteMembers'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Authorized security tooling changes
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

@@ -1,0 +1,27 @@
+title: AWS Athena Large Data Query
+id: 1dc34887-f67f-4afb-92b1-97dda1d388e9
+status: experimental
+description: Detects a high volume of Athena StartQueryExecution calls or queries scanning large data volumes by a single principal, indicating bulk querying of data-lake contents for collection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'athena.amazonaws.com'
+    eventName: 'StartQueryExecution'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 50
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Analytics workloads
+level: medium
+tags:
+  - attack.collection
+  - attack.t1530

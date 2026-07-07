@@ -1,0 +1,26 @@
+title: GCP BigQuery Large Export
+id: ad7288ad-807c-4d42-8d7a-4911eedfa967
+status: experimental
+description: Detects BigQuery extract/export jobs writing table data to Cloud Storage, or queries scanning very large volumes, indicating bulk collection of warehouse data for exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains:
+      - 'jobservice.insert'
+      - 'Extract'
+    data.protoPayload.request|contains: 'destinationUris'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.methodName
+falsepositives:
+  - Legitimate data pipelines
+level: medium
+tags:
+  - attack.collection
+  - attack.t1530

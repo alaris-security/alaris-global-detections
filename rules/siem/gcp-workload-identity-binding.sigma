@@ -1,0 +1,24 @@
+title: GCP Workload Identity Binding Added
+id: 0d389aae-c0d6-4620-8ad5-3ad812ba1875
+status: experimental
+description: Detects binding of an external or Kubernetes identity to a service account via workloadIdentityUser (SetIamPolicy on a service account), which can let an attacker-controlled workload impersonate a privileged service account.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|endswith: 'SetIamPolicy'
+    data.protoPayload.request|contains: 'roles/iam.workloadIdentityUser'
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.methodName
+falsepositives:
+  - Legitimate workload identity federation
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

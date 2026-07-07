@@ -1,0 +1,25 @@
+title: AWS DynamoDB Table Export
+id: 69fb91c6-bef0-4bb4-a62c-da1230850de5
+status: experimental
+description: Detects ExportTableToPointInTime in DynamoDB, which exports a full table to S3; attackers use it to bulk-collect database contents for exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'dynamodb.amazonaws.com'
+    eventName: 'ExportTableToPointInTime'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Legitimate data pipelines
+level: medium
+tags:
+  - attack.collection
+  - attack.t1530

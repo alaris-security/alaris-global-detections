@@ -1,0 +1,28 @@
+title: AWS Backup Vault or Recovery Point Deleted
+id: e2e31594-29d9-4cc8-8678-b27c930a7b24
+status: experimental
+description: Detects deletion of AWS Backup vaults or recovery points (DeleteBackupVault, DeleteRecoveryPoint), an inhibit-recovery action that removes the ability to restore data after destruction or ransomware.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1490/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'backup.amazonaws.com'
+    eventName:
+      - 'DeleteBackupVault'
+      - 'DeleteRecoveryPoint'
+      - 'DeleteBackupPlan'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - Backup lifecycle management
+level: high
+tags:
+  - attack.impact
+  - attack.t1490

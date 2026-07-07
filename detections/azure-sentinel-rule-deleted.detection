@@ -1,0 +1,18 @@
+{
+  "uuid": "9d1f203a-c703-4ff6-9453-bddaf2182e01",
+  "slug": "azure-sentinel-rule-deleted",
+  "title": "Azure Sentinel Analytics Rule Deleted",
+  "description": "Detects deletion of Microsoft Sentinel analytics rules or data connectors, a defense-evasion action that removes cloud detection coverage.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "azure", "sentinel"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/azure-sentinel-rule-deleted.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["Azure Activity and Audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects deletion of Microsoft Sentinel analytics rules or data connectors, a defense-evasion action that removes cloud detection coverage."
+  }
+}

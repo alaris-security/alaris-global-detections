@@ -1,0 +1,18 @@
+{
+  "uuid": "12142eba-86a1-43c7-bdce-95c2b6f62e04",
+  "slug": "aws-cloudshell-execution",
+  "title": "AWS CloudShell Session Started",
+  "description": "Detects creation of an AWS CloudShell session (CreateSession/CreateEnvironment), which provides a browser-based shell with the caller's credentials; unexpected use can indicate hands-on-keyboard cloud activity.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["execution", "aws", "cloudshell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1651", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/aws-cloudshell-execution.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation of an AWS CloudShell session (CreateSession/CreateEnvironment), which provides a browser-based shell with the caller's credentials; unexpected use can indicate hands-on-keyboard cloud activity."
+  }
+}

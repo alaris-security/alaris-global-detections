@@ -1,0 +1,18 @@
+{
+  "uuid": "dce2d5c6-3dbc-4568-a314-17d407310df9",
+  "slug": "aws-sts-role-chaining-anomaly",
+  "title": "AWS STS Role Chaining Anomaly",
+  "description": "Detects AssumeRole chains where an assumed-role session immediately assumes another role repeatedly, a role-chaining pattern used to pivot across permissions and obscure the originating identity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "aws", "sts"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/aws-sts-role-chaining-anomaly.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {},
+    "sourceContext": "Detects AssumeRole chains where an assumed-role session immediately assumes another role repeatedly, a role-chaining pattern used to pivot across permissions and obscure the originating identity."
+  }
+}

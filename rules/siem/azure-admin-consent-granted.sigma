@@ -1,0 +1,25 @@
+title: Entra ID Admin Consent Granted to Application
+id: f72689d8-a658-4553-8845-5a28580dc4d0
+status: experimental
+description: Detects an administrator granting tenant-wide consent to an application (Consent to application with admin consent), which authorizes the app's permissions for all users at once, a high-impact abuse of the consent framework.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1528/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName: 'Consent to application'
+    Properties|contains: 'ConsentType: AllPrincipals'
+  condition: selection
+fields:
+  - InitiatedBy
+  - TargetResources
+  - Properties
+falsepositives:
+  - Approved enterprise application rollouts
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1528

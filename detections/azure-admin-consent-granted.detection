@@ -1,0 +1,18 @@
+{
+  "uuid": "3b281698-12fe-4882-a413-00e1fc09514d",
+  "slug": "azure-admin-consent-granted",
+  "title": "Entra ID Admin Consent Granted to Application",
+  "description": "Detects an administrator granting tenant-wide consent to an application (Consent to application with admin consent), which authorizes the app's permissions for all users at once, a high-impact abuse of the consent framework.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "azure", "oauth"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1528", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/azure-admin-consent-granted.sigma"],
+  "intent": {
+    "conditions": ["Cloud audit event matching the described API pattern"],
+    "dataSourceRequirements": ["Azure Activity and Audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects an administrator granting tenant-wide consent to an application (Consent to application with admin consent), which authorizes the app's permissions for all users at once, a high-impact abuse of the consent framework."
+  }
+}
