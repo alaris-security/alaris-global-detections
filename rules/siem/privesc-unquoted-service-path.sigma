@@ -1,0 +1,24 @@
+title: Unquoted Service Path Exploitation
+id: 901c7b94-6c28-4e53-ac56-78c4b0fc87e0
+status: experimental
+description: Detects unquoted service path interception.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/009/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\services.exe'
+    Image|re: '^C:\\Program\.exe$'
+  condition: selection
+fields:
+  - Image
+  - ParentImage
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1574.009

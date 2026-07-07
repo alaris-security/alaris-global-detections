@@ -1,0 +1,18 @@
+{
+  "uuid": "df14c351-cd74-4119-834b-90e2f7d1cfad",
+  "slug": "privesc-always-install-elevated",
+  "title": "AlwaysInstallElevated Policy Abuse",
+  "description": "Detects setting the AlwaysInstallElevated registry values under HKCU/HKLM Policies\\Microsoft\\Windows\\Installer, or an msiexec install exploiting them, a privilege escalation that runs any MSI as SYSTEM.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "msi", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-always-install-elevated.sigma"],
+  "intent": {
+    "conditions": ["Registry set of AlwaysInstallElevated=1 under Installer policy keys"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "AlwaysInstallElevated lets any user install an MSI with SYSTEM rights."
+  }
+}

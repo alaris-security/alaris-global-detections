@@ -1,0 +1,28 @@
+title: PrintNightmare Spooler DLL Load
+id: 02ea1a7d-b755-4890-a6be-903b8fc4e15a
+status: experimental
+description: Detects PrintNightmare spooler DLL abuse.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1068/
+logsource:
+  product: windows
+  category: image_load
+detection:
+  selection:
+    Image|endswith: '\spoolsv.exe'
+    ImageLoaded|contains:
+      - '\Temp\'
+      - '\AppData\'
+      - '\Windows\System32\spool\drivers\'
+      - '\\\\'
+  condition: selection
+fields:
+  - Image
+  - ImageLoaded
+falsepositives:
+  - Legitimate printer driver installation
+level: critical
+tags:
+  - attack.privilege_escalation
+  - attack.t1068

@@ -1,0 +1,26 @@
+title: UAC Bypass via sdclt.exe
+id: a6b1b1fe-c769-4c2d-858f-4268b0d9d2ea
+status: experimental
+description: Detects sdclt UAC bypass.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains:
+      - '\exefile\shell\runas\command\isolatedCommand'
+      - '\App Paths\control.exe'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare legitimate customization
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002

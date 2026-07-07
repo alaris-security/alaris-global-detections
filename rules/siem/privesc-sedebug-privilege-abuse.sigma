@@ -1,0 +1,26 @@
+title: SeDebugPrivilege Enabled by Non-System Process
+id: 605f6bc9-4bcf-4fc8-956b-4d2e3de297d4
+status: experimental
+description: Detects SeDebugPrivilege enablement.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1134/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4703
+    EnabledPrivilegeList|contains: 'SeDebugPrivilege'
+  filter:
+    SubjectUserName|endswith: '$'
+  condition: selection and not filter
+fields:
+  - SubjectUserName
+  - ProcessName
+falsepositives:
+  - Debuggers and diagnostic tools
+level: medium
+tags:
+  - attack.privilege_escalation
+  - attack.t1134

@@ -1,0 +1,18 @@
+{
+  "uuid": "193df9c3-15ea-4e55-b50b-b413c58f7528",
+  "slug": "privesc-uac-bypass-sdclt",
+  "title": "UAC Bypass via sdclt.exe",
+  "description": "Detects the sdclt.exe UAC bypass, where HKCU\\Software\\Classes\\exefile\\shell\\runas\\command\\isolatedCommand or the App Paths\\control.exe key is hijacked to run an attacker command elevated.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "uac-bypass", "sdclt"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-uac-bypass-sdclt.sigma"],
+  "intent": {
+    "conditions": ["Registry write to exefile runas isolatedCommand or App Paths\\control.exe, or sdclt spawning a shell"],
+    "dataSourceRequirements": ["Sysmon event 13 and process create"],
+    "tuningParameters": {},
+    "sourceContext": "sdclt auto-elevates and can be redirected to run attacker commands."
+  }
+}

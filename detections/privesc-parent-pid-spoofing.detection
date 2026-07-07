@@ -1,0 +1,18 @@
+{
+  "uuid": "769e8cec-6e76-4dc1-a2c7-9cebc587bec3",
+  "slug": "privesc-parent-pid-spoofing",
+  "title": "Parent Process ID Spoofing",
+  "description": "Detects processes whose recorded parent does not match the actual launching lineage (e.g. a shell parented to a system process it could not have spawned), an indicator of PPID spoofing used to evade lineage detections and inherit privileged tokens.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "defense-evasion", "ppid-spoofing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1134.004", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-parent-pid-spoofing.sigma"],
+  "intent": {
+    "conditions": ["Interpreter/tool child parented to an implausible system parent (e.g. lsass, csrss)"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "PPID spoofing fakes a benign parent to steal its token and dodge detections."
+  }
+}

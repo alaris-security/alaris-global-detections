@@ -1,0 +1,28 @@
+title: Scheduled Task Created to Run as SYSTEM
+id: 4d5b0624-9fa2-4a2d-ae93-532ec53f870c
+status: experimental
+description: Detects SYSTEM-level scheduled task creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains: '/create'
+    CommandLine|contains:
+      - '/ru system'
+      - 'NT AUTHORITY\SYSTEM'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Software installers creating SYSTEM tasks
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1053.005

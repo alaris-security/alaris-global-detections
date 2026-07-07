@@ -1,0 +1,18 @@
+{
+  "uuid": "5ef140be-89cb-4831-b6d1-2d08ea742794",
+  "slug": "privesc-printnightmare",
+  "title": "PrintNightmare Spooler DLL Load",
+  "description": "Detects the print spooler (spoolsv.exe) loading a DLL from a user-writable or remote path, the PrintNightmare (CVE-2021-34527) exploitation pattern that achieves SYSTEM code execution.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "printnightmare", "spooler"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1068", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-printnightmare.sigma"],
+  "intent": {
+    "conditions": ["spoolsv.exe loading a DLL from a temp/AppData/UNC path, or spawning a shell"],
+    "dataSourceRequirements": ["Sysmon image load (event 7) and process create"],
+    "tuningParameters": {},
+    "sourceContext": "spoolsv loading an attacker DLL is the PrintNightmare SYSTEM-exec signature."
+  }
+}

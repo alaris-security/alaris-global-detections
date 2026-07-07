@@ -1,0 +1,18 @@
+{
+  "uuid": "6cbd7305-75ea-4d1f-869b-55c9ea6c0149",
+  "slug": "privesc-sedebug-privilege-abuse",
+  "title": "SeDebugPrivilege Enabled by Non-System Process",
+  "description": "Detects a non-system user process enabling SeDebugPrivilege (via 4703 token privilege adjustment or tooling), a step used to access protected processes such as LSASS for credential theft and escalation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "sedebug", "token"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1134", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-sedebug-privilege-abuse.sigma"],
+  "intent": {
+    "conditions": ["Security event 4703 enabling SeDebugPrivilege for a non-system account"],
+    "dataSourceRequirements": ["Windows Security log event 4703"],
+    "tuningParameters": {},
+    "sourceContext": "SeDebugPrivilege enables reading protected process memory such as LSASS."
+  }
+}

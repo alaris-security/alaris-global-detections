@@ -1,0 +1,24 @@
+title: UAC Bypass via eventvwr.exe Registry Hijack
+id: d57998bf-552f-4d78-8b25-91d7df47df89
+status: experimental
+description: Detects eventvwr UAC bypass.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Software\Classes\mscfile\shell\open\command'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare legitimate handler customization
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002

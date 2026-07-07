@@ -1,0 +1,31 @@
+title: Service ImagePath Registry Modified by Non-Admin
+id: 5db37c4a-9d43-4671-9be1-68611f393589
+status: experimental
+description: Detects service ImagePath registry tampering.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/011/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\CurrentControlSet\Services\'
+    TargetObject|endswith: '\ImagePath'
+  selection_susp:
+    Details|contains:
+      - '\Temp\'
+      - '\AppData\'
+      - 'cmd'
+      - 'powershell'
+  condition: selection and selection_susp
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Legitimate service installation
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1574.011

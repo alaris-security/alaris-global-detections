@@ -1,0 +1,18 @@
+{
+  "uuid": "18f48cc6-9bf5-41dd-a7ce-1ddfac4f9ebf",
+  "slug": "privesc-byovd-vulnerable-driver",
+  "title": "Bring Your Own Vulnerable Driver Load",
+  "description": "Detects installation or loading of known vulnerable signed drivers (e.g. RTCore64.sys, dbutil, gdrv, procexp) used in BYOVD attacks to gain kernel execution for privilege escalation and EDR tampering.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "byovd", "driver"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1068", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-byovd-vulnerable-driver.sigma"],
+  "intent": {
+    "conditions": ["Service create or driver load referencing a known-vulnerable driver name"],
+    "dataSourceRequirements": ["Sysmon driver load (event 6) or service create events"],
+    "tuningParameters": {},
+    "sourceContext": "Vulnerable drivers give attackers kernel access to disable defenses and escalate."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "940e4864-b97c-4033-b31e-f23fc922c30c",
+  "slug": "privesc-runas-savecred",
+  "title": "Runas with Saved Credentials",
+  "description": "Detects runas /savecred, which executes a program using stored credentials of another (often privileged) user without prompting, a privilege escalation technique reusing cached admin credentials.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "runas", "credentials"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1134", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-runas-savecred.sigma"],
+  "intent": {
+    "conditions": ["runas.exe with /savecred"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "runas /savecred reuses stored privileged credentials without a prompt."
+  }
+}

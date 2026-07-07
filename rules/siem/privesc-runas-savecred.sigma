@@ -1,0 +1,25 @@
+title: Runas with Saved Credentials
+id: 6e275782-7b2d-47f4-b7f7-74185e5d2918
+status: experimental
+description: Detects runas /savecred usage.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1134/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\runas.exe'
+    CommandLine|contains: '/savecred'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Administrators using saved credentials intentionally
+level: medium
+tags:
+  - attack.privilege_escalation
+  - attack.t1134

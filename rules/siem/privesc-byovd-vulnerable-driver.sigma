@@ -1,0 +1,29 @@
+title: Bring Your Own Vulnerable Driver Load
+id: aa3e645a-f71b-4323-878a-e5075c76bfaf
+status: experimental
+description: Detects loading of known vulnerable drivers.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1068/
+logsource:
+  product: windows
+  category: driver_load
+detection:
+  selection:
+    ImageLoaded|endswith:
+      - '\RTCore64.sys'
+      - '\dbutil_2_3.sys'
+      - '\gdrv.sys'
+      - '\procexp152.sys'
+      - '\aswArPot.sys'
+      - '\iqvw64e.sys'
+  condition: selection
+fields:
+  - ImageLoaded
+  - Signature
+falsepositives:
+  - Legitimate use of these utilities (rare in enterprise)
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1068

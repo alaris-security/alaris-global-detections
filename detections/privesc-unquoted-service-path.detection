@@ -1,0 +1,18 @@
+{
+  "uuid": "045ca4c8-f8a3-4983-a3ba-a435475d8834",
+  "slug": "privesc-unquoted-service-path",
+  "title": "Unquoted Service Path Exploitation",
+  "description": "Detects execution of a binary from a path segment that would be hit by an unquoted service path (e.g. C:\\Program.exe for a service pointing to C:\\Program Files\\...), a classic privilege escalation via path interception.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "unquoted-path", "service"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.009", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-unquoted-service-path.sigma"],
+  "intent": {
+    "conditions": ["Execution of C:\\Program.exe or similar intercept binary by services.exe"],
+    "dataSourceRequirements": ["Process creation telemetry with image path and parent"],
+    "tuningParameters": {},
+    "sourceContext": "Unquoted service paths let a planted intercept binary run as the service."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "310654a2-3374-4b77-a298-69e4ffe64f8f",
+  "slug": "privesc-potato-token-impersonation",
+  "title": "Token Impersonation Privilege Escalation (Potato)",
+  "description": "Detects a service account with SeImpersonatePrivilege spawning a SYSTEM shell, the pattern of Potato-family attacks (JuicyPotato, PrintSpoofer, RoguePotato) that abuse token impersonation to escalate to SYSTEM.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "token-impersonation", "potato"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1134.001", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-potato-token-impersonation.sigma"],
+  "intent": {
+    "conditions": ["Service-account process (IIS/SQL/web worker) spawning cmd/powershell as SYSTEM, or known potato tool names"],
+    "dataSourceRequirements": ["Process creation telemetry with integrity/user context"],
+    "tuningParameters": {},
+    "sourceContext": "Potato attacks turn SeImpersonate into a full SYSTEM shell."
+  }
+}

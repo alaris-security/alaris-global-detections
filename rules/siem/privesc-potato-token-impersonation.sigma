@@ -1,0 +1,37 @@
+title: Token Impersonation Privilege Escalation (Potato)
+id: b9f5face-27ab-4224-a70e-483c45a7a4a7
+status: experimental
+description: Detects potato-family token impersonation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1134/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_tool:
+    CommandLine|contains:
+      - 'PrintSpoofer'
+      - 'JuicyPotato'
+      - 'RoguePotato'
+      - 'GodPotato'
+      - 'SweetPotato'
+  selection_parent:
+    ParentImage|endswith:
+      - '\w3wp.exe'
+      - '\sqlservr.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+    User|contains: 'SYSTEM'
+  condition: selection_tool or selection_parent
+fields:
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate SYSTEM service helpers
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1134.001

@@ -1,0 +1,32 @@
+title: Parent Process ID Spoofing
+id: 0285a735-f32e-4fdc-a2cf-d4c334c4c950
+status: experimental
+description: Detects implausible parent-child relationships.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1134/004/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\lsass.exe'
+      - '\csrss.exe'
+      - '\wininit.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\rundll32.exe'
+  condition: selection
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - Rare legitimate system tooling
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1134.004

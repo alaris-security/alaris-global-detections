@@ -1,0 +1,18 @@
+{
+  "uuid": "59530e6c-2445-4d37-8124-d3a8fb868f8b",
+  "slug": "privesc-uac-bypass-computerdefaults",
+  "title": "UAC Bypass via computerdefaults.exe",
+  "description": "Detects the computerdefaults.exe UAC bypass, which like fodhelper uses a hijacked HKCU ms-settings\\shell\\open\\command handler to launch an attacker command with elevated integrity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "uac-bypass", "computerdefaults"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-uac-bypass-computerdefaults.sigma"],
+  "intent": {
+    "conditions": ["computerdefaults.exe spawning a shell child, with an ms-settings handler hijack"],
+    "dataSourceRequirements": ["Process create and Sysmon event 13"],
+    "tuningParameters": {},
+    "sourceContext": "computerdefaults auto-elevates and abuses the ms-settings handler like fodhelper."
+  }
+}

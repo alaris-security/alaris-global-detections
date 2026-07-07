@@ -1,0 +1,18 @@
+{
+  "uuid": "0c1eee4d-5538-41db-a9ce-a277edff7fd4",
+  "slug": "privesc-service-binpath-modified",
+  "title": "Windows Service Binary Path Modified",
+  "description": "Detects sc config or reg changes to a service's binPath/ImagePath pointing to a shell or user-writable binary, a privilege escalation technique to run attacker code as the service account (often SYSTEM).",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "service", "binpath"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1543.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-service-binpath-modified.sigma"],
+  "intent": {
+    "conditions": ["sc config with binPath= to cmd/powershell/temp, or ImagePath registry change"],
+    "dataSourceRequirements": ["Process creation telemetry and Sysmon event 13"],
+    "tuningParameters": {},
+    "sourceContext": "Repointing a service binary runs attacker code with the service's privileges."
+  }
+}

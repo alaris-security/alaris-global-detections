@@ -1,0 +1,18 @@
+{
+  "uuid": "043abe06-aa01-49c6-981e-adabead23122",
+  "slug": "privesc-uac-bypass-eventvwr",
+  "title": "UAC Bypass via eventvwr.exe Registry Hijack",
+  "description": "Detects the eventvwr.exe UAC bypass, where HKCU\\Software\\Classes\\mscfile\\shell\\open\\command is hijacked so the auto-elevated Event Viewer launches an attacker command with high integrity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "uac-bypass", "eventvwr"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-uac-bypass-eventvwr.sigma"],
+  "intent": {
+    "conditions": ["Registry write to mscfile\\shell\\open\\command, or eventvwr.exe spawning a shell"],
+    "dataSourceRequirements": ["Sysmon event 13 and process create"],
+    "tuningParameters": {},
+    "sourceContext": "eventvwr auto-elevates; a hijacked mscfile handler runs attacker code as admin."
+  }
+}

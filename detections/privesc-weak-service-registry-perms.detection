@@ -1,0 +1,18 @@
+{
+  "uuid": "9a53550c-5135-4dab-97ef-db6897de9d11",
+  "slug": "privesc-weak-service-registry-perms",
+  "title": "Service ImagePath Registry Modified by Non-Admin",
+  "description": "Detects direct modification of a service's ImagePath value under HKLM\\SYSTEM\\CurrentControlSet\\Services via reg/registry write, exploiting weak service registry permissions to run attacker code as the service.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "service", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.011", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-weak-service-registry-perms.sigma"],
+  "intent": {
+    "conditions": ["Registry set of a Services\\<svc>\\ImagePath to a shell or user-writable path"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Weak service registry ACLs let low-privilege users repoint service binaries."
+  }
+}

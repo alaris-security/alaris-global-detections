@@ -1,0 +1,25 @@
+title: AlwaysInstallElevated Policy Abuse
+id: 07ebbe53-4eac-4f78-9fa0-ce7b675a8dbf
+status: experimental
+description: Detects AlwaysInstallElevated registry configuration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated'
+    Details: 'DWORD (0x00000001)'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare legitimate deployment configurations
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002

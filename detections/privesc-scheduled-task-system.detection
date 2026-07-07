@@ -1,0 +1,18 @@
+{
+  "uuid": "73ea8c73-4139-44a6-a58c-a28ba4573c4f",
+  "slug": "privesc-scheduled-task-system",
+  "title": "Scheduled Task Created to Run as SYSTEM",
+  "description": "Detects schtasks /create specifying /RU SYSTEM (or NT AUTHORITY\\SYSTEM) with a highest run level, a privilege escalation technique that executes attacker code with SYSTEM privileges.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "scheduled-task", "system"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/privesc-scheduled-task-system.sigma"],
+  "intent": {
+    "conditions": ["schtasks /create with /RU SYSTEM and /RL HIGHEST"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "A SYSTEM-run task escalates a lower-privileged foothold to SYSTEM."
+  }
+}
