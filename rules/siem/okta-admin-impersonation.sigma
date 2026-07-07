@@ -1,0 +1,25 @@
+title: Okta Admin Impersonation Session
+id: 86dc10ff-4279-40c3-9b21-6af497363018
+status: experimental
+description: Detects Okta admin impersonation sessions.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType:
+      - 'user.session.impersonation.initiate'
+      - 'user.session.impersonation.grant'
+  condition: selection
+fields:
+  - actor.alternateId
+  - target.alternateId
+falsepositives:
+  - Support staff assisting users with consent
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1078

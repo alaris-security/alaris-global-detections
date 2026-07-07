@@ -1,0 +1,18 @@
+{
+  "uuid": "5eafb771-c5a5-4582-9baf-889d3099e05a",
+  "slug": "gworkspace-mail-forwarding",
+  "title": "Google Workspace External Mail Forwarding Enabled",
+  "description": "Detects enabling of automatic email forwarding to an external address in Gmail (EMAIL_FORWARDING_OUT_OF_DOMAIN or user forwarding filter), a collection technique to exfiltrate mail from a compromised account.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "google-workspace", "email-forwarding"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1114.003", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/gworkspace-mail-forwarding.sigma"],
+  "intent": {
+    "conditions": ["Gmail forwarding to an out-of-domain address enabled"],
+    "dataSourceRequirements": ["Google Workspace admin/Gmail audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "External auto-forwarding quietly exfiltrates a victim's mail."
+  }
+}

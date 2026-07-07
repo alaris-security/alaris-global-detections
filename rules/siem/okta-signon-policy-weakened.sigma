@@ -1,0 +1,25 @@
+title: Okta Sign-On or MFA Policy Weakened
+id: 396dea7b-e15d-49f5-9186-58baec281196
+status: experimental
+description: Detects weakening of Okta policies.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType:
+      - 'policy.lifecycle.deactivate'
+      - 'policy.rule.deactivate'
+  condition: selection
+fields:
+  - actor.alternateId
+  - target.displayName
+falsepositives:
+  - Administrators restructuring policies
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562

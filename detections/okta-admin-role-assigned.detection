@@ -1,0 +1,18 @@
+{
+  "uuid": "58beecb0-4560-46f9-a0f2-a68cfcf4b080",
+  "slug": "okta-admin-role-assigned",
+  "title": "Okta Administrator Role Assigned",
+  "description": "Detects user.account.privilege.grant events assigning administrator roles (Super Admin, Org Admin) in Okta, a privilege escalation and persistence action granting broad tenant control.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "okta", "admin-role"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/okta-admin-role-assigned.sigma"],
+  "intent": {
+    "conditions": ["Okta privilege.grant assigning an admin role"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {},
+    "sourceContext": "Super Admin in Okta controls all downstream SSO-connected applications."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "67b9dda8-322b-4c27-9374-242822836ae1",
+  "slug": "identity-golden-saml-anomaly",
+  "title": "Golden SAML Token Anomaly",
+  "description": "Detects sign-ins that present a SAML assertion without a corresponding IdP authentication event, or with an unusually long validity, the signature of Golden SAML where an attacker forges tokens using a stolen signing key.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "identity", "golden-saml"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1606.002", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/identity-golden-saml-anomaly.sigma"],
+  "intent": {
+    "conditions": ["Service provider SAML sign-in with no matching IdP auth, or forged assertion markers"],
+    "dataSourceRequirements": ["IdP and SP authentication logs correlated"],
+    "tuningParameters": {},
+    "sourceContext": "Golden SAML forges assertions with a stolen key, bypassing the IdP entirely."
+  }
+}

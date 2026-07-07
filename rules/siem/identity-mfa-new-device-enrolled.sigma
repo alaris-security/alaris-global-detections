@@ -1,0 +1,26 @@
+title: New MFA Device Enrolled After Sign-In
+id: 6e622781-3524-4640-a545-18023ccacd36
+status: experimental
+description: Detects new MFA device enrollment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType:
+      - 'user.mfa.factor.activate'
+      - 'user.mfa.factor.update'
+  condition: selection
+fields:
+  - target.alternateId
+  - client.ipAddress
+  - client.geographicalContext.country
+falsepositives:
+  - Users enrolling replacement devices
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

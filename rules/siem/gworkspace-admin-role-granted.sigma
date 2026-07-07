@@ -1,0 +1,25 @@
+title: Google Workspace Admin Role Granted
+id: 2f6d05b5-cf12-4ab7-81c4-b2209d174dc3
+status: experimental
+description: Detects Google Workspace admin role grants.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+logsource:
+  product: gworkspace
+  service: google_workspace.admin
+detection:
+  selection:
+    eventName:
+      - 'ASSIGN_ROLE'
+      - 'GRANT_ADMIN_PRIVILEGE'
+  condition: selection
+fields:
+  - actor.email
+  - parameters.USER_EMAIL
+falsepositives:
+  - Legitimate admin delegation
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098.003

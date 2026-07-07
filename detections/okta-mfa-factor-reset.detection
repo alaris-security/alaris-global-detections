@@ -1,0 +1,18 @@
+{
+  "uuid": "e2d038c8-3292-4781-b4d7-a3b46116241a",
+  "slug": "okta-mfa-factor-reset",
+  "title": "Okta MFA Factor Reset",
+  "description": "Detects user.mfa.factor.reset_all or factor deactivation events, which clear a user's MFA enrollment; attackers reset MFA to enroll their own device and take over the account.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "okta", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/okta-mfa-factor-reset.sigma"],
+  "intent": {
+    "conditions": ["Okta eventType user.mfa.factor.reset_all or factor.deactivate"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {},
+    "sourceContext": "Resetting MFA lets an attacker re-enroll and bypass the second factor."
+  }
+}

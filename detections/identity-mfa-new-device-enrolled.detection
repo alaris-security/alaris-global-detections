@@ -1,0 +1,18 @@
+{
+  "uuid": "7c82d0bc-5096-4ebd-ad7e-2dcbd86c32d8",
+  "slug": "identity-mfa-new-device-enrolled",
+  "title": "New MFA Device Enrolled After Sign-In",
+  "description": "Detects enrollment of a new MFA authenticator device shortly after a sign-in from an unfamiliar location, a common account-takeover step where an attacker adds their own second factor.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "identity", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/identity-mfa-new-device-enrolled.sigma"],
+  "intent": {
+    "conditions": ["MFA factor enrollment event from a new or anomalous source"],
+    "dataSourceRequirements": ["IdP authentication/MFA logs"],
+    "tuningParameters": {},
+    "sourceContext": "Attackers add their own MFA device to maintain access after takeover."
+  }
+}

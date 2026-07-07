@@ -1,0 +1,25 @@
+title: Okta Brute Force Followed by Success
+id: da9bfeee-9592-4c44-86b7-de7238a4b093
+status: experimental
+description: Detects Okta brute force with eventual success.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1110/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection_fail:
+    eventType: 'user.authentication.auth_via_mfa'
+    outcome.result: 'FAILURE'
+  timeframe: 10m
+  condition: selection_fail | count() by client.ipAddress > 10
+fields:
+  - client.ipAddress
+  - target.alternateId
+falsepositives:
+  - Users repeatedly mistyping passwords
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110

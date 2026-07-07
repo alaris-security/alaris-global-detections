@@ -1,0 +1,25 @@
+title: Google Workspace External Mail Forwarding Enabled
+id: ada0ca79-2d66-4a0b-b1fe-e964e059d90f
+status: experimental
+description: Detects external mail forwarding in Workspace.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/003/
+logsource:
+  product: gworkspace
+  service: google_workspace.admin
+detection:
+  selection:
+    eventName:
+      - 'EMAIL_FORWARDING_OUT_OF_DOMAIN'
+      - 'CHANGE_EMAIL_SETTING'
+  condition: selection
+fields:
+  - actor.email
+  - parameters.USER_EMAIL
+falsepositives:
+  - Users setting legitimate forwarding
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.003

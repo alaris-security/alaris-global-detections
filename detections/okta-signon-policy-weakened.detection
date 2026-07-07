@@ -1,0 +1,18 @@
+{
+  "uuid": "81569812-f1a4-49f0-9db8-b26a9dd57df4",
+  "slug": "okta-signon-policy-weakened",
+  "title": "Okta Sign-On or MFA Policy Weakened",
+  "description": "Detects deactivation or permissive modification of Okta sign-on and MFA policies (policy.lifecycle.deactivate, policy.rule.deactivate), a defense-evasion action removing authentication requirements.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "okta", "policy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/okta-signon-policy-weakened.sigma"],
+  "intent": {
+    "conditions": ["Okta policy.lifecycle.deactivate or policy.rule.deactivate"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling sign-on/MFA policies removes enforced authentication controls."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "efb5c9bd-f545-45ab-9c5c-d756049bff73",
+  "slug": "okta-admin-impersonation",
+  "title": "Okta Admin Impersonation Session",
+  "description": "Detects use of the Okta admin impersonation feature (user.session.impersonation.initiate), which lets an admin act as another user; abuse allows accessing a victim's apps without their credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "okta", "impersonation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/okta-admin-impersonation.sigma"],
+  "intent": {
+    "conditions": ["Okta user.session.impersonation.initiate event"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {},
+    "sourceContext": "Impersonation sessions grant an admin a victim's app access silently."
+  }
+}

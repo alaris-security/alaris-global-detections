@@ -1,0 +1,25 @@
+title: Okta External Identity Provider Added
+id: 71d0283f-d597-4db2-b7b0-72674c961589
+status: experimental
+description: Detects addition of an external IdP in Okta.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType:
+      - 'system.idp.lifecycle.create'
+      - 'system.idp.lifecycle.activate'
+  condition: selection
+fields:
+  - actor.alternateId
+  - target.displayName
+falsepositives:
+  - Legitimate federation setup
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

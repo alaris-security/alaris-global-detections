@@ -1,0 +1,18 @@
+{
+  "uuid": "ccdef251-d89f-4b2a-94cb-322e4111ec9a",
+  "slug": "okta-push-fatigue-mfa-bombing",
+  "title": "Okta MFA Push Fatigue (Bombing)",
+  "description": "Detects a high number of MFA push challenges to a single user in a short window (user.mfa.okta_verify.deny_push repeated), the push-fatigue technique that spams prompts hoping the user approves one.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "okta", "mfa-fatigue"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1621", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/okta-push-fatigue-mfa-bombing.sigma"],
+  "intent": {
+    "conditions": ["Many MFA push challenges/denies for one user in a short window"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {"pushThreshold": 5},
+    "sourceContext": "MFA bombing spams push prompts until the victim accidentally approves."
+  }
+}

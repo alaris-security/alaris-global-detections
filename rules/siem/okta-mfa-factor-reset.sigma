@@ -1,0 +1,26 @@
+title: Okta MFA Factor Reset
+id: 009f88ef-a0a4-45a4-949f-ea35c38e8da8
+status: experimental
+description: Detects Okta MFA factor reset.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType:
+      - 'user.mfa.factor.reset_all'
+      - 'user.mfa.factor.deactivate'
+  condition: selection
+fields:
+  - actor.alternateId
+  - target.alternateId
+  - client.ipAddress
+falsepositives:
+  - Help desk resetting MFA for locked-out users
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

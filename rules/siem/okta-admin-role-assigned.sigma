@@ -1,0 +1,24 @@
+title: Okta Administrator Role Assigned
+id: 90082f26-118f-403e-bdf1-e48d11b8d150
+status: experimental
+description: Detects Okta admin role assignment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/003/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType: 'user.account.privilege.grant'
+  condition: selection
+fields:
+  - actor.alternateId
+  - target.alternateId
+  - client.ipAddress
+falsepositives:
+  - Legitimate admin role delegation
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098.003

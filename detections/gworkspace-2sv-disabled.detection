@@ -1,0 +1,18 @@
+{
+  "uuid": "6628213b-2b73-4e23-a854-23d0baa438ca",
+  "slug": "gworkspace-2sv-disabled",
+  "title": "Google Workspace 2-Step Verification Disabled",
+  "description": "Detects ENFORCE_STRONG_AUTHENTICATION disabled or 2SV turned off for users in Google Workspace, a defense-evasion action weakening account authentication.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "google-workspace", "mfa"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/gworkspace-2sv-disabled.sigma"],
+  "intent": {
+    "conditions": ["Workspace event disabling 2SV / strong authentication enforcement"],
+    "dataSourceRequirements": ["Google Workspace admin audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Turning off 2SV lowers the barrier for account takeover."
+  }
+}

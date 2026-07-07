@@ -1,0 +1,18 @@
+{
+  "uuid": "84997da7-434e-4e20-9e31-c4f306b5bb46",
+  "slug": "gworkspace-admin-role-granted",
+  "title": "Google Workspace Admin Role Granted",
+  "description": "Detects ASSIGN_ROLE / GRANT_ADMIN_PRIVILEGE events in Google Workspace admin audit logs, a privilege escalation and persistence action granting super admin control of the tenant.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "google-workspace", "admin-role"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/gworkspace-admin-role-granted.sigma"],
+  "intent": {
+    "conditions": ["Google Workspace ASSIGN_ROLE or GRANT_ADMIN_PRIVILEGE event"],
+    "dataSourceRequirements": ["Google Workspace admin audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Super admin in Workspace grants tenant-wide control over users and data."
+  }
+}

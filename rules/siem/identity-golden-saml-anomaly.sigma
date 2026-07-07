@@ -1,0 +1,27 @@
+title: Golden SAML Token Anomaly
+id: e598d415-643c-4986-8226-c123f0882dc9
+status: experimental
+description: Detects Golden SAML token anomalies.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1606/002/
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    AuthenticationProtocol: 'saml'
+    ResultType: '0'
+  filter:
+    CorrelatedIdpAuth: true
+  condition: selection and not filter
+fields:
+  - UserPrincipalName
+  - IPAddress
+  - ResourceDisplayName
+falsepositives:
+  - Correlation gaps in log collection
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1606.002

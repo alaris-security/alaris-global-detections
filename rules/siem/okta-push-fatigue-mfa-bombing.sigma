@@ -1,0 +1,24 @@
+title: Okta MFA Push Fatigue (Bombing)
+id: 36bd4dc3-e223-44be-b3ed-190dab351cd3
+status: experimental
+description: Detects Okta MFA push fatigue.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1621/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType: 'user.mfa.okta_verify.deny_push'
+  timeframe: 10m
+  condition: selection | count() by target.alternateId > 5
+fields:
+  - target.alternateId
+  - client.ipAddress
+falsepositives:
+  - Users repeatedly failing legitimate MFA
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1621

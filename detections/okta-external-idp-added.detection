@@ -1,0 +1,18 @@
+{
+  "uuid": "c140c2fa-0bcc-49b0-830d-2b139fa84ce2",
+  "slug": "okta-external-idp-added",
+  "title": "Okta External Identity Provider Added",
+  "description": "Detects creation of a new external Identity Provider (system.idp.lifecycle.create) in Okta, an authentication-bypass persistence technique that can allow attacker-controlled federation into accounts.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "okta", "idp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1556", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/okta-external-idp-added.sigma"],
+  "intent": {
+    "conditions": ["Okta system.idp.lifecycle.create event"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {},
+    "sourceContext": "A rogue IdP can enable federated sign-in bypassing normal authentication."
+  }
+}

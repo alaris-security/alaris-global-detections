@@ -1,0 +1,18 @@
+{
+  "uuid": "a352661a-d384-4a14-8fab-c040fb3b80b4",
+  "slug": "okta-api-token-created",
+  "title": "Okta API Token Created",
+  "description": "Detects system.api_token.create events, which produce long-lived API tokens with the creator's privileges; attackers mint tokens for durable programmatic access that bypasses MFA.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "okta", "api-token"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.001", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/okta-api-token-created.sigma"],
+  "intent": {
+    "conditions": ["Okta system.api_token.create event"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {},
+    "sourceContext": "API tokens grant persistent, MFA-less access to the Okta tenant."
+  }
+}

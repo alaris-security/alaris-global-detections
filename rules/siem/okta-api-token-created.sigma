@@ -1,0 +1,23 @@
+title: Okta API Token Created
+id: 6177281a-ee9b-4a03-8990-55b9dd7d3632
+status: experimental
+description: Detects Okta API token creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/001/
+logsource:
+  product: okta
+  service: okta
+detection:
+  selection:
+    eventType: 'system.api_token.create'
+  condition: selection
+fields:
+  - actor.alternateId
+  - client.ipAddress
+falsepositives:
+  - Legitimate integration provisioning
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098.001

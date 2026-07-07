@@ -1,0 +1,26 @@
+title: Google Workspace 2-Step Verification Disabled
+id: f9227b93-9311-48b3-851f-6079332eb202
+status: experimental
+description: Detects disabling of 2SV in Google Workspace.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1556/
+logsource:
+  product: gworkspace
+  service: google_workspace.admin
+detection:
+  selection:
+    eventName:
+      - 'ENFORCE_STRONG_AUTHENTICATION'
+      - 'ALLOW_STRONG_AUTHENTICATION'
+    parameters.NEW_VALUE: 'false'
+  condition: selection
+fields:
+  - actor.email
+  - parameters.USER_EMAIL
+falsepositives:
+  - Policy changes by admins
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1556

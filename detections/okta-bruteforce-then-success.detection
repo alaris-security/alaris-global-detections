@@ -1,0 +1,18 @@
+{
+  "uuid": "b569d1de-fad3-4dbc-b447-3765356f7050",
+  "slug": "okta-bruteforce-then-success",
+  "title": "Okta Brute Force Followed by Success",
+  "description": "Detects many failed Okta authentications for a user followed by a success from the same source, indicating a successful password-guessing or spray attack against the identity provider.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "okta", "brute-force"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1110", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/okta-bruteforce-then-success.sigma"],
+  "intent": {
+    "conditions": ["High volume of user.authentication failures then a success from the same IP"],
+    "dataSourceRequirements": ["Okta system log"],
+    "tuningParameters": {"failureThreshold": 10},
+    "sourceContext": "A burst of failures then success is the classic brute-force success pattern."
+  }
+}

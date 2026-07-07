@@ -1,0 +1,28 @@
+title: Google Workspace Risky OAuth App Authorized
+id: a2ed7616-f7b7-49e4-be80-6e21cce26a59
+status: experimental
+description: Detects risky OAuth app authorization.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1528/
+logsource:
+  product: gworkspace
+  service: google_workspace.token
+detection:
+  selection:
+    eventName: 'authorize'
+    parameters.scope|contains:
+      - 'mail.google.com'
+      - 'gmail'
+      - 'drive'
+  condition: selection
+fields:
+  - actor.email
+  - parameters.app_name
+  - parameters.scope
+falsepositives:
+  - Approved workspace add-ons
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1528
