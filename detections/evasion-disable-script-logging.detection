@@ -1,0 +1,18 @@
+{
+  "uuid": "10402afd-1e54-41d9-b461-b915889d7d38",
+  "slug": "evasion-disable-script-logging",
+  "title": "PowerShell Script Block Logging Disabled",
+  "description": "Detects registry changes disabling PowerShell Script Block Logging or Module Logging (EnableScriptBlockLogging = 0), a defense-evasion action to prevent recording of executed PowerShell commands.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "powershell", "logging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-disable-script-logging.sigma"],
+  "intent": {
+    "conditions": ["Registry set of EnableScriptBlockLogging/EnableModuleLogging = 0"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling script block logging removes PowerShell visibility."
+  }
+}

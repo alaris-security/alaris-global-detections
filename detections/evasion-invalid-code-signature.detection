@@ -1,0 +1,18 @@
+{
+  "uuid": "9da5746f-e9a4-40c8-9fde-23e45039cf98",
+  "slug": "evasion-invalid-code-signature",
+  "title": "Execution of Binary with Invalid Signature",
+  "description": "Detects execution or load of binaries whose digital signature is present but invalid or expired (SignatureStatus not Valid), a masquerading technique where attackers reuse or forge signing metadata to appear trusted.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "code-signing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1553.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-invalid-code-signature.sigma"],
+  "intent": {
+    "conditions": ["Signed image where SignatureStatus is not Valid"],
+    "dataSourceRequirements": ["Sysmon image load or process create with signature status"],
+    "tuningParameters": {},
+    "sourceContext": "Invalid signatures on 'signed' binaries indicate tampering or forgery."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "9e8b26eb-960f-4c6d-a80a-692a6250368a",
+  "slug": "evasion-masquerade-system-binary-path",
+  "title": "System Binary Executed from Non-System Path",
+  "description": "Detects processes named like core system binaries (svchost.exe, lsass.exe, services.exe) running from a directory other than System32/SysWOW64, a masquerading technique to hide malware behind trusted names.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "masquerading"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1036.005", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-masquerade-system-binary-path.sigma"],
+  "intent": {
+    "conditions": ["Image name matches a system binary but path is not System32/SysWOW64"],
+    "dataSourceRequirements": ["Process creation telemetry with full image path"],
+    "tuningParameters": {},
+    "sourceContext": "A svchost.exe running from Temp is malware wearing a trusted name."
+  }
+}

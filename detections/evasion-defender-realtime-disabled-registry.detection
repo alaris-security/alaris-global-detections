@@ -1,0 +1,18 @@
+{
+  "uuid": "bed48a4d-7944-463f-8522-480dff58990b",
+  "slug": "evasion-defender-realtime-disabled-registry",
+  "title": "Defender Real-Time Monitoring Disabled via Registry",
+  "description": "Detects setting DisableRealtimeMonitoring or DisableAntiSpyware to 1 under the Windows Defender policy keys, a defense-evasion action that turns off real-time protection so malware can run unscanned.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "defender", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-defender-realtime-disabled-registry.sigma"],
+  "intent": {
+    "conditions": ["Registry set of DisableRealtimeMonitoring/DisableAntiSpyware = 1"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Disabling real-time protection via registry blinds Defender."
+  }
+}

@@ -1,0 +1,25 @@
+title: Hidden Scheduled Task via SD Deletion
+id: 767bbd61-d1e1-42e8-a4a1-f3684c3e142c
+status: experimental
+description: Detects hidden scheduled task SD deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: registry_event
+detection:
+  selection:
+    EventType: 'DeleteValue'
+    TargetObject|contains: '\Schedule\TaskCache\Tree\'
+    TargetObject|endswith: '\SD'
+  condition: selection
+fields:
+  - TargetObject
+  - Image
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1053.005

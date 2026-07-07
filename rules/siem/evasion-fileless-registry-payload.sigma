@@ -1,0 +1,23 @@
+title: Fileless Payload Stored in Registry
+id: e86c40fd-fe21-4a43-8822-4e495ba790de
+status: experimental
+description: Detects large payload blobs written to the registry.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1027/011/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    Details|re: '^[A-Za-z0-9+/=]{1024,}$'
+  condition: selection
+fields:
+  - TargetObject
+  - Image
+falsepositives:
+  - Applications caching encoded data in the registry
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.011

@@ -1,0 +1,18 @@
+{
+  "uuid": "1ddcbae7-80aa-42df-bafb-64268775998a",
+  "slug": "evasion-reflective-dll-injection",
+  "title": "Reflective DLL Injection Indicators",
+  "description": "Detects indicators of reflective/module-stomping injection, such as CreateRemoteThread into an unrelated process with a start address in unbacked (private RWX) memory (Sysmon event 8 with no ImageLoaded correlation).",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-reflective-dll-injection.sigma"],
+  "intent": {
+    "conditions": ["Sysmon event 8 CreateRemoteThread where StartModule is empty (unbacked memory)"],
+    "dataSourceRequirements": ["Sysmon event 8 (CreateRemoteThread)"],
+    "tuningParameters": {},
+    "sourceContext": "Threads starting in unbacked memory indicate reflectively loaded code."
+  }
+}

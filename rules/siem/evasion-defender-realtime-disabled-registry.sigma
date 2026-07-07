@@ -1,0 +1,29 @@
+title: Defender Real-Time Monitoring Disabled via Registry
+id: 494e1710-eac8-4209-bc70-439b004f47ba
+status: experimental
+description: Detects disabling Defender real-time monitoring.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Windows Defender\'
+    TargetObject|endswith:
+      - '\DisableRealtimeMonitoring'
+      - '\DisableAntiSpyware'
+      - '\DisableBehaviorMonitoring'
+    Details: 'DWORD (0x00000001)'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare hardened build configuration
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

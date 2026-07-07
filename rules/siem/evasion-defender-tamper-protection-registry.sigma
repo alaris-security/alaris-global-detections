@@ -1,0 +1,24 @@
+title: Defender Tamper Protection Registry Modification
+id: 56427908-6fe5-47e0-9c4d-313370c5f582
+status: experimental
+description: Detects Defender tamper protection changes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Windows Defender\Features\TamperProtection'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Managed configuration by security tooling
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001

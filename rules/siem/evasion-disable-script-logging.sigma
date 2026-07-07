@@ -1,0 +1,28 @@
+title: PowerShell Script Block Logging Disabled
+id: fdd984b9-727c-457e-917e-e62dc9395f2f
+status: experimental
+description: Detects disabling of PowerShell logging.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith:
+      - '\ScriptBlockLogging\EnableScriptBlockLogging'
+      - '\ModuleLogging\EnableModuleLogging'
+      - '\Transcription\EnableTranscripting'
+    Details: 'DWORD (0x00000000)'
+  condition: selection
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Policy changes by administrators
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.002

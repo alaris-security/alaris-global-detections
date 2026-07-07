@@ -1,0 +1,31 @@
+title: DLL Side-Loading into Trusted Application Directory
+id: 83e46aa9-2abd-4a5c-ac3e-5f6978b96ee0
+status: experimental
+description: Detects DLL side-loading into writable app directories.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/002/
+logsource:
+  product: windows
+  category: image_load
+detection:
+  selection:
+    ImageLoaded|contains:
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\Downloads\'
+    Signed: 'false'
+  filter:
+    Image|startswith: 'C:\Windows\'
+  condition: selection and not filter
+fields:
+  - Image
+  - ImageLoaded
+  - Signed
+falsepositives:
+  - Portable applications with bundled DLLs
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1574.002

@@ -1,0 +1,18 @@
+{
+  "uuid": "665f2452-ee89-4cdb-987b-f4f576264a5b",
+  "slug": "evasion-hidden-scheduled-task",
+  "title": "Hidden Scheduled Task via SD Deletion",
+  "description": "Detects deletion of a scheduled task's SD (security descriptor) value under the TaskCache\\Tree registry key, a technique that hides the task from schtasks and Task Scheduler while it continues to run.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "scheduled-task", "hidden"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-hidden-scheduled-task.sigma"],
+  "intent": {
+    "conditions": ["Deletion of an SD value under Schedule\\TaskCache\\Tree"],
+    "dataSourceRequirements": ["Sysmon event 12/13 (registry key/value delete)"],
+    "tuningParameters": {},
+    "sourceContext": "Deleting a task's SD makes it invisible to standard task tools."
+  }
+}

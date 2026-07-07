@@ -1,0 +1,27 @@
+title: Indirect Command Execution via conhost
+id: 5830dfd2-271b-49e8-8e60-753b5444c747
+status: experimental
+description: Detects conhost used to proxy commands.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1202/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\conhost.exe'
+    CommandLine|contains:
+      - '--headless'
+      - 'cmd'
+      - 'powershell'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Rare legitimate console host usage
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1202

@@ -1,0 +1,18 @@
+{
+  "uuid": "21d8e975-6647-4346-b5e4-e58cbd35fc4d",
+  "slug": "evasion-fileless-registry-payload",
+  "title": "Fileless Payload Stored in Registry",
+  "description": "Detects writing of large base64 or binary blobs into registry values, a fileless technique where malware stashes its payload or shellcode in the registry to be loaded later by a script or loader.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "fileless", "registry"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1027.011", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-fileless-registry-payload.sigma"],
+  "intent": {
+    "conditions": ["Registry value set with a very long base64-like data blob"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set) with Details"],
+    "tuningParameters": {"minBlobLength": 1024},
+    "sourceContext": "Storing payloads in the registry keeps them off the filesystem."
+  }
+}

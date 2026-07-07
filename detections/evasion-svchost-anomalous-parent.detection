@@ -1,0 +1,18 @@
+{
+  "uuid": "05eb7382-5a56-4403-8131-ce71c3803431",
+  "slug": "evasion-svchost-anomalous-parent",
+  "title": "svchost.exe with Anomalous Parent",
+  "description": "Detects svchost.exe spawned by a parent other than services.exe (or the expected system parents), a strong indicator of a masquerading process or injected host impersonating the service host.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "masquerading", "svchost"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1036.005", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-svchost-anomalous-parent.sigma"],
+  "intent": {
+    "conditions": ["svchost.exe whose parent is not services.exe/MsMpEng/ngen"],
+    "dataSourceRequirements": ["Process creation telemetry with parent lineage"],
+    "tuningParameters": {},
+    "sourceContext": "Legitimate svchost is spawned by services.exe; other parents are suspicious."
+  }
+}

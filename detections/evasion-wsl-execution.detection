@@ -1,0 +1,18 @@
+{
+  "uuid": "f936ede6-b598-416d-a6ca-f2db9654e9e2",
+  "slug": "evasion-wsl-execution",
+  "title": "Windows Subsystem for Linux Command Execution",
+  "description": "Detects use of wsl.exe to run Linux commands (wsl -e, wsl bash -c) or bash.exe, a technique to execute payloads through the Linux subsystem where Windows EDR visibility is reduced.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "wsl", "indirect-execution"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1202", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-wsl-execution.sigma"],
+  "intent": {
+    "conditions": ["wsl.exe with -e/-c/bash, or bash.exe from System32"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "WSL runs Linux binaries outside typical Windows monitoring."
+  }
+}

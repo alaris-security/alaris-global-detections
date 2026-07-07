@@ -1,0 +1,26 @@
+title: Execution of Binary with Invalid Signature
+id: ed56a7ac-0c2c-4c05-8028-ae459148858d
+status: experimental
+description: Detects binaries with invalid signatures.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1553/002/
+logsource:
+  product: windows
+  category: image_load
+detection:
+  selection:
+    Signed: 'true'
+  filter:
+    SignatureStatus: 'Valid'
+  condition: selection and not filter
+fields:
+  - ImageLoaded
+  - Signature
+  - SignatureStatus
+falsepositives:
+  - Expired but legitimate certificates
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1553.002

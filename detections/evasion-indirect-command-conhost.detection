@@ -1,0 +1,18 @@
+{
+  "uuid": "5c404aae-2293-4c70-a685-2aa603a5adb7",
+  "slug": "evasion-indirect-command-conhost",
+  "title": "Indirect Command Execution via conhost",
+  "description": "Detects conhost.exe used as an execution proxy (conhost.exe followed by a command, or --headless), an indirect-execution technique to launch commands while obscuring the true parent process.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "indirect-execution", "conhost"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1202", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-indirect-command-conhost.sigma"],
+  "intent": {
+    "conditions": ["conhost.exe with a trailing command or --headless flag"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "conhost can proxy command execution, breaking process lineage."
+  }
+}

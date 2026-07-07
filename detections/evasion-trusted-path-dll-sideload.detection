@@ -1,0 +1,18 @@
+{
+  "uuid": "c663a5bd-6f9b-4996-8f1f-dc71a539277d",
+  "slug": "evasion-trusted-path-dll-sideload",
+  "title": "DLL Side-Loading into Trusted Application Directory",
+  "description": "Detects a signed application loading a DLL of the same base name from its own directory when that directory is user-writable (e.g. a legitimate EXE and malicious DLL dropped together), the DLL side-loading technique for running code under a trusted process.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "dll-sideloading"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-trusted-path-dll-sideload.sigma"],
+  "intent": {
+    "conditions": ["Signed app loading an unsigned DLL from a user-writable directory alongside the EXE"],
+    "dataSourceRequirements": ["Sysmon event 7 (image load) with signature"],
+    "tuningParameters": {},
+    "sourceContext": "Side-loading pairs a trusted EXE with a malicious same-named DLL in a writable folder."
+  }
+}

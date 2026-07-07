@@ -1,0 +1,18 @@
+{
+  "uuid": "78581ef0-fd60-4f91-9f17-512933d872f6",
+  "slug": "evasion-renamed-system-utility",
+  "title": "Renamed System Utility Execution",
+  "description": "Detects execution of a renamed system utility, where the on-disk image name does not match the PE OriginalFileName (e.g. a renamed powershell.exe or rundll32.exe), a masquerading and detection-evasion technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "masquerading"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1036.003", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-renamed-system-utility.sigma"],
+  "intent": {
+    "conditions": ["OriginalFileName is a known LOLBin but Image name differs"],
+    "dataSourceRequirements": ["Process creation telemetry with OriginalFileName"],
+    "tuningParameters": {},
+    "sourceContext": "Renaming powershell to something benign evades name-based detections."
+  }
+}

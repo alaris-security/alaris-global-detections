@@ -1,0 +1,18 @@
+{
+  "uuid": "f001a711-1da3-4239-b4f0-50fb0ce56493",
+  "slug": "evasion-rundll32-no-arguments",
+  "title": "Rundll32 Executed Without Arguments",
+  "description": "Detects rundll32.exe launched with no DLL or export arguments, an anomaly often produced by process injection frameworks (e.g. Cobalt Strike) that spawn rundll32 as a hollow host for shellcode.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection", "rundll32"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.011", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-rundll32-no-arguments.sigma"],
+  "intent": {
+    "conditions": ["rundll32.exe command line has no arguments beyond the image path"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Argument-less rundll32 is a common injection host with no legitimate use."
+  }
+}

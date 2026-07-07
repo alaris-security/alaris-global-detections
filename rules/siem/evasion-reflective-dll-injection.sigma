@@ -1,0 +1,26 @@
+title: Reflective DLL Injection Indicators
+id: 4a851aa1-79b6-4439-9401-7694280d6cf9
+status: experimental
+description: Detects reflective DLL injection indicators.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/001/
+logsource:
+  product: windows
+  category: create_remote_thread
+detection:
+  selection:
+    EventID: 8
+  filter:
+    StartModule|contains: '.dll'
+  condition: selection and not filter
+fields:
+  - SourceImage
+  - TargetImage
+  - StartAddress
+falsepositives:
+  - Some legitimate thread injection by security tools
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.001

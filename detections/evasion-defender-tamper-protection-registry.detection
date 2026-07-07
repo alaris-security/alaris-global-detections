@@ -1,0 +1,18 @@
+{
+  "uuid": "a169b8eb-9594-484a-b504-839e02d3c673",
+  "slug": "evasion-defender-tamper-protection-registry",
+  "title": "Defender Tamper Protection Registry Modification",
+  "description": "Detects modification of the Defender Features TamperProtection value, an attempt to disable the protection designed to stop attackers from turning off Microsoft Defender.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "defender", "tamper-protection"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.001", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/evasion-defender-tamper-protection-registry.sigma"],
+  "intent": {
+    "conditions": ["Registry set of Features\\TamperProtection under Windows Defender"],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set)"],
+    "tuningParameters": {},
+    "sourceContext": "Tampering with TamperProtection is a precursor to disabling Defender."
+  }
+}
