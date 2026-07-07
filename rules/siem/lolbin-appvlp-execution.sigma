@@ -1,0 +1,28 @@
+title: AppVLP Proxy Execution
+id: 5a2f7257-0a9d-4295-8954-f7bed16be0d3
+status: experimental
+description: Detects appvlp.exe (Application Virtualization) being used to launch another program, a signed Office LOLBin that can proxy execution of commands and bypass some parent-process controls.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\appvlp.exe'
+    CommandLine|contains:
+      - 'cmd'
+      - 'powershell'
+      - '.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate App-V virtualization
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218

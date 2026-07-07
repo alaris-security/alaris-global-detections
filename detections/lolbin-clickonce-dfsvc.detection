@@ -1,0 +1,18 @@
+{
+  "uuid": "2bcb83a0-4ab0-4faf-875a-4964814a101f",
+  "slug": "lolbin-clickonce-dfsvc",
+  "title": "ClickOnce Deployment Execution via dfsvc",
+  "description": "Detects dfsvc.exe launching a ClickOnce application from a remote URL, a technique to deliver and run .NET applications outside normal installation controls.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "clickonce", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1127", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/lolbin-clickonce-dfsvc.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects dfsvc.exe launching a ClickOnce application from a remote URL, a technique to deliver and run .NET applications outside normal installation controls."
+  }
+}

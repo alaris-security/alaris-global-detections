@@ -1,0 +1,27 @@
+title: ie4uinit Command Execution via INF
+id: a682b676-ae2e-4150-899d-f9502f255e23
+status: experimental
+description: Detects ie4uinit.exe run with -BaseSettings or a crafted ie4uinit.inf in a user-writable path, an obscure LOLBin technique to execute commands referenced from the INF.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\ie4uinit.exe'
+    CommandLine|contains:
+      - '-BaseSettings'
+      - '-UserConfig'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - None expected
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218

@@ -1,0 +1,25 @@
+title: ieexec Download and Execute
+id: 6bb6b7f6-29f6-4566-9640-343cf5570590
+status: experimental
+description: Detects ieexec.exe launching a .NET application from a remote http URL, a signed LOLBin technique to download and execute managed code.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\ieexec.exe'
+    CommandLine|contains: 'http'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - None expected on modern systems
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1218

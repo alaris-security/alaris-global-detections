@@ -1,0 +1,28 @@
+title: Cloud Service Discovery via CLI
+id: 207017a1-1b75-4478-a082-7d545f87557a
+status: experimental
+description: Detects broad cloud service enumeration from a host using provider CLIs to list enabled services and resources across the account (aws resourcegroupstaggingapi, az resource list, gcloud services list), mapping the attack surface.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1526/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'get-resources'
+      - 'az resource list'
+      - 'gcloud services list'
+      - 'aws organizations describe'
+      - 'account list-regions'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Cloud administrators and inventory tools
+level: low
+tags:
+  - attack.discovery
+  - attack.t1526

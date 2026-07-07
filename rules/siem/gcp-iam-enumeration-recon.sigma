@@ -1,0 +1,28 @@
+title: GCP IAM Enumeration Reconnaissance
+id: 9c5161ab-5590-4784-ab7d-0fdccb3b91bb
+status: experimental
+description: Detects a burst of GCP IAM enumeration calls (getIamPolicy, testIamPermissions, roles.list) by a single principal, used to map project permissions and identify escalation paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1069/003/
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    data.protoPayload.methodName|contains:
+      - 'getIamPolicy'
+      - 'testIamPermissions'
+      - 'roles.list'
+  timeframe: 10m
+  condition: selection | count() by data.protoPayload.authenticationInfo.principalEmail > 20
+  condition: selection
+fields:
+  - data.protoPayload.authenticationInfo.principalEmail
+  - data.protoPayload.methodName
+falsepositives:
+  - Cloud security posture tooling
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.003

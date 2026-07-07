@@ -1,0 +1,30 @@
+title: UAC Bypass via COM Elevation Moniker
+id: 24da16a4-cc09-48bd-b1ed-c4ee4538b119
+status: experimental
+description: Detects UAC bypass through auto-elevated COM objects (ICMLuaUtil, CMSTPLUA), indicated by dllhost.exe with a suspicious /Processid CLSID spawning an elevated child, used to run commands without a UAC prompt.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\\dllhost.exe'
+    Image|endswith:
+      - '\\cmd.exe'
+      - '\\powershell.exe'
+    IntegrityLevel:
+      - 'High'
+      - 'System'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Rare legitimate elevated COM usage
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002

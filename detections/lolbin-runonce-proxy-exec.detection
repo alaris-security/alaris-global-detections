@@ -1,0 +1,18 @@
+{
+  "uuid": "ed2e1808-512d-406d-9d62-cf8f268c70c9",
+  "slug": "lolbin-runonce-proxy-exec",
+  "title": "Runonce Proxy Execution",
+  "description": "Detects runonce.exe with /AlternateShellStartup or spawning an unexpected child, a signed LOLBin technique to proxy execution and break parent-process lineage.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-runonce-proxy-exec.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects runonce.exe with /AlternateShellStartup or spawning an unexpected child, a signed LOLBin technique to proxy execution and break parent-process lineage."
+  }
+}

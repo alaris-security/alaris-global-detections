@@ -1,0 +1,26 @@
+title: Verclsid COM Object Approval Abuse
+id: 9c1e09be-ba5d-4766-8d3a-4049508aa954
+status: experimental
+description: Detects verclsid.exe invoked with /S /C and a CLSID, a signed LOLBin that can be abused to instantiate and execute a COM object, proxying code execution past some controls.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/012/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\verclsid.exe'
+    CommandLine|contains: '/C'
+    CommandLine|contains: '{'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Shell extension verification (normally parented by explorer)
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218.012

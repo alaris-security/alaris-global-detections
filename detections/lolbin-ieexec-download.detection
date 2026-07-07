@@ -1,0 +1,18 @@
+{
+  "uuid": "59b5ac4b-98d1-4ee8-935e-0ea0224a0489",
+  "slug": "lolbin-ieexec-download",
+  "title": "ieexec Download and Execute",
+  "description": "Detects ieexec.exe launching a .NET application from a remote http URL, a signed LOLBin technique to download and execute managed code.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/lolbin-ieexec-download.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects ieexec.exe launching a .NET application from a remote http URL, a signed LOLBin technique to download and execute managed code."
+  }
+}

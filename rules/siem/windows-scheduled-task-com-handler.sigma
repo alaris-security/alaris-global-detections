@@ -1,0 +1,30 @@
+title: Scheduled Task with COM Handler Action
+id: e72b7b5a-9bf3-40a3-a0d7-bb92d9cc5e59
+status: experimental
+description: Detects registration of a scheduled task whose action is a COM handler (ComHandler CLSID) rather than an executable, a stealthier persistence variant that runs a registered COM object and is easy to overlook.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\schtasks.exe'
+    CommandLine|contains: '/create'
+  selection_com:
+    CommandLine|contains:
+      - 'ComHandler'
+      - 'ClassId'
+  condition: selection and selection_com
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate COM-based tasks
+level: high
+tags:
+  - attack.persistence
+  - attack.t1053.005

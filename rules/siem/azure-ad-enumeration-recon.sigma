@@ -1,0 +1,28 @@
+title: Entra ID Directory Enumeration
+id: 9ab3b045-e18a-4991-b7c9-6c3b50fa33ab
+status: experimental
+description: Detects bulk directory enumeration in Entra ID via the Microsoft Graph or AzureAD/Az modules (Get-MgUser, Get-AzureADUser, az ad user list) returning large result sets, used to map identities and roles for targeting.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1087/004/
+logsource:
+  product: azure
+  service: auditlogs
+detection:
+  selection:
+    OperationName|contains:
+      - 'List users'
+      - 'List groups'
+      - 'List service principals'
+  timeframe: 10m
+  condition: selection | count() by InitiatedBy > 50
+  condition: selection
+fields:
+  - InitiatedBy
+  - OperationName
+falsepositives:
+  - Identity governance and sync tooling
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.004

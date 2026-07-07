@@ -1,0 +1,27 @@
+title: UAC Bypass via wsreset.exe
+id: eb21870f-2c14-4be3-ae29-265157c71e69
+status: experimental
+description: Detects the wsreset.exe UAC bypass, where the HKCU AppX ms-windows-store handler or a related class is hijacked so the auto-elevated Store reset tool runs an attacker command with high integrity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\\wsreset.exe'
+    Image|endswith:
+      - '\\cmd.exe'
+      - '\\powershell.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - None expected
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002

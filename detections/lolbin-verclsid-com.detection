@@ -1,0 +1,18 @@
+{
+  "uuid": "f65f54b3-92b0-402c-9d21-cc2629eb47fd",
+  "slug": "lolbin-verclsid-com",
+  "title": "Verclsid COM Object Approval Abuse",
+  "description": "Detects verclsid.exe invoked with /S /C and a CLSID, a signed LOLBin that can be abused to instantiate and execute a COM object, proxying code execution past some controls.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218.012", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-verclsid-com.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects verclsid.exe invoked with /S /C and a CLSID, a signed LOLBin that can be abused to instantiate and execute a COM object, proxying code execution past some controls."
+  }
+}

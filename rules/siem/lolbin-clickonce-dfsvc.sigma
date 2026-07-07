@@ -1,0 +1,29 @@
+title: ClickOnce Deployment Execution via dfsvc
+id: f1d78a84-2ebc-484e-ac3e-a73205802e70
+status: experimental
+description: Detects dfsvc.exe launching a ClickOnce application from a remote URL, a technique to deliver and run .NET applications outside normal installation controls.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1127/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\\dfsvc.exe'
+  selection_url:
+    CommandLine|contains:
+      - '.application'
+      - 'http'
+  condition: selection or selection_url
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate ClickOnce deployments
+level: medium
+tags:
+  - attack.execution
+  - attack.t1127

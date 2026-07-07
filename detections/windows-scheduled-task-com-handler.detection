@@ -1,0 +1,18 @@
+{
+  "uuid": "5eff0681-279e-43c8-b771-f6b80226a090",
+  "slug": "windows-scheduled-task-com-handler",
+  "title": "Scheduled Task with COM Handler Action",
+  "description": "Detects registration of a scheduled task whose action is a COM handler (ComHandler CLSID) rather than an executable, a stealthier persistence variant that runs a registered COM object and is easy to overlook.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "scheduled-task", "com"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/windows-scheduled-task-com-handler.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects registration of a scheduled task whose action is a COM handler (ComHandler CLSID) rather than an executable, a stealthier persistence variant that runs a registered COM object and is easy to overlook."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "2bc1ab06-f000-427e-bad0-9b2639156840",
+  "slug": "aws-iam-enumeration-recon",
+  "title": "AWS IAM Enumeration Reconnaissance",
+  "description": "Detects a burst of IAM enumeration calls (GetAccountAuthorizationDetails, ListRoles, ListUsers, ListPolicies, SimulatePrincipalPolicy) by a single principal, used to map permissions and find privilege-escalation paths after obtaining credentials.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1069.003", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/aws-iam-enumeration-recon.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a burst of IAM enumeration calls (GetAccountAuthorizationDetails, ListRoles, ListUsers, ListPolicies, SimulatePrincipalPolicy) by a single principal, used to map permissions and find privilege-escalation paths after obtaining credentials."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "476eeb24-5a32-4673-a505-88fe3dc7763a",
+  "slug": "gcp-iam-enumeration-recon",
+  "title": "GCP IAM Enumeration Reconnaissance",
+  "description": "Detects a burst of GCP IAM enumeration calls (getIamPolicy, testIamPermissions, roles.list) by a single principal, used to map project permissions and identify escalation paths.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "gcp", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1069.003", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/gcp-iam-enumeration-recon.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a burst of GCP IAM enumeration calls (getIamPolicy, testIamPermissions, roles.list) by a single principal, used to map project permissions and identify escalation paths."
+  }
+}

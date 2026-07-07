@@ -1,0 +1,25 @@
+title: Runonce Proxy Execution
+id: bde9f995-69f1-4086-9266-484a8ab2e25b
+status: experimental
+description: Detects runonce.exe with /AlternateShellStartup or spawning an unexpected child, a signed LOLBin technique to proxy execution and break parent-process lineage.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\runonce.exe'
+    CommandLine|contains: '/AlternateShellStartup'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Rare legitimate first-run tasks
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218

@@ -1,0 +1,18 @@
+{
+  "uuid": "d918b0e0-6565-496d-9bd0-9298d3e0d2ca",
+  "slug": "uac-bypass-dllhost-com-moniker",
+  "title": "UAC Bypass via COM Elevation Moniker",
+  "description": "Detects UAC bypass through auto-elevated COM objects (ICMLuaUtil, CMSTPLUA), indicated by dllhost.exe with a suspicious /Processid CLSID spawning an elevated child, used to run commands without a UAC prompt.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "uac-bypass", "com"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/uac-bypass-dllhost-com-moniker.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects UAC bypass through auto-elevated COM objects (ICMLuaUtil, CMSTPLUA), indicated by dllhost.exe with a suspicious /Processid CLSID spawning an elevated child, used to run commands without a UAC prompt."
+  }
+}

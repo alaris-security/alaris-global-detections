@@ -1,0 +1,18 @@
+{
+  "uuid": "dbcff895-b167-454c-95c7-5d78a88b493c",
+  "slug": "quickassist-remote-access-abuse",
+  "title": "Windows Quick Assist Remote Access Abuse",
+  "description": "Detects execution of Windows Quick Assist (quickassist.exe), a built-in remote-assistance tool increasingly abused in social-engineering intrusions to obtain hands-on remote control of a victim host.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "remote-access", "quick-assist"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1219", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/quickassist-remote-access-abuse.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects execution of Windows Quick Assist (quickassist.exe), a built-in remote-assistance tool increasingly abused in social-engineering intrusions to obtain hands-on remote control of a victim host."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "7598f520-b01c-4f08-b1d1-1d095e5b23cf",
+  "slug": "uac-bypass-wsreset",
+  "title": "UAC Bypass via wsreset.exe",
+  "description": "Detects the wsreset.exe UAC bypass, where the HKCU AppX ms-windows-store handler or a related class is hijacked so the auto-elevated Store reset tool runs an attacker command with high integrity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "uac-bypass", "wsreset"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/uac-bypass-wsreset.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects the wsreset.exe UAC bypass, where the HKCU AppX ms-windows-store handler or a related class is hijacked so the auto-elevated Store reset tool runs an attacker command with high integrity."
+  }
+}

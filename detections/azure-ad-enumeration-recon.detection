@@ -1,0 +1,18 @@
+{
+  "uuid": "c1280f6b-c570-49c2-9b65-8ac65b4cbb9a",
+  "slug": "azure-ad-enumeration-recon",
+  "title": "Entra ID Directory Enumeration",
+  "description": "Detects bulk directory enumeration in Entra ID via the Microsoft Graph or AzureAD/Az modules (Get-MgUser, Get-AzureADUser, az ad user list) returning large result sets, used to map identities and roles for targeting.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "azure", "entra-id"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1087.004", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/azure-ad-enumeration-recon.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects bulk directory enumeration in Entra ID via the Microsoft Graph or AzureAD/Az modules (Get-MgUser, Get-AzureADUser, az ad user list) returning large result sets, used to map identities and roles for targeting."
+  }
+}

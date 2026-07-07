@@ -1,0 +1,32 @@
+title: AWS IAM Enumeration Reconnaissance
+id: b05bbb34-c0ed-4ee7-81be-50ec953eeb34
+status: experimental
+description: Detects a burst of IAM enumeration calls (GetAccountAuthorizationDetails, ListRoles, ListUsers, ListPolicies, SimulatePrincipalPolicy) by a single principal, used to map permissions and find privilege-escalation paths after obtaining credentials.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1069/003/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'iam.amazonaws.com'
+    eventName:
+      - 'GetAccountAuthorizationDetails'
+      - 'ListRoles'
+      - 'ListUsers'
+      - 'ListPolicies'
+      - 'SimulatePrincipalPolicy'
+  timeframe: 10m
+  condition: selection | count() by userIdentity.arn > 20
+  condition: selection
+fields:
+  - userIdentity.arn
+  - eventName
+  - sourceIPAddress
+falsepositives:
+  - IAM management and audit tooling
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.003

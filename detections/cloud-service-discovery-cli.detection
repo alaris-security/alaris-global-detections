@@ -1,0 +1,18 @@
+{
+  "uuid": "e7f5b1bc-a5b5-4b19-bf63-4eb95a6f5659",
+  "slug": "cloud-service-discovery-cli",
+  "title": "Cloud Service Discovery via CLI",
+  "description": "Detects broad cloud service enumeration from a host using provider CLIs to list enabled services and resources across the account (aws resourcegroupstaggingapi, az resource list, gcloud services list), mapping the attack surface.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "cloud"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1526", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/cloud-service-discovery-cli.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects broad cloud service enumeration from a host using provider CLIs to list enabled services and resources across the account (aws resourcegroupstaggingapi, az resource list, gcloud services list), mapping the attack surface."
+  }
+}

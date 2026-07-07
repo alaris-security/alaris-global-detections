@@ -1,0 +1,18 @@
+{
+  "uuid": "7a489f7c-ae32-4396-91eb-10f5ed436376",
+  "slug": "lolbin-appvlp-execution",
+  "title": "AppVLP Proxy Execution",
+  "description": "Detects appvlp.exe (Application Virtualization) being used to launch another program, a signed Office LOLBin that can proxy execution of commands and bypass some parent-process controls.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-appvlp-execution.sigma"],
+  "intent": {
+    "conditions": ["Telemetry matching the described technique"],
+    "dataSourceRequirements": ["Process telemetry or cloud audit logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects appvlp.exe (Application Virtualization) being used to launch another program, a signed Office LOLBin that can proxy execution of commands and bypass some parent-process controls."
+  }
+}
