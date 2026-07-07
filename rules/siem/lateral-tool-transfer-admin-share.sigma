@@ -1,0 +1,35 @@
+title: Lateral Tool Transfer to Administrative Share
+id: a0d9066b-3fa2-4fb9-ba90-a8a554b5e63a
+status: experimental
+description: Detects tool transfer to admin shares.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1570/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'copy'
+      - 'robocopy'
+      - 'xcopy'
+      - 'Copy-Item'
+    CommandLine|contains:
+      - 'C$\'
+      - 'ADMIN$\'
+    CommandLine|contains:
+      - '.exe'
+      - '.dll'
+      - '.ps1'
+      - '.bat'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Software deployment to remote hosts
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1570

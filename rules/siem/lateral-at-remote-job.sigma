@@ -1,0 +1,24 @@
+title: Remote Job Scheduling via at.exe
+id: 01ea7445-2288-4952-a914-8c4e4263f977
+status: experimental
+description: Detects remote job scheduling with at.exe.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\at.exe'
+    CommandLine|contains: '\\\\'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Legacy administrative scripts
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1053.002

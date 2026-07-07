@@ -1,0 +1,30 @@
+title: Overpass-the-Hash TGT Request
+id: 750bd53b-126d-4ccc-8c49-69880ccefdb1
+status: experimental
+description: Detects overpass-the-hash TGT requests.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1550/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'sekurlsa::pth'
+      - 'asktgt'
+    CommandLine|contains:
+      - '/rc4'
+      - '/ntlm'
+      - '/aes256'
+      - '/hash'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized penetration testing
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1550.002

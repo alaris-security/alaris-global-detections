@@ -1,0 +1,18 @@
+{
+  "uuid": "ef4bb346-1f70-44c8-b560-3a2c33924804",
+  "slug": "lateral-at-remote-job",
+  "title": "Remote Job Scheduling via at.exe",
+  "description": "Detects the legacy at.exe command scheduling a job on a remote host (at \\\\host), an older lateral movement technique still used to execute payloads on targets under SYSTEM.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "at", "scheduled-task"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-at-remote-job.sigma"],
+  "intent": {
+    "conditions": ["at.exe referencing a \\\\host target"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "at.exe remote scheduling is legacy and rarely legitimate on modern systems."
+  }
+}

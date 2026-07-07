@@ -1,0 +1,18 @@
+{
+  "uuid": "33a2b0d0-c1f3-4429-b666-c25d332ea325",
+  "slug": "lateral-dcom-execution",
+  "title": "DCOM Lateral Movement Execution",
+  "description": "Detects remote code execution via DCOM objects such as MMC20.Application, ShellWindows, and ShellBrowserWindow, indicated by mmc.exe or explorer.exe spawning command interpreters as a child.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "dcom"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.003", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-dcom-execution.sigma"],
+  "intent": {
+    "conditions": ["mmc.exe or explorer.exe spawning cmd/powershell via DCOM invocation"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "DCOM object methods proxy execution on remote hosts, evading service-based detections."
+  }
+}

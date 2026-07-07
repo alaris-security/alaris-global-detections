@@ -1,0 +1,26 @@
+title: WinRS Remote Command Execution
+id: 426f34e9-3a5f-4348-935d-9ce118001a48
+status: experimental
+description: Detects winrs remote command execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/006/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\winrs.exe'
+    CommandLine|contains:
+      - '-r:'
+      - '-remote:'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrative remote command execution
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.006

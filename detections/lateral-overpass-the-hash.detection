@@ -1,0 +1,18 @@
+{
+  "uuid": "efb55043-6875-4938-9f5a-70415d7dcf04",
+  "slug": "lateral-overpass-the-hash",
+  "title": "Overpass-the-Hash TGT Request",
+  "description": "Detects overpass-the-hash where an NTLM hash is used to request a Kerberos TGT (Rubeus asktgt /rc4, mimikatz sekurlsa::pth), converting a stolen hash into a full Kerberos ticket for lateral movement.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "kerberos", "overpass-the-hash"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1550.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-overpass-the-hash.sigma"],
+  "intent": {
+    "conditions": ["sekurlsa::pth, or Rubeus asktgt with /rc4 or /aes256 hash arguments"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Overpass-the-hash upgrades a stolen NTLM hash to a Kerberos ticket, defeating NTLM controls."
+  }
+}

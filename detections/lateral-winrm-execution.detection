@@ -1,0 +1,18 @@
+{
+  "uuid": "682d98e3-3fd8-44cc-a284-d4fe895f2e79",
+  "slug": "lateral-winrm-execution",
+  "title": "WinRM Remote PowerShell Execution",
+  "description": "Detects remote command execution over WinRM, identified by processes spawned from wsmprovhost.exe or command lines using Enter-PSSession/Invoke-Command -ComputerName, a common PowerShell Remoting lateral movement method.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "winrm", "powershell-remoting"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.006", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-winrm-execution.sigma"],
+  "intent": {
+    "conditions": ["Process parented by wsmprovhost.exe, or Invoke-Command/Enter-PSSession -ComputerName"],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {},
+    "sourceContext": "WinRM remoting runs code on remote hosts under wsmprovhost, a favored movement channel."
+  }
+}

@@ -1,0 +1,28 @@
+title: Pass-the-Ticket Kerberos Ticket Injection
+id: 23a6686d-b00d-49a1-8af4-17383deccc66
+status: experimental
+description: Detects pass-the-ticket ticket injection.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1550/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'kerberos::ptt'
+      - 'Rubeus'
+      - 'ptt /ticket'
+      - '.kirbi'
+      - 'asktgt'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+falsepositives:
+  - Authorized red team activity
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1550.003

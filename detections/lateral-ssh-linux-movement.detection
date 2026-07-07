@@ -1,0 +1,18 @@
+{
+  "uuid": "2ce96aec-9523-4623-9bac-317b2b741053",
+  "slug": "lateral-ssh-linux-movement",
+  "title": "Interactive SSH Lateral Movement on Linux",
+  "description": "Detects outbound ssh sessions launched from non-interactive or service contexts (e.g. from web/app service accounts) to internal hosts, indicating hands-on-keyboard lateral movement across a Linux fleet.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "ssh", "linux"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.004", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-ssh-linux-movement.sigma"],
+  "intent": {
+    "conditions": ["ssh client invoked by a service account or from a web/app parent process"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {"serviceAccounts": ["www-data", "nginx", "apache", "tomcat"]},
+    "sourceContext": "SSH from a service context to internal hosts is unusual and suggests attacker pivoting."
+  }
+}

@@ -1,0 +1,32 @@
+title: WinRM Remote PowerShell Execution
+id: e27918c9-80c2-4841-a30f-87509598172c
+status: experimental
+description: Detects WinRM-based remote execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/006/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_parent:
+    ParentImage|endswith: '\wsmprovhost.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+  selection_cmd:
+    CommandLine|contains:
+      - 'Enter-PSSession'
+      - 'Invoke-Command'
+    CommandLine|contains: 'ComputerName'
+  condition: selection_parent or selection_cmd
+fields:
+  - CommandLine
+  - ParentImage
+  - Image
+falsepositives:
+  - Administrative PowerShell remoting
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.006

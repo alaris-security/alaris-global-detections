@@ -1,0 +1,18 @@
+{
+  "uuid": "50baf1b2-ffcf-4861-910c-29ee270829e2",
+  "slug": "lateral-ssh-session-hijack",
+  "title": "SSH Agent and ControlMaster Session Hijack",
+  "description": "Detects abuse of a shared SSH agent socket or ControlMaster multiplexed socket to reuse an existing authenticated SSH session, enabling lateral movement without credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "ssh", "session-hijack", "linux"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1563.001", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-ssh-session-hijack.sigma"],
+  "intent": {
+    "conditions": ["ssh invoked with SSH_AUTH_SOCK of another user, or -S referencing a ControlMaster socket"],
+    "dataSourceRequirements": ["Linux process execution logs (auditd)"],
+    "tuningParameters": {},
+    "sourceContext": "Reusing another user's agent or control socket rides their SSH trust to new hosts."
+  }
+}

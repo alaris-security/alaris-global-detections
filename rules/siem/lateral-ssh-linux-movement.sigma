@@ -1,0 +1,32 @@
+title: Interactive SSH Lateral Movement on Linux
+id: b9a2dee9-288a-4eda-a62f-c25276c83999
+status: experimental
+description: Detects SSH launched from service accounts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/ssh'
+  selection_user:
+    User:
+      - 'www-data'
+      - 'nginx'
+      - 'apache'
+      - 'tomcat'
+      - 'postgres'
+      - 'mysql'
+  condition: selection and selection_user
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+falsepositives:
+  - Automation using service accounts with SSH
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021.004

@@ -1,0 +1,18 @@
+{
+  "uuid": "28d3bed8-5275-4362-9f29-5fdd9b274ff3",
+  "slug": "lateral-scheduled-task-remote",
+  "title": "Remote Scheduled Task Creation via schtasks",
+  "description": "Detects schtasks.exe using /S to create or run a task on a remote system, a lateral movement technique that executes a payload on the target under a chosen account.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "scheduled-task"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1053.005", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-scheduled-task-remote.sigma"],
+  "intent": {
+    "conditions": ["schtasks with /S <host> and /Create or /Run"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Remote task creation is a stealthy alternative to service-based lateral execution."
+  }
+}

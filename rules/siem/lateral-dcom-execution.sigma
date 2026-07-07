@@ -1,0 +1,31 @@
+title: DCOM Lateral Movement Execution
+id: 30f1862f-3b9c-40e9-91ee-578b6eccf2d1
+status: experimental
+description: Detects DCOM-based lateral execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/003/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\mmc.exe'
+      - '\explorer.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+  - Image
+falsepositives:
+  - Users launching command prompts from Explorer
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.003

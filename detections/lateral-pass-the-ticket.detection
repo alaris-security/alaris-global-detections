@@ -1,0 +1,18 @@
+{
+  "uuid": "f0b4875f-7976-4c5c-b4f7-74b1d1689183",
+  "slug": "lateral-pass-the-ticket",
+  "title": "Pass-the-Ticket Kerberos Ticket Injection",
+  "description": "Detects injection or use of stolen Kerberos tickets via tooling such as mimikatz kerberos::ptt, Rubeus ptt, and .kirbi/.ccache references, enabling authentication as another user without their password.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "kerberos", "pass-the-ticket"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1550.003", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-pass-the-ticket.sigma"],
+  "intent": {
+    "conditions": ["CommandLine references kerberos::ptt, Rubeus ptt, or .kirbi/.ccache ticket files"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Injecting Kerberos tickets impersonates users for lateral movement without credentials."
+  }
+}

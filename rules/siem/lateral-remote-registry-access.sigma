@@ -1,0 +1,29 @@
+title: Remote Registry Access via reg.exe
+id: 4103af74-124e-47d3-9131-53ed6134cb05
+status: experimental
+description: Detects remote registry access.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\reg.exe'
+    CommandLine|contains: '\\\\'
+    CommandLine|contains:
+      - 'query'
+      - 'add'
+      - 'save'
+      - 'load'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Remote administration scripts
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021

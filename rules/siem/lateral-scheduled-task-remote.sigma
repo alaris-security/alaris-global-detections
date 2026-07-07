@@ -1,0 +1,27 @@
+title: Remote Scheduled Task Creation via schtasks
+id: f7c8daf2-689e-483d-b16c-03863eaafd33
+status: experimental
+description: Detects remote scheduled task creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains: '/S '
+    CommandLine|contains:
+      - '/Create'
+      - '/Run'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Administrative remote task management
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1053.005

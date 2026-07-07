@@ -1,0 +1,18 @@
+{
+  "uuid": "f17228d6-3195-43ee-b405-ee47081c1599",
+  "slug": "lateral-smb-admin-share",
+  "title": "SMB Administrative Share Access",
+  "description": "Detects mounting of remote administrative shares (C$, ADMIN$, IPC$) via net use, a precursor to remote file staging and service-based execution during lateral movement.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "smb", "admin-shares"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-smb-admin-share.sigma"],
+  "intent": {
+    "conditions": ["net use referencing \\\\host\\C$, ADMIN$, or IPC$"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Administrative share access is a common step to copy tools and launch remote code."
+  }
+}

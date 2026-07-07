@@ -1,0 +1,18 @@
+{
+  "uuid": "bee7d243-07aa-46b1-8a62-e4a189d84059",
+  "slug": "lateral-winrs-execution",
+  "title": "WinRS Remote Command Execution",
+  "description": "Detects winrs.exe with -r:<host> executing commands on a remote system over WS-Management, a lightweight lateral movement channel that avoids PsExec-style service artifacts.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "winrm", "winrs"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.006", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-winrs-execution.sigma"],
+  "intent": {
+    "conditions": ["winrs.exe with -r: or -remote targeting a host"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "winrs executes remote commands over WinRM with minimal footprint."
+  }
+}

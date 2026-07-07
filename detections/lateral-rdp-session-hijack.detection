@@ -1,0 +1,18 @@
+{
+  "uuid": "f6f44ba9-a894-406a-94eb-5090b992f70d",
+  "slug": "lateral-rdp-session-hijack",
+  "title": "RDP Session Hijack via tscon",
+  "description": "Detects use of tscon.exe (often via a SYSTEM service) to connect to another user's disconnected RDP session without their credentials, a stealthy session hijacking and lateral movement technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "rdp", "session-hijack"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1563.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/lateral-rdp-session-hijack.sigma"],
+  "intent": {
+    "conditions": ["tscon.exe with a session id and /dest, especially spawned by cmd/service as SYSTEM"],
+    "dataSourceRequirements": ["Process creation telemetry with command line and user context"],
+    "tuningParameters": {},
+    "sourceContext": "tscon lets SYSTEM steal another user's RDP session with no password."
+  }
+}
