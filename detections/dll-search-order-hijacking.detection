@@ -1,0 +1,21 @@
+{
+  "uuid": "37ce4778-63b1-42a8-a55f-51013a345a0e",
+  "slug": "dll-search-order-hijacking",
+  "title": "DLL Search Order Hijacking",
+  "description": "Detects trusted signed executables loading unsigned DLLs from user-writable directories, a hallmark of DLL search order hijacking used for privilege escalation and defense evasion.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "defense-evasion", "dll-hijacking"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1574.001", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/dll-search-order-hijacking.sigma"],
+  "intent": {
+    "conditions": [
+      "Sysmon event 7 (ImageLoad) where a system binary loads a DLL",
+      "ImageLoaded resides in Temp/AppData/Public and Signed is false"
+    ],
+    "dataSourceRequirements": ["Sysmon event 7 (ImageLoad) with Signed and SignatureStatus fields"],
+    "tuningParameters": {"trustedLoadPaths": ["C:\\Windows\\System32\\", "C:\\Program Files\\"]},
+    "sourceContext": "Loading an attacker DLL from a writable path lets malware run inside a trusted, signed process."
+  }
+}

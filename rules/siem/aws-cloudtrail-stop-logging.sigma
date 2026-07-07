@@ -1,0 +1,29 @@
+title: AWS CloudTrail Logging Disabled
+id: fd39506b-cc6d-4fd3-b048-595b92e91c00
+status: experimental
+description: Detects disabling or deletion of AWS CloudTrail trails.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'cloudtrail.amazonaws.com'
+    eventName:
+      - 'StopLogging'
+      - 'DeleteTrail'
+      - 'UpdateTrail'
+  condition: selection
+fields:
+  - eventName
+  - userIdentity.arn
+  - sourceIPAddress
+  - requestParameters.name
+falsepositives:
+  - Planned trail reconfiguration by cloud automation
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

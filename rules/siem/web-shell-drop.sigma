@@ -1,0 +1,37 @@
+title: Web Shell Written to Web Server Root
+id: ed9e511d-4dd2-42cc-91c1-5824d7269690
+status: experimental
+description: Detects web server worker processes spawning command shells.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1505/003/
+logsource:
+  category: process_creation
+detection:
+  selection_parent:
+    ParentImage|endswith:
+      - '\w3wp.exe'
+      - '\httpd.exe'
+      - '\nginx.exe'
+      - '\php-cgi.exe'
+      - '/httpd'
+      - '/nginx'
+      - '/php-fpm'
+  selection_child:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '/bash'
+      - '/sh'
+      - '/dash'
+  condition: selection_parent and selection_child
+fields:
+  - ParentImage
+  - Image
+  - CommandLine
+falsepositives:
+  - Legitimate web applications shelling out for maintenance tasks
+level: critical
+tags:
+  - attack.persistence
+  - attack.t1505.003

@@ -1,0 +1,21 @@
+{
+  "uuid": "7a134cfe-2429-4022-84a5-9b6bf4189ef3",
+  "slug": "pass-the-hash-logon",
+  "title": "Pass-the-Hash NTLM Network Logon",
+  "description": "Detects NTLM network logons (4624 type 3) using NtLmSsp with a logon process of seclogon or that lack Kerberos, consistent with pass-the-hash lateral movement using stolen NTLM hashes.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "pass-the-hash", "ntlm"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1550.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/pass-the-hash-logon.sigma"],
+  "intent": {
+    "conditions": [
+      "Security event 4624 LogonType 3 with AuthenticationPackageName NTLM",
+      "LogonProcessName is NtLmSsp and the account is not ANONYMOUS LOGON"
+    ],
+    "dataSourceRequirements": ["Windows Security log event 4624 with authentication package fields"],
+    "tuningParameters": {"excludedAccounts": ["ANONYMOUS LOGON"]},
+    "sourceContext": "PtH reuses NTLM secrets for network logons; workstation-to-workstation NTLM is a strong signal."
+  }
+}

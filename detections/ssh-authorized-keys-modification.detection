@@ -1,0 +1,21 @@
+{
+  "uuid": "b2b36ed6-040a-4bd8-8477-fc456237d191",
+  "slug": "ssh-authorized-keys-modification",
+  "title": "SSH authorized_keys Modification",
+  "description": "Detects writes to ~/.ssh/authorized_keys via echo, tee, or editors outside of package management, a common Linux persistence technique that grants the attacker passwordless SSH access.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "ssh", "linux", "account-manipulation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/ssh-authorized-keys-modification.sigma"],
+  "intent": {
+    "conditions": [
+      "Command line writes to an authorized_keys path",
+      "Writer is echo, tee, cat, printf, or a text editor"
+    ],
+    "dataSourceRequirements": ["Linux process execution or file integrity monitoring"],
+    "tuningParameters": {"allowedManagers": ["cloud-init", "ansible"]},
+    "sourceContext": "Adding a key to authorized_keys is a durable, credential-free backdoor into a host."
+  }
+}

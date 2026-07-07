@@ -1,0 +1,27 @@
+title: UAC Bypass via fodhelper.exe Registry Hijack
+id: 85fc7fd4-b9f5-4ac6-9f03-aeac2ac937ba
+status: experimental
+description: Detects the fodhelper ms-settings UAC bypass registry hijack.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains: '\Software\Classes\ms-settings\shell\open\command'
+  selection_delegate:
+    TargetObject|endswith: '\ms-settings\shell\open\command\DelegateExecute'
+  condition: selection or selection_delegate
+fields:
+  - TargetObject
+  - Details
+  - Image
+falsepositives:
+  - Rare legitimate customization of ms-settings handlers
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1548.002

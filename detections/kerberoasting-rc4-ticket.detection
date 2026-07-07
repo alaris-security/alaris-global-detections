@@ -1,0 +1,21 @@
+{
+  "uuid": "535333e7-6173-4cd9-abb6-1dcd95254e01",
+  "slug": "kerberoasting-rc4-ticket",
+  "title": "Kerberoasting via RC4 Service Ticket Requests",
+  "description": "Detects bursts of Kerberos TGS (4769) requests using weak RC4 encryption (0x17) for many service accounts from a single host, the signature of Kerberoasting to crack service credentials offline.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "kerberoasting", "kerberos"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558.003", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/kerberoasting-rc4-ticket.sigma"],
+  "intent": {
+    "conditions": [
+      "Security event 4769 with TicketEncryptionType 0x17 (RC4)",
+      "ServiceName is not krbtgt and TicketOptions indicate forwardable requests"
+    ],
+    "dataSourceRequirements": ["Domain controller Security log event 4769"],
+    "tuningParameters": {"rc4EncryptionType": "0x17"},
+    "sourceContext": "RC4 service tickets are trivially crackable offline; a volume spike per source reveals roasting."
+  }
+}

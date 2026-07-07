@@ -1,0 +1,41 @@
+{
+  "uuid": "1be4c7ef-93a3-43a9-b012-965e30b1bfcc",
+  "slug": "wmi-event-subscription-persistence",
+  "title": "WMI Permanent Event Subscription Persistence",
+  "description": "Detects creation of WMI __EventFilter, __EventConsumer, or FilterToConsumerBinding objects via Sysmon events 19/20/21, a fileless persistence technique used by APTs to trigger payloads on system events.",
+  "severity": "high",
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "persistence",
+    "wmi",
+    "fileless",
+    "event-subscription"
+  ],
+  "status": "active",
+  "mitre": [
+    {
+      "techniqueId": "T1546.003",
+      "tacticId": "TA0003"
+    }
+  ],
+  "rules": [
+    "rules/siem/wmi-event-subscription-persistence.sigma"
+  ],
+  "intent": {
+    "conditions": [
+      "Sysmon event 19 (WmiEventFilter), 20 (WmiEventConsumer), or 21 (WmiEventConsumerToFilter)",
+      "CommandLineTemplate or Destination references a scripting interpreter or encoded payload"
+    ],
+    "dataSourceRequirements": [
+      "Sysmon events 19, 20, 21 (WMI activity)"
+    ],
+    "tuningParameters": {
+      "allowedConsumers": [
+        "SCM Event Log Consumer"
+      ]
+    },
+    "sourceContext": "WMI subscriptions survive reboot and execute in the WMI provider host, evading process-lineage detections."
+  }
+}

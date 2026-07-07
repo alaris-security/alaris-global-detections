@@ -1,0 +1,21 @@
+{
+  "uuid": "ffd364d8-b11b-437a-a210-46ecfd2281e4",
+  "slug": "rdp-external-logon",
+  "title": "Inbound RDP Logon from External Address",
+  "description": "Detects successful RemoteInteractive (RDP) logons (4624 type 10) sourced from public IP address ranges, indicating exposed RDP or lateral movement from an attacker foothold.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "initial-access", "rdp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.001", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/rdp-external-logon.sigma"],
+  "intent": {
+    "conditions": [
+      "Security event 4624 LogonType 10",
+      "IpAddress is not within RFC1918 internal ranges"
+    ],
+    "dataSourceRequirements": ["Windows Security log event 4624 with IpAddress"],
+    "tuningParameters": {"internalCidrs": ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]},
+    "sourceContext": "RDP from the public internet is a common initial access and lateral movement vector."
+  }
+}

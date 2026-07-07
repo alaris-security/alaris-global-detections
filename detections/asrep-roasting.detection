@@ -1,0 +1,21 @@
+{
+  "uuid": "fcaefdd1-aa21-4350-af31-1ea5dc4144da",
+  "slug": "asrep-roasting",
+  "title": "AS-REP Roasting via Preauth-Disabled Accounts",
+  "description": "Detects Kerberos AS-REQ (4768) responses for accounts with pre-authentication disabled using RC4, allowing an attacker to obtain crackable AS-REP material without valid credentials.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "asrep-roasting", "kerberos"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1558.004", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/asrep-roasting.sigma"],
+  "intent": {
+    "conditions": [
+      "Security event 4768 with PreAuthType 0 (disabled)",
+      "TicketEncryptionType is RC4 (0x17)"
+    ],
+    "dataSourceRequirements": ["Domain controller Security log event 4768"],
+    "tuningParameters": {"preAuthDisabledType": "0"},
+    "sourceContext": "Accounts without Kerberos pre-auth leak AS-REP hashes to any requester for offline cracking."
+  }
+}

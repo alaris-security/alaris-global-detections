@@ -1,0 +1,27 @@
+title: Process Hollowing via Suspended Process Injection
+id: 77a0d503-79c8-43ef-8a15-cd57769c8637
+status: experimental
+description: Detects process tampering consistent with hollowing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1055/012/
+logsource:
+  product: windows
+  category: process_tampering
+detection:
+  selection:
+    EventID: 25
+    Type|contains:
+      - 'Image is replaced'
+      - 'Image is locked for access'
+  condition: selection
+fields:
+  - Image
+  - Type
+  - ProcessGuid
+falsepositives:
+  - Packers and self-modifying legitimate installers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055.012

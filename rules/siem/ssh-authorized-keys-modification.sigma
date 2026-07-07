@@ -1,0 +1,35 @@
+title: SSH authorized_keys Modification
+id: 6b1cf646-c8b7-4ab5-8d4f-de3bd14b5a30
+status: experimental
+description: Detects modification of SSH authorized_keys files.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/004/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'authorized_keys'
+  selection_write:
+    Image|endswith:
+      - '/tee'
+      - '/bash'
+      - '/sh'
+    CommandLine|contains:
+      - 'echo '
+      - 'printf'
+      - '>>'
+      - 'curl'
+      - 'wget'
+  condition: selection and selection_write
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Configuration management tools provisioning authorized keys
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098.004

@@ -1,0 +1,21 @@
+{
+  "uuid": "0c107063-fbfd-4f5b-9557-b2742df645a4",
+  "slug": "aws-cloudtrail-stop-logging",
+  "title": "AWS CloudTrail Logging Disabled",
+  "description": "Detects StopLogging, DeleteTrail, or UpdateTrail API calls against AWS CloudTrail, a defense evasion action that blinds the account audit log before or during an intrusion.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "cloudtrail", "impair-defenses"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-cloudtrail-stop-logging.sigma"],
+  "intent": {
+    "conditions": [
+      "CloudTrail eventSource cloudtrail.amazonaws.com",
+      "eventName is StopLogging, DeleteTrail, or a disabling UpdateTrail"
+    ],
+    "dataSourceRequirements": ["AWS CloudTrail management events"],
+    "tuningParameters": {"allowedAutomationPrincipals": ["arn:aws:iam::ACCOUNT:role/cloudtrail-lifecycle"]},
+    "sourceContext": "Disabling CloudTrail removes the primary source of truth for the account and precedes many attacks."
+  }
+}

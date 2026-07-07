@@ -1,0 +1,21 @@
+{
+  "uuid": "81a133cb-ed71-446d-a3eb-bd4ea93398d5",
+  "slug": "dcsync-replication",
+  "title": "DCSync Directory Replication from Non-DC Host",
+  "description": "Detects use of the directory replication rights (DS-Replication-Get-Changes) via event 4662 from a host that is not a domain controller, the DCSync technique used to extract password hashes for any account including krbtgt.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "dcsync", "active-directory"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.006", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/dcsync-replication.sigma"],
+  "intent": {
+    "conditions": [
+      "Security event 4662 referencing the DS-Replication-Get-Changes control access rights GUIDs",
+      "Requesting account is not a domain controller machine account"
+    ],
+    "dataSourceRequirements": ["Domain controller Security log event 4662 with Properties GUIDs"],
+    "tuningParameters": {"replicationGuids": ["1131f6aa-9c07-11d1-f79f-00c04fc2dcd2", "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2"]},
+    "sourceContext": "Only DCs should invoke replication; anything else requesting it is dumping the directory."
+  }
+}

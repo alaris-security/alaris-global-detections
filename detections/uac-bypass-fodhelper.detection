@@ -1,0 +1,21 @@
+{
+  "uuid": "19bf839a-5cc8-4ee6-8249-819ec6303329",
+  "slug": "uac-bypass-fodhelper",
+  "title": "UAC Bypass via fodhelper.exe Registry Hijack",
+  "description": "Detects the fodhelper.exe auto-elevation UAC bypass in which HKCU\\Software\\Classes\\ms-settings\\shell\\open\\command is populated to run an attacker command with elevated integrity.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "defense-evasion", "uac-bypass"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1548.002", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/uac-bypass-fodhelper.sigma"],
+  "intent": {
+    "conditions": [
+      "Sysmon event 13 writing HKCU ms-settings\\shell\\open\\command or DelegateExecute",
+      "Or fodhelper.exe spawning a shell child process"
+    ],
+    "dataSourceRequirements": ["Sysmon event 13 (registry value set) and event 1 (process create)"],
+    "tuningParameters": {},
+    "sourceContext": "fodhelper.exe auto-elevates without a prompt; a hijacked ms-settings handler runs attacker code as admin."
+  }
+}

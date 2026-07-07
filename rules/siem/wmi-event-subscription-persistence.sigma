@@ -1,0 +1,39 @@
+title: WMI Permanent Event Subscription Persistence
+id: 3ddec334-70f5-437b-a3df-d4dca879f97a
+status: experimental
+description: Detects creation of WMI event consumers used for fileless persistence.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+logsource:
+  product: windows
+  category: wmi_event
+detection:
+  selection_consumer:
+    EventID:
+      - 20
+      - 21
+    Destination|contains:
+      - 'ActiveScriptEventConsumer'
+      - 'CommandLineEventConsumer'
+  selection_payload:
+    Destination|contains:
+      - 'powershell'
+      - 'cmd.exe'
+      - 'wscript'
+      - 'cscript'
+      - 'rundll32'
+      - '.vbs'
+      - 'FromBase64String'
+  condition: selection_consumer and selection_payload
+fields:
+  - EventID
+  - Operation
+  - Consumer
+  - Destination
+falsepositives:
+  - SCCM or monitoring agents registering legitimate consumers
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003

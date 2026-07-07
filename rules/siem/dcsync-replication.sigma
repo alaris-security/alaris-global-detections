@@ -1,0 +1,30 @@
+title: DCSync Directory Replication from Non-DC Host
+id: e2965fcb-f49d-42af-802e-f7380dac0799
+status: experimental
+description: Detects DS-Replication-Get-Changes access indicative of DCSync.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1003/006/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4662
+    Properties|contains:
+      - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'
+      - '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'
+      - '89e95b76-444d-4c62-991a-0facbeda640c'
+  filter:
+    SubjectUserName|endswith: '$'
+  condition: selection and not filter
+fields:
+  - SubjectUserName
+  - Properties
+  - ObjectName
+falsepositives:
+  - Azure AD Connect or other legitimate directory sync service accounts
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.006

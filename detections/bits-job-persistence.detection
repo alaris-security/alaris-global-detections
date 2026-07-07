@@ -1,0 +1,41 @@
+{
+  "uuid": "f9a04bef-2f47-4b17-afc2-cd73d79e8d49",
+  "slug": "bits-job-persistence",
+  "title": "BITS Job Abuse for Download and Persistence",
+  "description": "Detects bitsadmin.exe or PowerShell BITS cmdlets creating jobs that download remote content or register SetNotifyCmdLine callbacks, used to fetch payloads and persist while evading firewall and proxy controls.",
+  "severity": "medium",
+  "families": [
+    "siem"
+  ],
+  "tags": [
+    "persistence",
+    "defense-evasion",
+    "bits",
+    "lolbin"
+  ],
+  "status": "active",
+  "mitre": [
+    {
+      "techniqueId": "T1197",
+      "tacticId": "TA0005"
+    }
+  ],
+  "rules": [
+    "rules/siem/bits-job-persistence.sigma"
+  ],
+  "intent": {
+    "conditions": [
+      "Process is bitsadmin.exe or powershell invoking Start-BitsTransfer",
+      "Command line contains /transfer, /addfile, /setnotifycmdline, or a remote URL"
+    ],
+    "dataSourceRequirements": [
+      "Sysmon event 1 or Windows 4688 with full command line"
+    ],
+    "tuningParameters": {
+      "allowedDownloadDomains": [
+        "windowsupdate.com"
+      ]
+    },
+    "sourceContext": "BITS transfers persist across reboots and run under the service host, a stealthy channel for ingress and persistence."
+  }
+}

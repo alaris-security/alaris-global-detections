@@ -1,0 +1,21 @@
+{
+  "uuid": "761c1d08-de05-4814-bfb0-17212f384649",
+  "slug": "process-hollowing",
+  "title": "Process Hollowing via Suspended Process Injection",
+  "description": "Detects the CreateProcess-suspended, unmap, write, resume pattern of process hollowing where a legitimate process is spawned suspended and its memory replaced with malicious code.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "process-injection", "hollowing"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1055.012", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/process-hollowing.sigma"],
+  "intent": {
+    "conditions": [
+      "Sysmon event 8 (CreateRemoteThread) or 25 (ProcessTampering)",
+      "Target is a common cover process such as svchost, explorer, or notepad"
+    ],
+    "dataSourceRequirements": ["Sysmon events 8 and 25 (process tampering)"],
+    "tuningParameters": {"monitoredCoverImages": ["svchost.exe", "notepad.exe", "explorer.exe", "RegAsm.exe"]},
+    "sourceContext": "Hollowing hides malicious code inside the image of a trusted process, defeating signature and path-based controls."
+  }
+}

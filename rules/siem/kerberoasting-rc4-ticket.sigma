@@ -1,0 +1,31 @@
+title: Kerberoasting via RC4 Service Ticket Requests
+id: 58a27ec0-b949-4288-867f-6128743b72e5
+status: experimental
+description: Detects RC4 Kerberos service ticket requests indicative of Kerberoasting.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1558/003/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+    TicketOptions: '0x40810000'
+  filter:
+    ServiceName|endswith: '$'
+  filter_krbtgt:
+    ServiceName: 'krbtgt'
+  condition: selection and not filter and not filter_krbtgt
+fields:
+  - ServiceName
+  - TargetUserName
+  - IpAddress
+  - TicketEncryptionType
+falsepositives:
+  - Legacy applications that still negotiate RC4 Kerberos tickets
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1558.003

@@ -1,0 +1,31 @@
+title: DLL Search Order Hijacking
+id: 2b173620-3bc6-4b9d-bffa-e3d6a7ac956e
+status: experimental
+description: Detects signed processes loading unsigned DLLs from writable paths.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1574/001/
+logsource:
+  product: windows
+  category: image_load
+detection:
+  selection:
+    ImageLoaded|contains:
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+    Signed: 'false'
+  condition: selection
+fields:
+  - Image
+  - ImageLoaded
+  - Signed
+  - SignatureStatus
+falsepositives:
+  - Portable applications loading bundled DLLs from user directories
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1574.001

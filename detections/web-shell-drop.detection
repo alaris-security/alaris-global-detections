@@ -1,0 +1,21 @@
+{
+  "uuid": "e9616832-3b7c-489e-9cb5-823eca68fcff",
+  "slug": "web-shell-drop",
+  "title": "Web Shell Written to Web Server Root",
+  "description": "Detects a web server worker process (w3wp, httpd, nginx, tomcat, php-fpm) spawning a command shell, the classic post-exploitation signature of a web shell dropped into a public web directory.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["persistence", "web-shell", "server-software-component"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1505.003", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/web-shell-drop.sigma"],
+  "intent": {
+    "conditions": [
+      "Parent process is a web server worker (w3wp.exe, httpd, nginx, java/tomcat, php-fpm)",
+      "Child process is a command interpreter"
+    ],
+    "dataSourceRequirements": ["Process creation telemetry with parent-child lineage"],
+    "tuningParameters": {"webServerParents": ["w3wp.exe", "httpd", "nginx", "php-fpm", "tomcat"]},
+    "sourceContext": "A web server spawning a shell almost always means code execution through an uploaded web shell."
+  }
+}

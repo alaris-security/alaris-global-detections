@@ -1,0 +1,33 @@
+title: BITS Job Abuse for Download and Persistence
+id: 6aecd1aa-882a-40c0-bec7-f93038e4282c
+status: experimental
+description: Detects suspicious BITS job creation via bitsadmin or PowerShell.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1197/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_bitsadmin:
+    Image|endswith: '\bitsadmin.exe'
+    CommandLine|contains:
+      - '/transfer'
+      - '/addfile'
+      - '/setnotifycmdline'
+      - '/create'
+  selection_ps:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains: 'Start-BitsTransfer'
+  condition: selection_bitsadmin or selection_ps
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Software distribution tools using BITS for updates
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.persistence
+  - attack.t1197

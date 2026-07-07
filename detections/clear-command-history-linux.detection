@@ -1,0 +1,21 @@
+{
+  "uuid": "d2455795-a28f-4a4a-9271-a2126df75501",
+  "slug": "clear-command-history-linux",
+  "title": "Shell History Clearing on Linux",
+  "description": "Detects attempts to clear or disable shell command history on Linux by truncating history files, unsetting HISTFILE, or setting HISTSIZE to zero, used to cover interactive attacker activity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "indicator-removal", "linux"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.003", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/clear-command-history-linux.sigma"],
+  "intent": {
+    "conditions": [
+      "Command line references .bash_history with rm, truncate, or redirection to /dev/null",
+      "Or unset HISTFILE / export HISTSIZE=0 / history -c"
+    ],
+    "dataSourceRequirements": ["Linux process execution logs (auditd execve or EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Clearing history is a manual anti-forensics step rarely performed by legitimate users."
+  }
+}

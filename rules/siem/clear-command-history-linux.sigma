@@ -1,0 +1,35 @@
+title: Shell History Clearing on Linux
+id: c31b0296-cb28-44bb-8dc4-2822b879098d
+status: experimental
+description: Detects clearing or disabling of shell command history on Linux.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/003/
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection_hist:
+    CommandLine|contains:
+      - 'history -c'
+      - 'unset HISTFILE'
+      - 'export HISTSIZE=0'
+      - 'set +o history'
+  selection_file:
+    CommandLine|contains: '.bash_history'
+    CommandLine|contains:
+      - 'rm '
+      - 'truncate'
+      - '> /dev/null'
+      - 'cat /dev/null'
+  condition: selection_hist or selection_file
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators intentionally rotating or clearing their own history
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.003
