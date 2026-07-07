@@ -1,0 +1,28 @@
+title: macOS Time Machine Backup Disabled
+id: e0c7692b-422d-459f-9984-da282794a1e4
+status: experimental
+description: Detects disabling of Time Machine backups or deletion of local snapshots via tmutil (disable, deletelocalsnapshots), an inhibit-recovery action commonly seen before macOS ransomware encryption.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1490/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/tmutil'
+    CommandLine|contains:
+      - 'disable'
+      - 'deletelocalsnapshots'
+      - 'delete'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators managing backups
+level: high
+tags:
+  - attack.impact
+  - attack.t1490

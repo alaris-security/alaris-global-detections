@@ -1,0 +1,18 @@
+{
+  "uuid": "f45278aa-b4f0-4eb5-87d9-add3fa6774c8",
+  "slug": "macos-network-config-discovery",
+  "title": "macOS Network Configuration Discovery",
+  "description": "Detects network configuration discovery on macOS via ifconfig, networksetup -listallhardwareports, and arp, used to orient within the network after compromise.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "macos", "network"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1016", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/macos-network-config-discovery.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects network configuration discovery on macOS via ifconfig, networksetup -listallhardwareports, and arp, used to orient within the network after compromise."
+  }
+}

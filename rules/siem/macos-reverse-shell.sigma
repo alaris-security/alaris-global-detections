@@ -1,0 +1,30 @@
+title: macOS Reverse Shell
+id: b31168a9-fa30-4971-844a-4d0d91226bf8
+status: experimental
+description: Detects reverse shell patterns on macOS (bash -i to /dev/tcp, nc -e, python/ruby socket shells), giving an attacker interactive control of the host.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/004/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '/dev/tcp/'
+      - 'nc -e'
+      - 'bash -i'
+      - 'sh -i'
+      - 'socket.SOCK_STREAM'
+      - 'pty.spawn'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Rare legitimate socket scripting
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1059.004

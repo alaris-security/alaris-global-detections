@@ -1,0 +1,18 @@
+{
+  "uuid": "b59251e0-a0dc-439a-9d71-230d369d085a",
+  "slug": "macos-curl-pipe-shell",
+  "title": "macOS Curl Piped to Shell",
+  "description": "Detects downloading and directly executing a script by piping curl output into bash/sh/zsh on macOS, a one-line ingress-and-execute pattern common to macOS malware installers.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "macos", "ingress-tool-transfer"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.004", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/macos-curl-pipe-shell.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects downloading and directly executing a script by piping curl output into bash/sh/zsh on macOS, a one-line ingress-and-execute pattern common to macOS malware installers."
+  }
+}

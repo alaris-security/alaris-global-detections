@@ -1,0 +1,32 @@
+title: macOS Process and Security Tool Discovery
+id: e9feb790-7dc2-4e23-a4e8-6f34dcda7523
+status: experimental
+description: Detects process enumeration on macOS (ps aux) filtered for security tooling names, used to identify EDR/AV agents before attempting evasion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1057/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/ps'
+  selection_sec:
+    CommandLine|contains:
+      - 'CrowdStrike'
+      - 'SentinelOne'
+      - 'jamf'
+      - 'santad'
+      - 'BlockBlock'
+  condition: selection and selection_sec
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators checking processes
+level: low
+tags:
+  - attack.discovery
+  - attack.t1057

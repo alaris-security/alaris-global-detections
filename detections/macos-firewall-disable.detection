@@ -1,0 +1,18 @@
+{
+  "uuid": "4fddf934-24f3-4908-bbcd-ab6366f7137c",
+  "slug": "macos-firewall-disable",
+  "title": "macOS Firewall Disabled",
+  "description": "Detects disabling of the macOS application firewall (socketfilterfw --setglobalstate off) or packet filter (pfctl -d), a defense-evasion action weakening host network controls.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "firewall"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.004", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-firewall-disable.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects disabling of the macOS application firewall (socketfilterfw --setglobalstate off) or packet filter (pfctl -d), a defense-evasion action weakening host network controls."
+  }
+}

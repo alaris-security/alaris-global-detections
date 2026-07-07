@@ -1,0 +1,18 @@
+{
+  "uuid": "65842897-9661-4108-b55d-8f7373620433",
+  "slug": "macos-reverse-shell",
+  "title": "macOS Reverse Shell",
+  "description": "Detects reverse shell patterns on macOS (bash -i to /dev/tcp, nc -e, python/ruby socket shells), giving an attacker interactive control of the host.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "macos", "reverse-shell"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059.004", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/macos-reverse-shell.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects reverse shell patterns on macOS (bash -i to /dev/tcp, nc -e, python/ruby socket shells), giving an attacker interactive control of the host."
+  }
+}

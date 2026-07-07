@@ -1,0 +1,32 @@
+title: macOS SSH Private Key Theft
+id: eab15c73-e29a-4c92-8496-cd82de3ee8be
+status: experimental
+description: Detects access to SSH private keys in ~/.ssh (id_rsa, id_ed25519) by copy/read/archive tools on macOS, indicating theft of keys for lateral movement.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1552/004/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - '.ssh/id_rsa'
+      - '.ssh/id_ed25519'
+      - '.ssh/id_ecdsa'
+    Image|endswith:
+      - '/cat'
+      - '/cp'
+      - '/tar'
+      - '/scp'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate key management
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1552.004

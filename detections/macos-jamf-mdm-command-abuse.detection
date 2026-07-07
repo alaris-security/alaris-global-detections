@@ -1,0 +1,18 @@
+{
+  "uuid": "7c7bb5e3-620d-4ef9-bd9e-9eea51357a36",
+  "slug": "macos-jamf-mdm-command-abuse",
+  "title": "macOS Jamf/MDM Command Abuse",
+  "description": "Detects abuse of the Jamf binary or profiles command to run policies or install configuration profiles, a technique to execute code or push configuration across managed macOS fleets.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "macos", "mdm"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1651", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/macos-jamf-mdm-command-abuse.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects abuse of the Jamf binary or profiles command to run policies or install configuration profiles, a technique to execute code or push configuration across managed macOS fleets."
+  }
+}

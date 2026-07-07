@@ -1,0 +1,31 @@
+title: macOS Network Configuration Discovery
+id: 557b42f9-f4df-41ab-b36f-e8f429262ca5
+status: experimental
+description: Detects network configuration discovery on macOS via ifconfig, networksetup -listallhardwareports, and arp, used to orient within the network after compromise.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1016/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/ifconfig'
+      - '/networksetup'
+      - '/arp'
+    CommandLine|contains:
+      - '-a'
+      - 'listall'
+      - 'getinfo'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Network troubleshooting
+level: low
+tags:
+  - attack.discovery
+  - attack.t1016

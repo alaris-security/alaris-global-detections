@@ -1,0 +1,31 @@
+title: macOS Jamf/MDM Command Abuse
+id: a02e9590-3188-4332-be10-fd92cc4cb37e
+status: experimental
+description: Detects abuse of the Jamf binary or profiles command to run policies or install configuration profiles, a technique to execute code or push configuration across managed macOS fleets.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1651/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/jamf'
+      - '/profiles'
+    CommandLine|contains:
+      - 'policy'
+      - 'runScript'
+      - 'install -type'
+      - '-F'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Legitimate MDM operations
+level: high
+tags:
+  - attack.execution
+  - attack.t1651

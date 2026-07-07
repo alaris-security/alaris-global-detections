@@ -1,0 +1,31 @@
+title: macOS Unified Log Tampering
+id: c413652c-c08b-4660-8b70-54481fb525c0
+status: experimental
+description: Detects erasing of the macOS unified log (log erase) or deletion of files under /var/log and /private/var/log, an anti-forensics technique to remove evidence of activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/002/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection_logerase:
+    Image|endswith: '/log'
+    CommandLine|contains: 'erase'
+  selection_rm:
+    CommandLine|contains: '/var/log'
+    Image|endswith:
+      - '/rm'
+      - '/srm'
+  condition: selection_logerase or selection_rm
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators clearing logs
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.002

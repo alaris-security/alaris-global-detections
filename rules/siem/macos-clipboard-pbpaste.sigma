@@ -1,0 +1,24 @@
+title: macOS Clipboard Capture via pbpaste
+id: 38d68d78-70ff-42ef-8d22-12f90f743266
+status: experimental
+description: Detects use of pbpaste to read clipboard contents, potentially in a loop, to harvest copied passwords, tokens, and sensitive text on macOS.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1115/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/pbpaste'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Scripts legitimately using the clipboard
+level: medium
+tags:
+  - attack.collection
+  - attack.t1115

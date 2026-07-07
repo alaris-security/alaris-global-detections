@@ -1,0 +1,18 @@
+{
+  "uuid": "0e869fae-d67e-49fd-8562-efa133f0fa4c",
+  "slug": "macos-safari-history-access",
+  "title": "macOS Safari History Access",
+  "description": "Detects access to the Safari History.db database by non-Safari processes, used to profile a user's browsing, internal sites, and webmail on macOS.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "macos", "browser"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1217", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/macos-safari-history-access.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects access to the Safari History.db database by non-Safari processes, used to profile a user's browsing, internal sites, and webmail on macOS."
+  }
+}

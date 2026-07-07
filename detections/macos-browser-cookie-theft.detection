@@ -1,0 +1,18 @@
+{
+  "uuid": "91894417-2037-4a6a-9620-bd52fc2045ad",
+  "slug": "macos-browser-cookie-theft",
+  "title": "macOS Browser Cookie Theft",
+  "description": "Detects access to browser cookie stores on macOS (Safari Cookies.binarycookies, Chrome/Edge Cookies SQLite) by non-browser processes, used to steal session cookies for session hijacking.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "macos", "cookies"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1539", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/macos-browser-cookie-theft.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects access to browser cookie stores on macOS (Safari Cookies.binarycookies, Chrome/Edge Cookies SQLite) by non-browser processes, used to steal session cookies for session hijacking."
+  }
+}

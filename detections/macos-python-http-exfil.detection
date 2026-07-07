@@ -1,0 +1,18 @@
+{
+  "uuid": "bb431d15-27c4-41d3-b504-9209ba0d54b0",
+  "slug": "macos-python-http-exfil",
+  "title": "macOS Ad-hoc HTTP Server Staging",
+  "description": "Detects launching an ad-hoc web server on macOS (python3 -m http.server, php -S) used to stage files for download or serve payloads to other hosts.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "macos", "staging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/macos-python-http-exfil.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects launching an ad-hoc web server on macOS (python3 -m http.server, php -S) used to stage files for download or serve payloads to other hosts."
+  }
+}

@@ -1,0 +1,27 @@
+title: macOS Firewall Disabled
+id: 1bd50830-34af-4d95-8455-750c738af812
+status: experimental
+description: Detects disabling of the macOS application firewall (socketfilterfw --setglobalstate off) or packet filter (pfctl -d), a defense-evasion action weakening host network controls.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/004/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'socketfilterfw --setglobalstate off'
+      - 'pfctl -d'
+      - 'globalstate off'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Administrators troubleshooting connectivity
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562.004

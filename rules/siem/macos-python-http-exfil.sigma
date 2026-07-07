@@ -1,0 +1,27 @@
+title: macOS Ad-hoc HTTP Server Staging
+id: e0e24b5c-190e-48b5-9557-b68dee862af4
+status: experimental
+description: Detects launching an ad-hoc web server on macOS (python3 -m http.server, php -S) used to stage files for download or serve payloads to other hosts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'http.server'
+      - 'SimpleHTTPServer'
+      - 'php -S'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Developers testing locally
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567

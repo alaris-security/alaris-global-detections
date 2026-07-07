@@ -1,0 +1,18 @@
+{
+  "uuid": "d996a9b4-26c1-4ad2-bfd7-789534a29c10",
+  "slug": "macos-log-tamper",
+  "title": "macOS Unified Log Tampering",
+  "description": "Detects erasing of the macOS unified log (log erase) or deletion of files under /var/log and /private/var/log, an anti-forensics technique to remove evidence of activity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "macos", "indicator-removal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.002", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/macos-log-tamper.sigma"],
+  "intent": {
+    "conditions": ["macOS process event matching the described pattern"],
+    "dataSourceRequirements": ["macOS process execution logs (ESF/EDR)"],
+    "tuningParameters": {},
+    "sourceContext": "Detects erasing of the macOS unified log (log erase) or deletion of files under /var/log and /private/var/log, an anti-forensics technique to remove evidence of activity."
+  }
+}

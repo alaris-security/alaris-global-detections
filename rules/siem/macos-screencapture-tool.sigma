@@ -1,0 +1,25 @@
+title: macOS Screen Capture via screencapture
+id: a4be724b-387d-4912-ae50-b8ffe3313749
+status: experimental
+description: Detects use of the macOS screencapture utility with silent/no-sound flags (-x) writing to a file, a technique for covertly capturing the victim's screen.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1113/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/screencapture'
+    CommandLine|contains: '-x'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Users taking screenshots
+level: medium
+tags:
+  - attack.collection
+  - attack.t1113

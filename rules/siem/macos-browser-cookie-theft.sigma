@@ -1,0 +1,32 @@
+title: macOS Browser Cookie Theft
+id: d911fab0-9e98-4b0a-b2fd-9e9e2e5976d9
+status: experimental
+description: Detects access to browser cookie stores on macOS (Safari Cookies.binarycookies, Chrome/Edge Cookies SQLite) by non-browser processes, used to steal session cookies for session hijacking.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1539/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Cookies.binarycookies'
+      - '/Cookies'
+      - 'Safari/Cookies'
+  filter:
+    Image|contains:
+      - 'Safari'
+      - 'Google Chrome'
+  condition: selection and not filter
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Backup software
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1539

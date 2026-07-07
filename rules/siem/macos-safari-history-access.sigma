@@ -1,0 +1,28 @@
+title: macOS Safari History Access
+id: be44ae03-32b3-4472-9033-1b9f75b747fd
+status: experimental
+description: Detects access to the Safari History.db database by non-Safari processes, used to profile a user's browsing, internal sites, and webmail on macOS.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1217/
+logsource:
+  product: macos
+  category: process_creation
+detection:
+  selection:
+    CommandLine|contains: 'Safari/History.db'
+    Image|endswith:
+      - '/sqlite3'
+      - '/cat'
+      - '/cp'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - Image
+falsepositives:
+  - Backup tooling
+level: low
+tags:
+  - attack.discovery
+  - attack.t1217
