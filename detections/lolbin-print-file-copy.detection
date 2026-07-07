@@ -1,0 +1,18 @@
+{
+  "uuid": "98aaa664-a35a-4108-a707-ad4426f4bc2b",
+  "slug": "lolbin-print-file-copy",
+  "title": "Print.exe Used to Copy a File",
+  "description": "Detects print.exe with /D used to write a file to an arbitrary destination, an obscure LOLBin file-copy technique used to move or drop payloads through a signed binary.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1105", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-print-file-copy.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects print.exe with /D used to write a file to an arbitrary destination, an obscure LOLBin file-copy technique used to move or drop payloads through a signed binary."
+  }
+}

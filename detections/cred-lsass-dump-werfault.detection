@@ -1,0 +1,18 @@
+{
+  "uuid": "3640aa6e-c0da-4da6-b737-74a0493f9b22",
+  "slug": "cred-lsass-dump-werfault",
+  "title": "LSASS Dump via WerFault/rdrleakdiag/sqldumper",
+  "description": "Detects abuse of built-in diagnostic tools (WerFault, rdrleakdiag, sqldumper, tttracer) to dump the memory of lsass.exe, LOLBin credential-theft methods that avoid well-known dumping utilities.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "lsass"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-lsass-dump-werfault.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects abuse of built-in diagnostic tools (WerFault, rdrleakdiag, sqldumper, tttracer) to dump the memory of lsass.exe, LOLBin credential-theft methods that avoid well-known dumping utilities."
+  }
+}

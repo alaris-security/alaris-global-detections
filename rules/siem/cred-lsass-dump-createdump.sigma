@@ -1,0 +1,25 @@
+title: LSASS Dump via createdump.exe
+id: 2ea26604-4cbc-4994-97ea-528e5fb588ee
+status: experimental
+description: Detects the .NET createdump.exe utility being used to dump the memory of lsass.exe, a living-off-the-land credential-theft method that abuses a legitimate runtime tool.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\createdump.exe'
+    CommandLine|contains: 'lsass'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate .NET crash diagnostics
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001

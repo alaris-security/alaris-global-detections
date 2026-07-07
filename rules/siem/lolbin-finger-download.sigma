@@ -1,0 +1,25 @@
+title: Finger Used for Download or C2
+id: 755df023-755d-41e1-a189-977e9c0ef120
+status: experimental
+description: Detects finger.exe connecting to a remote host, an obscure LOLBin abused to download data or tunnel command-and-control over the finger protocol.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\finger.exe'
+    CommandLine|contains: '@'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Essentially never legitimate on modern Windows
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1105

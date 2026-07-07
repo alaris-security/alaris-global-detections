@@ -1,0 +1,25 @@
+title: Xwizard COM Object Execution
+id: ae20ce4d-c79c-4c25-a532-40e6f6c20a7b
+status: experimental
+description: Detects xwizard.exe RunWizard with a CLSID, a signed LOLBin that can instantiate arbitrary COM objects (including a custom registered CLSID) to proxy code execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\xwizard.exe'
+    CommandLine|contains: 'RunWizard'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - None expected
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218

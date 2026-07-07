@@ -1,0 +1,27 @@
+title: Active Directory Export via ldifde/csvde
+id: 1142c286-ef61-4410-a796-3cb8ac408e40
+status: experimental
+description: Detects bulk export of Active Directory objects using ldifde or csvde, which dump directory contents to a file for offline analysis of users, groups, and attributes.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1087/002/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\\ldifde.exe'
+      - '\\csvde.exe'
+    CommandLine|contains: '-f'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Directory administrators exporting for reporting
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.002

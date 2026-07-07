@@ -1,0 +1,28 @@
+title: MSXSL XSL Script Execution
+id: 5b284040-8d5a-44bd-b134-eb6446a00bb8
+status: experimental
+description: Detects msxsl.exe processing an XSL stylesheet, which can contain embedded JScript/VBScript, a signed proxy-execution and allowlist-bypass technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1220/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\msxsl.exe'
+    CommandLine|contains:
+      - '.xml'
+      - '.xsl'
+      - 'http'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legacy XSLT transformation tools
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1220

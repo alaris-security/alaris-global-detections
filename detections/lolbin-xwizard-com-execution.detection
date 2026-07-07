@@ -1,0 +1,18 @@
+{
+  "uuid": "e331288c-be1a-4395-aaf8-565b6a60e876",
+  "slug": "lolbin-xwizard-com-execution",
+  "title": "Xwizard COM Object Execution",
+  "description": "Detects xwizard.exe RunWizard with a CLSID, a signed LOLBin that can instantiate arbitrary COM objects (including a custom registered CLSID) to proxy code execution.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "signed-binary-proxy", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1218", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-xwizard-com-execution.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects xwizard.exe RunWizard with a CLSID, a signed LOLBin that can instantiate arbitrary COM objects (including a custom registered CLSID) to proxy code execution."
+  }
+}

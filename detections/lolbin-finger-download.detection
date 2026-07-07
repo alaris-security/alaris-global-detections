@@ -1,0 +1,18 @@
+{
+  "uuid": "e1848a7f-12d9-4f44-be17-2c27a90c265a",
+  "slug": "lolbin-finger-download",
+  "title": "Finger Used for Download or C2",
+  "description": "Detects finger.exe connecting to a remote host, an obscure LOLBin abused to download data or tunnel command-and-control over the finger protocol.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1105", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/lolbin-finger-download.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects finger.exe connecting to a remote host, an obscure LOLBin abused to download data or tunnel command-and-control over the finger protocol."
+  }
+}

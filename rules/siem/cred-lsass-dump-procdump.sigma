@@ -1,0 +1,27 @@
+title: LSASS Dump via ProcDump
+id: 402335a8-5691-4ba3-b37c-d15bce974522
+status: experimental
+description: Detects Sysinternals ProcDump creating a full memory dump of lsass.exe (-ma lsass), a common credential-theft technique using a signed, trusted utility.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\\procdump.exe'
+      - '\\procdump64.exe'
+    CommandLine|contains: 'lsass'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Authorized crash-dump collection
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001

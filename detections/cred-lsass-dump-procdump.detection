@@ -1,0 +1,18 @@
+{
+  "uuid": "4e7654ed-9622-45f2-bd34-0a3be4048b6a",
+  "slug": "cred-lsass-dump-procdump",
+  "title": "LSASS Dump via ProcDump",
+  "description": "Detects Sysinternals ProcDump creating a full memory dump of lsass.exe (-ma lsass), a common credential-theft technique using a signed, trusted utility.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["credential-access", "lsass", "procdump"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1003.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/cred-lsass-dump-procdump.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects Sysinternals ProcDump creating a full memory dump of lsass.exe (-ma lsass), a common credential-theft technique using a signed, trusted utility."
+  }
+}

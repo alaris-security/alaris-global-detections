@@ -1,0 +1,18 @@
+{
+  "uuid": "fc635476-54ad-4a2d-838b-f748cba39c8f",
+  "slug": "lolbin-desktopimgdownldr-download",
+  "title": "Desktopimgdownldr Used to Download a File",
+  "description": "Detects desktopimgdownldr.exe with a lockscreenurl parameter used to download an arbitrary file, a signed LOLBin ingress-transfer method that abuses the lock-screen image downloader.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1105", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/lolbin-desktopimgdownldr-download.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects desktopimgdownldr.exe with a lockscreenurl parameter used to download an arbitrary file, a signed LOLBin ingress-transfer method that abuses the lock-screen image downloader."
+  }
+}

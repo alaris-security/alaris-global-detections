@@ -1,0 +1,25 @@
+title: Diantz Remote CAB Download
+id: a3f9331a-3cd6-4f49-9fd2-e321478ee1c2
+status: experimental
+description: Detects diantz.exe compressing a file from a remote UNC path into a local cab, a LOLBin technique to pull a remote payload while masquerading as archive activity.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\diantz.exe'
+    CommandLine|contains: '\\\\'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Rare legitimate remote cab operations
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1105

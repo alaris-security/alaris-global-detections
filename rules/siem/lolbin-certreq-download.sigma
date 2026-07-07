@@ -1,0 +1,27 @@
+title: Certreq Used to Download a File
+id: f5c01922-9110-4362-9fd0-63dc963e6d39
+status: experimental
+description: Detects certreq.exe with -Post and a URL used to fetch a remote file, a signed LOLBin ingress-transfer technique that abuses the certificate request utility.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\certreq.exe'
+    CommandLine|contains:
+      - '-Post'
+      - 'http'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate certificate enrollment over HTTP
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1105

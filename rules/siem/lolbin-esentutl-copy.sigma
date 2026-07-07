@@ -1,0 +1,30 @@
+title: Esentutl Copy of Locked/Sensitive File
+id: 69da7910-5017-4598-9c5a-0ff70ef387b2
+status: experimental
+description: Detects esentutl.exe with /y (copy) used to copy locked or sensitive files such as ntds.dit or registry hives by reading them at the volume level, a data-access and credential-collection technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\esentutl.exe'
+    CommandLine|contains: '/y'
+    CommandLine|contains:
+      - 'ntds'
+      - '.dit'
+      - '\\SAM'
+      - 'SYSTEM'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Database maintenance
+level: high
+tags:
+  - attack.collection
+  - attack.t1005

@@ -1,0 +1,25 @@
+title: Desktopimgdownldr Used to Download a File
+id: f90dde15-0a48-4841-853d-8086696c6e5b
+status: experimental
+description: Detects desktopimgdownldr.exe with a lockscreenurl parameter used to download an arbitrary file, a signed LOLBin ingress-transfer method that abuses the lock-screen image downloader.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\desktopimgdownldr.exe'
+    CommandLine|contains: 'lockscreenurl'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - None expected
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1105

@@ -1,0 +1,18 @@
+{
+  "uuid": "f4306692-627d-46fa-8288-faec5c162551",
+  "slug": "lolbin-expand-deobfuscation",
+  "title": "Expand/Makecab Payload Staging",
+  "description": "Detects use of expand.exe or makecab.exe to extract or package files from user-writable directories, a LOLBin technique to deobfuscate or stage payloads while blending with normal file operations.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "deobfuscation", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1140", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-expand-deobfuscation.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of expand.exe or makecab.exe to extract or package files from user-writable directories, a LOLBin technique to deobfuscate or stage payloads while blending with normal file operations."
+  }
+}

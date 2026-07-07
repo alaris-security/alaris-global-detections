@@ -1,0 +1,18 @@
+{
+  "uuid": "e331288c-be1a-4395-aaf8-565b6a60e877",
+  "slug": "lolbin-diantz-remote-cab",
+  "title": "Diantz Remote CAB Download",
+  "description": "Detects diantz.exe compressing a file from a remote UNC path into a local cab, a LOLBin technique to pull a remote payload while masquerading as archive activity.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1105", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/lolbin-diantz-remote-cab.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects diantz.exe compressing a file from a remote UNC path into a local cab, a LOLBin technique to pull a remote payload while masquerading as archive activity."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "36de0fdc-2d7a-4cc6-9270-1dc34f62ac60",
+  "slug": "lolbin-msxsl-xsl-execution",
+  "title": "MSXSL XSL Script Execution",
+  "description": "Detects msxsl.exe processing an XSL stylesheet, which can contain embedded JScript/VBScript, a signed proxy-execution and allowlist-bypass technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "xsl-script-processing", "lolbin"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1220", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/lolbin-msxsl-xsl-execution.sigma"],
+  "intent": {
+    "conditions": ["Process creation matching the described tool/technique"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Detects msxsl.exe processing an XSL stylesheet, which can contain embedded JScript/VBScript, a signed proxy-execution and allowlist-bypass technique."
+  }
+}

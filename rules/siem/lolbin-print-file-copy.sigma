@@ -1,0 +1,29 @@
+title: Print.exe Used to Copy a File
+id: c7e23b0e-efb2-4fb9-8351-d28b7a1a04e0
+status: experimental
+description: Detects print.exe with /D used to write a file to an arbitrary destination, an obscure LOLBin file-copy technique used to move or drop payloads through a signed binary.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\print.exe'
+    CommandLine|contains: '/D'
+    CommandLine|contains:
+      - '.exe'
+      - '.dll'
+      - '.bat'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Legitimate printing to file
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1105

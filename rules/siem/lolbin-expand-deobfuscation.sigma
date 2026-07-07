@@ -1,0 +1,30 @@
+title: Expand/Makecab Payload Staging
+id: ec7215e3-5c66-4287-8737-1147ce85ddba
+status: experimental
+description: Detects use of expand.exe or makecab.exe to extract or package files from user-writable directories, a LOLBin technique to deobfuscate or stage payloads while blending with normal file operations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1140/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\\expand.exe'
+      - '\\makecab.exe'
+    CommandLine|contains:
+      - '\\Temp\\'
+      - '\\AppData\\'
+      - '\\Users\\Public\\'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+falsepositives:
+  - Software installers unpacking cabs
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1140
