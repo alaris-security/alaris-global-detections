@@ -1,0 +1,26 @@
+title: M365 SharePoint/OneDrive Mass File Download
+id: bf0f9c98-0071-4190-a5e7-5984c9f8bd7c
+status: experimental
+description: Detects bulk SharePoint/OneDrive downloads.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1530/
+logsource:
+  product: m365
+  service: sharepoint
+detection:
+  selection:
+    Operation:
+      - 'FileDownloaded'
+      - 'FileSyncDownloadedFull'
+  timeframe: 10m
+  condition: selection | count() by UserId > 500
+fields:
+  - UserId
+  - ObjectId
+falsepositives:
+  - Legitimate bulk sync of a large library
+level: high
+tags:
+  - attack.collection
+  - attack.t1530

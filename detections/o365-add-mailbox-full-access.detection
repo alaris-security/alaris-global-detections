@@ -1,0 +1,18 @@
+{
+  "uuid": "f96c5289-7bd8-43a8-ac75-e2dd18fe4243",
+  "slug": "o365-add-mailbox-full-access",
+  "title": "M365 Mailbox Full Access Permission Granted",
+  "description": "Detects Add-MailboxPermission granting FullAccess to another user's mailbox, a persistence and collection technique that gives an attacker ongoing read access to a target's mail.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "m365", "mailbox-permission"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.002", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/o365-add-mailbox-full-access.sigma"],
+  "intent": {
+    "conditions": ["Add-MailboxPermission with AccessRights FullAccess"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "FullAccess delegation is a durable path into a victim's mailbox."
+  }
+}

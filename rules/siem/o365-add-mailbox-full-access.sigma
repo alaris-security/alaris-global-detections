@@ -1,0 +1,24 @@
+title: M365 Mailbox Full Access Permission Granted
+id: 1466339b-3c70-41d6-b7d9-5b3b763dce5e
+status: experimental
+description: Detects mailbox FullAccess grants.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/002/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation: 'Add-MailboxPermission'
+    Parameters|contains: 'FullAccess'
+  condition: selection
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Delegated mailbox access for assistants
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098.002

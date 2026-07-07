@@ -1,0 +1,18 @@
+{
+  "uuid": "ecb1e56c-5368-49fe-8fc1-275953c291f9",
+  "slug": "o365-safelinks-disabled",
+  "title": "M365 Defender Safe Links or Safe Attachments Disabled",
+  "description": "Detects disabling or weakening of Safe Links and Safe Attachments policies (Disable-SafeLinksRule, Set-SafeAttachmentPolicy Action Allow), reducing email threat protection ahead of phishing.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "m365", "defender"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/o365-safelinks-disabled.sigma"],
+  "intent": {
+    "conditions": ["Disable/weaken Safe Links or Safe Attachments policy operations"],
+    "dataSourceRequirements": ["M365 Unified Audit Log"],
+    "tuningParameters": {},
+    "sourceContext": "Weakening Defender email protections opens the door for phishing payloads."
+  }
+}

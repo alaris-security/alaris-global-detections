@@ -1,0 +1,18 @@
+{
+  "uuid": "16aea053-6a33-4efc-9db9-e31968f97559",
+  "slug": "o365-mailbox-audit-bypass",
+  "title": "M365 Mailbox Audit Bypass Configured",
+  "description": "Detects Set-MailboxAuditBypassAssociation enabling audit bypass for an account, which suppresses mailbox audit records and lets an attacker access mail without leaving an audit trail.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "m365", "audit-bypass"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/o365-mailbox-audit-bypass.sigma"],
+  "intent": {
+    "conditions": ["Set-MailboxAuditBypassAssociation with AuditBypassEnabled true"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "Audit bypass makes subsequent mailbox access invisible to auditing."
+  }
+}

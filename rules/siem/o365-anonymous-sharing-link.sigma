@@ -1,0 +1,27 @@
+title: M365 Anonymous Sharing Link Created
+id: 47624cb3-fcee-4528-9aee-1a9d884c3db3
+status: experimental
+description: Detects anonymous sharing link creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+logsource:
+  product: m365
+  service: sharepoint
+detection:
+  selection:
+    Operation:
+      - 'AnonymousLinkCreated'
+      - 'SecureLinkCreated'
+      - 'AddedToSecureLink'
+  condition: selection
+fields:
+  - UserId
+  - ObjectId
+  - Operation
+falsepositives:
+  - Intended external collaboration
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567.002

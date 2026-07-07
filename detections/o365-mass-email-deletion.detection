@@ -1,0 +1,18 @@
+{
+  "uuid": "e156b09f-0e38-4eee-990f-8474b537606e",
+  "slug": "o365-mass-email-deletion",
+  "title": "M365 Mass Email Deletion",
+  "description": "Detects a high volume of HardDelete or SoftDelete mailbox operations by a single user in a short window, used to destroy evidence of phishing or hide activity after account compromise.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "m365", "indicator-removal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1070.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/o365-mass-email-deletion.sigma"],
+  "intent": {
+    "conditions": ["High count of HardDelete/SoftDelete per user in a short window"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {"threshold": 100},
+    "sourceContext": "Bulk mail deletion erases traces of malicious email activity."
+  }
+}

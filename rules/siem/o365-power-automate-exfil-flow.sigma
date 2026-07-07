@@ -1,0 +1,26 @@
+title: M365 Power Automate Flow Created for Exfiltration
+id: 5be446e1-b88e-4bc5-9803-3cbb044c6e12
+status: experimental
+description: Detects Power Automate flow creation for exfiltration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1567/
+logsource:
+  product: m365
+  service: threat_management
+detection:
+  selection:
+    Operation:
+      - 'CreateFlow'
+      - 'EditFlow'
+      - 'PowerAutomateFlowCreated'
+  condition: selection
+fields:
+  - UserId
+  - Operation
+falsepositives:
+  - Legitimate business automation flows
+level: medium
+tags:
+  - attack.exfiltration
+  - attack.t1567

@@ -1,0 +1,24 @@
+title: M365 ApplicationImpersonation Role Assigned
+id: c08db368-1e1b-4323-a32c-ca769342660a
+status: experimental
+description: Detects ApplicationImpersonation role assignment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation: 'New-ManagementRoleAssignment'
+    Parameters|contains: 'ApplicationImpersonation'
+  condition: selection
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Migration tools requiring impersonation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

@@ -1,0 +1,30 @@
+title: M365 Inbox Rule Forwarding to External Address
+id: 7cf3a9e8-7bec-4d86-98c7-b7676d19c55b
+status: experimental
+description: Detects inbox rules forwarding mail externally.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/003/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - 'New-InboxRule'
+      - 'Set-InboxRule'
+    Parameters|contains:
+      - 'ForwardTo'
+      - 'RedirectTo'
+      - 'ForwardAsAttachmentTo'
+  condition: selection
+fields:
+  - UserId
+  - Operation
+  - Parameters
+falsepositives:
+  - Users setting legitimate forwarding
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.003

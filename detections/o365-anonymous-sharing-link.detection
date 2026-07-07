@@ -1,0 +1,18 @@
+{
+  "uuid": "528e47fe-4ae4-4238-957e-3b9aac7f3f38",
+  "slug": "o365-anonymous-sharing-link",
+  "title": "M365 Anonymous Sharing Link Created",
+  "description": "Detects creation of anonymous (anyone-with-the-link) sharing links in SharePoint/OneDrive, which can expose sensitive files publicly and be used to exfiltrate data outside the tenant.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "m365", "sharepoint"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567.002", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/o365-anonymous-sharing-link.sigma"],
+  "intent": {
+    "conditions": ["AnonymousLinkCreated / AddedToSecureLink with anonymous scope"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (SharePoint)"],
+    "tuningParameters": {},
+    "sourceContext": "Anonymous links make files reachable by anyone, a simple exfiltration route."
+  }
+}

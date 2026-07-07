@@ -1,0 +1,27 @@
+title: M365 Mass Email Deletion
+id: 808ca407-3628-441f-bc79-c315c1930041
+status: experimental
+description: Detects mass mailbox item deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1070/008/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - 'HardDelete'
+      - 'SoftDelete'
+      - 'MoveToDeletedItems'
+  timeframe: 10m
+  condition: selection | count() by UserId > 100
+fields:
+  - UserId
+  - Operation
+falsepositives:
+  - Users cleaning up large volumes of mail
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.008

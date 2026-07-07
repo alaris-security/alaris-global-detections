@@ -1,0 +1,30 @@
+title: M365 Suspicious Transport Rule Created
+id: b3822f2a-4188-4455-bd63-29f408101bb3
+status: experimental
+description: Detects suspicious mail transport rules.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - 'New-TransportRule'
+      - 'Set-TransportRule'
+  selection_action:
+    Parameters|contains:
+      - 'BlindCopyTo'
+      - 'RedirectMessageTo'
+      - 'DeleteMessage'
+  condition: selection and selection_action
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Mail administrators configuring legitimate rules
+level: high
+tags:
+  - attack.collection
+  - attack.t1114

@@ -1,0 +1,23 @@
+title: M365 Mailbox Export Request
+id: 5d102b99-3ba0-42a1-a0da-67f9d76c4af8
+status: experimental
+description: Detects mailbox export requests.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/002/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation: 'New-MailboxExportRequest'
+  condition: selection
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Legitimate mailbox migrations or legal exports
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.002

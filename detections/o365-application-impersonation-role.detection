@@ -1,0 +1,18 @@
+{
+  "uuid": "af2c2864-a2e6-42c1-a6e7-adcf51aff910",
+  "slug": "o365-application-impersonation-role",
+  "title": "M365 ApplicationImpersonation Role Assigned",
+  "description": "Detects assignment of the ApplicationImpersonation RBAC role via New-ManagementRoleAssignment, which lets a principal act as any mailbox in the tenant, a powerful persistence and collection capability.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "m365", "impersonation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/o365-application-impersonation-role.sigma"],
+  "intent": {
+    "conditions": ["New-ManagementRoleAssignment with Role ApplicationImpersonation"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "ApplicationImpersonation grants tenant-wide mailbox access to a single identity."
+  }
+}

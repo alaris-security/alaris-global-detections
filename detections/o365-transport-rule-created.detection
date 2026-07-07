@@ -1,0 +1,18 @@
+{
+  "uuid": "f827efdf-cc64-4cc5-a84d-bdb2100c53c0",
+  "slug": "o365-transport-rule-created",
+  "title": "M365 Suspicious Transport Rule Created",
+  "description": "Detects New-TransportRule or Set-TransportRule creating organization-wide mail flow rules that BCC/redirect messages externally or delete mail, used for tenant-wide exfiltration or to hide phishing.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "m365", "transport-rule"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1114", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/o365-transport-rule-created.sigma"],
+  "intent": {
+    "conditions": ["New-TransportRule/Set-TransportRule with BlindCopyTo, RedirectMessageTo, or DeleteMessage"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "Transport rules affect the whole tenant's mail flow, enabling mass exfiltration."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "ba4ae68a-9fef-4caa-8287-84854f34ab30",
+  "slug": "o365-mailbox-forwarding-set",
+  "title": "M365 Mailbox-Level Forwarding Configured",
+  "description": "Detects Set-Mailbox setting ForwardingSMTPAddress or ForwardingAddress to an external recipient, a mailbox-level forwarding technique that persists across sessions to exfiltrate email.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "m365", "email-forwarding"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1114.003", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/o365-mailbox-forwarding-set.sigma"],
+  "intent": {
+    "conditions": ["Set-Mailbox with ForwardingSMTPAddress or ForwardingAddress"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "Mailbox forwarding is a durable exfiltration channel independent of inbox rules."
+  }
+}

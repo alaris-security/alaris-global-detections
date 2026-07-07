@@ -1,0 +1,28 @@
+title: M365 Defender Safe Links or Safe Attachments Disabled
+id: 3eaf9c01-0fc6-4809-81a3-86d73943a623
+status: experimental
+description: Detects disabling of Safe Links/Attachments.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - 'Disable-SafeLinksRule'
+      - 'Disable-SafeAttachmentRule'
+      - 'Set-SafeLinksPolicy'
+      - 'Set-SafeAttachmentPolicy'
+  condition: selection
+fields:
+  - UserId
+  - Operation
+  - Parameters
+falsepositives:
+  - Policy tuning by administrators
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562

@@ -1,0 +1,18 @@
+{
+  "uuid": "7e379a98-5b1a-4546-b81d-02d848609eee",
+  "slug": "o365-ediscovery-compliance-search",
+  "title": "M365 eDiscovery Compliance Search Abuse",
+  "description": "Detects creation and execution of broad compliance/eDiscovery searches (New-ComplianceSearch, New-ComplianceSearchAction Export), which attackers with admin rights abuse to search and export mail across the tenant.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "m365", "ediscovery"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1114.002", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/o365-ediscovery-compliance-search.sigma"],
+  "intent": {
+    "conditions": ["New-ComplianceSearch or New-ComplianceSearchAction with Export"],
+    "dataSourceRequirements": ["M365 Unified Audit Log"],
+    "tuningParameters": {},
+    "sourceContext": "eDiscovery gives tenant-wide mail search/export, a powerful collection tool."
+  }
+}

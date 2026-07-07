@@ -1,0 +1,27 @@
+title: M365 eDiscovery Compliance Search Abuse
+id: 42c6aaa5-d9c0-46fc-829f-0f973dbb43ec
+status: experimental
+description: Detects eDiscovery compliance search and export.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/002/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - 'New-ComplianceSearch'
+      - 'New-ComplianceSearchAction'
+      - 'Start-ComplianceSearch'
+  condition: selection
+fields:
+  - UserId
+  - Operation
+  - Parameters
+falsepositives:
+  - Legitimate legal/compliance investigations
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.002

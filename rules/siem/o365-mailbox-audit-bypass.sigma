@@ -1,0 +1,23 @@
+title: M365 Mailbox Audit Bypass Configured
+id: d78dee5b-9da3-49bc-a4cf-e25d0aaf2ccc
+status: experimental
+description: Detects mailbox audit bypass configuration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation: 'Set-MailboxAuditBypassAssociation'
+  condition: selection
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Rare service account audit exclusions
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562

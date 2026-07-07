@@ -1,0 +1,18 @@
+{
+  "uuid": "22840242-e751-4b46-842f-bc50c39e6275",
+  "slug": "o365-audit-logging-disabled",
+  "title": "M365 Unified Audit Logging Disabled",
+  "description": "Detects Set-AdminAuditLogConfig disabling UnifiedAuditLogIngestion, which stops M365 audit events from being recorded, a defense-evasion action to blind the tenant.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "m365", "audit-logging"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.008", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/o365-audit-logging-disabled.sigma"],
+  "intent": {
+    "conditions": ["Set-AdminAuditLogConfig with UnifiedAuditLogIngestionEnabled false"],
+    "dataSourceRequirements": ["M365 Unified Audit Log"],
+    "tuningParameters": {},
+    "sourceContext": "Turning off unified audit logging removes the tenant's primary detection source."
+  }
+}

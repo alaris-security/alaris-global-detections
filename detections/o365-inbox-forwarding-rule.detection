@@ -1,0 +1,18 @@
+{
+  "uuid": "8b59e41d-37a9-4d47-afef-cffe88f2f0b1",
+  "slug": "o365-inbox-forwarding-rule",
+  "title": "M365 Inbox Rule Forwarding to External Address",
+  "description": "Detects New-InboxRule or Set-InboxRule creating a rule that forwards or redirects mail to an external address, a common technique to silently exfiltrate a compromised user's email.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "m365", "email-forwarding"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1114.003", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/o365-inbox-forwarding-rule.sigma"],
+  "intent": {
+    "conditions": ["New-InboxRule/Set-InboxRule with ForwardTo/RedirectTo to an external domain"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "Auto-forwarding rules quietly siphon a victim's incoming mail."
+  }
+}

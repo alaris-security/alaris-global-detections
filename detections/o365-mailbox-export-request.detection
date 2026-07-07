@@ -1,0 +1,18 @@
+{
+  "uuid": "b68d10e5-bde4-4acf-a60c-6cbcf693e3d0",
+  "slug": "o365-mailbox-export-request",
+  "title": "M365 Mailbox Export Request",
+  "description": "Detects New-MailboxExportRequest, which exports an entire mailbox to a PST file, a bulk email collection technique that removes mail data from mailbox-level protections.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "m365", "mailbox-export"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1114.002", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/o365-mailbox-export-request.sigma"],
+  "intent": {
+    "conditions": ["New-MailboxExportRequest operation"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Exchange)"],
+    "tuningParameters": {},
+    "sourceContext": "Exporting a mailbox to PST collects all of a user's mail at once."
+  }
+}

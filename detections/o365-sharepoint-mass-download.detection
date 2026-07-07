@@ -1,0 +1,18 @@
+{
+  "uuid": "9f86d4d5-fe4a-46a2-b41d-9f7eee38c7fc",
+  "slug": "o365-sharepoint-mass-download",
+  "title": "M365 SharePoint/OneDrive Mass File Download",
+  "description": "Detects a single user performing a high volume of FileDownloaded or FileSyncDownloadedFull operations in SharePoint/OneDrive in a short window, indicating bulk collection or exfiltration of documents.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["collection", "m365", "sharepoint"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1530", "tacticId": "TA0009"}],
+  "rules": ["rules/siem/o365-sharepoint-mass-download.sigma"],
+  "intent": {
+    "conditions": ["High count of FileDownloaded per user in a short window"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (SharePoint)"],
+    "tuningParameters": {"threshold": 500},
+    "sourceContext": "A burst of downloads indicates mass document collection."
+  }
+}

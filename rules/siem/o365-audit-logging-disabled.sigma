@@ -1,0 +1,24 @@
+title: M365 Unified Audit Logging Disabled
+id: 56fe5126-da30-4fed-9ac3-a724d666f751
+status: experimental
+description: Detects disabling of M365 unified audit logging.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/008/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation: 'Set-AdminAuditLogConfig'
+    Parameters|contains: 'UnifiedAuditLogIngestionEnabled'
+  condition: selection
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Rare administrative reconfiguration
+level: critical
+tags:
+  - attack.defense_evasion
+  - attack.t1562.008

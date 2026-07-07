@@ -1,0 +1,26 @@
+title: M365 Mailbox-Level Forwarding Configured
+id: 331e2604-48c7-487c-876e-fcbe97651c70
+status: experimental
+description: Detects mailbox-level forwarding configuration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1114/003/
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation: 'Set-Mailbox'
+    Parameters|contains:
+      - 'ForwardingSMTPAddress'
+      - 'ForwardingAddress'
+  condition: selection
+fields:
+  - UserId
+  - Parameters
+falsepositives:
+  - Legitimate delegated mailbox forwarding
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.003

@@ -1,0 +1,18 @@
+{
+  "uuid": "2cd7451a-6216-4ae2-b681-0d7ce3e61dce",
+  "slug": "o365-power-automate-exfil-flow",
+  "title": "M365 Power Automate Flow Created for Exfiltration",
+  "description": "Detects creation of a Power Automate flow that connects mailbox or file triggers to external connectors (HTTP, external email), an increasingly used technique to exfiltrate data without inbox rules.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["exfiltration", "m365", "power-automate"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1567", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/o365-power-automate-exfil-flow.sigma"],
+  "intent": {
+    "conditions": ["Power Automate CreateFlow / EditFlow referencing mail or file triggers with external outputs"],
+    "dataSourceRequirements": ["M365 Unified Audit Log (Power Automate)"],
+    "tuningParameters": {},
+    "sourceContext": "Malicious flows automate data exfiltration through trusted M365 automation."
+  }
+}
