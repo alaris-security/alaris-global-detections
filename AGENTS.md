@@ -1,5 +1,16 @@
 # Alaris Global Detections
 
+## IMPORTANT — Contribution Attribution (read first)
+
+These rules are mandatory for every contribution, automated or human:
+
+- Do NOT mention, reference, credit, or otherwise indicate that an AI agent, assistant, model, or automated tool worked on this repository — anywhere.
+- This applies to commit messages, commit authors/committers, pull request titles and bodies, code comments, file contents, and any metadata or trailers.
+- Do NOT add `Co-Authored-By`, `Generated-by`, `Assisted-by`, or similar attribution lines.
+- Do NOT name any agent, assistant, vendor, or model (generically or specifically).
+- Author all commits under the human contributor's real identity only.
+- Keep all output vendor-neutral; the work must read as if authored directly by the maintainers.
+
 ## File Structure
 - `detections/{slug}.detection` - JSON detection metadata
 - `rules/siem/{slug}.sigma` - Sigma rules (.sigma extension, NOT .yml)
