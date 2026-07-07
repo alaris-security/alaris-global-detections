@@ -1,0 +1,18 @@
+{
+  "uuid": "1085cdb3-c498-4a1a-87b7-d31b42e2f1be",
+  "slug": "network-tls-self-signed-c2",
+  "title": "TLS Session with Self-Signed Certificate to Rare Host",
+  "description": "Detects outbound TLS sessions negotiating a self-signed certificate with a rare external destination, common for C2 frameworks (Cobalt Strike, Metasploit) using default self-signed certs.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "tls"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1573", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-tls-self-signed-c2.sigma"],
+  "intent": {
+    "conditions": ["TLS handshake with a self-signed certificate to an external host"],
+    "dataSourceRequirements": ["TLS/SSL inspection logs with certificate details"],
+    "tuningParameters": {},
+    "sourceContext": "Self-signed certs on external C2 are a recognizable framework default."
+  }
+}

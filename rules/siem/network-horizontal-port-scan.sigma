@@ -1,0 +1,23 @@
+title: Horizontal Port Scan from Internal Host
+id: 2ef42bcd-5556-40e7-bbb8-f8e9f447d5af
+status: experimental
+description: Detects horizontal port scanning.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1046/
+logsource:
+  category: firewall
+detection:
+  selection:
+    action: 'allowed'
+  timeframe: 5m
+  condition: selection | count(dst_ip) by src_ip > 50
+fields:
+  - src_ip
+  - dst_port
+falsepositives:
+  - Vulnerability scanners and monitoring
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1046

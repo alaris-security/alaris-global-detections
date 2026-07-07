@@ -1,0 +1,25 @@
+title: DNS Fast Flux Resolution
+id: af0df3a6-70d5-4546-a94f-5cca8e3d1f5c
+status: experimental
+description: Detects fast-flux DNS resolution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1568/001/
+logsource:
+  category: dns
+detection:
+  selection:
+    record_type: 'A'
+    ttl|lt: 300
+  timeframe: 10m
+  condition: selection | count(answer_ip) by query > 10
+fields:
+  - query
+  - answer_ip
+  - ttl
+falsepositives:
+  - Large CDNs with many edge IPs
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1568.001

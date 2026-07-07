@@ -1,0 +1,23 @@
+title: DNS Query to Known Malicious Domain
+id: 1685fe76-b19e-487b-941e-e2e1919c994e
+status: experimental
+description: Detects DNS queries to known bad domains.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/004/
+logsource:
+  category: dns
+detection:
+  selection:
+    query_threatintel_category: 'malicious'
+  condition: selection
+fields:
+  - src_ip
+  - query
+  - threatintel_source
+falsepositives:
+  - Stale threat intelligence entries
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1071.004

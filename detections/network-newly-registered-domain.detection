@@ -1,0 +1,18 @@
+{
+  "uuid": "2095a14e-7894-4347-bbd1-b360aee1ad33",
+  "slug": "network-newly-registered-domain",
+  "title": "Connection to Newly Registered Domain",
+  "description": "Detects HTTP/TLS connections to domains registered within the last 30 days, which are disproportionately used for phishing and C2 infrastructure compared to established domains.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "newly-registered-domain"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-newly-registered-domain.sigma"],
+  "intent": {
+    "conditions": ["Connection to a domain enriched as newly registered (< 30 days)"],
+    "dataSourceRequirements": ["Proxy logs enriched with domain age"],
+    "tuningParameters": {"maxDomainAgeDays": 30},
+    "sourceContext": "Fresh domains are a strong indicator of attacker-controlled infrastructure."
+  }
+}

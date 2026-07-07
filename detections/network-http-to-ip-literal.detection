@@ -1,0 +1,18 @@
+{
+  "uuid": "4f168d9d-05e9-427a-8a9f-277a8d80c3d6",
+  "slug": "network-http-to-ip-literal",
+  "title": "HTTP Request Directly to IP Address",
+  "description": "Detects outbound HTTP requests whose Host header is a bare IP address rather than a domain, a pattern common to malware C2 and downloaders that skip DNS.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "ip-literal"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-http-to-ip-literal.sigma"],
+  "intent": {
+    "conditions": ["HTTP request where the host is an IPv4 literal"],
+    "dataSourceRequirements": ["Proxy logs with host field"],
+    "tuningParameters": {},
+    "sourceContext": "Direct-to-IP HTTP avoids DNS and is disproportionately malicious."
+  }
+}

@@ -1,0 +1,34 @@
+title: Web Shell Access Pattern
+id: 3f962d5d-d8e8-4da4-a71e-cbc24a0ae375
+status: experimental
+description: Detects web shell access traffic patterns.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1505/003/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method: 'POST'
+    cs-uri-stem|endswith:
+      - '.aspx'
+      - '.php'
+      - '.jsp'
+      - '.ashx'
+  selection_ua:
+    cs-user-agent|contains:
+      - 'curl'
+      - 'python'
+      - 'PowerShell'
+      - 'Go-http-client'
+  condition: selection and selection_ua
+fields:
+  - cs-uri-stem
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Legitimate API endpoints on these extensions
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1505.003

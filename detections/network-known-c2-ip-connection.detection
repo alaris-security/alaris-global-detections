@@ -1,0 +1,18 @@
+{
+  "uuid": "d15cbf7d-f202-4013-82da-f78aab7d7c5b",
+  "slug": "network-known-c2-ip-connection",
+  "title": "Connection to Known C2 IP (Threat Intel)",
+  "description": "Detects outbound connections to IP addresses matching threat-intelligence indicators for known command-and-control infrastructure, a high-confidence signal of active compromise.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "threat-intel"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-known-c2-ip-connection.sigma"],
+  "intent": {
+    "conditions": ["Outbound connection where dst_ip is on the C2 threat-intel list"],
+    "dataSourceRequirements": ["Firewall/flow logs enriched with threat intel"],
+    "tuningParameters": {"threatFeed": "c2-ip-indicators"},
+    "sourceContext": "Contact with known C2 IPs is a direct indicator of compromise."
+  }
+}

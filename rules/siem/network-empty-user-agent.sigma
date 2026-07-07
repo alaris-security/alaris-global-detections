@@ -1,0 +1,24 @@
+title: Outbound Web Request with Empty User Agent
+id: 5adb234f-a3fb-45a0-b036-12bb331f2edc
+status: experimental
+description: Detects requests with empty user agents.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-user-agent:
+      - ''
+      - '-'
+  condition: selection
+fields:
+  - cs-host
+  - c-ip
+falsepositives:
+  - Some legitimate lightweight clients
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

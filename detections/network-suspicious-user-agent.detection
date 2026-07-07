@@ -1,0 +1,18 @@
+{
+  "uuid": "738d5104-65d3-4416-91fe-284436f59068",
+  "slug": "network-suspicious-user-agent",
+  "title": "Suspicious Scripting User Agent in Web Traffic",
+  "description": "Detects outbound HTTP requests carrying scripting/tooling user agents (python-requests, curl, WinHttp, PowerShell, Go-http-client) to external hosts, common for malware downloaders and C2.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "user-agent"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-suspicious-user-agent.sigma"],
+  "intent": {
+    "conditions": ["Web request with a scripting/tooling user agent to an external destination"],
+    "dataSourceRequirements": ["Proxy logs with user-agent"],
+    "tuningParameters": {},
+    "sourceContext": "Non-browser user agents to the internet often indicate automated malicious traffic."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "10287c9f-1ad7-44a6-a17a-a041b86eb20a",
+  "slug": "network-ldap-recon-anomaly",
+  "title": "Anomalous LDAP Reconnaissance",
+  "description": "Detects a non-domain-controller host issuing a high volume of LDAP queries to a domain controller, consistent with directory reconnaissance tools such as SharpHound and adfind.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "network", "ldap"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1087.002", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/network-ldap-recon-anomaly.sigma"],
+  "intent": {
+    "conditions": ["High LDAP (389/636) query volume from a workstation to a DC"],
+    "dataSourceRequirements": ["Network flow logs or DC directory service logs"],
+    "tuningParameters": {"queryThreshold": 1000},
+    "sourceContext": "A workstation flooding LDAP queries is likely running AD recon tooling."
+  }
+}

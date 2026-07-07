@@ -1,0 +1,23 @@
+title: Connection to Newly Registered Domain
+id: 500e60ec-b91b-4d61-b2aa-fef26edd8d46
+status: experimental
+description: Detects connections to newly registered domains.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: proxy
+detection:
+  selection:
+    domain_age_days|lte: 30
+  condition: selection
+fields:
+  - cs-host
+  - c-ip
+  - domain_age_days
+falsepositives:
+  - Legitimate businesses on new domains
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

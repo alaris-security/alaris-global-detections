@@ -1,0 +1,24 @@
+title: TLS Session with Self-Signed Certificate to Rare Host
+id: 821c9241-a35f-49e5-8a6e-1616e561c342
+status: experimental
+description: Detects self-signed TLS to external hosts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1573/
+logsource:
+  category: proxy
+detection:
+  selection:
+    tls_cert_self_signed: true
+    direction: 'outbound'
+  condition: selection
+fields:
+  - tls_sni
+  - dst_ip
+  - tls_cert_subject
+falsepositives:
+  - Internal or dev services using self-signed certs
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1573

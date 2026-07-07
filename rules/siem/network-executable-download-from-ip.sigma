@@ -1,0 +1,29 @@
+title: Executable Downloaded from IP Address
+id: 641e6b54-ada0-4ec3-8306-f3bae32d2bfe
+status: experimental
+description: Detects executable downloads from IP hosts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|re: '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$'
+    cs-uri-stem|endswith:
+      - '.exe'
+      - '.dll'
+      - '.ps1'
+      - '.scr'
+      - '.hta'
+  condition: selection
+fields:
+  - cs-host
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Internal software distribution by IP
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1105

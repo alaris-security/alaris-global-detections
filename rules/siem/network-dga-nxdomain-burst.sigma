@@ -1,0 +1,23 @@
+title: DGA Domain Generation NXDOMAIN Burst
+id: 87697aca-13b7-40c6-8bf3-776b7ad3346f
+status: experimental
+description: Detects DGA-related NXDOMAIN bursts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1568/002/
+logsource:
+  category: dns
+detection:
+  selection:
+    response_code: 'NXDOMAIN'
+  timeframe: 5m
+  condition: selection | count() by src_ip > 50
+fields:
+  - src_ip
+  - query
+falsepositives:
+  - Misconfigured applications generating bad lookups
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1568.002

@@ -1,0 +1,18 @@
+{
+  "uuid": "26f375b2-d57b-475f-a45b-35517ed1b7c7",
+  "slug": "network-empty-user-agent",
+  "title": "Outbound Web Request with Empty User Agent",
+  "description": "Detects outbound HTTP requests with a missing or empty User-Agent header to external hosts, a pattern produced by many malware families and custom C2 clients that omit the header.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "user-agent"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-empty-user-agent.sigma"],
+  "intent": {
+    "conditions": ["External HTTP request with empty or missing user-agent"],
+    "dataSourceRequirements": ["Proxy logs with user-agent"],
+    "tuningParameters": {},
+    "sourceContext": "Empty user agents are unusual for browsers and common in malware."
+  }
+}

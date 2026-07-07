@@ -1,0 +1,18 @@
+{
+  "uuid": "f35841bc-c2ee-44c3-8f34-3383b5a4adc8",
+  "slug": "network-executable-download-from-ip",
+  "title": "Executable Downloaded from IP Address",
+  "description": "Detects download of an executable or script (.exe, .dll, .ps1, .scr) directly from a bare IP address, a common ingress transfer pattern for staged malware payloads.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ingress-tool-transfer", "network"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1105", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-executable-download-from-ip.sigma"],
+  "intent": {
+    "conditions": ["GET of an executable/script URI from an IP-literal host"],
+    "dataSourceRequirements": ["Proxy logs with host and URI"],
+    "tuningParameters": {},
+    "sourceContext": "Pulling an EXE straight from an IP is a classic payload delivery method."
+  }
+}

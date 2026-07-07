@@ -1,0 +1,30 @@
+title: Suspicious Scripting User Agent in Web Traffic
+id: fc0c7247-5809-4c84-b464-ead92687815e
+status: experimental
+description: Detects scripting user agents in web traffic.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-user-agent|contains:
+      - 'python-requests'
+      - 'curl/'
+      - 'Wget/'
+      - 'WinHttp'
+      - 'PowerShell'
+      - 'Go-http-client'
+      - 'Java/'
+  condition: selection
+fields:
+  - cs-user-agent
+  - cs-host
+  - c-ip
+falsepositives:
+  - Legitimate API clients and automation
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

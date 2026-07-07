@@ -1,0 +1,18 @@
+{
+  "uuid": "ac7b16cd-e221-4e40-bc70-0942822651fb",
+  "slug": "network-share-enumeration",
+  "title": "SMB Network Share Enumeration",
+  "description": "Detects enumeration of SMB shares across multiple hosts (repeated IPC$ tree connects, net view of many servers), a discovery step to locate file shares holding sensitive data.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "network", "smb-shares"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1135", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/network-share-enumeration.sigma"],
+  "intent": {
+    "conditions": ["One source making IPC$/share tree connects to many hosts"],
+    "dataSourceRequirements": ["SMB/network logs or Windows share access events"],
+    "tuningParameters": {"distinctHostThreshold": 20},
+    "sourceContext": "Sweeping SMB shares maps where sensitive files live."
+  }
+}

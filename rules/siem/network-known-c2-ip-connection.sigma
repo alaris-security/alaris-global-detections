@@ -1,0 +1,24 @@
+title: Connection to Known C2 IP (Threat Intel)
+id: 2f5214b4-c6ae-4363-af19-c661c9f52516
+status: experimental
+description: Detects connections to known C2 IPs.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_ip_threatintel_category: 'c2'
+    direction: 'outbound'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - threatintel_source
+falsepositives:
+  - Stale or false-positive threat intel entries
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1071

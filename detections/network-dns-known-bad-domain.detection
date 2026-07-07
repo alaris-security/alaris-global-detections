@@ -1,0 +1,18 @@
+{
+  "uuid": "8b9558f6-80aa-49df-9cf0-13d893441837",
+  "slug": "network-dns-known-bad-domain",
+  "title": "DNS Query to Known Malicious Domain",
+  "description": "Detects DNS queries for domains present on a threat-intelligence blocklist, a high-confidence indicator that a host is attempting to reach malicious infrastructure.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "dns", "threat-intel"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.004", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-dns-known-bad-domain.sigma"],
+  "intent": {
+    "conditions": ["DNS query where the domain matches the malicious-domain threat feed"],
+    "dataSourceRequirements": ["DNS logs enriched with threat intel"],
+    "tuningParameters": {"threatFeed": "malicious-domains"},
+    "sourceContext": "Resolving a known-bad domain indicates attempted contact with attacker infrastructure."
+  }
+}

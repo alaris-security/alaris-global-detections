@@ -1,0 +1,18 @@
+{
+  "uuid": "30bd1dc5-c221-49f1-af99-b9c3fe48973a",
+  "slug": "network-horizontal-port-scan",
+  "title": "Horizontal Port Scan from Internal Host",
+  "description": "Detects a single source connecting to the same port across many distinct internal hosts in a short window, a horizontal scan pattern used to find services during internal reconnaissance.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["discovery", "network", "port-scan"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1046", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/network-horizontal-port-scan.sigma"],
+  "intent": {
+    "conditions": ["One src_ip to many dst_ip on a fixed dst_port over a short window"],
+    "dataSourceRequirements": ["Firewall or flow logs"],
+    "tuningParameters": {"distinctHostThreshold": 50},
+    "sourceContext": "Scanning one port across the subnet finds candidates for lateral movement."
+  }
+}

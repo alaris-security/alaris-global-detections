@@ -1,0 +1,25 @@
+title: SMB Network Share Enumeration
+id: 3e45e392-237c-4711-bcc3-332d36caecf9
+status: experimental
+description: Detects SMB share enumeration.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1135/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 445
+      - 139
+  timeframe: 5m
+  condition: selection | count(dst_ip) by src_ip > 20
+fields:
+  - src_ip
+  - dst_ip
+falsepositives:
+  - Backup and file indexing services
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1135

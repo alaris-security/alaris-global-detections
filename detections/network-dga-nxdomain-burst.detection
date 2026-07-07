@@ -1,0 +1,18 @@
+{
+  "uuid": "966f4091-de29-4705-8a18-47d18081a62e",
+  "slug": "network-dga-nxdomain-burst",
+  "title": "DGA Domain Generation NXDOMAIN Burst",
+  "description": "Detects a burst of failed (NXDOMAIN) DNS lookups for many high-entropy domains from one host, the signature of malware cycling through algorithmically generated domains to find live C2.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "dns", "dga"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1568.002", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-dga-nxdomain-burst.sigma"],
+  "intent": {
+    "conditions": ["Many NXDOMAIN responses to high-entropy domains from one source in a short window"],
+    "dataSourceRequirements": ["DNS logs with response code"],
+    "tuningParameters": {"nxdomainThreshold": 50},
+    "sourceContext": "DGA malware generates many domains, most of which fail to resolve."
+  }
+}

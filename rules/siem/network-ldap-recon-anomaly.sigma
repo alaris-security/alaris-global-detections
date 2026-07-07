@@ -1,0 +1,26 @@
+title: Anomalous LDAP Reconnaissance
+id: 88d79a71-4197-4e37-a975-cfaf6fa0633d
+status: experimental
+description: Detects high-volume LDAP reconnaissance.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1087/002/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 389
+      - 636
+      - 3268
+  timeframe: 5m
+  condition: selection | count() by src_ip > 1000
+fields:
+  - src_ip
+  - dst_ip
+falsepositives:
+  - Identity management and monitoring services
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.002

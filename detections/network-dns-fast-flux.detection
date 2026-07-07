@@ -1,0 +1,18 @@
+{
+  "uuid": "837528af-c389-4649-8264-b2a553200b5c",
+  "slug": "network-dns-fast-flux",
+  "title": "DNS Fast Flux Resolution",
+  "description": "Detects fast-flux behavior where a single domain resolves to many different IP addresses across short TTLs, a resilience technique used by botnets and C2 to evade IP blocking.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "dns", "fast-flux"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1568.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-dns-fast-flux.sigma"],
+  "intent": {
+    "conditions": ["One domain resolving to many distinct A records over a short window with low TTL"],
+    "dataSourceRequirements": ["DNS response logs with resolved IPs and TTL"],
+    "tuningParameters": {"distinctIpThreshold": 10},
+    "sourceContext": "Fast flux rotates C2 IPs rapidly to survive takedowns and blocks."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "e3383260-cd10-4354-8bc3-c2e779db9ef1",
+  "slug": "network-webshell-access-pattern",
+  "title": "Web Shell Access Pattern",
+  "description": "Detects repeated POST requests to a single recently-created script page (.aspx/.php/.jsp) from one client with a scripting user agent and little to no referrer, the traffic signature of interacting with a web shell.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "web-shell", "webserver"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1505.003", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-webshell-access-pattern.sigma"],
+  "intent": {
+    "conditions": ["Repeated POSTs to a single script URI with no referrer and a tooling UA"],
+    "dataSourceRequirements": ["Web server or proxy logs"],
+    "tuningParameters": {},
+    "sourceContext": "Web shell interaction shows up as repetitive POSTs to one obscure script."
+  }
+}
