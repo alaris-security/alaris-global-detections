@@ -1,0 +1,13 @@
+{
+  "uuid": "2b9438ab-f85f-4310-9eb0-af7b122a505d",
+  "slug": "aws-access-key-anomalous-use",
+  "title": "AWS Access Key Used from New Location",
+  "description": "Detects use of an IAM access key from a source IP country or ASN never previously observed for that key, indicating possible credential theft and use from attacker infrastructure.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["initial-access", "aws", "valid-accounts"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1078.004", "tacticId": "TA0001"}],
+  "rules": ["rules/siem/aws-access-key-anomalous-use.sigma"],
+  "intent": {"conditions": ["CloudTrail event with an access key from an anomalous source geo/ASN"], "dataSourceRequirements": ["AWS CloudTrail enriched with source geo"], "tuningParameters": {}, "sourceContext": "Access key use from a new location suggests stolen credentials in use."}
+}

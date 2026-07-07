@@ -1,0 +1,13 @@
+{
+  "uuid": "f6806959-2d39-46d9-ac73-7323e911ef2a",
+  "slug": "aws-lambda-code-updated",
+  "title": "AWS Lambda Function Code Updated",
+  "description": "Detects UpdateFunctionCode against an existing Lambda function, which attackers use to backdoor a trusted function while retaining its permissions and event triggers.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "lambda"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-lambda-code-updated.sigma"],
+  "intent": {"conditions": ["lambda UpdateFunctionCode event"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Updating existing function code backdoors a trusted, permissioned Lambda."}
+}

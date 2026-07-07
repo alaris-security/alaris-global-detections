@@ -1,0 +1,27 @@
+title: AWS ECS Task Run with Untrusted Image
+id: c10c6161-33dc-44a0-8804-0d189b43ff05
+status: experimental
+description: Detects ECS tasks using untrusted images.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1610/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ecs.amazonaws.com'
+    eventName:
+      - 'RunTask'
+      - 'RegisterTaskDefinition'
+    requestParameters.containerDefinitions.image|contains: 'docker.io/'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.containerDefinitions.image
+falsepositives:
+  - Approved public base images
+level: medium
+tags:
+  - attack.execution
+  - attack.t1610

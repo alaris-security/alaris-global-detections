@@ -1,0 +1,13 @@
+{
+  "uuid": "a8e25a20-4f91-4f5a-8132-e35d05747c2d",
+  "slug": "aws-organizations-scp-detached",
+  "title": "AWS Service Control Policy Detached",
+  "description": "Detects DetachPolicy or DisablePolicyType in AWS Organizations removing a Service Control Policy, a defense-evasion action that lifts organization-wide guardrails restricting account actions.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "organizations"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-organizations-scp-detached.sigma"],
+  "intent": {"conditions": ["organizations DetachPolicy or DisablePolicyType"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Detaching SCPs removes preventative guardrails across accounts."}
+}

@@ -1,0 +1,24 @@
+title: AWS STS GetCallerIdentity Reconnaissance
+id: 6a397fe4-e01a-424b-a2af-8b755dead573
+status: experimental
+description: Detects STS GetCallerIdentity recon.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1580/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'sts.amazonaws.com'
+    eventName: 'GetCallerIdentity'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - sourceIPAddress
+falsepositives:
+  - SDKs and tooling that call this routinely
+level: low
+tags:
+  - attack.discovery
+  - attack.t1580

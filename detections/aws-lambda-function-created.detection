@@ -1,0 +1,13 @@
+{
+  "uuid": "31b7b3a6-005c-4d57-900c-a134e1d3fffd",
+  "slug": "aws-lambda-function-created",
+  "title": "AWS Lambda Function Created",
+  "description": "Detects CreateFunction in AWS Lambda, which attackers use to deploy serverless code for persistence, execution, or event-triggered exfiltration under an assigned execution role.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "lambda"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-lambda-function-created.sigma"],
+  "intent": {"conditions": ["lambda CreateFunction event"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "New Lambda functions can host persistent, triggerable attacker code."}
+}

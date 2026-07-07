@@ -1,0 +1,24 @@
+title: AWS Lambda Function Created
+id: 66c65d02-53f0-4731-890b-0f3afab76ce3
+status: experimental
+description: Detects Lambda function creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'lambda.amazonaws.com'
+    eventName|startswith: 'CreateFunction'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.functionName
+falsepositives:
+  - Serverless deployments
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

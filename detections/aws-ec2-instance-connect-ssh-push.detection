@@ -1,0 +1,13 @@
+{
+  "uuid": "352ab037-b23f-47f1-bd8e-4d645df8f7a8",
+  "slug": "aws-ec2-instance-connect-ssh-push",
+  "title": "AWS EC2 Instance Connect SSH Key Push",
+  "description": "Detects SendSSHPublicKey (EC2 Instance Connect), which pushes a temporary SSH key to an instance; attackers use it to gain SSH access to EC2 hosts using cloud credentials.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "ec2"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.004", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-ec2-instance-connect-ssh-push.sigma"],
+  "intent": {"conditions": ["ec2-instance-connect SendSSHPublicKey"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Instance Connect pushes an SSH key granting host access via cloud creds."}
+}

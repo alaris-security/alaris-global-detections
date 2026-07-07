@@ -1,0 +1,25 @@
+title: AWS RDS Instance Made Publicly Accessible
+id: ad904eed-93c3-4301-9e85-e91a70b624db
+status: experimental
+description: Detects RDS instances exposed publicly.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/007/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'rds.amazonaws.com'
+    eventName: 'ModifyDBInstance'
+    requestParameters.publiclyAccessible: true
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.dBInstanceIdentifier
+falsepositives:
+  - Intended public databases
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.007

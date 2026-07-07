@@ -1,0 +1,24 @@
+title: AWS ECR Image Push
+id: a7064946-1b92-4c36-9d53-ab1480c9c13e
+status: experimental
+description: Detects ECR image push.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1525/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ecr.amazonaws.com'
+    eventName: 'PutImage'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.repositoryName
+falsepositives:
+  - CI/CD image publishing
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1525

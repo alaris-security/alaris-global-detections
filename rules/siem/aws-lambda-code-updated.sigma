@@ -1,0 +1,24 @@
+title: AWS Lambda Function Code Updated
+id: f541d42e-db01-4fa5-b82d-24904f34ad07
+status: experimental
+description: Detects Lambda code updates.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'lambda.amazonaws.com'
+    eventName|startswith: 'UpdateFunctionCode'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.functionName
+falsepositives:
+  - CI/CD deployments
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1648

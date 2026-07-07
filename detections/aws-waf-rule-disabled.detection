@@ -1,0 +1,13 @@
+{
+  "uuid": "e6018e22-25e3-4820-8e73-f0604691db2b",
+  "slug": "aws-waf-rule-disabled",
+  "title": "AWS WAF Rule or Web ACL Deleted",
+  "description": "Detects DeleteWebACL, DeleteRuleGroup, or UpdateWebACL removing rules in AWS WAF, a defense-evasion action that lowers web application protection ahead of exploitation.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "waf"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-waf-rule-disabled.sigma"],
+  "intent": {"conditions": ["wafv2 DeleteWebACL/DeleteRuleGroup/UpdateWebACL"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Removing WAF rules weakens protection of web applications."}
+}

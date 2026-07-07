@@ -1,0 +1,13 @@
+{
+  "uuid": "7dbdfb69-f375-444a-b518-35ed9ecfc612",
+  "slug": "aws-ecr-image-pushed",
+  "title": "AWS ECR Image Push",
+  "description": "Detects PutImage in Elastic Container Registry, which attackers use to implant a backdoored container image into a trusted registry so it is later deployed across the environment.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "aws", "ecr", "supply-chain"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1525", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/aws-ecr-image-pushed.sigma"],
+  "intent": {"conditions": ["ecr PutImage event"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Implanting an image in ECR poisons the container supply chain."}
+}

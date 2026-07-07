@@ -1,0 +1,26 @@
+title: AWS EKS Cluster Reconnaissance
+id: 2a476e77-84a7-4b1a-91a2-c17ff740dad6
+status: experimental
+description: Detects EKS reconnaissance.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1580/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'eks.amazonaws.com'
+    eventName:
+      - 'ListClusters'
+      - 'DescribeCluster'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.name
+falsepositives:
+  - Cluster management tooling
+level: low
+tags:
+  - attack.discovery
+  - attack.t1580

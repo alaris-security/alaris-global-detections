@@ -1,0 +1,13 @@
+{
+  "uuid": "2775b5da-7829-4a71-854a-65ed26ca8e48",
+  "slug": "aws-eks-recon",
+  "title": "AWS EKS Cluster Reconnaissance",
+  "description": "Detects enumeration of EKS clusters via DescribeCluster/ListClusters and access-config retrieval, a discovery step to map Kubernetes environments before targeting them.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "aws", "eks"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1580", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/aws-eks-recon.sigma"],
+  "intent": {"conditions": ["eks ListClusters/DescribeCluster"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "EKS enumeration maps Kubernetes clusters for follow-on attacks."}
+}

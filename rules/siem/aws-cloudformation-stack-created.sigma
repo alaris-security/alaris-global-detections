@@ -1,0 +1,26 @@
+title: AWS CloudFormation Stack Created by Unusual Principal
+id: 4a5051fb-22f1-43ec-8b9c-38a8565095a1
+status: experimental
+description: Detects CloudFormation stack creation.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1648/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'cloudformation.amazonaws.com'
+    eventName:
+      - 'CreateStack'
+      - 'CreateStackSet'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.stackName
+falsepositives:
+  - IaC pipelines deploying stacks
+level: medium
+tags:
+  - attack.execution
+  - attack.t1648

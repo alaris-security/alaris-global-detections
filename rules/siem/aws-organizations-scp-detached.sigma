@@ -1,0 +1,26 @@
+title: AWS Service Control Policy Detached
+id: ba17445e-a9ae-4ef7-ad88-166664e90ca7
+status: experimental
+description: Detects SCP detachment in AWS Organizations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'organizations.amazonaws.com'
+    eventName:
+      - 'DetachPolicy'
+      - 'DisablePolicyType'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.policyId
+falsepositives:
+  - Governance changes by org administrators
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562

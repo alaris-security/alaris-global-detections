@@ -1,0 +1,13 @@
+{
+  "uuid": "d790aa87-2576-46f5-829f-1b0b2229a138",
+  "slug": "aws-rds-snapshot-shared",
+  "title": "AWS RDS Snapshot Shared or Made Public",
+  "description": "Detects ModifyDBSnapshotAttribute adding 'all' or an external account to a database snapshot's restore permissions, a technique to exfiltrate database contents to attacker-controlled infrastructure.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["exfiltration", "aws", "rds"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1537", "tacticId": "TA0010"}],
+  "rules": ["rules/siem/aws-rds-snapshot-shared.sigma"],
+  "intent": {"conditions": ["ModifyDBSnapshotAttribute adding all/external account"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Sharing DB snapshots externally exfiltrates full database contents."}
+}

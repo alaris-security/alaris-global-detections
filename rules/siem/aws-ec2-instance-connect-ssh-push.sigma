@@ -1,0 +1,24 @@
+title: AWS EC2 Instance Connect SSH Key Push
+id: 953c96d8-0b47-4622-a2e7-946539886890
+status: experimental
+description: Detects EC2 Instance Connect SSH key push.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/004/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'ec2-instance-connect.amazonaws.com'
+    eventName: 'SendSSHPublicKey'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.instanceId
+falsepositives:
+  - Administrators using Instance Connect
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1098.004

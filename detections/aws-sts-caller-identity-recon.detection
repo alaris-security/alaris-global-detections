@@ -1,0 +1,13 @@
+{
+  "uuid": "c02bf20c-9d7e-428a-a235-836a66c5bf68",
+  "slug": "aws-sts-caller-identity-recon",
+  "title": "AWS STS GetCallerIdentity Reconnaissance",
+  "description": "Detects GetCallerIdentity calls, the cloud equivalent of whoami, especially from new principals or in bursts, a common first step after obtaining AWS credentials to determine identity and permissions.",
+  "severity": "low",
+  "families": ["siem"],
+  "tags": ["discovery", "aws", "sts"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1580", "tacticId": "TA0007"}],
+  "rules": ["rules/siem/aws-sts-caller-identity-recon.sigma"],
+  "intent": {"conditions": ["sts GetCallerIdentity event"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "GetCallerIdentity is the cloud whoami run right after stealing credentials."}
+}

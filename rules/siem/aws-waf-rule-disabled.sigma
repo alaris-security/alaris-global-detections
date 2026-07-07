@@ -1,0 +1,27 @@
+title: AWS WAF Rule or Web ACL Deleted
+id: 9e149a9f-5ffa-42aa-976c-6f0a03d77990
+status: experimental
+description: Detects WAF rule/ACL deletion.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'wafv2.amazonaws.com'
+    eventName:
+      - 'DeleteWebACL'
+      - 'DeleteRuleGroup'
+      - 'UpdateWebACL'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.name
+falsepositives:
+  - WAF rule tuning
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562

@@ -1,0 +1,13 @@
+{
+  "uuid": "c28e8def-1bd9-4df1-8971-1095e69fd413",
+  "slug": "aws-ecs-run-task-untrusted",
+  "title": "AWS ECS Task Run with Untrusted Image",
+  "description": "Detects ECS RunTask or RegisterTaskDefinition referencing a container image from a public or non-approved registry, a technique to deploy attacker containers into the ECS environment.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "aws", "ecs"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1610", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/aws-ecs-run-task-untrusted.sigma"],
+  "intent": {"conditions": ["ecs RunTask/RegisterTaskDefinition with a public image"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Running untrusted container images in ECS deploys attacker code."}
+}

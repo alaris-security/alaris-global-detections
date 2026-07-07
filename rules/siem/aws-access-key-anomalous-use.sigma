@@ -1,0 +1,25 @@
+title: AWS Access Key Used from New Location
+id: 3919a683-da8c-4304-8387-17e4583d680a
+status: experimental
+description: Detects access key use from anomalous locations.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    userIdentity.accessKeyId|exists: true
+    sourceIPGeoAnomaly: true
+  condition: selection
+fields:
+  - userIdentity.arn
+  - sourceIPAddress
+  - userIdentity.accessKeyId
+falsepositives:
+  - Users traveling or using new networks
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078.004

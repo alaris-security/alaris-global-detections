@@ -1,0 +1,13 @@
+{
+  "uuid": "9905379e-288c-40fb-a867-db50dcb6e7b7",
+  "slug": "aws-rds-made-public",
+  "title": "AWS RDS Instance Made Publicly Accessible",
+  "description": "Detects ModifyDBInstance setting PubliclyAccessible to true, which exposes a database to the internet, weakening network controls and enabling direct data access.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["defense-evasion", "aws", "rds"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1562.007", "tacticId": "TA0005"}],
+  "rules": ["rules/siem/aws-rds-made-public.sigma"],
+  "intent": {"conditions": ["ModifyDBInstance with PubliclyAccessible true"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "A public RDS instance is exposed to internet-based access."}
+}

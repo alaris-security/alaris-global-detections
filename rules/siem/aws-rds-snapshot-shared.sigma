@@ -1,0 +1,25 @@
+title: AWS RDS Snapshot Shared or Made Public
+id: 4288fa21-a4bc-4eef-9fc8-a8d2f3394d78
+status: experimental
+description: Detects RDS snapshot sharing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1537/
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: 'rds.amazonaws.com'
+    eventName: 'ModifyDBSnapshotAttribute'
+    requestParameters.valuesToAdd|contains: 'all'
+  condition: selection
+fields:
+  - userIdentity.arn
+  - requestParameters.dBSnapshotIdentifier
+falsepositives:
+  - Cross-account DR sharing
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1537

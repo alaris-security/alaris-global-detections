@@ -1,0 +1,13 @@
+{
+  "uuid": "09c72479-3add-426c-8a38-cd117eb0119b",
+  "slug": "aws-cloudformation-stack-created",
+  "title": "AWS CloudFormation Stack Created by Unusual Principal",
+  "description": "Detects CreateStack/CreateStackSet in CloudFormation from a non-automation principal, which can provision attacker infrastructure (roles, instances, functions) in bulk under an infrastructure-as-code guise.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "aws", "cloudformation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1648", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/aws-cloudformation-stack-created.sigma"],
+  "intent": {"conditions": ["cloudformation CreateStack/CreateStackSet"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "CloudFormation can bulk-provision attacker infrastructure quickly."}
+}

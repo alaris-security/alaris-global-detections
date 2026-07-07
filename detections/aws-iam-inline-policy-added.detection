@@ -1,0 +1,13 @@
+{
+  "uuid": "7e9dad29-5623-4dfc-ba99-d1df849debc0",
+  "slug": "aws-iam-inline-policy-added",
+  "title": "AWS Inline IAM Policy Added",
+  "description": "Detects PutUserPolicy, PutRolePolicy, or PutGroupPolicy adding an inline policy, which attackers use to grant themselves specific permissions in a way that is easy to miss compared to managed policy attachments.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["privilege-escalation", "aws", "iam"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098.003", "tacticId": "TA0004"}],
+  "rules": ["rules/siem/aws-iam-inline-policy-added.sigma"],
+  "intent": {"conditions": ["iam PutUserPolicy/PutRolePolicy/PutGroupPolicy"], "dataSourceRequirements": ["AWS CloudTrail management events"], "tuningParameters": {}, "sourceContext": "Inline policies grant permissions quietly, a stealthy escalation path."}
+}
