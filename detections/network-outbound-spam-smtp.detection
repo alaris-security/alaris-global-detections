@@ -1,0 +1,18 @@
+{
+  "uuid": "a3070787-0b6f-413a-a7b7-82bacc1e3d83",
+  "slug": "network-outbound-spam-smtp",
+  "title": "Outbound Spam via Direct SMTP",
+  "description": "Detects an internal, non-mail-server host making a large number of outbound SMTP (25/587) connections to many external servers, indicating a compromised host being used to send spam or phishing.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "smtp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.003", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-outbound-spam-smtp.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects an internal, non-mail-server host making a large number of outbound SMTP (25/587) connections to many external servers, indicating a compromised host being used to send spam or phishing."
+  }
+}

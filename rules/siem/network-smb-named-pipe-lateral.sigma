@@ -1,0 +1,28 @@
+title: Remote Execution Named Pipe over SMB
+id: 96c4a8e5-bfbc-4117-a792-9c78a7322299
+status: experimental
+description: Detects SMB access to named pipes used by remote-execution frameworks (svcctl, atsvc, psexecsvc, paexec) from a workstation, indicating PsExec-style lateral movement over the network.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'smb'
+    named_pipe:
+      - 'svcctl'
+      - 'atsvc'
+      - 'psexecsvc'
+      - 'paexec'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - named_pipe
+falsepositives:
+  - Administrative remote management
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002

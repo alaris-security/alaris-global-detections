@@ -1,0 +1,26 @@
+title: Rogue DHCP Server / DHCP Spoofing
+id: 168ebe12-860c-4461-ab27-0557ec7988ea
+status: experimental
+description: Detects DHCP OFFER/ACK packets from an unauthorized server, a rogue-DHCP technique used to assign a malicious gateway or DNS server for man-in-the-middle interception.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1557/003/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'dhcp'
+    dhcp_message_type:
+      - 'OFFER'
+      - 'ACK'
+    server_authorized: false
+  condition: selection
+fields:
+  - src_ip
+  - src_mac
+falsepositives:
+  - Newly added but legitimate DHCP servers
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1557.003

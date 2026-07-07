@@ -1,0 +1,18 @@
+{
+  "uuid": "8c79827a-5c38-495a-ac74-d4b57fdae8ef",
+  "slug": "network-ntlm-relay",
+  "title": "NTLM Relay Activity",
+  "description": "Detects likely NTLM relay, where an authentication received on one host is immediately used to authenticate to a different host with the same credentials within seconds, a hallmark of relay attacks.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "network", "ntlm-relay"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1557.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/network-ntlm-relay.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects likely NTLM relay, where an authentication received on one host is immediately used to authenticate to a different host with the same credentials within seconds, a hallmark of relay attacks."
+  }
+}

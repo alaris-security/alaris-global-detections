@@ -1,0 +1,24 @@
+title: ARP Spoofing / Cache Poisoning
+id: b1cf9de4-d8c4-41bf-9ddc-b27b8da21701
+status: experimental
+description: Detects ARP spoofing, indicated by multiple IP addresses mapping to a single MAC or rapid gratuitous ARP replies changing a gateway mapping, used for man-in-the-middle interception.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1557/002/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'arp'
+    arp_anomaly: 'mac_conflict'
+  condition: selection
+fields:
+  - src_ip
+  - src_mac
+  - dst_ip
+falsepositives:
+  - Failover/HA appliances sharing MACs
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1557.002

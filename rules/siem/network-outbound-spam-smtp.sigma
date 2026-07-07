@@ -1,0 +1,28 @@
+title: Outbound Spam via Direct SMTP
+id: 20f03e87-ad17-4ed4-8957-569f899d73d2
+status: experimental
+description: Detects an internal, non-mail-server host making a large number of outbound SMTP (25/587) connections to many external servers, indicating a compromised host being used to send spam or phishing.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/003/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 25
+      - 587
+    direction: 'outbound'
+  timeframe: 10m
+  condition: selection | count(dst_ip) by src_ip > 50
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Authorized mail relays
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.003

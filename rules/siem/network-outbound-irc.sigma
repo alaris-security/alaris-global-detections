@@ -1,0 +1,28 @@
+title: Outbound IRC Connection
+id: 19f410ec-8577-4160-b8df-0c266e7d9ab6
+status: experimental
+description: Detects outbound connections on IRC ports (6660-6669, 6697) or IRC protocol handshakes from endpoints, a legacy but still-used botnet command-and-control channel rarely seen in enterprises.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 6660
+      - 6667
+      - 6669
+      - 6697
+    direction: 'outbound'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Developers using IRC intentionally
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071

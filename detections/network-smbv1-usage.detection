@@ -1,0 +1,18 @@
+{
+  "uuid": "c07eec51-b7d2-4b3d-97a3-4390b55b1c65",
+  "slug": "network-smbv1-usage",
+  "title": "SMBv1 Protocol Usage",
+  "description": "Detects use of the deprecated SMBv1 dialect on the network, which is vulnerable to exploits such as EternalBlue and should not appear in modern environments.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "network", "smb"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1210", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/network-smbv1-usage.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the deprecated SMBv1 dialect on the network, which is vulnerable to exploits such as EternalBlue and should not appear in modern environments."
+  }
+}

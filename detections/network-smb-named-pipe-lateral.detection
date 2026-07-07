@@ -1,0 +1,18 @@
+{
+  "uuid": "9e2a84ad-b1f6-4537-8470-2594f0bb2124",
+  "slug": "network-smb-named-pipe-lateral",
+  "title": "Remote Execution Named Pipe over SMB",
+  "description": "Detects SMB access to named pipes used by remote-execution frameworks (svcctl, atsvc, psexecsvc, paexec) from a workstation, indicating PsExec-style lateral movement over the network.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "network", "smb", "named-pipe"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.002", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/network-smb-named-pipe-lateral.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects SMB access to named pipes used by remote-execution frameworks (svcctl, atsvc, psexecsvc, paexec) from a workstation, indicating PsExec-style lateral movement over the network."
+  }
+}

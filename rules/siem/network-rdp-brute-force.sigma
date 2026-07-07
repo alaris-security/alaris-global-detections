@@ -1,0 +1,25 @@
+title: RDP Brute Force
+id: 6e975d64-1370-4c22-8556-ff97379b2078
+status: experimental
+description: Detects a high volume of RDP (3389) connection attempts from a single source in a short window, indicating password brute forcing against exposed Remote Desktop.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port: 3389
+  timeframe: 5m
+  condition: selection | count() by src_ip > 30
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Connection-heavy legitimate RDP gateways
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110.001

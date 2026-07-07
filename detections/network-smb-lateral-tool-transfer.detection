@@ -1,0 +1,18 @@
+{
+  "uuid": "f1b94a4a-78cf-4107-b784-1abd821cb9d0",
+  "slug": "network-smb-lateral-tool-transfer",
+  "title": "Executable Transfer over SMB",
+  "description": "Detects writing of an executable or script file to a remote host over SMB (SMB2 write to a .exe/.dll/.ps1 on an admin share), the tool-transfer step of lateral movement.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "network", "smb"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1570", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/network-smb-lateral-tool-transfer.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects writing of an executable or script file to a remote host over SMB (SMB2 write to a .exe/.dll/.ps1 on an admin share), the tool-transfer step of lateral movement."
+  }
+}

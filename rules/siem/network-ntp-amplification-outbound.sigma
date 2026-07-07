@@ -1,0 +1,27 @@
+title: NTP/DNS Amplification Participation
+id: d9e8cecb-b44f-45d6-ba08-7456d61a5c6f
+status: experimental
+description: Detects a host generating a high volume of large NTP monlist or DNS ANY responses outbound, indicating participation in a reflection/amplification DDoS or a compromised, abused service.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1498/002/
+logsource:
+  category: firewall
+detection:
+  selection:
+    src_port:
+      - 123
+      - 53
+    bytes_out|gt: 1000000
+    direction: 'outbound'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Busy legitimate NTP/DNS servers
+level: medium
+tags:
+  - attack.impact
+  - attack.t1498.002

@@ -1,0 +1,18 @@
+{
+  "uuid": "748944be-4e53-4c56-aa93-99b84a543fe1",
+  "slug": "network-dcerpc-lateral-endpoints",
+  "title": "DCE/RPC Lateral Movement Endpoints",
+  "description": "Detects DCE/RPC calls to interfaces used for remote execution and service control (svcctl, atsvc, winreg, IWbemServices) from a workstation to a server, indicating remote administration or lateral movement.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["lateral-movement", "network", "dcerpc"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1021.003", "tacticId": "TA0008"}],
+  "rules": ["rules/siem/network-dcerpc-lateral-endpoints.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects DCE/RPC calls to interfaces used for remote execution and service control (svcctl, atsvc, winreg, IWbemServices) from a workstation to a server, indicating remote administration or lateral movement."
+  }
+}

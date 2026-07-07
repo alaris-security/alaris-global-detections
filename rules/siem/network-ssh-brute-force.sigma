@@ -1,0 +1,25 @@
+title: SSH Brute Force
+id: ce12ad87-c99a-408d-b5f3-42876323a48c
+status: experimental
+description: Detects a high volume of SSH (22) connection attempts or authentication failures from a single source in a short window, indicating password brute forcing against exposed SSH.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port: 22
+  timeframe: 5m
+  condition: selection | count() by src_ip > 30
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Automation and scanners
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110.001

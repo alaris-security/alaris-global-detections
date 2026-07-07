@@ -1,0 +1,29 @@
+title: Executable Transfer over SMB
+id: f270d6ce-2cf7-45f6-9dd0-65ea5a04d5d0
+status: experimental
+description: Detects writing of an executable or script file to a remote host over SMB (SMB2 write to a .exe/.dll/.ps1 on an admin share), the tool-transfer step of lateral movement.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1570/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'smb'
+    smb_operation: 'write'
+    filename|endswith:
+      - '.exe'
+      - '.dll'
+      - '.ps1'
+      - '.bat'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - filename
+falsepositives:
+  - Software deployment over SMB
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1570

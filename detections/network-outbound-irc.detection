@@ -1,0 +1,18 @@
+{
+  "uuid": "4c92ffdb-670e-44aa-9247-ece489cef43d",
+  "slug": "network-outbound-irc",
+  "title": "Outbound IRC Connection",
+  "description": "Detects outbound connections on IRC ports (6660-6669, 6697) or IRC protocol handshakes from endpoints, a legacy but still-used botnet command-and-control channel rarely seen in enterprises.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "network", "irc"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/network-outbound-irc.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects outbound connections on IRC ports (6660-6669, 6697) or IRC protocol handshakes from endpoints, a legacy but still-used botnet command-and-control channel rarely seen in enterprises."
+  }
+}

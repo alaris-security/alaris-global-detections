@@ -1,0 +1,18 @@
+{
+  "uuid": "6109aa05-d326-47ad-ab81-96d5dd1ce17c",
+  "slug": "network-arp-spoofing",
+  "title": "ARP Spoofing / Cache Poisoning",
+  "description": "Detects ARP spoofing, indicated by multiple IP addresses mapping to a single MAC or rapid gratuitous ARP replies changing a gateway mapping, used for man-in-the-middle interception.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "network", "arp"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1557.002", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/network-arp-spoofing.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects ARP spoofing, indicated by multiple IP addresses mapping to a single MAC or rapid gratuitous ARP replies changing a gateway mapping, used for man-in-the-middle interception."
+  }
+}

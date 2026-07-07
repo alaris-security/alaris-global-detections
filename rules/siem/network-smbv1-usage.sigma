@@ -1,0 +1,24 @@
+title: SMBv1 Protocol Usage
+id: 3d6f8deb-99ef-4526-b3dc-cc36c783220a
+status: experimental
+description: Detects use of the deprecated SMBv1 dialect on the network, which is vulnerable to exploits such as EternalBlue and should not appear in modern environments.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1210/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'smb'
+    dialect: 'SMBv1'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Legacy devices that only speak SMBv1
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1210

@@ -1,0 +1,18 @@
+{
+  "uuid": "033a6113-316e-4baf-bd8e-ee4479cd1841",
+  "slug": "network-ntp-amplification-outbound",
+  "title": "NTP/DNS Amplification Participation",
+  "description": "Detects a host generating a high volume of large NTP monlist or DNS ANY responses outbound, indicating participation in a reflection/amplification DDoS or a compromised, abused service.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["impact", "network", "ddos"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1498.002", "tacticId": "TA0040"}],
+  "rules": ["rules/siem/network-ntp-amplification-outbound.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a host generating a high volume of large NTP monlist or DNS ANY responses outbound, indicating participation in a reflection/amplification DDoS or a compromised, abused service."
+  }
+}

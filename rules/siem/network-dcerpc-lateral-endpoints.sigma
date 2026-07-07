@@ -1,0 +1,29 @@
+title: DCE/RPC Lateral Movement Endpoints
+id: 92695c2c-5485-4fa8-9ade-f071f98cab7d
+status: experimental
+description: Detects DCE/RPC calls to interfaces used for remote execution and service control (svcctl, atsvc, winreg, IWbemServices) from a workstation to a server, indicating remote administration or lateral movement.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1021/003/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'dcerpc'
+    rpc_interface:
+      - 'svcctl'
+      - 'atsvc'
+      - 'winreg'
+      - 'IWbemServices'
+      - 'ITaskSchedulerService'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Administrative remote management
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.003

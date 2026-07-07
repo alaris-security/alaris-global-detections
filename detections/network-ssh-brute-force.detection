@@ -1,0 +1,18 @@
+{
+  "uuid": "530e1f5d-5614-4c18-8a6a-be5dbfa4944e",
+  "slug": "network-ssh-brute-force",
+  "title": "SSH Brute Force",
+  "description": "Detects a high volume of SSH (22) connection attempts or authentication failures from a single source in a short window, indicating password brute forcing against exposed SSH.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["credential-access", "network", "ssh", "brute-force"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1110.001", "tacticId": "TA0006"}],
+  "rules": ["rules/siem/network-ssh-brute-force.sigma"],
+  "intent": {
+    "conditions": ["Network telemetry matching the described protocol anomaly"],
+    "dataSourceRequirements": ["Network flow / IDS / firewall logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects a high volume of SSH (22) connection attempts or authentication failures from a single source in a short window, indicating password brute forcing against exposed SSH."
+  }
+}
