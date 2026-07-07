@@ -1,0 +1,26 @@
+title: Domain Fronting via Host Header Mismatch
+id: 13ffd837-6fcf-4494-b95e-f90b4b2369bb
+status: experimental
+description: Detects SNI vs Host header mismatch.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1090/004/
+logsource:
+  category: proxy
+detection:
+  selection:
+    tls_sni|exists: true
+    http_host|exists: true
+  filter:
+    tls_sni|fieldref: http_host
+  condition: selection and not filter
+fields:
+  - tls_sni
+  - http_host
+  - src_ip
+falsepositives:
+  - Some CDNs and multi-tenant hosting legitimately differ
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1090.004

@@ -1,0 +1,31 @@
+title: Cobalt Strike Default HTTP C2 Profile
+id: 194be27a-a215-4102-a96c-9b8d1975e4fd
+status: experimental
+description: Detects default Cobalt Strike HTTP C2 artifacts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: proxy
+detection:
+  selection_uri:
+    cs-uri-stem:
+      - '/submit.php'
+      - '/pixel.gif'
+      - '/ca'
+      - '/dpixel'
+      - '/__utm.gif'
+  selection_ua:
+    cs-user-agent|contains: 'MSIE 8.0; Windows NT 5.1; Trident/4.0'
+  condition: selection_uri or selection_ua
+fields:
+  - cs-uri-stem
+  - cs-user-agent
+  - c-ip
+  - cs-host
+falsepositives:
+  - Legacy applications with matching URIs (rare)
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

@@ -1,0 +1,18 @@
+{
+  "uuid": "9c5b525b-5d93-432b-884c-09264ba9a20f",
+  "slug": "c2-cobalt-strike-http-profile",
+  "title": "Cobalt Strike Default HTTP C2 Profile",
+  "description": "Detects HTTP requests matching Cobalt Strike default Malleable C2 artifacts such as the /submit.php and /pixel URIs, the fixed cookie/GET beacon patterns, and default user agents, indicating beacon command and control.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "cobalt-strike", "web-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-cobalt-strike-http-profile.sigma"],
+  "intent": {
+    "conditions": ["HTTP URI or user-agent matching default Cobalt Strike profiles"],
+    "dataSourceRequirements": ["Proxy or web gateway logs with URI and user-agent"],
+    "tuningParameters": {},
+    "sourceContext": "Default CS profiles leave recognizable URI and header fingerprints on the wire."
+  }
+}

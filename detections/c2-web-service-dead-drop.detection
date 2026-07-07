@@ -1,0 +1,18 @@
+{
+  "uuid": "424f0a35-7017-4165-abea-3d22dcdf2e1b",
+  "slug": "c2-web-service-dead-drop",
+  "title": "C2 via Legitimate Web Service Dead Drop",
+  "description": "Detects command and control staged through legitimate web services such as pastebin, raw GitHub gists, Discord and Telegram APIs, and Google Docs, where attackers hide instructions behind trusted domains.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "web-service", "dead-drop"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1102", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-web-service-dead-drop.sigma"],
+  "intent": {
+    "conditions": ["Non-browser process connecting to pastebin/gist/discord/telegram API endpoints"],
+    "dataSourceRequirements": ["Proxy logs or process command line with URLs"],
+    "tuningParameters": {},
+    "sourceContext": "Public web services provide resilient, reputable-looking C2 dead drops."
+  }
+}

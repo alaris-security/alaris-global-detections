@@ -1,0 +1,30 @@
+title: Unapproved Remote Access Software Execution
+id: 862d6f9c-e244-4862-ac94-baa98ff49ea6
+status: experimental
+description: Detects remote access/RMM software execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1219/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\AnyDesk.exe'
+      - '\TeamViewer.exe'
+      - '\ScreenConnect.ClientService.exe'
+      - '\AteraAgent.exe'
+      - '\SplashtopStreamer.exe'
+      - '\ConnectWiseControl.Client.exe'
+      - '\rustdesk.exe'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+falsepositives:
+  - IT-approved remote support tools
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1219

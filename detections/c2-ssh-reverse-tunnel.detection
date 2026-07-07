@@ -1,0 +1,18 @@
+{
+  "uuid": "c45c1eee-4a08-4853-bef0-1083635b6efb",
+  "slug": "c2-ssh-reverse-tunnel",
+  "title": "SSH Reverse Port-Forward Tunnel",
+  "description": "Detects creation of SSH remote/reverse port forwards (ssh -R) that expose internal services to an external host, a technique used to establish a persistent tunnel back to attacker infrastructure.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "ssh", "tunneling"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1572", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-ssh-reverse-tunnel.sigma"],
+  "intent": {
+    "conditions": ["ssh with -R remote forwarding, or -D dynamic SOCKS with -N -f"],
+    "dataSourceRequirements": ["Linux/Windows process execution with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Reverse SSH tunnels punch through egress controls to reach internal hosts."
+  }
+}

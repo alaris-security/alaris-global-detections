@@ -1,0 +1,26 @@
+title: PowerShell Empire Default HTTP URIs
+id: 940c9389-26a3-4f45-bbcb-9cd8aae8109a
+status: experimental
+description: Detects PowerShell Empire default C2 URIs.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-uri-stem:
+      - '/admin/get.php'
+      - '/news.php'
+      - '/login/process.php'
+  condition: selection
+fields:
+  - cs-uri-stem
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Legacy PHP applications with matching paths
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

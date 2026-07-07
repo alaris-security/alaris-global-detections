@@ -1,0 +1,18 @@
+{
+  "uuid": "650e3719-8a9e-4187-91b6-cdc2167d3e4e",
+  "slug": "c2-tor-connection",
+  "title": "Outbound Connection to Tor Network",
+  "description": "Detects host connections to known Tor entry nodes or the default Tor ports (9001, 9030, 9050, 9150), used to anonymize command and control and exfiltration traffic.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "tor", "proxy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1090.003", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-tor-connection.sigma"],
+  "intent": {
+    "conditions": ["Outbound to a Tor node list, or to default Tor ports, or tor.exe execution"],
+    "dataSourceRequirements": ["Firewall or network flow logs, and process telemetry"],
+    "tuningParameters": {"torPorts": [9001, 9030, 9050, 9150]},
+    "sourceContext": "Tor use from corporate endpoints is rare and strongly associated with covert channels."
+  }
+}

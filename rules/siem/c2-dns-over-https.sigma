@@ -1,0 +1,29 @@
+title: Unauthorized DNS-over-HTTPS Resolver Use
+id: a1e33569-a589-4f6d-bf92-758a6e36ffaa
+status: experimental
+description: Detects use of public DoH resolvers.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/004/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|contains:
+      - 'cloudflare-dns.com'
+      - 'dns.google'
+      - 'doh.opendns.com'
+      - 'dns.quad9.net'
+      - 'mozilla.cloudflare-dns.com'
+    cs-uri-stem|contains: '/dns-query'
+  condition: selection
+fields:
+  - cs-host
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Browsers configured to use DoH
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.004

@@ -1,0 +1,35 @@
+title: C2 via Legitimate Web Service Dead Drop
+id: 50d4f826-dc9a-4784-bc30-344374ed19bb
+status: experimental
+description: Detects C2 over legitimate web services.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1102/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|contains:
+      - 'pastebin.com'
+      - 'raw.githubusercontent.com'
+      - 'gist.githubusercontent.com'
+      - 'discord.com/api'
+      - 'discordapp.com/api'
+      - 'api.telegram.org'
+  selection_ua:
+    cs-user-agent|contains:
+      - 'python'
+      - 'curl'
+      - 'powershell'
+      - 'Go-http-client'
+  condition: selection and selection_ua
+fields:
+  - cs-host
+  - cs-user-agent
+  - c-ip
+falsepositives:
+  - Developer tools legitimately using these services
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1102

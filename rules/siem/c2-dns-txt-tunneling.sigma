@@ -1,0 +1,27 @@
+title: DNS TXT Record C2 Tunneling
+id: c1ab5367-1f4a-4390-a945-eee4d5a7d50e
+status: experimental
+description: Detects DNS TXT-based C2 tunneling.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/004/
+logsource:
+  category: dns
+detection:
+  selection:
+    QueryType:
+      - 'TXT'
+      - 'NULL'
+      - 'CNAME'
+    query|re: '([A-Za-z0-9+/=]{50,})\.'
+  condition: selection
+fields:
+  - query
+  - QueryType
+  - src_ip
+falsepositives:
+  - Some security and antivirus products use long TXT lookups
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1071.004

@@ -1,0 +1,26 @@
+title: Metasploit Meterpreter Default User Agent
+id: 6c507b58-1402-494d-984e-a5d33a1da351
+status: experimental
+description: Detects default Meterpreter user agents.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-user-agent:
+      - 'Mozilla/4.0 (compatible; MSIE 6.1; Windows NT)'
+      - 'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko'
+      - 'Mozilla/4.0 (compatible; Metasploit RSPEC)'
+  condition: selection
+fields:
+  - cs-user-agent
+  - cs-uri-stem
+  - c-ip
+falsepositives:
+  - Extremely old genuine browsers (very rare)
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1071.001

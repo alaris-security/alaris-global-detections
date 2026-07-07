@@ -1,0 +1,30 @@
+title: Protocol on Non-Standard Port
+id: cc3ecc3f-397a-40c7-b6d5-5c1d8a3f098f
+status: experimental
+description: Detects C2 on suspicious non-standard ports.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1571/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 4444
+      - 1337
+      - 31337
+      - 5555
+      - 6666
+      - 12345
+    direction: 'outbound'
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Internal applications using these ports intentionally
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1571

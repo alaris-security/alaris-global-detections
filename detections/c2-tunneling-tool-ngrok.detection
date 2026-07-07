@@ -1,0 +1,18 @@
+{
+  "uuid": "ebe350b1-5d36-4536-b494-35f6bf47e18d",
+  "slug": "c2-tunneling-tool-ngrok",
+  "title": "Ingress Tunneling Tool Execution (ngrok/cloudflared)",
+  "description": "Detects execution of public tunneling utilities such as ngrok, cloudflared, localtunnel, and frp that expose local ports to the internet, frequently abused to bypass firewalls and reach C2 or victim services.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "tunneling", "ngrok"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1572", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-tunneling-tool-ngrok.sigma"],
+  "intent": {
+    "conditions": ["Execution of ngrok/cloudflared/frpc/localtunnel binaries with tunnel arguments"],
+    "dataSourceRequirements": ["Process creation telemetry with command line"],
+    "tuningParameters": {},
+    "sourceContext": "Public tunnels create unmanaged inbound paths and covert C2 channels."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "723e907b-0bff-4f74-b31f-bc1d36327292",
+  "slug": "c2-domain-fronting",
+  "title": "Domain Fronting via Host Header Mismatch",
+  "description": "Detects domain fronting where the TLS SNI or connection destination differs from the HTTP Host header, allowing C2 traffic to hide behind a reputable CDN domain.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "domain-fronting", "proxy"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1090.004", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-domain-fronting.sigma"],
+  "intent": {
+    "conditions": ["HTTP Host header differs from the TLS SNI / requested CDN endpoint"],
+    "dataSourceRequirements": ["TLS and HTTP inspection logs with SNI and Host fields"],
+    "tuningParameters": {},
+    "sourceContext": "A mismatch between SNI and Host is the defining artifact of domain fronting."
+  }
+}

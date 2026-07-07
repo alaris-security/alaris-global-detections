@@ -1,0 +1,18 @@
+{
+  "uuid": "b9195aaf-e3ee-489a-a14d-70005028398b",
+  "slug": "c2-remote-access-software",
+  "title": "Unapproved Remote Access Software Execution",
+  "description": "Detects execution of remote monitoring and management tools such as AnyDesk, TeamViewer, ScreenConnect, Atera, and Splashtop, increasingly used by intrusion actors for hands-on-keyboard access and C2.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "remote-access", "rmm"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1219", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-remote-access-software.sigma"],
+  "intent": {
+    "conditions": ["Execution of known RMM/remote access binaries not on the organization allowlist"],
+    "dataSourceRequirements": ["Process creation telemetry with image name"],
+    "tuningParameters": {"approvedRmm": ["TeamViewer.exe"]},
+    "sourceContext": "Attackers install legitimate RMM tools to blend into normal IT activity."
+  }
+}

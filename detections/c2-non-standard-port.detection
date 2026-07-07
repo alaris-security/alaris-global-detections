@@ -1,0 +1,18 @@
+{
+  "uuid": "7861320e-235d-40cf-aedb-43a17cdf0335",
+  "slug": "c2-non-standard-port",
+  "title": "Protocol on Non-Standard Port",
+  "description": "Detects HTTP or TLS-looking traffic on uncommon high ports (e.g. 4444, 8443 outside allowlist, 1337, 31337) originating from user endpoints, a technique to run C2 where port-based controls are weaker.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "non-standard-port"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1571", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-non-standard-port.sigma"],
+  "intent": {
+    "conditions": ["Outbound connections to known offensive default ports from endpoints"],
+    "dataSourceRequirements": ["Firewall or network flow logs"],
+    "tuningParameters": {"suspiciousPorts": [4444, 1337, 31337, 5555, 6666]},
+    "sourceContext": "Metasploit and other frameworks default to distinctive high ports."
+  }
+}

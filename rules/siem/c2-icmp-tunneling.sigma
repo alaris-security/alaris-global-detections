@@ -1,0 +1,25 @@
+title: ICMP Tunneling C2 Channel
+id: e9e27735-7c5d-4603-864e-26811fa9a8f4
+status: experimental
+description: Detects ICMP tunneling by payload size.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1095/
+logsource:
+  category: network_connection
+detection:
+  selection:
+    protocol: 'icmp'
+    icmp_type: 8
+    bytes_out|gt: 1000
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - bytes_out
+falsepositives:
+  - Network monitoring using large ping payloads
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1095

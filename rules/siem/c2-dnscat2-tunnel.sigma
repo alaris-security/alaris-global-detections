@@ -1,0 +1,29 @@
+title: dnscat2 DNS Tunneling C2
+id: f89f2e28-5bec-4f1b-a328-42529ccd4487
+status: experimental
+description: Detects dnscat2 DNS tunneling patterns.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1572/
+logsource:
+  category: dns
+detection:
+  selection_token:
+    query|contains: 'dnscat'
+  selection_hex:
+    QueryType:
+      - 'MX'
+      - 'CNAME'
+      - 'TXT'
+    query|re: '^[0-9a-f]{16,}\.'
+  condition: selection_token or selection_hex
+fields:
+  - query
+  - QueryType
+  - src_ip
+falsepositives:
+  - Rare applications using hex-encoded DNS labels
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1572

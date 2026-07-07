@@ -1,0 +1,18 @@
+{
+  "uuid": "68116246-c2db-40b2-b4b9-08244197dc45",
+  "slug": "c2-empire-http-uri",
+  "title": "PowerShell Empire Default HTTP URIs",
+  "description": "Detects HTTP requests to the PowerShell Empire default listener URIs (/admin/get.php, /news.php, /login/process.php) with the characteristic session cookie, indicating Empire agent beaconing.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "empire", "web-protocol"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-empire-http-uri.sigma"],
+  "intent": {
+    "conditions": ["HTTP request to default Empire URIs, optionally with the session cookie"],
+    "dataSourceRequirements": ["Proxy or web gateway logs"],
+    "tuningParameters": {},
+    "sourceContext": "Default Empire profiles use a recognizable set of PHP URIs and cookie names."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "uuid": "d1e2b6e5-6f69-41ea-90bd-02c3c53ae9dd",
+  "slug": "c2-dns-txt-tunneling",
+  "title": "DNS TXT Record C2 Tunneling",
+  "description": "Detects command and control over DNS using high volumes of long, high-entropy TXT and NULL record queries to a small number of domains, a covert channel that blends with normal name resolution.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "dns", "tunneling"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.004", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-dns-txt-tunneling.sigma"],
+  "intent": {
+    "conditions": ["High rate of TXT/NULL queries with long, encoded subdomain labels to a single parent domain"],
+    "dataSourceRequirements": ["DNS query logs with query name and type"],
+    "tuningParameters": {"minSubdomainLength": 50},
+    "sourceContext": "DNS TXT tunneling exfiltrates and receives commands where firewalls rarely inspect."
+  }
+}

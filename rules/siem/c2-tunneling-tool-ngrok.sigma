@@ -1,0 +1,33 @@
+title: Ingress Tunneling Tool Execution (ngrok/cloudflared)
+id: bcf2da4c-67a1-4878-946e-d1fb82ff1588
+status: experimental
+description: Detects public tunneling tool execution.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1572/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|contains:
+      - 'ngrok'
+      - 'cloudflared'
+      - 'frpc'
+      - 'localtunnel'
+  selection_cmd:
+    CommandLine|contains:
+      - 'tcp'
+      - 'http'
+      - 'tunnel'
+      - 'start'
+  condition: selection and selection_cmd
+fields:
+  - CommandLine
+  - Image
+  - User
+falsepositives:
+  - Developers using tunnels for testing
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1572

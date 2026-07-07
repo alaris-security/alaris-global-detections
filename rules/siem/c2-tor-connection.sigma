@@ -1,0 +1,27 @@
+title: Outbound Connection to Tor Network
+id: 69d44fc3-4171-4d6f-9bab-921fc1f6adba
+status: experimental
+description: Detects Tor network connections.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1090/003/
+logsource:
+  category: firewall
+detection:
+  selection:
+    dst_port:
+      - 9001
+      - 9030
+      - 9050
+      - 9150
+  condition: selection
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+falsepositives:
+  - Privacy tools authorized in specific environments
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1090.003

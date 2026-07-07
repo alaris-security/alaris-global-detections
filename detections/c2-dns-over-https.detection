@@ -1,0 +1,18 @@
+{
+  "uuid": "67b4eb7b-b96c-40ec-b082-1d5b1e87c455",
+  "slug": "c2-dns-over-https",
+  "title": "Unauthorized DNS-over-HTTPS Resolver Use",
+  "description": "Detects endpoint connections to public DNS-over-HTTPS resolvers (cloudflare-dns.com, dns.google, doh endpoints) by non-browser processes, which bypasses internal DNS monitoring and can hide C2.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["command-and-control", "doh", "dns"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.004", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-dns-over-https.sigma"],
+  "intent": {
+    "conditions": ["Connections to known DoH endpoints from non-approved processes"],
+    "dataSourceRequirements": ["Proxy logs or TLS SNI records"],
+    "tuningParameters": {"approvedDohClients": ["chrome.exe", "firefox.exe"]},
+    "sourceContext": "DoH hides DNS queries from internal resolvers, defeating DNS-based detection."
+  }
+}

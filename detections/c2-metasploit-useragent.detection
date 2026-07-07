@@ -1,0 +1,18 @@
+{
+  "uuid": "2807e7f4-30e9-420f-8192-9e265dab6cea",
+  "slug": "c2-metasploit-useragent",
+  "title": "Metasploit Meterpreter Default User Agent",
+  "description": "Detects HTTP(S) requests carrying Metasploit's default Meterpreter user agent strings and stager URIs, indicating a Meterpreter session communicating over the web protocol.",
+  "severity": "critical",
+  "families": ["siem"],
+  "tags": ["command-and-control", "metasploit", "meterpreter"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1071.001", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-metasploit-useragent.sigma"],
+  "intent": {
+    "conditions": ["HTTP requests with default Meterpreter user agents or 4-char random stager URIs"],
+    "dataSourceRequirements": ["Proxy or web gateway logs"],
+    "tuningParameters": {},
+    "sourceContext": "Unchanged Metasploit user agents are a strong indicator of a live Meterpreter session."
+  }
+}

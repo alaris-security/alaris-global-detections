@@ -1,0 +1,18 @@
+{
+  "uuid": "7dc5a661-dc82-4a2e-902e-174a4b24ec02",
+  "slug": "c2-icmp-tunneling",
+  "title": "ICMP Tunneling C2 Channel",
+  "description": "Detects ICMP echo traffic with abnormally large or high-entropy payloads and sustained bidirectional volume, characteristic of tunneling command and control or data through ping packets.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["command-and-control", "icmp", "tunneling"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1095", "tacticId": "TA0011"}],
+  "rules": ["rules/siem/c2-icmp-tunneling.sigma"],
+  "intent": {
+    "conditions": ["ICMP echo requests with payloads far larger than typical ping"],
+    "dataSourceRequirements": ["Network flow logs with ICMP payload size"],
+    "tuningParameters": {"maxNormalIcmpBytes": 64},
+    "sourceContext": "Large or frequent ICMP payloads indicate a non-standard tunnel."
+  }
+}
