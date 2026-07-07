@@ -1,0 +1,18 @@
+{
+  "uuid": "917d3f22-0e56-478d-8833-a8151ba6a4a4",
+  "slug": "vault-policy-modified",
+  "title": "HashiCorp Vault Policy Modified",
+  "description": "Detects creation or modification of a Vault ACL policy or auth method that grants broad access (sys/policy write, root-equivalent capabilities), a technique to escalate and persist access to secrets.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "vault", "privilege-escalation"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1098", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/vault-policy-modified.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects creation or modification of a Vault ACL policy or auth method that grants broad access (sys/policy write, root-equivalent capabilities), a technique to escalate and persist access to secrets."
+  }
+}

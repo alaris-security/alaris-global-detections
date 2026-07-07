@@ -1,0 +1,29 @@
+title: HashiCorp Vault Policy Modified
+id: ef411ad0-cf99-4284-aeac-790de08c9514
+status: experimental
+description: Detects creation or modification of a Vault ACL policy or auth method that grants broad access (sys/policy write, root-equivalent capabilities), a technique to escalate and persist access to secrets.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  category: application
+detection:
+  selection:
+    request_operation:
+      - 'create'
+      - 'update'
+    request_path|contains:
+      - 'sys/policies/'
+      - 'sys/policy/'
+      - 'auth/token/roles/'
+  condition: selection
+  condition: selection
+fields:
+  - auth_entity_id
+  - request_path
+falsepositives:
+  - Legitimate policy management
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

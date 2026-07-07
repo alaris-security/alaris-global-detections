@@ -1,0 +1,18 @@
+{
+  "uuid": "48ebc913-2409-4419-b8b0-5254af1dd034",
+  "slug": "jenkins-unsigned-plugin-install",
+  "title": "Jenkins Unsigned Plugin Installation",
+  "description": "Detects installation or upload of a Jenkins plugin from a non-official source or as an unsigned .hpi/.jpi upload, a technique to backdoor the CI controller with attacker code that runs on every build.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "cicd", "jenkins"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1554", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/jenkins-unsigned-plugin-install.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects installation or upload of a Jenkins plugin from a non-official source or as an unsigned .hpi/.jpi upload, a technique to backdoor the CI controller with attacker code that runs on every build."
+  }
+}

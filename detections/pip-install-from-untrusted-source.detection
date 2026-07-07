@@ -1,0 +1,18 @@
+{
+  "uuid": "7eb598ed-85e2-453d-af16-05f6f88b471e",
+  "slug": "pip-install-from-untrusted-source",
+  "title": "Pip Install from Untrusted Source",
+  "description": "Detects pip install pulling from a non-standard index or a git/URL source (--index-url, git+http, direct URL), a technique to introduce malicious or backdoored packages outside the trusted registry.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "supply-chain", "pip"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1195.002", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/pip-install-from-untrusted-source.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects pip install pulling from a non-standard index or a git/URL source (--index-url, git+http, direct URL), a technique to introduce malicious or backdoored packages outside the trusted registry."
+  }
+}

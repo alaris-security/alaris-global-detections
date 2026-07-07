@@ -1,0 +1,18 @@
+{
+  "uuid": "25b34e33-f71e-48cc-ba7a-4d2761e86df6",
+  "slug": "terraform-exec-provisioner",
+  "title": "Terraform local-exec/remote-exec Provisioner",
+  "description": "Detects Terraform apply invoking local-exec or remote-exec provisioners that run shell commands, which can be abused to execute arbitrary code during infrastructure deployment.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["execution", "iac", "terraform"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/terraform-exec-provisioner.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects Terraform apply invoking local-exec or remote-exec provisioners that run shell commands, which can be abused to execute arbitrary code during infrastructure deployment."
+  }
+}

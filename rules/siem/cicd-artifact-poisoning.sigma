@@ -1,0 +1,27 @@
+title: CI/CD Build Artifact Poisoning
+id: 55b73d2b-14a6-4150-8e70-7c1028a709d8
+status: experimental
+description: Detects overwriting or republishing of a build artifact or package version outside the normal pipeline (manual upload to an artifact repository, re-tag of an existing release), a supply-chain tampering technique.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1195/
+logsource:
+  category: application
+detection:
+  selection:
+    action:
+      - 'artifact.upload'
+      - 'artifact.overwrite'
+      - 'release.republish'
+    actor_is_pipeline: false
+  condition: selection
+  condition: selection
+fields:
+  - actor
+  - artifact
+falsepositives:
+  - Manual hotfix releases
+level: high
+tags:
+  - attack.persistence
+  - attack.t1195

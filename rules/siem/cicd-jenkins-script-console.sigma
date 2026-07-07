@@ -1,0 +1,26 @@
+title: Jenkins Script Console Execution
+id: 46b58bb4-36a3-4a3a-8ec8-79021ad45c55
+status: experimental
+description: Detects use of the Jenkins Groovy script console (/script or /scriptText endpoints, or Jenkins spawning shells), which runs arbitrary Groovy/OS commands on the controller, a common RCE path on exposed Jenkins.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/
+logsource:
+  category: application
+detection:
+  selection:
+    request_uri|contains:
+      - '/script'
+      - '/scriptText'
+    http_method: 'POST'
+  condition: selection
+fields:
+  - user
+  - request_uri
+  - src_ip
+falsepositives:
+  - Administrators using the console
+level: high
+tags:
+  - attack.execution
+  - attack.t1059

@@ -1,0 +1,26 @@
+title: Jenkins Unsigned Plugin Installation
+id: 47f86dd8-0651-4b46-93fa-774b75669db1
+status: experimental
+description: Detects installation or upload of a Jenkins plugin from a non-official source or as an unsigned .hpi/.jpi upload, a technique to backdoor the CI controller with attacker code that runs on every build.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1554/
+logsource:
+  category: application
+detection:
+  selection:
+    request_uri|contains:
+      - '/pluginManager/uploadPlugin'
+      - '/updateCenter/'
+    http_method: 'POST'
+  condition: selection
+  condition: selection
+fields:
+  - user
+  - request_uri
+falsepositives:
+  - Administrators installing plugins
+level: high
+tags:
+  - attack.persistence
+  - attack.t1554

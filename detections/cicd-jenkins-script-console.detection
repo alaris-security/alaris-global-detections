@@ -1,0 +1,18 @@
+{
+  "uuid": "9a26b754-d155-430a-9338-4fea6675a1f1",
+  "slug": "cicd-jenkins-script-console",
+  "title": "Jenkins Script Console Execution",
+  "description": "Detects use of the Jenkins Groovy script console (/script or /scriptText endpoints, or Jenkins spawning shells), which runs arbitrary Groovy/OS commands on the controller, a common RCE path on exposed Jenkins.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["execution", "cicd", "jenkins"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1059", "tacticId": "TA0002"}],
+  "rules": ["rules/siem/cicd-jenkins-script-console.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects use of the Jenkins Groovy script console (/script or /scriptText endpoints, or Jenkins spawning shells), which runs arbitrary Groovy/OS commands on the controller, a common RCE path on exposed Jenkins."
+  }
+}

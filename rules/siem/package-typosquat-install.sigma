@@ -1,0 +1,33 @@
+title: Typosquatted Package Installation
+id: 34ae78e4-3b40-4cc8-9702-2be3a91b1d4a
+status: experimental
+description: Detects installation of package names that closely resemble popular libraries (common typosquat patterns), a supply-chain technique to trick developers into pulling malicious dependencies.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1195/002/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '/npm'
+      - '/pip'
+      - '/pip3'
+      - '/gem'
+    CommandLine|contains: 'install'
+    CommandLine|contains:
+      - 'reqiests'
+      - 'urllib3-'
+      - 'python-sqlite'
+      - 'colourama'
+      - 'crossenv'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Legitimately named packages (tune list to environment)
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1195.002

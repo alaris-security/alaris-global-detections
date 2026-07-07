@@ -1,0 +1,18 @@
+{
+  "uuid": "95a698d8-158a-4cb3-b262-a3b7bcf83983",
+  "slug": "cicd-artifact-poisoning",
+  "title": "CI/CD Build Artifact Poisoning",
+  "description": "Detects overwriting or republishing of a build artifact or package version outside the normal pipeline (manual upload to an artifact repository, re-tag of an existing release), a supply-chain tampering technique.",
+  "severity": "high",
+  "families": ["siem"],
+  "tags": ["persistence", "cicd", "supply-chain"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1195", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/cicd-artifact-poisoning.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects overwriting or republishing of a build artifact or package version outside the normal pipeline (manual upload to an artifact repository, re-tag of an existing release), a supply-chain tampering technique."
+  }
+}

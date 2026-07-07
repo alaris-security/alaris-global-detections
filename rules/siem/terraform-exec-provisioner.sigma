@@ -1,0 +1,28 @@
+title: Terraform local-exec/remote-exec Provisioner
+id: d859b4cb-53c9-4c09-ba43-3ea1646df811
+status: experimental
+description: Detects Terraform apply invoking local-exec or remote-exec provisioners that run shell commands, which can be abused to execute arbitrary code during infrastructure deployment.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1059/
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/terraform'
+    CommandLine|contains: 'apply'
+  selection_prov:
+    CommandLine|contains:
+      - 'local-exec'
+      - 'remote-exec'
+  condition: selection or selection_prov
+  condition: selection
+fields:
+  - CommandLine
+  - User
+falsepositives:
+  - Legitimate provisioning that uses exec provisioners
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059

@@ -1,0 +1,28 @@
+title: GitLab CI Configuration Modified
+id: e6f2d732-01ba-45cb-b1e7-8af73ec67559
+status: experimental
+description: Detects changes to .gitlab-ci.yml that add script steps invoking network downloads or shells, a supply-chain technique to run attacker code in the CI pipeline with access to secrets and artifacts.
+author: Alaris Global
+references:
+  - https://attack.mitre.org/techniques/T1195/002/
+logsource:
+  category: application
+detection:
+  selection:
+    file: '.gitlab-ci.yml'
+    diff_added|contains:
+      - 'curl'
+      - 'wget'
+      - 'bash -c'
+      - 'nc '
+  condition: selection
+  condition: selection
+fields:
+  - repo
+  - actor
+falsepositives:
+  - Legitimate pipeline changes
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1195.002

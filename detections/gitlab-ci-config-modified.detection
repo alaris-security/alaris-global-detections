@@ -1,0 +1,18 @@
+{
+  "uuid": "3b7b9561-5d82-4d1b-a283-a1e3dffee0e3",
+  "slug": "gitlab-ci-config-modified",
+  "title": "GitLab CI Configuration Modified",
+  "description": "Detects changes to .gitlab-ci.yml that add script steps invoking network downloads or shells, a supply-chain technique to run attacker code in the CI pipeline with access to secrets and artifacts.",
+  "severity": "medium",
+  "families": ["siem"],
+  "tags": ["persistence", "cicd", "gitlab", "supply-chain"],
+  "status": "active",
+  "mitre": [{"techniqueId": "T1195.002", "tacticId": "TA0003"}],
+  "rules": ["rules/siem/gitlab-ci-config-modified.sigma"],
+  "intent": {
+    "conditions": ["CI/CD, IaC, or secrets-store event matching the described pattern"],
+    "dataSourceRequirements": ["CI/CD, IaC, secrets-manager, or process logs"],
+    "tuningParameters": {},
+    "sourceContext": "Detects changes to .gitlab-ci.yml that add script steps invoking network downloads or shells, a supply-chain technique to run attacker code in the CI pipeline with access to secrets and artifacts."
+  }
+}
